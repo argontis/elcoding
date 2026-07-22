@@ -1,0 +1,631 @@
+<x-layout title="Elcoding Academy - Belajar Skill Digital untuk Masa Depan">
+
+@push('styles')
+<style>
+    /* Global e-con-inner margin reset */
+    .e-con-inner {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+</style>
+@endpush
+
+<div data-elementor-type="wp-page" data-elementor-id="6296" class="elementor elementor-6296" data-elementor-post-type="page">
+    
+    <!-- Hero Section -->
+    <style>
+        .elementor-element-22c61dc {
+            padding-top: 0 !important; /* Reduce gap to header */
+            margin-top: -80px !important;
+        }
+        .elementor-element-22c61dc > .e-con-inner {
+            max-width: 1300px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            width: 100% !important;
+            align-items: center;
+        }
+        @media (min-width: 768px) {
+            .elementor-element-8110f2a { width: 50% !important; display: flex; justify-content: center; }
+            .elementor-element-b83b4d6 { width: 50% !important; padding-left: 30px; display: flex; flex-direction: column; justify-content: center; }
+        }
+        @media (max-width: 767px) {
+            .elementor-element-22c61dc {
+                margin-top: 0 !important;
+                padding-top: 40px !important;
+                padding-bottom: 50px !important;
+            }
+            .elementor-element-22c61dc > .e-con-inner {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            .elementor-element-b83b4d6 { padding-left: 0 !important; align-items: center; }
+            .elementor-element-728fa4a .elementor-heading-title { font-size: 28px !important; line-height: 1.3 !important; }
+            .elementor-element-3d35e7c p { font-size: 14px !important; }
+        }
+    </style>
+    <div class="elementor-element elementor-element-22c61dc e-flex e-con-boxed e-con e-parent" data-id="22c61dc" data-element_type="container" data-e-type="container">
+        <div class="e-con-inner">
+            <div class="elementor-element elementor-element-8110f2a e-con-full e-flex e-con e-child" data-id="8110f2a" data-element_type="container" data-e-type="container">
+                <div class="elementor-element elementor-element-88aaeff elementor-widget elementor-widget-image" data-id="88aaeff" data-element_type="widget" data-e-type="widget" data-widget_type="image.default" style="width: 100%;">
+                    <img fetchpriority="high" decoding="async" src="{{ asset('assets/wp-content/uploads/2023/01/ikon-1.svg') }}" class="attachment-medium_large size-medium_large" alt="Elcoding Academy Hero" style="width: 100%; height: auto; max-width: 600px;" />
+                </div>
+            </div>
+            <div class="elementor-element elementor-element-b83b4d6 e-con-full e-flex e-con e-child" data-id="b83b4d6" data-element_type="container" data-e-type="container">
+                <div class="elementor-element elementor-element-af1e2b3 elementor-widget elementor-widget-heading" data-id="af1e2b3" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+                    <p class="elementor-heading-title elementor-size-default">Belajar Skill Digital untuk Masa Depan yang Lebih Baik</p>
+                </div>
+                <div class="elementor-element elementor-element-728fa4a elementor-widget elementor-widget-heading" data-id="728fa4a" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+                    <h1 class="elementor-heading-title elementor-size-default">Pusat Solusi IT & Kursus Siap Kerja di Tegal</h1>
+                </div>
+                <div class="elementor-element elementor-element-3d35e7c elementor-widget elementor-widget-text-editor" data-id="3d35e7c" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+                    <p>Elcoding Academy bukan hanya tentang Coding, melainkan lembaga kursus dan pelatihan terpadu (IT, Bahasa Asing, dan Desain Grafis) yang menyediakan program pembelajaran berbasis praktik dan magang untuk membantu Anda menguasai keterampilan dunia kerja modern.</p>
+                </div>
+                <style>
+                    .elementor-element-c29eb8e .elementor-button {
+                        background-color: #6D28D9 !important; /* ungu tua */
+                        border-color: #6D28D9 !important;
+                        color: #ffffff !important;
+                    }
+                    .elementor-element-c29eb8e .elementor-button:hover {
+                        border-color: #4C1D95 !important;
+                        background-color: #4C1D95 !important; /* ungu lebih tua */
+                        color: #ffffff !important;
+                    }
+                    .elementor-element-c29eb8e .elementor-button .elementor-button-icon i,
+                    .elementor-element-c29eb8e .elementor-button:hover .elementor-button-icon i {
+                        color: #ffffff !important;
+                    }
+                    .elementor-element-c29eb8e .elementor-button .elementor-button-text,
+                    .elementor-element-c29eb8e .elementor-button:hover .elementor-button-text {
+                        color: #ffffff !important;
+                    }
+                </style>
+                <div class="elementor-element elementor-element-c29eb8e elementor-align-justify elementor-mobile-align-justify elementor-widget-mobile__width-inherit elementor-widget elementor-widget-button" data-id="c29eb8e" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
+                    <a class="elementor-button elementor-button-link elementor-size-sm" href="/program-kursus">
+                        <span class="elementor-button-content-wrapper">
+                            <span class="elementor-button-icon"><i aria-hidden="true" class="fas fa-graduation-cap"></i></span>
+                            <span class="elementor-button-text">Lihat Program</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <x-mitra />
+
+<!-- Layanan Utama Section -->
+<style>
+    .services-section {
+        padding: 0 20px 60px;
+        background-color: #ffffff;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .services-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+    .section-title {
+        font-size: 36px;
+        font-weight: 800;
+        color: #222222;
+        margin-bottom: 16px;
+    }
+    .section-subtitle {
+        font-size: 16px;
+        color: #666666;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+    .services-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    @media (min-width: 768px) {
+        .services-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    
+    .service-card {
+        background: #ffffff;
+        border: 1px solid transparent;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+        border-color: rgba(109, 40, 217, 0.1);
+    }
+    
+    .service-icon {
+        font-size: 40px;
+        color: #000000;
+        margin-bottom: 24px;
+    }
+    .service-card h3 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #222222;
+        margin-bottom: 16px;
+    }
+    .service-card p {
+        font-size: 15px;
+        color: #666666;
+        line-height: 1.6;
+        margin-bottom: 24px;
+    }
+    .service-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #6D28D9;
+        font-weight: 600;
+        font-size: 15px;
+        text-decoration: none;
+        transition: gap 0.3s ease;
+    }
+    .service-link:hover {
+        gap: 12px;
+        text-decoration: none;
+    }
+</style>
+
+<section class="services-section">
+    <div class="services-container">
+        <div class="section-header">
+            <h2 class="section-title">Layanan Utama Kami</h2>
+            <p class="section-subtitle">Solusi digital komprehensif mulai dari pelatihan SDM hingga pengembangan sistem skala enterprise.</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-graduation-cap service-icon"></i>
+                <h3>Pelatihan & Kursus IT</h3>
+                <p>Program bootcamp intensif bersertifikat. Dirancang untuk membangun fondasi karir di industri teknologi digital dengan kurikulum terstruktur.</p>
+                <a href="/program-kursus" class="service-link">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-book-reader service-icon"></i>
+                <h3>Konsultasi Skripsi</h3>
+                <p>Pendampingan eksklusif pembuatan project akhir dan skripsi IT hingga selesai tepat waktu, bebas error, dan siap sidang.</p>
+                <a href="/kontak" class="service-link">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-code-branch service-icon"></i>
+                <h3>Software House</h3>
+                <p>Jasa pembuatan aplikasi website, sistem informasi, dan mobile apps secara custom untuk kebutuhan digitalisasi bisnis instansi Anda.</p>
+                <a href="/kontak" class="service-link">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mengapa Memilih Kami Section -->
+<style>
+    .why-us-section {
+        padding: 60px 20px 80px;
+        background-color: #F5F3FF;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .why-us-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .why-us-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    @media (min-width: 768px) {
+        .why-us-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1024px) {
+        .why-us-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    
+    .why-us-card {
+        background: #ffffff;
+        border: 1px solid #f0f0f0;
+        border-radius: 20px;
+        padding: 40px 30px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .why-us-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+        border-color: rgba(109, 40, 217, 0.1);
+    }
+    
+    .why-us-icon {
+        width: 70px;
+        height: 70px;
+        background: rgba(109, 40, 217, 0.05);
+        color: #6D28D9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin: 0 auto 24px auto;
+        transition: all 0.3s ease;
+    }
+    .why-us-card:hover .why-us-icon {
+        background: #6D28D9;
+        color: #ffffff;
+    }
+    
+    .why-us-card h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #222222;
+        margin-bottom: 12px;
+    }
+    .why-us-card p {
+        font-size: 14px;
+        color: #666666;
+        line-height: 1.6;
+        margin: 0;
+    }
+</style>
+
+<section class="why-us-section">
+    <div class="why-us-container">
+        <div class="section-header">
+            <h2 class="section-title">Mengapa Memilih Kami?</h2>
+            <p class="section-subtitle">Berinvestasi pada pendidikan yang tepat adalah kunci sukses di era digital. Inilah alasan mengapa ratusan siswa mempercayakan karirnya pada Elcoding.</p>
+        </div>
+        
+        <div class="why-us-grid">
+            <div class="why-us-card">
+                <div class="why-us-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                <h3>Mentor Expert</h3>
+                <p>Belajar langsung dari praktisi profesional yang aktif di industri teknologi.</p>
+            </div>
+            <div class="why-us-card">
+                <div class="why-us-icon"><i class="fas fa-laptop-code"></i></div>
+                <h3>Fokus Praktik</h3>
+                <p>Kurikulum berbasis 80% praktik nyata untuk membangun insting problem-solving.</p>
+            </div>
+            <div class="why-us-card">
+                <div class="why-us-icon"><i class="fas fa-project-diagram"></i></div>
+                <h3>Project Based</h3>
+                <p>Hasilkan portofolio aplikasi nyata di akhir kelas untuk melamar pekerjaan.</p>
+            </div>
+            <div class="why-us-card">
+                <div class="why-us-icon"><i class="fas fa-briefcase"></i></div>
+                <h3>Penyaluran Kerja</h3>
+                <p>Akses ke jaringan mitra perusahaan kami untuk peluang karir setelah lulus.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <style>
+        .elementor-element-35b5f33 {
+            position: relative;
+            background-image: url('{{ asset("gambar/aset/ilustrasi-belajar.jpg") }}') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-attachment: fixed !important;
+            padding: 60px 20px !important;
+        }
+        .elementor-element-35b5f33::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(37, 99, 235, 0.85), rgba(37, 99, 235, 0.95)) !important;
+            z-index: 0;
+        }
+        .elementor-element-35b5f33 > .e-con-inner {
+            position: relative;
+            z-index: 1;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+        .elementor-element-35b5f33 .elementor-heading-title, 
+        .elementor-element-35b5f33 .elementor-widget-text-editor p {
+            color: #ffffff !important;
+        }
+    </style>
+    <div class="elementor-element elementor-element-35b5f33 e-flex e-con-boxed e-con e-parent" data-id="35b5f33" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+        <div class="e-con-inner">
+            <div class="elementor-element elementor-element-d555ae3 elementor-widget elementor-widget-heading" data-id="d555ae3" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+                <h2 class="elementor-heading-title elementor-size-default">TINGKATKAN SKILL DIGITALMU BERSAMA ELCODING ACADEMY</h2>
+            </div>
+            <div class="elementor-element elementor-element-f7191fb elementor-widget elementor-widget-text-editor" data-id="f7191fb" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+                <p>Dapatkan program kursus terbaik yang sesuai dengan kebutuhan dan passion Anda dengan mengonsultasikan tujuan belajarmu kepada tim kami. Jangan lewatkan kesempatan ini!</p>
+            </div>
+            <div class="elementor-element elementor-element-3205b82 elementor-align-justify elementor-widget elementor-widget-button" data-id="3205b82" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
+                <a class="elementor-button elementor-button-link elementor-size-md" href="https://wa.me/6287762334232?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20layanan%20yang%20ada%20dan%20ingin%20berkonsultasi%20lebih%20lanjut." target="_blank">
+                    <span class="elementor-button-content-wrapper">
+                        <span class="elementor-button-icon">
+                            <i aria-hidden="true" class="fas fa-angle-double-right"></i>
+                        </span>
+                        <span class="elementor-button-text">Konsultasi Sekarang</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    @if(isset($portofolios) && $portofolios->count() > 0)
+    <!-- Gallery Section -->
+    <section class="portfolio-section" id="Portofolio">
+        <div class="portfolio-container">
+            <div class="portfolio-header">
+                <h2 class="portfolio-title">Portofolio</h2>
+            </div>
+            
+            <div class="portfolio-grid">
+                @foreach($portofolios as $portofolio)
+                <a href="{{ url('/portofolio/' . $portofolio->id) }}" class="portfolio-card" draggable="false">
+                    <img src="{{ asset($portofolio->image_path ?? 'assets/wp-content/uploads/2026/02/Garap-Edu.webp') }}" class="portfolio-img" alt="{{ $portofolio->title }}" loading="lazy">
+                    <div class="portfolio-info">
+                        <h4>{{ $portofolio->title }}</h4>
+                        <p>{{ $portofolio->category }}</p>
+                    </div>
+                </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <style>
+    .portfolio-section { padding: 80px 0 40px 0; background: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .portfolio-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .portfolio-header { text-align: center; margin-bottom: 50px; }
+    .portfolio-subtitle { display: inline-block; color: #6D28D9; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
+    .portfolio-title { font-size: 38px; font-weight: 800; color: #1F2937; line-height: 1.2; margin: 0; }
+    .portfolio-grid { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: none; }
+    .portfolio-grid::-webkit-scrollbar { display: none; }
+    .portfolio-card { flex: 0 0 calc(33.333% - 20px); scroll-snap-align: start; display: flex; flex-direction: column; background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); text-decoration: none; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .portfolio-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
+    .portfolio-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #f0f0f0; }
+    .portfolio-info { padding: 25px; text-align: center; }
+    .portfolio-info h4 { font-size: 20px; font-weight: 700; color: #000000; margin: 0 0 8px 0; }
+    .portfolio-info p { font-size: 14px; color: #666; margin: 0; }
+    @media (max-width: 992px) { .portfolio-card { flex: 0 0 calc(50% - 15px); } }
+    @media (max-width: 768px) { .portfolio-card { flex: 0 0 100%; } }
+    </style>
+    @endif
+
+    @if(isset($testimonis) && $testimonis->count() > 0)
+    <!-- Testimonial Section -->
+    <section class="testimonial-section">
+        <div class="testimonial-container">
+            <div class="testimonial-header">
+                <h2 class="testimonial-title">Testimoni</h2>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card" style="padding: 0; border: none; background: transparent; box-shadow: none;">
+                    <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-1.jpg') }}" alt="Testimoni Afif" loading="lazy" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                </div>
+                <div class="testimonial-card" style="padding: 0; border: none; background: transparent; box-shadow: none;">
+                    <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-2.jpg') }}" alt="Testimoni Risqi" loading="lazy" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                </div>
+                <div class="testimonial-card" style="padding: 0; border: none; background: transparent; box-shadow: none;">
+                    <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-3.jpg') }}" alt="Testimoni Josias" loading="lazy" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+    .testimonial-section { padding: 0 0 80px 0; background: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .testimonial-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .testimonial-header { text-align: center; margin-bottom: 50px; }
+    .testimonial-subtitle { display: inline-block; color: #6D28D9; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
+    .testimonial-title { font-size: 38px; font-weight: 800; color: #1F2937; line-height: 1.2; margin: 0; }
+    .testimonial-grid { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: none; }
+    .testimonial-grid::-webkit-scrollbar { display: none; }
+    .testimonial-card { flex: 0 0 calc(33.333% - 20px); scroll-snap-align: start; display: flex; flex-direction: column; background: #fff; border: 1px solid #f0f0f0; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); user-select: none; }
+    .testimonial-text { font-size: 14px; color: #444; line-height: 1.6; margin-bottom: 15px; flex-grow: 1; }
+    .testimonial-rating { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .testimonial-rating .stars { color: #FFC107; font-size: 16px; letter-spacing: 2px; }
+    .testimonial-rating .rating-text { font-size: 13px; color: #666; font-weight: bold; }
+    .testimonial-author { display: flex; align-items: center; gap: 15px; }
+    .testimonial-author img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 1px solid #eee; }
+    .testimonial-author h4 { font-size: 15px; font-weight: 700; color: #1F2937; margin: 0 0 4px 0; }
+    .testimonial-author p { font-size: 13px; color: #666; margin: 0; }
+    @media (max-width: 992px) { .testimonial-card { flex: 0 0 calc(50% - 15px); } }
+    @media (max-width: 768px) { .testimonial-card { flex: 0 0 100%; } .testimonial-title { font-size: 28px; } }
+    </style>
+    @endif
+
+    <!-- Combined Statistics & CTA Section -->
+    <section class="statistics-cta-section">
+        <div class="statistics-cta-container">
+            <!-- Top: CTA -->
+            <div class="cta-content">
+                <h2 class="cta-title">Bersiap Memulai Karir Impianmu?</h2>
+                <p class="cta-text">Jadilah talenta digital yang siap kerja dan dicari banyak perusahaan. Mari belajar dan berkembang bersama instruktur ahli kami.</p>
+                <div class="elementor-element elementor-element-3205b82 elementor-align-center elementor-widget elementor-widget-button" data-id="3205b82" data-element_type="widget" data-widget_type="button.default">
+                    <a class="elementor-button elementor-button-link elementor-size-md" href="/program-kursus">
+                        <span class="elementor-button-content-wrapper">
+                            <span class="elementor-button-icon">
+                                <i aria-hidden="true" class="fas fa-angle-double-right"></i>
+                            </span>
+                            <span class="elementor-button-text">Daftar Sekarang</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <style>
+    .statistics-cta-section { 
+        padding: 40px 20px; 
+        background-color: #2563EB; 
+        background-image: linear-gradient(to bottom, rgba(37, 99, 235, 0.85), rgba(37, 99, 235, 0.95)), url('{{ asset("gambar/aset/ilustrasi-belajar.jpg") }}');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: white; 
+        font-family: 'Plus Jakarta Sans', sans-serif; 
+        margin-bottom: 50px; 
+    }
+    .statistics-cta-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+    
+    .cta-content { text-align: center; max-width: 800px; margin-bottom: 30px; }
+    .cta-title { font-size: 32px; font-weight: 800; margin-bottom: 15px; line-height: 1.3; }
+    .cta-text { font-size: 16px; margin-bottom: 25px; opacity: 0.9; line-height: 1.6; }
+    
+    @media (max-width: 768px) {
+        .cta-title { font-size: 24px; }
+        .cta-text { font-size: 15px; margin-bottom: 20px; }
+        .statistics-cta-section { padding: 30px 20px; margin-bottom: 40px; }
+    }
+    </style>
+
+
+    @if(isset($artikels) && $artikels->count() > 0)
+    <!-- Blog Section -->
+    <section class="blog-section">
+        <div class="blog-container">
+            <div class="blog-header">
+                <h2 class="blog-title">Artikel</h2>
+            </div>
+            
+            <div class="blog-grid">
+                @foreach($artikels as $artikel)
+                <div class="blog-card" draggable="false">
+                    <!-- For dummy we use static image based on iteration, for real you can add image_path to article model -->
+                    @php 
+                        $images = ['Magang-Online.webp', 'Skill-Lab.webp', 'Magang-Mahasiswa.webp'];
+                        $randomImg = $images[$loop->index % 3];
+                        $bgImage = $artikel->image_path ? asset($artikel->image_path) : asset('assets/wp-content/uploads/2026/02/'.$randomImg);
+                    @endphp
+                    <img src="{{ $bgImage }}" class="blog-img" alt="{{ $artikel->title }}" loading="lazy">
+                    <div class="blog-content">
+                        <h4><a href="#">{{ $artikel->title }}</a></h4>
+                        <div class="blog-meta"><i class="fas fa-clock"></i> {{ $artikel->published_at ? \Carbon\Carbon::parse($artikel->published_at)->format('d M Y') : $artikel->created_at->format('d M Y') }}</div>
+                        <p>{{ Str::limit(strip_tags($artikel->content ?? 'Artikel informatif dari Elcoding membahas berbagai topik seputar teknologi, pemrograman, dan dunia digital...'), 120) }}</p>
+                        <a href="{{ url('/artikel/' . $artikel->id) }}" class="blog-btn">BACA ARTIKEL</a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <style>
+    .blog-section { padding: 0 0 40px 0; background: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .blog-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .blog-header { text-align: center; margin-bottom: 50px; }
+    .blog-subtitle { display: inline-block; color: #6D28D9; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
+    .blog-title { font-size: 38px; font-weight: 800; color: #1F2937; line-height: 1.2; margin: 0; }
+    .blog-grid { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: none; }
+    .blog-grid::-webkit-scrollbar { display: none; }
+    .blog-card { flex: 0 0 calc(33.333% - 20px); scroll-snap-align: start; display: flex; flex-direction: column; background: #fff; border: 1px solid #f0f0f0; border-radius: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .blog-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+    .blog-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #f0f0f0; }
+    .blog-content { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; }
+    .blog-content h4 { font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0 0 15px 0; }
+    .blog-content h4 a { color: #1F2937; text-decoration: none; transition: color 0.3s ease; }
+    .blog-content h4 a:hover { color: #2563EB; }
+    .blog-meta { font-size: 13px; color: #000000; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; font-weight: 500; }
+    .blog-content p { font-size: 14px; color: #666; line-height: 1.6; margin: 0 0 25px 0; flex-grow: 1; }
+    .blog-btn { display: inline-block; align-self: flex-start; background: #2563EB; color: #fff !important; font-size: 13px; font-weight: 600; text-transform: uppercase; text-decoration: none; padding: 12px 25px; border-radius: 50px; transition: all 0.3s ease; }
+    .blog-btn:hover { background: #1E40AF; transform: translateY(-2px); }
+    @media (max-width: 992px) { .blog-card { flex: 0 0 calc(50% - 15px); } }
+    @media (max-width: 768px) { .blog-card { flex: 0 0 100%; } }
+    </style>
+    @endif
+
+
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const sliders = document.querySelectorAll('.testimonial-grid, .portfolio-grid, .blog-grid');
+    sliders.forEach(slider => {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let autoScrollInterval;
+
+        const startAutoScroll = () => {
+            stopAutoScroll();
+            autoScrollInterval = setInterval(() => {
+                if (!isDown) {
+                    const firstCard = slider.children[0];
+                    if(firstCard) {
+                        const cardWidth = firstCard.offsetWidth + 30; // + gap
+                        if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10) {
+                            slider.scrollTo({ left: 0, behavior: 'smooth' });
+                        } else {
+                            slider.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                        }
+                    }
+                }
+            }, 5000);
+        };
+
+        const stopAutoScroll = () => {
+            if (autoScrollInterval) clearInterval(autoScrollInterval);
+        };
+
+        startAutoScroll();
+
+        slider.addEventListener('mousedown', (e) => {
+            if(e.target.tagName.toLowerCase() === 'a' || e.target.closest('a')) return;
+            isDown = true;
+            stopAutoScroll();
+            slider.style.cursor = 'grabbing';
+            slider.style.scrollSnapType = 'none';
+            slider.style.scrollBehavior = 'auto';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+        
+        const stopDrag = () => {
+            if (!isDown) return;
+            isDown = false;
+            slider.style.cursor = 'grab';
+            slider.style.scrollSnapType = 'x mandatory';
+            slider.style.scrollBehavior = 'smooth';
+            slider.scrollLeft = slider.scrollLeft + 1;
+            slider.scrollLeft = slider.scrollLeft - 1;
+            startAutoScroll();
+        };
+
+        slider.addEventListener('mouseleave', stopDrag);
+        slider.addEventListener('mouseup', stopDrag);
+        slider.addEventListener('mouseenter', stopAutoScroll);
+        slider.addEventListener('mouseleave', () => { if (!isDown) startAutoScroll(); });
+        slider.addEventListener('touchstart', stopAutoScroll, {passive: true});
+        slider.addEventListener('touchend', startAutoScroll, {passive: true});
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            slider.scrollLeft = scrollLeft - walk;
+        });
+        
+        slider.style.cursor = 'grab';
+    });
+});
+</script>
+
+</x-layout>

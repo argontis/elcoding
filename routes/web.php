@@ -1,0 +1,95 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
+
+Route::get('/', function () {
+    $mitras = \App\Models\Mitra::latest()->get();
+    $programs = \App\Models\ProgramKursus::latest()->take(3)->get();
+    $portofolios = \App\Models\Portofolio::latest()->take(3)->get();
+    $artikels = \App\Models\Artikel::where('status', 'Published')->latest()->take(3)->get();
+    return view('welcome', compact('mitras', 'programs', 'portofolios', 'artikels'));
+});
+
+Route::get('/tentang-kami', function () {
+    $mitras = \App\Models\Mitra::latest()->get();
+    return view('tentang-kami', compact('mitras'));
+});
+
+Route::get('/program-kursus', function () {
+    $programs = \App\Models\ProgramKursus::latest()->paginate(9);
+    return view('program-kursus', compact('programs'));
+});
+
+Route::get('/portofolio', function () {
+    $portofolios = \App\Models\Portofolio::latest()->paginate(9);
+    return view('portofolio', compact('portofolios'));
+});
+
+Route::get('/artikel', function () {
+    $artikels = \App\Models\Artikel::where('status', 'Published')->latest()->paginate(9);
+    return view('artikel', compact('artikels'));
+});
+
+Route::get('/kontak', function () {
+    return view('kontak');
+});
+
+Route::get('/artikel/{id}', function ($id) {
+    $artikel = \App\Models\Artikel::findOrFail($id);
+    return view('artikel-detail', compact('artikel'));
+});
+
+Route::get('/portofolio/{id}', function ($id) {
+    $portofolio = \App\Models\Portofolio::findOrFail($id);
+    return view('portofolio-detail', compact('portofolio'));
+});
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Admin Routes (Protected)
+Route::middleware('auth')->prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'dashboard']);
+    Route::get('/aktivitas', [AdminController::class, 'aktivitas']);
+    
+    // Mitra CRUD
+    Route::get('/mitra', [AdminController::class, 'mitra']);
+    Route::get('/mitra/create', [AdminController::class, 'createMitra']);
+    Route::post('/mitra', [AdminController::class, 'storeMitra']);
+    Route::get('/mitra/{id}/edit', [AdminController::class, 'editMitra']);
+    Route::put('/mitra/{id}', [AdminController::class, 'updateMitra']);
+    Route::delete('/mitra/{id}', [AdminController::class, 'destroyMitra']);
+
+    // Program Kursus CRUD
+    Route::get('/program-kursus', [AdminController::class, 'programKursus']);
+    Route::get('/program-kursus/create', [AdminController::class, 'createProgram']);
+    Route::post('/program-kursus', [AdminController::class, 'storeProgram']);
+    Route::get('/program-kursus/{id}/edit', [AdminController::class, 'editProgram']);
+    Route::put('/program-kursus/{id}', [AdminController::class, 'updateProgram']);
+    Route::delete('/program-kursus/{id}', [AdminController::class, 'destroyProgram']);
+
+    // Portofolio CRUD
+    Route::get('/portofolio', [AdminController::class, 'portofolio']);
+    Route::get('/portofolio/create', [AdminController::class, 'createPortofolio']);
+    Route::post('/portofolio', [AdminController::class, 'storePortofolio']);
+    Route::get('/portofolio/{id}/edit', [AdminController::class, 'editPortofolio']);
+    Route::put('/portofolio/{id}', [AdminController::class, 'updatePortofolio']);
+    Route::delete('/portofolio/{id}', [AdminController::class, 'destroyPortofolio']);
+
+    // Kategori Portofolio CRUD
+    Route::get('/kategori-portofolio', [AdminController::class, 'kategoriPortofolio']);
+    Route::post('/kategori-portofolio', [AdminController::class, 'storeKategoriPortofolio']);
+    Route::put('/kategori-portofolio/{id}', [AdminController::class, 'updateKategoriPortofolio']);
+    Route::delete('/kategori-portofolio/{id}', [AdminController::class, 'destroyKategoriPortofolio']);
+
+    // Artikel CRUD
+    Route::get('/artikel', [AdminController::class, 'artikel']);
+    Route::get('/artikel/create', [AdminController::class, 'createArtikel']);
+    Route::post('/artikel', [AdminController::class, 'storeArtikel']);
+    Route::get('/artikel/{id}/edit', [AdminController::class, 'editArtikel']);
+    Route::put('/artikel/{id}', [AdminController::class, 'updateArtikel']);
+    Route::delete('/artikel/{id}', [AdminController::class, 'destroyArtikel']);
+});

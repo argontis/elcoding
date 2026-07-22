@@ -1,0 +1,24 @@
+/*
+ Theme Name:   Hello Elementor Child
+ Theme URI:    https://example.com/hello-elementor-child
+ Description:  Child theme untuk Hello Elementor. Digunakan untuk menyimpan modifikasi tanpa hilang saat update theme.
+ Author:       Nama Kamu
+ Author URI:   https://example.com
+ Template:     hello-elementor
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ Text Domain:  hello-elementor-child
+*/
+
+/* ========================
+   Tambahkan CSS custom di sini
+   ======================== */
+
+/* Contoh: ubah warna link */
+a {
+    color: #0066cc;
+}
+a:hover {
+    color: #004c99;
+}

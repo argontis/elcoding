@@ -1,0 +1,248 @@
+import React from 'react';
+import { Head, Link } from '@inertiajs/react';
+import { 
+  MapPin, Phone, Mail, Clock, MessageCircle, 
+  ChevronDown, Award, Cpu, Briefcase 
+} from 'lucide-react';
+
+export default function KontakPublic() {
+  return (
+    <div className="bg-[#f8fafc] min-h-screen font-sans text-slate-800 selection:bg-blue-600 selection:text-white relative">
+      <Head title="Kontak - Elcoding Academy" />
+
+      {/* ================= NAVBAR ================= */}
+      <nav className="bg-white border-b border-slate-100 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-xl font-bold text-blue-700 tracking-tight">elcoding.id</span>
+          </div>
+
+          <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600 h-full">
+            <Link href="/" className="hover:text-blue-600 transition-colors">Beranda</Link>
+            <Link href="/program-kursus" className="hover:text-blue-600 transition-colors">Program Kursus</Link>
+            <Link href="/artikel-publik" className="hover:text-blue-600 transition-colors">Artikel</Link>
+            <Link href="/tentang-kami-publik" className="hover:text-blue-600 transition-colors">Tentang Kami</Link>
+            
+            {/* Active Link: Kontak */}
+            <Link href="/kontak-publik" className="text-blue-600 border-b-2 border-blue-600 h-full flex items-center">
+              Kontak
+            </Link>
+          </div>
+
+          <div>
+            <a
+              href="https://wa.me/"
+              target="_blank"
+              rel="noreferrer"
+              className="bg-[#0056D2] hover:bg-blue-800 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-md shadow-blue-500/20"
+            >
+              KONSULTASI
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      {/* ================= INFORMASI KONTAK & MAPS SECTION ================= */}
+      <section className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+        
+        {/* Card Informasi Kontak */}
+        <div className="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">Informasi Kontak</h1>
+            <p className="text-slate-500 text-sm mb-8 leading-relaxed">
+              Tim admin kami siap membantu dan merespon pertanyaan Anda secepat mungkin pada jam kerja.
+            </p>
+
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center shrink-0 mt-1">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-bold tracking-wider text-blue-600 uppercase mb-0.5">Alamat Lengkap</p>
+                  <p className="text-sm text-slate-700 leading-snug">Ruko Citraland, Tegal, Jawa Tengah 52111</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center shrink-0 mt-1">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-bold tracking-wider text-emerald-600 uppercase mb-0.5">Telepon / WhatsApp</p>
+                  <p className="text-sm text-slate-700 leading-snug">0877-6233-4232 (Admin Edukasi)</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center shrink-0 mt-1">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-bold tracking-wider text-purple-600 uppercase mb-0.5">Email</p>
+                  <p className="text-sm text-slate-700 leading-snug">info@elcodingacademy.com</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center shrink-0 mt-1">
+                  <Clock className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-bold tracking-wider text-amber-600 uppercase mb-0.5">Jam Operasional</p>
+                  <p className="text-sm text-slate-700 leading-snug">Senin - Sabtu (08.00 - 20.00 WIB)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 pt-6 border-t border-slate-100 flex items-center gap-4">
+            <span className="text-xs font-bold text-slate-400">Ikuti Kami:</span>
+            <div className="flex gap-2">
+              <a href="#" className="w-9 h-9 bg-slate-50 border border-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-blue-600 hover:text-white transition-colors">
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a href="#" className="w-9 h-9 bg-slate-50 border border-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:text-blue-600 hover:text-white transition-colors">
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a href="#" className="w-9 h-9 bg-slate-50 border border-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-blue-600 hover:text-white transition-colors">
+                <Youtube className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Google Maps Embed / Visual */}
+        <div className="bg-white p-3 rounded-3xl border border-slate-200 shadow-sm overflow-hidden min-h-[400px] flex flex-col">
+          <div className="w-full h-full rounded-2xl overflow-hidden relative bg-slate-100 flex-grow">
+            {/* Embed Google Maps interaktif (atau iframe lokasi Ruko Citraland Tegal) */}
+            <iframe 
+              title="Google Maps Lokasi"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.985957016259!2d109.123456!3d-6.888888!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTMnMjAuMCJTIDEwOcKwMDcnMjQuNCJF!5e0!3m2!1sid!2sid!4v1650000000000!5m2!1sid!2sid" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0, minHeight: '400px' }} 
+              allowFullScreen="" 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+
+      </section>
+
+      {/* ================= MENGAPA MEMILIH KAMI? ================= */}
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="text-center mb-12">
+          <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-2">Kualitas Tanpa Kompromi</span>
+          <h2 className="text-3xl font-extrabold text-slate-900">Mengapa Memilih Kami?</h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+            <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
+              <Award className="w-7 h-7" />
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 mb-3">Mentor Expert</h3>
+            <p className="text-slate-500 text-sm leading-relaxed">
+              Belajar langsung dari praktisi profesional yang aktif di industri teknologi untuk mendapatkan wawasan terkini.
+            </p>
+          </div>
+
+          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+            <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
+              <Cpu className="w-7 h-7" />
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 mb-3">Fokus Praktik</h3>
+            <p className="text-slate-500 text-sm leading-relaxed">
+              Kurikulum berbasis 80% praktik nyata untuk membangun insting problem-solving yang dibutuhkan di dunia kerja.
+            </p>
+          </div>
+
+          <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+            <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
+              <Briefcase className="w-7 h-7" />
+            </div>
+            <h3 className="text-xl font-bold text-slate-900 mb-3">Penyaluran Kerja</h3>
+            <p className="text-slate-500 text-sm leading-relaxed">
+              Akses ke jaringan mitra perusahaan kami untuk peluang karier nyata setelah lulus melalui program job connection.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ================= FOOTER ================= */}
+      <footer className="bg-[#1e2530] text-slate-400 pt-16 mt-12">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 pb-12">
+          
+          {/* Column 1 */}
+          <div>
+            <h4 className="font-bold text-white text-xl mb-4">elcoding.id</h4>
+            <p className="text-slate-400 text-xs leading-relaxed mb-6">
+              Lembaga kursus dan pelatihan terpadu yang mencakup IT & Coding, Bahasa Asing, hingga Desain Grafis berbasis praktik untuk membantu peserta menguasai keterampilan yang dibutuhkan dunia kerja modern.
+            </p>
+            
+            <h5 className="font-bold text-white text-xs mb-3">Jam Operasional</h5>
+            <div className="space-y-2 text-xs text-slate-400">
+              <p className="flex items-center gap-2"><Clock className="w-4 h-4 text-blue-500" /> Senin - Sabtu (08.00 - 20.00 WIB)</p>
+              <p className="flex items-center gap-2 text-slate-500">📅 Minggu (Libur)</p>
+            </div>
+          </div>
+
+          {/* Column 2 */}
+          <div>
+            <h4 className="font-bold text-white text-sm mb-4">Quick Links</h4>
+            <ul className="space-y-3 text-xs text-slate-400">
+              <li><Link href="/tentang-kami-publik" className="hover:text-white">Tentang Kami</Link></li>
+              <li><a href="#" className="hover:text-white">Portofolio</a></li>
+              <li><Link href="/artikel-publik" className="hover:text-white">Artikel</Link></li>
+              <li><Link href="/kontak-publik" className="text-white font-bold">Kontak</Link></li>
+            </ul>
+          </div>
+
+          {/* Column 3 */}
+          <div>
+            <h4 className="font-bold text-white text-sm mb-4">Panduan & Kebijakan</h4>
+            <ul className="space-y-3 text-xs text-slate-400">
+              <li><a href="#" className="hover:text-white">FAQ</a></li>
+              <li><a href="#" className="hover:text-white">Syarat dan Ketentuan</a></li>
+              <li><a href="#" className="hover:text-white">Kebijakan Privasi</a></li>
+            </ul>
+          </div>
+
+          {/* Column 4 */}
+          <div>
+            <h4 className="font-bold text-white text-sm mb-4">Informasi Kontak</h4>
+            <div className="space-y-3 text-xs text-slate-400 mb-6">
+              <p className="flex items-start gap-2"><MapPin className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" /> Ruko Citraland, Tegal, Jawa Tengah</p>
+              <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-emerald-500 shrink-0" /> Admin: 0877-6233-4232</p>
+              <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-blue-500 shrink-0" /> info@elcodingacademy.com</p>
+            </div>
+            <div className="flex gap-3">
+              <a href="#" className="w-7 h-7 bg-slate-800 rounded-full flex items-center justify-center text-slate-300 hover:bg-blue-600 transition-colors"><Facebook className="w-3.5 h-3.5" /></a>
+              <a href="#" className="w-7 h-7 bg-slate-800 rounded-full flex items-center justify-center text-slate-300 hover:bg-blue-600 transition-colors"><Instagram className="w-3.5 h-3.5" /></a>
+              <a href="#" className="w-7 h-7 bg-slate-800 rounded-full flex items-center justify-center text-slate-300 hover:bg-blue-600 transition-colors"><Youtube className="w-3.5 h-3.5" /></a>
+            </div>
+          </div>
+
+        </div>
+
+        <div className="bg-[#0047b3] text-center py-4 px-6 text-white text-xs font-medium tracking-wide">
+          © 2024 Elcoding Academy. All rights reserved.
+        </div>
+      </footer>
+
+      {/* Floating WhatsApp */}
+      <a 
+        href="https://wa.me/6287762334232" 
+        target="_blank" 
+        rel="noreferrer"
+        className="fixed bottom-6 right-6 w-14 h-14 bg-emerald-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/30 hover:scale-110 transition-transform z-50"
+      >
+        <MessageCircle className="w-7 h-7" />
+      </a>
+    </div>
+  );
+}

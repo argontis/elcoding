@@ -1,95 +1,78 @@
 <?php
 
+use App\Http\Controllers\DashboardController; // <--- PERBAIKAN: Import Controller Ditambahkan
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AuthController;
+use Inertia\Inertia;
 
+// ==========================================
+// ROUTE PUBLIC (LANDING PAGE)
+// ==========================================
 Route::get('/', function () {
-    $mitras = \App\Models\Mitra::latest()->get();
-    $programs = \App\Models\ProgramKursus::latest()->take(3)->get();
-    $portofolios = \App\Models\Portofolio::latest()->take(3)->get();
-    $artikels = \App\Models\Artikel::where('status', 'Published')->latest()->take(3)->get();
-    return view('welcome', compact('mitras', 'programs', 'portofolios', 'artikels'));
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
 });
 
-Route::get('/tentang-kami', function () {
-    $mitras = \App\Models\Mitra::latest()->get();
-    return view('tentang-kami', compact('mitras'));
-});
-
+// Route untuk halaman Program Kursus (Publik / Sebelum Login)
 Route::get('/program-kursus', function () {
-    $programs = \App\Models\ProgramKursus::latest()->paginate(9);
-    return view('program-kursus', compact('programs'));
-});
+    return Inertia::render('ProgramKursus');
+})->name('program.kursus.public');
 
-Route::get('/portofolio', function () {
-    $portofolios = \App\Models\Portofolio::latest()->paginate(9);
-    return view('portofolio', compact('portofolios'));
-});
+// Route untuk halaman Artikel (Publik / Sebelum Login)
+Route::get('/artikel-publik', function () {
+    return Inertia::render('ArtikelPublic');
+})->name('artikel.publik');
 
-Route::get('/artikel', function () {
-    $artikels = \App\Models\Artikel::where('status', 'Published')->latest()->paginate(9);
-    return view('artikel', compact('artikels'));
-});
+Route::get('/tentang-kami-publik', function () {
+    return Inertia::render('TentangKamiPublic');
+})->name('tentang.kami.public');
 
-Route::get('/kontak', function () {
-    return view('kontak');
-});
+Route::get('/kontak-publik', function () {
+    return Inertia::render('KontakPublic');
+})->name('kontak.publik');
 
-Route::get('/artikel/{id}', function ($id) {
-    $artikel = \App\Models\Artikel::findOrFail($id);
-    return view('artikel-detail', compact('artikel'));
-});
-
-Route::get('/portofolio/{id}', function ($id) {
-    $portofolio = \App\Models\Portofolio::findOrFail($id);
-    return view('portofolio-detail', compact('portofolio'));
-});
-
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-// Admin Routes (Protected)
-Route::middleware('auth')->prefix('admin')->group(function () {
-    Route::get('/', [AdminController::class, 'dashboard']);
-    Route::get('/aktivitas', [AdminController::class, 'aktivitas']);
+// ==========================================
+// ROUTE DASHBOARD & ADMIN AREA
+// ==========================================
+Route::middleware(['auth', 'verified'])->group(function () {
     
-    // Mitra CRUD
-    Route::get('/mitra', [AdminController::class, 'mitra']);
-    Route::get('/mitra/create', [AdminController::class, 'createMitra']);
-    Route::post('/mitra', [AdminController::class, 'storeMitra']);
-    Route::get('/mitra/{id}/edit', [AdminController::class, 'editMitra']);
-    Route::put('/mitra/{id}', [AdminController::class, 'updateMitra']);
-    Route::delete('/mitra/{id}', [AdminController::class, 'destroyMitra']);
+    // 1. Route Beranda / Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Program Kursus CRUD
-    Route::get('/program-kursus', [AdminController::class, 'programKursus']);
-    Route::get('/program-kursus/create', [AdminController::class, 'createProgram']);
-    Route::post('/program-kursus', [AdminController::class, 'storeProgram']);
-    Route::get('/program-kursus/{id}/edit', [AdminController::class, 'editProgram']);
-    Route::put('/program-kursus/{id}', [AdminController::class, 'updateProgram']);
-    Route::delete('/program-kursus/{id}', [AdminController::class, 'destroyProgram']);
+    // 2. Route Program Khusus (Admin Area)
+    Route::get('/program-khusus', function () {
+        return Inertia::render('ProgramKursus/Index');
+    })->name('program.index');
 
-    // Portofolio CRUD
-    Route::get('/portofolio', [AdminController::class, 'portofolio']);
-    Route::get('/portofolio/create', [AdminController::class, 'createPortofolio']);
-    Route::post('/portofolio', [AdminController::class, 'storePortofolio']);
-    Route::get('/portofolio/{id}/edit', [AdminController::class, 'editPortofolio']);
-    Route::put('/portofolio/{id}', [AdminController::class, 'updatePortofolio']);
-    Route::delete('/portofolio/{id}', [AdminController::class, 'destroyPortofolio']);
+    // 3. Route Artikel (Admin Area)
+    Route::get('/artikel', function () {
+        return Inertia::render('Artikel/Index'); 
+    })->name('artikel.index');
 
-    // Kategori Portofolio CRUD
-    Route::get('/kategori-portofolio', [AdminController::class, 'kategoriPortofolio']);
-    Route::post('/kategori-portofolio', [AdminController::class, 'storeKategoriPortofolio']);
-    Route::put('/kategori-portofolio/{id}', [AdminController::class, 'updateKategoriPortofolio']);
-    Route::delete('/kategori-portofolio/{id}', [AdminController::class, 'destroyKategoriPortofolio']);
+    // 4. Route Tentang Kami / Portfolio (Admin Area)
+    Route::get('/tentang-kami', function () {
+        return Inertia::render('TentangKami/Index');
+    })->name('tentang.kami');
 
-    // Artikel CRUD
-    Route::get('/artikel', [AdminController::class, 'artikel']);
-    Route::get('/artikel/create', [AdminController::class, 'createArtikel']);
-    Route::post('/artikel', [AdminController::class, 'storeArtikel']);
-    Route::get('/artikel/{id}/edit', [AdminController::class, 'editArtikel']);
-    Route::put('/artikel/{id}', [AdminController::class, 'updateArtikel']);
-    Route::delete('/artikel/{id}', [AdminController::class, 'destroyArtikel']);
+    // 5. Route Kontak (Admin Area - opsional jika ada di sidebar)
+    Route::get('/kontak', function () {
+        return Inertia::render('Kontak/Index');
+    })->name('kontak.index');
+
 });
+
+// ==========================================
+// ROUTE PROFILE
+// ==========================================
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';

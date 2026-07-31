@@ -97,13 +97,6 @@ const Sidebar = () => {
         </a>
         
         <a 
-          href="/admin/portofolio" 
-          className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-600 hover:bg-slate-100"
-        >
-          <Briefcase className="w-5 h-5 text-slate-400" /> Portofolio Project
-        </a>
-        
-        <a 
           href="/admin/artikel" 
           className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-600 hover:bg-slate-100"
         >
@@ -367,7 +360,7 @@ export default function Dashboard({
                 <div className="grid grid-cols-2 gap-2.5">
                   <QuickAction label="Manage Paid Courses" icon={LayoutGrid} href="/admin/program-kursus" />
                   <QuickAction label="Post New Article" icon={FilePlus} href="/admin/artikel" />
-                  <QuickAction label="Update Portfolio" icon={Briefcase} href="/admin/portofolio" />
+
                   <QuickAction label="Manage Partners" icon={Users} href="/admin/mitra" />
                 </div>
               </div>

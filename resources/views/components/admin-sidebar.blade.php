@@ -25,9 +25,7 @@
             <i class="fas fa-graduation-cap w-5 text-center text-lg"></i> Program Kursus
         </a>
         
-        <a href="/admin/portofolio" class="sidebar-item flex items-center gap-4 px-4 py-3 rounded-xl font-medium {{ request()->is('admin/portofolio*') ? 'active' : '' }}">
-            <i class="fas fa-briefcase w-5 text-center text-lg"></i> Portofolio Project
-        </a>
+
         
         <a href="/admin/artikel" class="sidebar-item flex items-center gap-4 px-4 py-3 rounded-xl font-medium {{ request()->is('admin/artikel*') ? 'active' : '' }}">
             <i class="fas fa-newspaper w-5 text-center text-lg"></i> Blog & Artikel

@@ -10,22 +10,11 @@ class AdminController extends Controller
         $stats = [
             'mitra' => \App\Models\Mitra::count(),
             'program' => \App\Models\ProgramKursus::count(),
-            'portofolio' => \App\Models\Portofolio::count(),
             'artikel' => \App\Models\Artikel::count(),
         ];
 
         // Gather latest activities (updated_at)
-        $latestPortofolios = \App\Models\Portofolio::latest('updated_at')->take(3)->get()->map(function($item) {
-            return (object) [
-                'type' => 'Portofolio',
-                'title' => $item->title,
-                'created_at' => clone $item->created_at,
-                'updated_at' => clone $item->updated_at,
-                'icon' => 'fa-briefcase',
-                'color' => 'emerald'
-            ];
-        });
-        
+
         $latestArtikels = \App\Models\Artikel::latest('updated_at')->take(3)->get()->map(function($item) {
             return (object) [
                 'type' => 'Artikel',
@@ -49,7 +38,6 @@ class AdminController extends Controller
         });
 
         $activities = collect()
-            ->concat($latestPortofolios)
             ->concat($latestArtikels)
             ->concat($latestPrograms)
             ->sortByDesc('updated_at')
@@ -60,17 +48,7 @@ class AdminController extends Controller
 
     public function aktivitas() {
         // Gather latest activities (updated_at) up to 100
-        $latestPortofolios = \App\Models\Portofolio::latest('updated_at')->take(100)->get()->map(function($item) {
-            return (object) [
-                'type' => 'Portofolio',
-                'title' => $item->title,
-                'created_at' => clone $item->created_at,
-                'updated_at' => clone $item->updated_at,
-                'icon' => 'fa-briefcase',
-                'color' => 'emerald'
-            ];
-        });
-        
+
         $latestArtikels = \App\Models\Artikel::latest('updated_at')->take(100)->get()->map(function($item) {
             return (object) [
                 'type' => 'Artikel',
@@ -95,7 +73,6 @@ class AdminController extends Controller
 
         // Use custom paginator for collection
         $activities = collect()
-            ->concat($latestPortofolios)
             ->concat($latestArtikels)
             ->concat($latestPrograms)
             ->sortByDesc('updated_at')
@@ -234,43 +211,6 @@ class AdminController extends Controller
         return redirect('/admin/program-kursus')->with('success', 'Program berhasil dihapus.');
     }
 
-    // --- Portofolio CRUD ---
-    public function portofolio(Request $request) {
-        $query = \App\Models\Portofolio::latest();
-        if ($request->search) {
-            $query->where('title', 'like', '%' . $request->search . '%');
-        }
-        $portofolios = $query->paginate(10)->withQueryString();
-        return view('admin.portofolio.index', compact('portofolios'));
-    }
-    public function createPortofolio() { return view('admin.portofolio.form'); }
-    public function storePortofolio(Request $request) {
-        $data = $request->except('image_file');
-        if ($request->hasFile('image_file')) {
-            $data['image_path'] = $this->handleUpload($request, 'image_file');
-        }
-        \App\Models\Portofolio::create($data);
-        return redirect('/admin/portofolio')->with('success', 'Portofolio berhasil ditambahkan.');
-    }
-    public function editPortofolio($id) {
-        $data = \App\Models\Portofolio::findOrFail($id);
-        return view('admin.portofolio.form', compact('data'));
-    }
-    public function updatePortofolio(Request $request, $id) {
-        $portofolio = \App\Models\Portofolio::findOrFail($id);
-        $data = $request->except('image_file');
-        if ($request->hasFile('image_file')) {
-            $data['image_path'] = $this->handleUpload($request, 'image_file', $portofolio->image_path);
-        }
-        $portofolio->update($data);
-        return redirect('/admin/portofolio')->with('success', 'Portofolio berhasil diperbarui.');
-    }
-    public function destroyPortofolio($id) {
-        $portofolio = \App\Models\Portofolio::findOrFail($id);
-        $this->deleteFile($portofolio->image_path);
-        $portofolio->delete();
-        return redirect('/admin/portofolio')->with('success', 'Portofolio berhasil dihapus.');
-    }
 
     // --- Artikel CRUD ---
     public function artikel(Request $request) {
@@ -314,36 +254,5 @@ class AdminController extends Controller
         return redirect('/admin/artikel')->with('success', 'Artikel berhasil dihapus.');
     }
 
-    // Kategori Portofolio CRUD
-    public function kategoriPortofolio() {
-        $kategori = \App\Models\KategoriPortofolio::latest()->paginate(10);
-        return view('admin.kategori-portofolio.index', compact('kategori'));
-    }
-    public function storeKategoriPortofolio(Request $request) {
-        $colors = ['blue', 'purple', 'emerald', 'amber', 'rose', 'indigo', 'cyan', 'fuchsia'];
-        $color = $colors[array_rand($colors)]; // Assign random color
-        \App\Models\KategoriPortofolio::create([
-            'name' => $request->name,
-            'color' => $color
-        ]);
-        return redirect('/admin/kategori-portofolio')->with('success', 'Kategori berhasil ditambahkan.');
-    }
-    public function updateKategoriPortofolio(Request $request, $id) {
-        $kategori = \App\Models\KategoriPortofolio::findOrFail($id);
-        // Also update portfolio entries if the name changes
-        if ($kategori->name !== $request->name) {
-            \App\Models\Portofolio::where('category', $kategori->name)->update(['category' => $request->name]);
-        }
-        $kategori->update([
-            'name' => $request->name,
-            'color' => $request->color ?? $kategori->color
-        ]);
-        return redirect('/admin/kategori-portofolio')->with('success', 'Kategori berhasil diperbarui.');
-    }
-    public function destroyKategoriPortofolio($id) {
-        $kategori = \App\Models\KategoriPortofolio::findOrFail($id);
-        \App\Models\Portofolio::where('category', $kategori->name)->update(['category' => 'Lainnya']);
-        $kategori->delete();
-        return redirect('/admin/kategori-portofolio')->with('success', 'Kategori berhasil dihapus.');
-    }
+
 }

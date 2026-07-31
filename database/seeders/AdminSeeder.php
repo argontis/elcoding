@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Mitra;
 use App\Models\ProgramKursus;
-use App\Models\Portofolio;
 use App\Models\Artikel;
 
 class AdminSeeder extends Seeder
@@ -29,10 +28,6 @@ class AdminSeeder extends Seeder
         ProgramKursus::create(['title' => 'Bootcamp Intensif Full Stack Web Dev', 'duration' => '4 Bulan', 'price' => 'Rp2.500.000', 'badge' => 'Recommended']);
         ProgramKursus::create(['title' => 'Mastering Skill UI/UX Design', 'duration' => '3 Bulan', 'price' => 'Rp1.800.000', 'badge' => 'Terlaris']);
         ProgramKursus::create(['title' => 'Professional Class Digital Marketing', 'duration' => '2 Bulan', 'price' => 'Rp1.500.000', 'badge' => 'Reguler']);
-
-        Portofolio::create(['title' => 'Film Islami Kemenag', 'category' => 'Coding', 'image_path' => 'gambar/portofolio/Film-Islami-Kemenag.webp', 'content' => 'Proyek pembuatan website untuk Kemenag dengan fitur streaming film islami.']);
-        Portofolio::create(['title' => 'TOSTEM Prima Cipta', 'category' => 'Desain Grafis', 'image_path' => 'gambar/portofolio/Tostem-Prima-Cipta.webp', 'content' => 'Pembuatan desain profil perusahaan dan materi promosi untuk TOSTEM Prima Cipta.']);
-        Portofolio::create(['title' => 'Tutur Bangsa', 'category' => 'B. Inggris & Mandarin', 'image_path' => 'gambar/portofolio/Tutur-Bangsa.webp', 'content' => 'Sistem e-learning interaktif untuk pembelajaran bahasa.']);
 
         Artikel::create(['title' => 'Mengapa Belajar Pemrograman Adalah Investasi Terbaik untuk Masa Depan Anda', 'author' => 'Admin Elcoding', 'category' => 'Teknologi', 'status' => 'Published', 'published_at' => '2026-06-24', 'content' => "Di era digital yang berkembang dengan sangat pesat, kemampuan pemrograman atau coding telah berubah dari sekadar keahlian teknis khusus menjadi salah satu keterampilan dasar yang paling dicari oleh berbagai industri di seluruh dunia.\n\nBanyak orang mengira bahwa coding hanya diperuntukkan bagi mereka yang ingin menjadi software engineer atau IT support. Faktanya, pemahaman dasar tentang cara kerja perangkat lunak dan logika pemrograman dapat memberikan keuntungan kompetitif yang besar di hampir setiap bidang karier."]);
         Artikel::create(['title' => '5 Tips Memilih Bootcamp Web Developer yang Tepat', 'author' => 'Admin Elcoding', 'category' => 'Edukasi', 'status' => 'Published', 'published_at' => '2026-06-20', 'content' => "Memilih bootcamp yang tepat adalah langkah penting. Pastikan Anda mempertimbangkan:\n1. Kurikulum yang up to date\n2. Mentor yang berpengalaman\n3. Fokus pada praktik (project-based)\n4. Dukungan penyaluran kerja\n5. Fasilitas yang memadai"]);

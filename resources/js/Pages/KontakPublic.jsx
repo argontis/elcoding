@@ -196,7 +196,7 @@ export default function KontakPublic() {
             <h4 className="font-bold text-white text-sm mb-4">Quick Links</h4>
             <ul className="space-y-3 text-xs text-slate-400">
               <li><Link href="/tentang-kami-publik" className="hover:text-white">Tentang Kami</Link></li>
-              <li><a href="#" className="hover:text-white">Portofolio</a></li>
+
               <li><Link href="/artikel-publik" className="hover:text-white">Artikel</Link></li>
               <li><Link href="/kontak-publik" className="text-white font-bold">Kontak</Link></li>
             </ul>

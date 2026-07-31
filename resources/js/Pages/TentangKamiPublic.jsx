@@ -238,7 +238,7 @@ export default function TentangKamiPublic() {
             <h4 className="font-bold text-slate-900 text-sm mb-4 border-b-2 border-blue-600 inline-block pb-1">Quick Links</h4>
             <ul className="space-y-3 text-sm text-slate-600">
               <li><Link href="/tentang-kami-publik" className="text-blue-600 font-bold">Tentang Kami</Link></li>
-              <li><a href="#" className="hover:text-blue-600">Portofolio</a></li>
+
               <li><Link href="/artikel-publik" className="hover:text-blue-600">Artikel</Link></li>
               <li><a href="#kontak" className="hover:text-blue-600">Kontak</a></li>
             </ul>

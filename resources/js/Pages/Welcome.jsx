@@ -248,7 +248,7 @@ export default function Welcome({ canLogin, canRegister }) {
           <div>
             <h4 className="font-bold text-slate-900 text-base mb-4">Perusahaan</h4>
             <ul className="space-y-3">
-              <li><a href="#portofolio" className="hover:text-blue-600">Tentang Kami</a></li>
+
               <li><a href="#" className="hover:text-blue-600">Blog</a></li>
               <li><a href="#" className="hover:text-blue-600">Kebijakan Privasi</a></li>
             </ul>

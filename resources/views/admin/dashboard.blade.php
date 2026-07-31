@@ -41,23 +41,7 @@
         </div>
     </div>
 
-    <!-- Stat Card 3 -->
-    <div class="surface-card p-6 flex flex-col relative overflow-hidden group">
-        <div class="absolute -right-4 -top-4 w-24 h-24 bg-emerald-50 rounded-full scale-150 z-0"></div>
-        <div class="relative z-10 flex justify-between items-start mb-4">
-            <div>
-                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Portofolio</p>
-                <h3 class="text-3xl font-extrabold text-slate-800">{{ $stats['portofolio'] }}</h3>
-            </div>
-            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl shadow-inner">
-                <i class="fas fa-briefcase"></i>
-            </div>
-        </div>
-        <div class="relative z-10 flex items-center gap-2 text-sm">
-            <span class="text-green-500 font-semibold flex items-center gap-1"><i class="fas fa-arrow-up text-xs"></i> 3</span>
-            <span class="text-slate-500">project baru bulan ini</span>
-        </div>
-    </div>
+
 
     <!-- Stat Card 4 -->
     <div class="surface-card p-6 flex flex-col relative overflow-hidden group">
@@ -94,9 +78,6 @@
                     </p>
                 </div>
                 <div class="flex gap-3 shrink-0">
-                    <a href="/admin/portofolio" class="px-5 py-2.5 bg-white text-indigo-900 font-bold rounded-lg hover:bg-slate-50 transition-colors shadow-lg">
-                        <i class="fas fa-plus mr-1"></i> Portofolio Baru
-                    </a>
                     <a href="/admin/artikel" class="px-5 py-2.5 bg-indigo-800/50 text-white font-bold rounded-lg border border-indigo-400/30 hover:bg-indigo-800 transition-colors backdrop-blur-sm">
                         Tulis Artikel
                     </a>

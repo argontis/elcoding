@@ -264,7 +264,7 @@
                         <li class="menu-item menu-item-home"><a href="{{ url('/') }}" class="elementor-item {{ request()->is('/') ? 'elementor-item-active' : '' }}">Beranda</a></li>
                         <li class="menu-item"><a href="{{ url('/tentang-kami') }}" class="elementor-item {{ request()->is('tentang-kami') ? 'elementor-item-active' : '' }}">Tentang Kami</a></li>
                         <li class="menu-item"><a href="{{ url('/program-kursus') }}" class="elementor-item {{ request()->is('program-kursus*') ? 'elementor-item-active' : '' }}">Program Kursus</a></li>
-                        <li class="menu-item"><a href="{{ url('/portofolio') }}" class="elementor-item {{ request()->is('portofolio') ? 'elementor-item-active' : '' }}">Portofolio</a></li>
+
                         <li class="menu-item"><a href="{{ url('/artikel') }}" class="elementor-item {{ request()->is('artikel') ? 'elementor-item-active' : '' }}">Artikel</a></li>
                         <li class="menu-item"><a href="{{ url('/kontak') }}" class="elementor-item {{ request()->is('kontak') ? 'elementor-item-active' : '' }}">Kontak</a></li>
                     </ul>
@@ -331,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <h3 class="footer-heading">Quick Links</h3>
             <ul class="footer-list">
                 <li><a href="{{ url('/tentang-kami') }}">Tentang Kami</a></li>
-                <li><a href="{{ url('/portofolio') }}">Portofolio</a></li>
+
                 <li><a href="{{ url('/artikel') }}">Artikel</a></li>
                 <li><a href="{{ url('/kontak') }}">Kontak</a></li>
             </ul>

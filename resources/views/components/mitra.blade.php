@@ -1,11 +1,11 @@
-@props(["mode" => "marquee"])
+@props(["mode" => "grid", "theme" => "default"])
 
 @php
     $mitras = \App\Models\Mitra::latest()->take(15)->get();
 @endphp
 
 <section class="happy-customer-section {{ $attributes->get("class") }}" style="{{ $attributes->get("style") }}">
-    <div class="happy-customer-container mode-{{ $mode }}">
+    <div class="happy-customer-container mode-{{ $mode }} theme-{{ $theme }}">
         <h2 class="happy-customer-title">Mitra</h2>
         
         @if($mode === "marquee")
@@ -52,9 +52,15 @@
     margin-right: auto;
 }
 .happy-customer-container.mode-marquee {
-    background-color: #F5F3FF;
+    /* theme-default will handle background */
 }
 .happy-customer-container.mode-grid {
+    /* theme-default will handle background */
+}
+.happy-customer-container.theme-default {
+    background-color: #F5F3FF;
+}
+.happy-customer-container.theme-transparent {
     background-color: transparent;
 }
 .happy-customer-title {
@@ -112,49 +118,62 @@
     100% { transform: translateX(-50%); }
 }
 
-/* Grid Styles */
+/* Grid Styles (Max 5 Columns) */
 .mitra-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 25px; /* Jarak antar card yang rapi dan seragam */
     padding: 0 20px;
+    justify-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 .mitra-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff;
-    border: 1px solid #3B82F6;
     border-radius: 8px;
-    padding: 10px;
+    padding: 10px; /* Padding kecil agar gambar terlihat besar di dalam card */
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     transition: transform 0.2s, box-shadow 0.2s;
-    width: calc(12.5% - 15px);
-    min-width: 90px;
-    max-width: 140px;
+    width: 100%;
+    aspect-ratio: 4 / 3; /* Membuat bentuk card seragam (sedikit persegi panjang) */
+    height: auto;
+}
+.theme-default .mitra-item {
+    background: #fff;
+    border: none;
+}
+.theme-transparent .mitra-item {
+    background: transparent;
+    border: 2px solid #6D28D9;
 }
 .mitra-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.05);
 }
 .mitra-item img {
-    max-width: 100%;
-    max-height: 50px;
+    width: 95%; /* Gambar memenuhi hampir seluruh area card */
+    height: 95%;
     object-fit: contain;
+    transition: transform 0.3s ease;
+}
+.mitra-item:hover img {
+    transform: scale(1.05);
 }
 
 @media (max-width: 1024px) {
-    .mitra-item { width: calc(16.66% - 15px); }
+    .mitra-grid { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 768px) {
     .happy-customer-section { margin-top: 0; }
     .happy-customer-container { padding: 30px 0; margin: 0 10px; border-radius: 15px; }
     .happy-customer-title { font-size: 2em; }
     .marquee-item img { height: 90px; max-width: 120px; }
-    .mitra-item { width: calc(25% - 15px); }
+    .mitra-grid { grid-template-columns: repeat(3, 1fr); padding: 0 5px; gap: 5px; }
 }
 @media (max-width: 480px) {
-    .mitra-item { width: calc(33.33% - 15px); }
+    .mitra-grid { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
+

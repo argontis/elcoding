@@ -3,7 +3,7 @@ import Checkbox from '@/Components/Checkbox';
 import GuestLayout from '@/Layouts/GuestLayout';
 import InputError from '@/Components/InputError';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Mail, Lock, Eye, EyeOff, Code, ArrowRight } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
 
 export default function Login({ status, canResetPassword }) {
     const [showPassword, setShowPassword] = useState(false);
@@ -41,8 +41,8 @@ export default function Login({ status, canResetPassword }) {
 
                     {/* Content Banner */}
                     <div className="relative z-10 my-auto text-center flex flex-col items-center">
-                        <div className="mb-6 p-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 inline-block shadow-inner">
-                            <Code className="w-10 h-10 text-white" />
+                        <div className="mb-6 p-4 bg-white backdrop-blur-md rounded-2xl border border-white/20 inline-block shadow-inner">
+                            <img src="/gambar/aset/logo-elcoding.svg" alt="Elcoding" className="h-8" />
                         </div>
                         <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight mb-4 leading-tight">
                             Elevating Code <br /> To Career.
@@ -62,13 +62,8 @@ export default function Login({ status, canResetPassword }) {
                 <div className="p-8 sm:p-12 flex flex-col justify-between bg-white">
                     <div>
                         {/* Logo Header */}
-                        <div className="flex items-center gap-3 mb-8">
-                            <div className="p-2.5 bg-blue-600 rounded-xl text-white">
-                                <Code className="w-6 h-6" />
-                            </div>
-                            <span className="text-xl font-bold text-blue-600 tracking-tight">
-                                Elcoding Academy
-                            </span>
+                        <div className="mb-8">
+                            <img src="/gambar/aset/logo-elcoding.svg" alt="Elcoding Academy" className="h-10" />
                         </div>
 
                         {/* Title Section */}

@@ -47,16 +47,16 @@ const Sidebar = () => {
           <Home className={`w-5 h-5 ${isActive('/dashboard') ? 'text-white' : 'text-slate-400'}`} /> Beranda
         </Link>
         
-        <Link href="/program-khusus" className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive('/program-khusus') ? 'bg-blue-600 text-white shadow-sm shadow-blue-200' : 'text-slate-600 hover:bg-slate-50'}`}>
+        <Link href="/admin/program-khusus" className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive('/program-khusus') ? 'bg-blue-600 text-white shadow-sm shadow-blue-200' : 'text-slate-600 hover:bg-slate-50'}`}>
           <GraduationCap className={`w-5 h-5 ${isActive('/program-khusus') ? 'text-white' : 'text-slate-400'}`} /> Program Khusus
         </Link>
         
-        <Link href="/artikel" className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive('/artikel') ? 'bg-blue-600 text-white shadow-sm shadow-blue-200' : 'text-slate-600 hover:bg-slate-50'}`}>
+        <Link href="/admin/artikel" className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive('/artikel') ? 'bg-blue-600 text-white shadow-sm shadow-blue-200' : 'text-slate-600 hover:bg-slate-50'}`}>
           <FileText className={`w-5 h-5 ${isActive('/artikel') ? 'text-white' : 'text-slate-400'}`} /> Artikel
         </Link>
         
         {/* Menu Aktif: Tentang Kami */}
-        <Link href="/tentang-kami" className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive('/tentang-kami') ? 'bg-blue-600 text-white shadow-sm shadow-blue-200' : 'text-slate-600 hover:bg-slate-50'}`}>
+        <Link href="/admin/tentang-kami" className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive('/tentang-kami') ? 'bg-blue-600 text-white shadow-sm shadow-blue-200' : 'text-slate-600 hover:bg-slate-50'}`}>
           <Info className={`w-5 h-5 ${isActive('/tentang-kami') ? 'text-white' : 'text-slate-400'}`} /> Tentang Kami
         </Link>
         

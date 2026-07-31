@@ -82,7 +82,7 @@
                     <div class="program-card-body">
                         <h2 class="program-title">{!! nl2br(e($program->title)) !!}</h2>
                         <ul class="program-features">
-                            <li><i class="fas fa-check-circle"></i> <span>Durasi belajar <strong>{{ $program->duration }}</strong></span></li>
+                            <li><i class="fas fa-check-circle" style="color: #2563EB;"></i> <span>Durasi belajar <strong>{{ $program->duration }}</strong></span></li>
                         </ul>
                         <div class="program-features-content">
                             @if($program->features)
@@ -101,7 +101,7 @@
                         <div class="program-price-wrap">
                             <div class="price-value">{{ $program->price }}</div>
                         </div>
-                        <a href="https://wa.me/6287762334232?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dan%20ingin%20berkonsultasi%20mengenai%20program%20kursus%20{{ rawurlencode($program->title) }}.%20Mohon%20informasi%20lebih%20lanjut." target="_blank" class="program-btn">Konsultasi Sekarang</a>
+                        <a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dan%20ingin%20berkonsultasi%20mengenai%20program%20kursus%20{{ rawurlencode($program->title) }}.%20Mohon%20informasi%20lebih%20lanjut." target="_blank" class="program-btn">Konsultasi Sekarang <i class="fas fa-arrow-right" style="margin-left: 8px; font-size: 14px;"></i></a>
                     </div>
                 </div>
                 @empty
@@ -166,27 +166,28 @@
             position: absolute;
             top: 15px; 
             left: 0;
-            background: #F59E0B;
+            background: #8B5CF6;
             color: #fff;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
-            padding: 6px 15px 6px 15px;
-            border-radius: 0 20px 20px 0;
+            padding: 6px 14px;
+            border-radius: 0 16px 16px 0;
             display: flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
             z-index: 2;
+            text-transform: uppercase;
         }
         .program-badge.terlaris {
             background: #EF4444;
             box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
         }
         .program-title {
-            font-size: 24px !important;
+            font-size: 22px !important;
             font-weight: 700;
             color: #1F2937;
-            margin: 0 0 20px 0;
+            margin: 0 0 16px 0;
             line-height: 1.4;
         }
         .program-card-body {
@@ -245,7 +246,7 @@
         .price-value {
             font-size: 24px !important;
             font-weight: 800;
-            color: #1F2937;
+            color: #2563EB;
             line-height: 1;
         }
         .program-btn {

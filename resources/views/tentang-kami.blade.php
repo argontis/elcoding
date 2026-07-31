@@ -684,7 +684,7 @@ text-decoration:underline;
 				</div>
 					</div>
 				</div>
-    <x-mitra mode="grid" style="--mitra-margin-top: 0; padding: 0;" />
+    <x-mitra mode="grid" theme="transparent" style="--mitra-margin-top: 0; padding: 0;" />
 <div class="elementor-element elementor-element-6a05cc7 e-flex e-con-boxed e-con e-parent" data-id="6a05cc7" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 		<div class="elementor-element elementor-element-b069c1e e-con-full e-flex e-con e-child" data-id="b069c1e" data-element_type="container" data-e-type="container">

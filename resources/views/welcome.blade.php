@@ -54,41 +54,60 @@
             </div>
             <div class="elementor-element elementor-element-b83b4d6 e-con-full e-flex e-con e-child" data-id="b83b4d6" data-element_type="container" data-e-type="container">
                 <div class="elementor-element elementor-element-af1e2b3 elementor-widget elementor-widget-heading" data-id="af1e2b3" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-                    <p class="elementor-heading-title elementor-size-default">Belajar Skill Digital untuk Masa Depan yang Lebih Baik</p>
+                    <p class="elementor-heading-title elementor-size-default">Solusi Digital Lengkap untuk Bisnis & Karir Anda</p>
                 </div>
                 <div class="elementor-element elementor-element-728fa4a elementor-widget elementor-widget-heading" data-id="728fa4a" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-                    <h1 class="elementor-heading-title elementor-size-default">Pusat Solusi IT & Kursus Siap Kerja di Tegal</h1>
+                    <h1 class="elementor-heading-title elementor-size-default">Software House Profesional & Pusat Pelatihan IT Terbaik</h1>
                 </div>
                 <div class="elementor-element elementor-element-3d35e7c elementor-widget elementor-widget-text-editor" data-id="3d35e7c" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-                    <p>Elcoding Academy bukan hanya tentang Coding, melainkan lembaga kursus dan pelatihan terpadu (IT, Bahasa Asing, dan Desain Grafis) yang menyediakan program pembelajaran berbasis praktik dan magang untuk membantu Anda menguasai keterampilan dunia kerja modern.</p>
+                    <p>Elcoding adalah mitra terpercaya Anda, menyediakan jasa pembuatan website & aplikasi (Software House) untuk digitalisasi bisnis, sekaligus menyelenggarakan program kursus IT intensif berbasis praktik untuk mencetak talenta digital berdaya saing tinggi.</p>
                 </div>
                 <style>
-                    .elementor-element-c29eb8e .elementor-button {
+                    .hero-buttons-container {
+                        display: flex;
+                        gap: 15px;
+                        flex-wrap: wrap;
+                        margin-top: 20px;
+                    }
+                    .elementor-element-c29eb8e .elementor-button, .btn-software-house {
                         background-color: #6D28D9 !important; /* ungu tua */
-                        border-color: #6D28D9 !important;
+                        border: 2px solid #6D28D9 !important;
                         color: #ffffff !important;
+                        padding: 12px 25px !important;
+                        border-radius: 8px !important;
+                        font-weight: 600 !important;
                     }
-                    .elementor-element-c29eb8e .elementor-button:hover {
+                    .elementor-element-c29eb8e .elementor-button:hover, .btn-software-house:hover {
+                        background-color: #4C1D95 !important;
                         border-color: #4C1D95 !important;
-                        background-color: #4C1D95 !important; /* ungu lebih tua */
-                        color: #ffffff !important;
                     }
-                    .elementor-element-c29eb8e .elementor-button .elementor-button-icon i,
-                    .elementor-element-c29eb8e .elementor-button:hover .elementor-button-icon i {
-                        color: #ffffff !important;
+                    .btn-outline {
+                        background-color: transparent !important;
+                        color: #6D28D9 !important;
                     }
-                    .elementor-element-c29eb8e .elementor-button .elementor-button-text,
-                    .elementor-element-c29eb8e .elementor-button:hover .elementor-button-text {
-                        color: #ffffff !important;
+                    .btn-outline:hover {
+                        background-color: rgba(109, 40, 217, 0.05) !important;
+                        border-color: #4C1D95 !important;
+                        color: #4C1D95 !important;
                     }
                 </style>
-                <div class="elementor-element elementor-element-c29eb8e elementor-align-justify elementor-mobile-align-justify elementor-widget-mobile__width-inherit elementor-widget elementor-widget-button" data-id="c29eb8e" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
-                    <a class="elementor-button elementor-button-link elementor-size-sm" href="/program-kursus">
-                        <span class="elementor-button-content-wrapper">
-                            <span class="elementor-button-icon"><i aria-hidden="true" class="fas fa-graduation-cap"></i></span>
-                            <span class="elementor-button-text">Lihat Program</span>
-                        </span>
-                    </a>
+                <div class="hero-buttons-container">
+                    <div class="elementor-element elementor-element-c29eb8e elementor-align-justify elementor-widget elementor-widget-button" data-id="c29eb8e" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
+                        <a class="elementor-button elementor-button-link elementor-size-sm btn-software-house" href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20jasa%20pembuatan%20aplikasi/website%20dan%20ingin%20berkonsultasi." target="_blank">
+                            <span class="elementor-button-content-wrapper">
+                                <span class="elementor-button-icon"><i aria-hidden="true" class="fas fa-code"></i></span>
+                                <span class="elementor-button-text">Buat Aplikasi</span>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="elementor-element elementor-element-c29eb8e elementor-align-justify elementor-widget elementor-widget-button" data-id="c29eb8e-2" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
+                        <a class="elementor-button elementor-button-link elementor-size-sm btn-software-house btn-outline" href="/program-kursus">
+                            <span class="elementor-button-content-wrapper">
+                                <span class="elementor-button-icon"><i aria-hidden="true" class="fas fa-graduation-cap"></i></span>
+                                <span class="elementor-button-text">Ikut Kursus</span>
+                            </span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -130,7 +149,7 @@
         gap: 30px;
     }
     @media (min-width: 768px) {
-        .services-grid { grid-template-columns: repeat(3, 1fr); }
+        .services-grid { grid-template-columns: repeat(2, 1fr); }
     }
     
     .service-card {
@@ -189,22 +208,16 @@
         
         <div class="services-grid">
             <div class="service-card">
-                <i class="fas fa-graduation-cap service-icon"></i>
-                <h3>Pelatihan & Kursus IT</h3>
-                <p>Program bootcamp intensif bersertifikat. Dirancang untuk membangun fondasi karir di industri teknologi digital dengan kurikulum terstruktur.</p>
-                <a href="/program-kursus" class="service-link">Selengkapnya <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-book-reader service-icon"></i>
-                <h3>Konsultasi Skripsi</h3>
-                <p>Pendampingan eksklusif pembuatan project akhir dan skripsi IT hingga selesai tepat waktu, bebas error, dan siap sidang.</p>
-                <a href="/kontak" class="service-link">Selengkapnya <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="service-card">
                 <i class="fas fa-code-branch service-icon"></i>
                 <h3>Software House</h3>
                 <p>Jasa pembuatan aplikasi website, sistem informasi, dan mobile apps secara custom untuk kebutuhan digitalisasi bisnis instansi Anda.</p>
-                <a href="/kontak" class="service-link">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                <a href="/kontak" class="service-link">Konsultasi Project <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-graduation-cap service-icon"></i>
+                <h3>Pelatihan & Kursus IT</h3>
+                <p>Program bootcamp intensif bersertifikat. Dirancang untuk membangun fondasi karir di industri teknologi digital dengan kurikulum terstruktur.</p>
+                <a href="/program-kursus" class="service-link">Lihat Program <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </div>
@@ -345,13 +358,13 @@
     <div class="elementor-element elementor-element-35b5f33 e-flex e-con-boxed e-con e-parent" data-id="35b5f33" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
         <div class="e-con-inner">
             <div class="elementor-element elementor-element-d555ae3 elementor-widget elementor-widget-heading" data-id="d555ae3" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-                <h2 class="elementor-heading-title elementor-size-default">TINGKATKAN SKILL DIGITALMU BERSAMA ELCODING ACADEMY</h2>
+                <h2 class="elementor-heading-title elementor-size-default">BANGUN PRODUK DIGITAL DAN SKILLMU BERSAMA ELCODING</h2>
             </div>
             <div class="elementor-element elementor-element-f7191fb elementor-widget elementor-widget-text-editor" data-id="f7191fb" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-                <p>Dapatkan program kursus terbaik yang sesuai dengan kebutuhan dan passion Anda dengan mengonsultasikan tujuan belajarmu kepada tim kami. Jangan lewatkan kesempatan ini!</p>
+                <p>Konsultasikan kebutuhan pembuatan aplikasi bisnis Anda atau daftar program kursus terbaik yang sesuai passion Anda dengan tim kami hari ini.</p>
             </div>
             <div class="elementor-element elementor-element-3205b82 elementor-align-justify elementor-widget elementor-widget-button" data-id="3205b82" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
-                <a class="elementor-button elementor-button-link elementor-size-md" href="https://wa.me/6287762334232?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20layanan%20yang%20ada%20dan%20ingin%20berkonsultasi%20lebih%20lanjut." target="_blank">
+                <a class="elementor-button elementor-button-link elementor-size-md" href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20layanan%20yang%20ada%20dan%20ingin%20berkonsultasi%20lebih%20lanjut." target="_blank">
                     <span class="elementor-button-content-wrapper">
                         <span class="elementor-button-icon">
                             <i aria-hidden="true" class="fas fa-angle-double-right"></i>
@@ -363,6 +376,70 @@
         </div>
     </div>
 
+
+    @if(isset($programs) && $programs->count() > 0)
+    <!-- Program Kursus Section -->
+    <section class="programs-section" id="Program">
+        <div class="programs-container">
+            <div class="section-header" style="text-align: center; margin-bottom: 50px;">
+                <h2 class="section-title">Program Kursus Pilihan</h2>
+                <p class="section-subtitle">Pelajari skill paling dibutuhkan di industri IT dari mentor expert kami.</p>
+            </div>
+            
+            <div class="programs-grid">
+                @foreach($programs as $program)
+                <div class="program-card">
+                    <div class="program-card-header" style="background-image: url('{{ $program->image_path ? asset(str_replace(' ', '%20', $program->image_path)) : asset('gambar/aset/ilustrasi-belajar.jpg') }}');">
+                        @if($program->badge && $program->badge != 'Reguler')
+                        <div class="program-badge {{ strtolower($program->badge) == 'terlaris' ? 'terlaris' : '' }}"><i class="fas {{ strtolower($program->badge) == 'terlaris' ? 'fa-fire' : 'fa-star' }}"></i> {{ $program->badge }}</div>
+                        @endif
+                    </div>
+                    <div class="program-card-body">
+                        <h2 class="program-title">{!! nl2br(e($program->title)) !!}</h2>
+                        <ul class="program-features">
+                            <li><i class="fas fa-check-circle" style="color: #2563EB;"></i> <span>Durasi belajar <strong>{{ $program->duration }}</strong></span></li>
+                        </ul>
+                    </div>
+                    <div class="program-card-footer">
+                        <div class="program-price-wrap">
+                            <div class="price-value">{{ $program->price }}</div>
+                        </div>
+                        <a href="/program-kursus" class="program-btn">Lihat Detail Program <i class="fas fa-arrow-right" style="margin-left: 8px; font-size: 14px;"></i></a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="/program-kursus" class="elementor-button elementor-button-link elementor-size-sm btn-software-house btn-outline">Lihat Semua Program</a>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .programs-section { padding: 80px 20px; background-color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .programs-container { max-width: 1200px; margin: 0 auto; }
+        .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .program-card { background: #fff; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; }
+        .program-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .program-card-header { background-size: cover; background-position: center; height: 180px; position: relative; }
+        .program-badge { position: absolute; top: 15px; left: 0; background: #8B5CF6; color: #fff; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 0 16px 16px 0; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4); z-index: 2; text-transform: uppercase; }
+        .program-badge.terlaris { background: #EF4444; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); }
+        .program-title { font-size: 20px !important; font-weight: 700; color: #1F2937; margin: 0 0 16px 0; line-height: 1.4; }
+        .program-card-body { padding: 30px; flex-grow: 1; }
+        .program-features { list-style: none; padding: 0; margin: 0; }
+        .program-features li { font-size: 15px; color: #4B5563; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 12px; line-height: 1.5; }
+        .program-features li i { color: #2563EB; font-size: 20px; margin-top: 2px; }
+        .program-features li span { flex: 1; }
+        .program-features li strong { color: #1F2937; }
+        .program-card-footer { padding: 0 30px 30px 30px; }
+        .program-price-wrap { margin-bottom: 20px; text-align: left; }
+        .price-value { font-size: 22px !important; font-weight: 800; color: #2563EB; line-height: 1; }
+        .program-btn { display: block; text-align: center; background: #2563EB; color: #ffffff !important; font-weight: 700; font-size: 15px; padding: 12px; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; border: none; }
+        .program-btn:hover { background: #1E40AF; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3); }
+        @media (max-width: 1024px) { .programs-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .programs-grid { grid-template-columns: 1fr; } }
+    </style>
+    @endif
 
     @if(isset($portofolios) && $portofolios->count() > 0)
     <!-- Gallery Section -->
@@ -454,8 +531,8 @@
         <div class="statistics-cta-container">
             <!-- Top: CTA -->
             <div class="cta-content">
-                <h2 class="cta-title">Bersiap Memulai Karir Impianmu?</h2>
-                <p class="cta-text">Jadilah talenta digital yang siap kerja dan dicari banyak perusahaan. Mari belajar dan berkembang bersama instruktur ahli kami.</p>
+                <h2 class="cta-title">Siap Memulai Proyek atau Karir Anda?</h2>
+                <p class="cta-text">Berikan solusi digital terbaik untuk bisnis Anda, atau pelajari skill coding untuk meraih karir impian. Mari bergabung dan bertumbuh bersama Elcoding.</p>
                 <div class="elementor-element elementor-element-3205b82 elementor-align-center elementor-widget elementor-widget-button" data-id="3205b82" data-element_type="widget" data-widget_type="button.default">
                     <a class="elementor-button elementor-button-link elementor-size-md" href="/program-kursus">
                         <span class="elementor-button-content-wrapper">

@@ -3,30 +3,30 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{{ isset($title) ? $title . ' | Elcoding Academy' : 'Elcoding Academy - Belajar Skill Digital untuk Masa Depan yang Lebih Baik' }}</title>
-	<meta name="description" content="{{ $description ?? 'Elcoding Academy adalah lembaga kursus dan pelatihan yang tidak hanya berfokus pada Coding dan IT, tetapi juga Bahasa Asing dan Desain Grafis untuk membantu peserta menguasai keterampilan yang dibutuhkan dunia kerja modern.' }}" />
-    <meta name="keywords" content="Kursus Coding, Pelatihan IT, Bahasa Asing, Desain Grafis, Bootcamp, Tegal">
+	<title>{{ isset($title) ? $title . ' | Elcoding' : 'Elcoding - Software House & IT Training Center' }}</title>
+	<meta name="description" content="{{ $description ?? 'Elcoding adalah Software House profesional dan Lembaga Kursus Pelatihan IT terpadu. Menyediakan jasa pembuatan aplikasi, website, dan program bootcamp IT terlengkap.' }}" />
+    <meta name="keywords" content="Software House Tegal, Jasa Pembuatan Website, Jasa Aplikasi, Kursus Coding, Pelatihan IT, Bootcamp IT, Elcoding">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="{{ url()->current() }}">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="{{ isset($title) ? $title . ' | Elcoding Academy' : 'Elcoding Academy - Belajar Skill Digital untuk Masa Depan' }}">
-    <meta property="og:description" content="{{ $description ?? 'Lembaga kursus dan pelatihan yang tidak hanya berfokus pada Coding dan IT, tetapi juga Bahasa Asing dan Desain Grafis.' }}">
+    <meta property="og:title" content="{{ isset($title) ? $title . ' | Elcoding' : 'Elcoding - Software House & IT Training Center' }}">
+    <meta property="og:description" content="{{ $description ?? 'Software House profesional dan Lembaga Kursus Pelatihan IT terpadu.' }}">
     <meta property="og:image" content="{{ asset('gambar/aset/logo-elcoding.png') }}">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="{{ url()->current() }}">
-    <meta name="twitter:title" content="{{ isset($title) ? $title . ' | Elcoding Academy' : 'Elcoding Academy - Belajar Skill Digital untuk Masa Depan' }}">
-    <meta name="twitter:description" content="{{ $description ?? 'Lembaga kursus dan pelatihan yang tidak hanya berfokus pada Coding dan IT, tetapi juga Bahasa Asing dan Desain Grafis.' }}">
+    <meta name="twitter:title" content="{{ isset($title) ? $title . ' | Elcoding' : 'Elcoding - Software House & IT Training Center' }}">
+    <meta name="twitter:description" content="{{ $description ?? 'Software House profesional dan Lembaga Kursus Pelatihan IT terpadu.' }}">
     <meta name="twitter:image" content="{{ asset('gambar/aset/logo-elcoding.png') }}">
 
     <link rel="icon" href="{{ asset('gambar/aset/logo-elcoding.svg') }}" type="image/svg+xml">
 	
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}"></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -271,7 +271,7 @@
                 </nav>
             </div>
             <div class="elementor-element elementor-element-5ebed42 elementor-align-center elementor-widget elementor-widget-button" data-id="5ebed42" data-element_type="widget" data-e-type="widget" data-widget_type="button.default" id="header-btn" style="order: 4;">
-                <a class="elementor-button elementor-size-md" href="https://wa.me/6287762334232?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20layanan%20yang%20ada%20dan%20ingin%20berkonsultasi%20lebih%20lanjut." target="_blank" rel="noopener noreferrer" role="button">
+                <a class="elementor-button elementor-size-md" href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20layanan%20yang%20ada%20dan%20ingin%20berkonsultasi%20lebih%20lanjut." target="_blank" rel="noopener noreferrer" role="button">
                     <span class="elementor-button-content-wrapper">
                         <span class="elementor-button-text">Konsultasi</span>
                     </span>
@@ -316,8 +316,8 @@ document.addEventListener('DOMContentLoaded', () => {
     <div class="footer-container">
         <!-- Col 1 -->
         <div class="footer-col">
-            <img src="{{ asset('gambar/aset/logo-elcoding.svg') }}" alt="Elcoding Academy Logo" class="footer-logo" width="150" height="36" loading="lazy" style="height: 36px; width: auto; object-fit: contain;">
-            <p class="footer-desc">Lembaga kursus dan pelatihan terpadu yang mencakup IT & Coding, Bahasa Asing, hingga Desain Grafis berbasis praktik untuk membantu peserta menguasai keterampilan yang dibutuhkan dunia kerja modern.</p>
+            <img src="{{ asset('gambar/aset/logo-elcoding.svg') }}" alt="Elcoding Logo" class="footer-logo" width="150" height="36" loading="lazy" style="height: 36px; width: auto; object-fit: contain;">
+            <p class="footer-desc">Software House profesional penyedia jasa pembuatan aplikasi/website, sekaligus Lembaga Kursus dan Pelatihan IT terpadu berbasis praktik untuk mencetak talenta digital masa depan.</p>
             
             <h3 class="footer-heading">Jam Operasional</h3>
             <ul class="footer-list icon-list">
@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <h3 class="footer-heading">Informasi Kontak</h3>
             <ul class="footer-list icon-list contact-list">
                 <li><i class="fas fa-map-marker-alt"></i> Ruko Citraland, Tegal, Jawa Tengah</li>
-                <li><i class="fab fa-whatsapp"></i> Admin : 0877-6233-4232</li>
+                <li><i class="fab fa-whatsapp"></i> Admin : +62 814-7665-2656</li>
                 <li><i class="far fa-envelope"></i> info@elcodingacademy.com</li>
             </ul>
             
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
     
     <div class="footer-bottom">
-        <p>Copyright &copy;2026 Elcoding Academy. All Rights Reserved.</p>
+        <p>Copyright &copy;2026 Elcoding. All Rights Reserved.</p>
     </div>
 </footer>
 
@@ -559,14 +559,12 @@ var ElementorProFrontendConfig = {"ajaxurl":"","nonce":"bdfd649656","urls":{"ass
             <div class="chatbot-msg bot-msg">Halo! Saya Customer Service Elcoding. Silakan pilih topik yang ingin ditanyakan:</div>
         </div>
         <div class="chatbot-options" id="chatbot-options">
-            <button onclick="askBot('Berapa biaya kursus?', 'Biaya kursus bervariasi mulai dari Rp 1.500.000 hingga Rp 3.500.000. Tersedia juga sistem cicilan!')">Berapa biaya kursus?</button>
-            <button onclick="askBot('Kelas online/offline?', 'Kami menyediakan dua pilihan: kelas reguler (offline) di ruko kami, dan kelas online interaktif via Zoom.')">Kelas online/offline?</button>
-            <button onclick="askBot('Apakah dapat sertifikat?', 'Ya! Setelah menyelesaikan kelas dan project akhir, Anda akan mendapatkan sertifikat kompetensi yang diakui.')">Apakah dapat sertifikat?</button>
-            <button onclick="askBot('Saya pemula, apakah bisa ikut?', 'Tentu! Kurikulum kami dirancang mulai dari tingkat dasar (basic) hingga mahir. Sangat cocok untuk pemula tanpa latar belakang IT.')">Pemula bisa ikut?</button>
-            <button onclick="askBot('Jadwal kelasnya kapan?', 'Jadwal kelas fleksibel. Kami memiliki opsi kelas pagi, malam, atau weekend yang bisa disesuaikan dengan kesibukan Anda.')">Jadwal kelasnya kapan?</button>
-            <button onclick="askBot('Siapa saja pengajarnya?', 'Pengajar kami adalah praktisi ahli dan profesional industri yang sudah berpengalaman menangani project nyata.')">Siapa pengajarnya?</button>
-            <button onclick="askBot('Ada penyaluran kerja?', 'Kami memberikan fasilitas bimbingan karir (Career Prep) dan rekomendasi ke jaringan hiring partner bagi lulusan terbaik kami.')">Ada penyaluran kerja?</button>
-            <button onclick="askBot('Bagaimana cara mendaftar?', 'Anda bisa mendaftar dengan menekan tombol \'Konsultasi\' di menu atas atau hubungi WhatsApp kami di 0877-6233-4232.')">Bagaimana cara mendaftar?</button>
+            <button onclick="askBot('Jasa buat aplikasi apa saja?', 'Kami melayani pembuatan Website Company Profile, Sistem Informasi Manajemen, Toko Online, hingga Aplikasi Mobile (Android/iOS) custom.')">Jasa buat aplikasi apa saja?</button>
+            <button onclick="askBot('Berapa biaya buat aplikasi?', 'Biaya pembuatan aplikasi bergantung pada tingkat kerumitan fitur. Silakan tekan tombol Konsultasi agar tim kami dapat memberikan penawaran terbaik.')">Berapa biaya buat aplikasi?</button>
+            <button onclick="askBot('Berapa biaya kursus IT?', 'Biaya kursus bootcamp mulai dari Rp 1.500.000 hingga Rp 3.500.000. Tersedia juga sistem cicilan yang fleksibel!')">Berapa biaya kursus IT?</button>
+            <button onclick="askBot('Kelas kursus online/offline?', 'Kami menyediakan kelas reguler (offline) di ruko kami, dan kelas online interaktif via Zoom.')">Kelas kursus online/offline?</button>
+            <button onclick="askBot('Apakah dapat sertifikat kursus?', 'Ya! Lulusan kursus akan mendapatkan sertifikat kompetensi yang diakui dan bimbingan penyaluran kerja.')">Apakah dapat sertifikat kursus?</button>
+            <button onclick="askBot('Bagaimana cara konsultasi?', 'Anda bisa menghubungi tim kami dengan menekan tombol \'Konsultasi\' di menu atas atau hubungi WhatsApp kami di +62 814-7665-2656.')">Bagaimana cara konsultasi?</button>
         </div>
     </div>
     <div class="chatbot-footer">
@@ -767,8 +765,8 @@ function toggleChatbot(e) {
         <span class="footer-modal-close" onclick="closeFooterModal('faqModal')">&times;</span>
         <h2>Frequently Asked Questions (FAQ)</h2>
         <div class="footer-modal-body">
-            <h4>1. Apa itu Elcoding Academy?</h4>
-            <p>Elcoding Academy adalah lembaga kursus dan pelatihan IT yang fokus pada praktik dan pembentukan portofolio untuk menyiapkan talenta digital yang siap kerja.</p>
+            <h4>1. Apa itu Elcoding?</h4>
+            <p>Elcoding adalah Software House profesional penyedia jasa pembuatan website/aplikasi, sekaligus lembaga kursus dan pelatihan IT untuk menyiapkan talenta digital yang siap kerja.</p>
             <h4>2. Berapa lama durasi program kursus?</h4>
             <p>Durasi kursus bervariasi tergantung program yang dipilih, umumnya berkisar antara 2 hingga 4 bulan intensif.</p>
             <h4>3. Apakah ada fasilitas penyaluran kerja?</h4>
@@ -784,7 +782,7 @@ function toggleChatbot(e) {
         <span class="footer-modal-close" onclick="closeFooterModal('tncModal')">&times;</span>
         <h2>Syarat dan Ketentuan</h2>
         <div class="footer-modal-body">
-            <p>Dengan mengakses dan mendaftar di Elcoding Academy, Anda menyetujui syarat dan ketentuan berikut:</p>
+            <p>Dengan mengakses layanan Elcoding (baik jasa Software House maupun pendaftaran kursus), Anda menyetujui syarat dan ketentuan berikut:</p>
             <ul>
                 <li><strong>Pendaftaran:</strong> Peserta wajib mengisi data dengan benar dan melakukan pembayaran sesuai tagihan untuk mengamankan kursi kelas.</li>
                 <li><strong>Pembatalan:</strong> Pembatalan kelas hanya dapat dilakukan maksimal 7 hari sebelum kelas dimulai dengan potongan administrasi.</li>

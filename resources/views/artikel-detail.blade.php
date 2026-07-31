@@ -65,7 +65,7 @@
             <span class="article-share-title">Bagikan Artikel Ini:</span>
             <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
             <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://wa.me/6287762334232?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20artikel%20yang%20saya%20baca%20di%20website%20dan%20ingin%20berkonsultasi%20lebih%20lanjut." target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20artikel%20yang%20saya%20baca%20di%20website%20dan%20ingin%20berkonsultasi%20lebih%20lanjut." target="_blank"><i class="fab fa-whatsapp"></i></a>
         </div>
     </div>
 </x-layout>

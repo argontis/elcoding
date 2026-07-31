@@ -25,50 +25,31 @@
         </div>
     </form>
 
-    <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse modern-table">
-            <thead>
-                <tr>
-                    <th class="px-6 py-4 w-16 text-center">No</th>
-                    <th class="px-6 py-4 w-40">Logo Perusahaan</th>
-                    <th class="px-6 py-4">Nama Mitra</th>
-                    <th class="px-6 py-4 w-48">Ditambahkan Pada</th>
-                    <th class="px-6 py-4 text-center w-32">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($mitras as $index => $mitra)
-                <tr>
-                    <td class="px-6 py-4 text-center text-slate-500 font-medium">{{ $mitras->firstItem() + $index }}</td>
-                    <td class="px-6 py-4">
-                        <div class="w-20 h-12 bg-white rounded-lg flex items-center justify-center p-2 border border-slate-200 shadow-sm">
-                            <img src="{{ asset($mitra->logo_path) }}" class="max-h-full max-w-full object-contain" alt="{{ $mitra->name }}">
-                        </div>
-                    </td>
-                    <td class="px-6 py-4 font-bold text-slate-800">{{ $mitra->name }}</td>
-                    <td class="px-6 py-4 text-sm text-slate-500">{{ $mitra->created_at ? $mitra->created_at->format('d M Y') : '-' }}</td>
-                    <td class="px-6 py-4">
-                        <div class="flex items-center justify-center gap-2">
-                            <a href="{{ url('admin/mitra/'.$mitra->id.'/edit') }}" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-colors" title="Edit">
-                                <i class="fas fa-pen"></i>
-                            </a>
-                            <form action="{{ url('admin/mitra/'.$mitra->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus mitra ini?');" class="m-0 p-0">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-500 transition-colors" title="Hapus">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="5" class="px-6 py-8 text-center text-slate-500">Belum ada data mitra.</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+    <div class="p-8 bg-[#F5F3FF] rounded-2xl mx-4 mb-4">
+        <h2 class="text-3xl font-extrabold text-slate-800 text-center mb-10">Mitra</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-[1200px] mx-auto">
+            @forelse($mitras as $mitra)
+            <div class="relative group bg-white p-2 rounded-xl shadow-sm border border-slate-100 flex items-center justify-center aspect-[4/3] overflow-hidden">
+                <img src="{{ asset($mitra->logo_path) }}" alt="{{ $mitra->name }}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                
+                <!-- Action Buttons Overlay -->
+                <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl flex items-center justify-center gap-3 backdrop-blur-[2px]">
+                    <a href="{{ url('admin/mitra/'.$mitra->id.'/edit') }}" class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-blue-600 hover:scale-110 transition-transform shadow-lg" title="Edit">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                    <form action="{{ url('admin/mitra/'.$mitra->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus mitra ini?');" class="m-0 p-0">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-red-500 hover:scale-110 transition-transform shadow-lg" title="Hapus">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            @empty
+            <div class="col-span-full text-center py-12 text-slate-500">Belum ada data mitra.</div>
+            @endforelse
+        </div>
     </div>
     
     <div class="p-5 border-t border-slate-100">

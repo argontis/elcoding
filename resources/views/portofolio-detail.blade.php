@@ -81,7 +81,7 @@
                 </div>
                 
                 <div class="portfolio-sidebar-item" style="margin-top: 40px;">
-                    <a href="https://wa.me/6287762334232?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20proyek%20{{ urlencode($portofolio->title) }}%20dan%20ingin%20berkonsultasi%20untuk%20pembuatan%20proyek%20serupa." style="display: block; text-align: center; background: #2563EB; color: #fff; padding: 15px; border-radius: 12px; font-weight: 700; text-decoration: none; transition: all 0.3s ease;">Konsultasi Proyek <i class="fab fa-whatsapp" style="margin-left: 8px;"></i></a>
+                    <a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20proyek%20{{ urlencode($portofolio->title) }}%20dan%20ingin%20berkonsultasi%20untuk%20pembuatan%20proyek%20serupa." style="display: block; text-align: center; background: #2563EB; color: #fff; padding: 15px; border-radius: 12px; font-weight: 700; text-decoration: none; transition: all 0.3s ease;">Konsultasi Proyek <i class="fab fa-whatsapp" style="margin-left: 8px;"></i></a>
                 </div>
             </div>
         </div>

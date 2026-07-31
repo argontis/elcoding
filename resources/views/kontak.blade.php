@@ -60,7 +60,7 @@
                                 <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
                                 <div class="info-text">
                                     <strong>Telepon / WhatsApp</strong>
-                                    <span>0877-6233-4232 (Admin Edukasi)</span>
+                                    <span>+62 814-7665-2656 (Admin Edukasi)</span>
                                 </div>
                             </li>
                             <li>

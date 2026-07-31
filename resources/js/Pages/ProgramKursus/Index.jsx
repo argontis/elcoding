@@ -58,7 +58,7 @@ const Sidebar = () => {
         
         {/* Program Khusus (Aktif Berwarna Biru) */}
         <Link 
-          href="/program-khusus" 
+          href="/admin/program-khusus" 
           className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
             isActive('/program-khusus') 
               ? 'bg-blue-600 text-white shadow-sm shadow-blue-200' 
@@ -68,9 +68,9 @@ const Sidebar = () => {
           <GraduationCap className={`w-5 h-5 ${isActive('/program-khusus') ? 'text-white' : 'text-slate-400'}`} /> Program Khusus
         </Link>
         
-        {/* Artikel (Diperbaiki dari href="#" menjadi href="/artikel" agar bisa diklik) */}
+        {/* Artikel (Diperbaiki dari href="#" menjadi href="/admin/artikel" agar bisa diklik) */}
         <Link 
-          href="/artikel" 
+          href="/admin/artikel" 
           className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
             isActive('/artikel') 
               ? 'bg-blue-600 text-white shadow-sm shadow-blue-200' 
@@ -80,7 +80,7 @@ const Sidebar = () => {
           <FileText className={`w-5 h-5 ${isActive('/artikel') ? 'text-white' : 'text-slate-400'}`} /> Artikel
         </Link>
         
-        <Link href="/tentang-kami" className="flex items-center gap-3 text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-xl text-sm font-medium transition-all">
+        <Link href="/admin/tentang-kami" className="flex items-center gap-3 text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-xl text-sm font-medium transition-all">
           <Info className="w-5 h-5 text-slate-400" /> 
           <span className="leading-tight">Tentang Kami<br/><span className="text-[11px] font-normal text-slate-400">(Portfolio)</span></span>
         </Link>

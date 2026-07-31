@@ -53,23 +53,20 @@ const Sidebar = () => {
     <aside className="w-64 bg-[#F8FAFC] border-r border-slate-200 flex flex-col h-screen fixed left-0 top-0 z-20">
       {/* Logo Area */}
       <div className="p-6 flex items-center gap-3">
-        <div className="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center shadow-md shadow-blue-500/20">
-          <GraduationCap className="w-6 h-6" />
-        </div>
-        <div className="leading-tight">
-          <h1 className="text-[15px] font-bold text-blue-700">Elcoding<br />Academy</h1>
-          <p className="text-[10px] font-medium text-slate-400">Admin Console</p>
+        <div className="bg-white rounded-xl px-3 py-2.5 w-full flex items-center justify-center shadow-sm border border-slate-200">
+            <img src="/gambar/aset/logo-elcoding.svg" alt="Elcoding" className="h-6 object-contain" />
+            <span className="text-[9px] font-bold text-blue-600 uppercase tracking-wider ml-2 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100">ADMIN</span>
         </div>
       </div>
 
       {/* Action Button */}
       <div className="px-5 mb-6">
-        <Link 
-          href="/program-khusus" 
+        <a 
+          href="/admin/program-kursus/create" 
           className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-2.5 flex items-center justify-center gap-2 text-sm font-semibold shadow-sm transition-all"
         >
           <Plus className="w-4 h-4" /> New Program
-        </Link>
+        </a>
       </div>
 
       {/* Navigation Links */}
@@ -85,51 +82,33 @@ const Sidebar = () => {
           <Home className={`w-5 h-5 ${isActive('/dashboard') || url === '/' ? 'text-white' : 'text-slate-400'}`} /> Beranda
         </Link>
         
-        <Link 
-          href="/program-khusus" 
-          className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-            isActive('/program-khusus') 
-              ? 'bg-blue-600 text-white shadow-sm shadow-blue-200' 
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
+        <a 
+          href="/admin/mitra" 
+          className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-600 hover:bg-slate-100"
         >
-          <Banknote className={`w-5 h-5 ${isActive('/program-khusus') ? 'text-white' : 'text-slate-400'}`} />
-          <span className="leading-tight">Program Kursus<br/><span className={`text-[11px] font-normal ${isActive('/program-khusus') ? 'text-blue-100' : 'text-slate-400'}`}>(Paid)</span></span>
-        </Link>
+          <Users className="w-5 h-5 text-slate-400" /> Klien & Mitra
+        </a>
+
+        <a 
+          href="/admin/program-kursus" 
+          className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-600 hover:bg-slate-100"
+        >
+          <GraduationCap className="w-5 h-5 text-slate-400" /> Program Kursus
+        </a>
         
-        <Link 
-          href="/artikel" 
-          className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-            isActive('/artikel') 
-              ? 'bg-blue-600 text-white shadow-sm shadow-blue-200' 
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
+        <a 
+          href="/admin/portofolio" 
+          className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-600 hover:bg-slate-100"
         >
-          <FileText className={`w-5 h-5 ${isActive('/artikel') ? 'text-white' : 'text-slate-400'}`} /> Artikel
-        </Link>
+          <Briefcase className="w-5 h-5 text-slate-400" /> Portofolio Project
+        </a>
         
-        <Link 
-          href="/tentang-kami" 
-          className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-            isActive('/tentang-kami') 
-              ? 'bg-blue-600 text-white shadow-sm shadow-blue-200' 
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
+        <a 
+          href="/admin/artikel" 
+          className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-600 hover:bg-slate-100"
         >
-          <Info className="w-5 h-5 text-slate-400" /> 
-          <span className="leading-tight">Tentang Kami<br/><span className="text-[11px] text-slate-400 font-normal">(Portfolio)</span></span>
-        </Link>
-        
-        <Link 
-          href="/kontak" 
-          className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-            isActive('/kontak') 
-              ? 'bg-blue-600 text-white shadow-sm shadow-blue-200' 
-              : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <Contact className="w-5 h-5 text-slate-400" /> Kontak (Addresses)
-        </Link>
+          <FileText className="w-5 h-5 text-slate-400" /> Blog & Artikel
+        </a>
       </nav>
 
       {/* Footer Links */}
@@ -386,10 +365,10 @@ export default function Dashboard({
                 <h3 className="text-base font-bold mb-1">Platform Overview</h3>
                 <p className="text-xs text-blue-100 mb-4 leading-relaxed">Manage all academy operations from one central command center.</p>
                 <div className="grid grid-cols-2 gap-2.5">
-                  <QuickAction label="Manage Paid Courses" icon={LayoutGrid} href="/program-khusus" />
-                  <QuickAction label="Post New Article" icon={FilePlus} href="/artikel" />
-                  <QuickAction label="Update Portfolio" icon={Briefcase} href="/tentang-kami" />
-                  <QuickAction label="Edit Location Info" icon={MapPin} href="/kontak" />
+                  <QuickAction label="Manage Paid Courses" icon={LayoutGrid} href="/admin/program-kursus" />
+                  <QuickAction label="Post New Article" icon={FilePlus} href="/admin/artikel" />
+                  <QuickAction label="Update Portfolio" icon={Briefcase} href="/admin/portofolio" />
+                  <QuickAction label="Manage Partners" icon={Users} href="/admin/mitra" />
                 </div>
               </div>
 
@@ -431,7 +410,7 @@ export default function Dashboard({
                 <h3 className="text-base font-bold text-slate-800">Recent Activity</h3>
                 <p className="text-xs text-slate-400">Real-time database updates from students & staff</p>
               </div>
-              <Link href="/program-khusus" className="text-xs font-semibold text-blue-600 hover:underline">
+              <Link href="/admin/program-khusus" className="text-xs font-semibold text-blue-600 hover:underline">
                 View All Activities
               </Link>
             </div>

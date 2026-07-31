@@ -154,12 +154,12 @@ export default function TentangKamiPublic() {
       </section>
 
       {/* ================= MITRA ================= */}
-      <section className="bg-white py-16 border-y border-slate-100 mb-20">
+      <section className="py-16 mb-20">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h2 className="text-2xl font-bold text-slate-900 mb-8">Mitra</h2>
           <div className="flex flex-wrap justify-center items-center gap-6">
             {['Mitra Korporasi 1', 'Universitas Mitra', 'Lembaga Pendidikan'].map((m, i) => (
-              <div key={i} className="h-20 px-10 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-center font-bold text-slate-400 text-sm">
+              <div key={i} className="h-20 px-10 bg-transparent border-2 border-purple-600 rounded-2xl flex items-center justify-center font-bold text-purple-700 text-sm">
                 {m}
               </div>
             ))}
@@ -257,7 +257,7 @@ export default function TentangKamiPublic() {
             <h4 className="font-bold text-slate-900 text-sm mb-4 border-b-2 border-blue-600 inline-block pb-1">Informasi Kontak</h4>
             <div className="space-y-4 text-sm text-slate-600 mb-6">
               <p className="flex items-start gap-3"><MapPin className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" /> <span>Ruko Citraland, Tegal, Jawa Tengah</span></p>
-              <p className="flex items-center gap-3"><Phone className="w-4 h-4 text-emerald-500 shrink-0" /> <span>Admin: 0877-6233-4232</span></p>
+              <p className="flex items-center gap-3"><Phone className="w-4 h-4 text-emerald-500 shrink-0" /> <span>Admin: +62 814-7665-2656</span></p>
               <p className="flex items-center gap-3"><Mail className="w-4 h-4 text-blue-600 shrink-0" /> <span>info@elcodingacademy.com</span></p>
             </div>
             <div className="flex gap-4 text-xs font-bold text-blue-600">
@@ -275,7 +275,7 @@ export default function TentangKamiPublic() {
 
       {/* Floating WhatsApp */}
       <a 
-        href="https://wa.me/6287762334232" 
+        href="https://wa.me/6281476652656"
         target="_blank" 
         rel="noreferrer"
         className="fixed bottom-6 right-6 w-14 h-14 bg-emerald-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/30 hover:scale-110 transition-transform z-50"

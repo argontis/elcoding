@@ -12,9 +12,19 @@ class AdminSeeder extends Seeder
 {
     public function run(): void
     {
-        Mitra::create(['name' => 'Icon Nutrition', 'logo_path' => 'assets/wp-content/uploads/2026/02/Icon-Nutrition.webp']);
-        Mitra::create(['name' => 'Ilmu Ekonomi Syariah IPB', 'logo_path' => 'assets/wp-content/uploads/2026/02/Ilmu-Ekonomi-Syariah-IPB.webp']);
-        Mitra::create(['name' => 'Es Teh Dawoon', 'logo_path' => 'assets/wp-content/uploads/2026/02/Es-Teh-Dawoon.webp']);
+        Mitra::create(['name' => 'Partner Logo 1 (1)', 'logo_path' => 'gambar/mitra/Partner_Logo_1__1_.svg']);
+        Mitra::create(['name' => 'Partner Logo 1 (2)', 'logo_path' => 'gambar/mitra/Partner_Logo_1__2_.svg']);
+        Mitra::create(['name' => 'Partner Logo 1', 'logo_path' => 'gambar/mitra/Partner_Logo_1.svg']);
+        Mitra::create(['name' => 'Partner Logo 2 (1)', 'logo_path' => 'gambar/mitra/Partner_Logo_2__1_.svg']);
+        Mitra::create(['name' => 'Partner Logo 2', 'logo_path' => 'gambar/mitra/Partner_Logo_2.svg']);
+        Mitra::create(['name' => 'Partner Logo 3 (1)', 'logo_path' => 'gambar/mitra/Partner_Logo_3__1_.svg']);
+        Mitra::create(['name' => 'Partner Logo 3', 'logo_path' => 'gambar/mitra/Partner_Logo_3.png']);
+        Mitra::create(['name' => 'Partner Logo 3', 'logo_path' => 'gambar/mitra/Partner_Logo_3.svg']);
+        Mitra::create(['name' => 'Partner Logo 4 (1)', 'logo_path' => 'gambar/mitra/Partner_Logo_4__1_.svg']);
+        Mitra::create(['name' => 'Partner Logo 4 (2)', 'logo_path' => 'gambar/mitra/Partner_Logo_4__2_.svg']);
+        Mitra::create(['name' => 'Partner Logo 4', 'logo_path' => 'gambar/mitra/Partner_Logo_4.svg']);
+        Mitra::create(['name' => 'Partner Logo 5 (1)', 'logo_path' => 'gambar/mitra/Partner_Logo_5__1_.svg']);
+        Mitra::create(['name' => 'Partner Logo 5', 'logo_path' => 'gambar/mitra/Partner_Logo_5.svg']);
 
         ProgramKursus::create(['title' => 'Bootcamp Intensif Full Stack Web Dev', 'duration' => '4 Bulan', 'price' => 'Rp2.500.000', 'badge' => 'Recommended']);
         ProgramKursus::create(['title' => 'Mastering Skill UI/UX Design', 'duration' => '3 Bulan', 'price' => 'Rp1.800.000', 'badge' => 'Terlaris']);

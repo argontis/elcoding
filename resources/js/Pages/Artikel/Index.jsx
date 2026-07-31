@@ -56,16 +56,16 @@ const Sidebar = () => (
       </Link>
       
       {/* Ke Program Khusus */}
-      <Link href="/program-khusus" className="flex items-center gap-3 text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-xl text-sm font-medium transition-all">
+      <Link href="/admin/program-khusus" className="flex items-center gap-3 text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-xl text-sm font-medium transition-all">
         <GraduationCap className="w-5 h-5 text-slate-400" /> Program Khusus
       </Link>
       
       {/* Menu Aktif: Artikel */}
-      <Link href="/artikel" className="flex items-center gap-3 bg-blue-600 text-white px-4 py-3 rounded-xl text-sm font-medium shadow-sm shadow-blue-200 transition-all">
+      <Link href="/admin/artikel" className="flex items-center gap-3 bg-blue-600 text-white px-4 py-3 rounded-xl text-sm font-medium shadow-sm shadow-blue-200 transition-all">
         <FileText className="w-5 h-5" /> Artikel
       </Link>
       
-      <Link href="/tentang-kami" className="flex items-center gap-3 text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-xl text-sm font-medium transition-all">
+      <Link href="/admin/tentang-kami" className="flex items-center gap-3 text-slate-600 hover:bg-slate-50 px-4 py-3 rounded-xl text-sm font-medium transition-all">
         <Info className="w-5 h-5 text-slate-400" /> 
         <span className="leading-tight">Tentang Kami<br/><span className="text-[11px] font-normal text-slate-400">(Portfolio)</span></span>
       </Link>

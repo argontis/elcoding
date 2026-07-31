@@ -70,7 +70,7 @@ export default function KontakPublic() {
                 </div>
                 <div>
                   <p className="text-[11px] font-bold tracking-wider text-emerald-600 uppercase mb-0.5">Telepon / WhatsApp</p>
-                  <p className="text-sm text-slate-700 leading-snug">0877-6233-4232 (Admin Edukasi)</p>
+                  <p className="text-sm text-slate-700 leading-snug">+62 814-7665-2656 (Admin Edukasi)</p>
                 </div>
               </div>
 
@@ -217,7 +217,7 @@ export default function KontakPublic() {
             <h4 className="font-bold text-white text-sm mb-4">Informasi Kontak</h4>
             <div className="space-y-3 text-xs text-slate-400 mb-6">
               <p className="flex items-start gap-2"><MapPin className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" /> Ruko Citraland, Tegal, Jawa Tengah</p>
-              <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-emerald-500 shrink-0" /> Admin: 0877-6233-4232</p>
+              <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-emerald-500 shrink-0" /> Admin: +62 814-7665-2656</p>
               <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-blue-500 shrink-0" /> info@elcodingacademy.com</p>
             </div>
             <div className="flex gap-3">
@@ -236,7 +236,7 @@ export default function KontakPublic() {
 
       {/* Floating WhatsApp */}
       <a 
-        href="https://wa.me/6287762334232" 
+        href="https://wa.me/6281476652656" 
         target="_blank" 
         rel="noreferrer"
         className="fixed bottom-6 right-6 w-14 h-14 bg-emerald-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/30 hover:scale-110 transition-transform z-50"

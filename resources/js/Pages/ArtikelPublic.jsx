@@ -168,7 +168,7 @@ export default function ArtikelPublic() {
               </p>
               <p className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-emerald-500 shrink-0" /> 
-                <span>Admin: 0877-6233-4232</span>
+                <span>Admin: +62 814-7665-2656</span>
               </p>
               <p className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-blue-600 shrink-0" /> 
@@ -193,7 +193,7 @@ export default function ArtikelPublic() {
 
       {/* ================= FLOATING WHATSAPP BUTTON ================= */}
       <a 
-        href="https://wa.me/6287762334232" 
+        href="https://wa.me/6281476652656" 
         target="_blank" 
         rel="noreferrer"
         className="fixed bottom-6 right-6 w-14 h-14 bg-emerald-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/30 hover:scale-110 transition-transform z-50"

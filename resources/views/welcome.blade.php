@@ -399,6 +399,18 @@
                         <ul class="program-features">
                             <li><i class="fas fa-check-circle" style="color: #2563EB;"></i> <span>Durasi belajar <strong>{{ $program->duration }}</strong></span></li>
                         </ul>
+                        <div class="program-features-content">
+                            @if($program->features)
+                                {!! $program->features !!}
+                            @else
+                                <ul>
+                                    <li>Materi <strong>Sesuai Kurikulum Industri</strong></li>
+                                    <li>Pembelajaran <strong>Project Based</strong></li>
+                                    <li>Didampingi <strong>Mentor Expert</strong></li>
+                                    <li>Mendapat <strong>Sertifikat Kompetensi</strong></li>
+                                </ul>
+                            @endif
+                        </div>
                     </div>
                     <div class="program-card-footer">
                         <div class="program-price-wrap">
@@ -431,6 +443,16 @@
         .program-features li i { color: #2563EB; font-size: 20px; margin-top: 2px; }
         .program-features li span { flex: 1; }
         .program-features li strong { color: #1F2937; }
+        .program-features-content { margin-top: 16px; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; }
+        .program-features-content p { font-size: 15px; color: #4B5563; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 12px; line-height: 1.5; }
+        .program-features-content p::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #2563EB; font-size: 20px; margin-top: 2px; }
+        .program-features-content p br { display: none; }
+        .program-features-content ul { list-style: none; padding: 0; margin: 0; }
+        .program-features-content ul li { font-size: 15px; color: #4B5563; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 12px; line-height: 1.5; }
+        .program-features-content ul li::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #2563EB; font-size: 20px; margin-top: 2px; }
+        .program-features-content ol { list-style: decimal; padding-left: 20px; margin-bottom: 16px; }
+        .program-features-content ol li { font-size: 15px; color: #4B5563; margin-bottom: 8px; }
+        .program-features-content strong { color: #1F2937; }
         .program-card-footer { padding: 0 30px 30px 30px; }
         .program-price-wrap { margin-bottom: 20px; text-align: left; }
         .price-value { font-size: 22px !important; font-weight: 800; color: #2563EB; line-height: 1; }

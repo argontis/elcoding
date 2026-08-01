@@ -3,7 +3,7 @@ import { Head, Link } from '@inertiajs/react';
 import { 
   GraduationCap, Award, Cpu, Briefcase, Users, 
   BookOpen, Code, ShieldCheck, ArrowRight, CheckCircle2, 
-  MessageCircle, Phone, Mail, MapPin, Globe
+  MessageCircle, Phone, Mail, MapPin, Globe, Check
 } from 'lucide-react';
 
 export default function Welcome({ canLogin, canRegister }) {
@@ -146,7 +146,90 @@ export default function Welcome({ canLogin, canRegister }) {
           ))}
         </div>
       </section>
+      {/* ================= PROGRAM KURSUS (BOOTCAMP) ================= */}
+      <section className="bg-slate-50 py-20 border-y border-slate-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-extrabold text-slate-900 mb-3">Pilihan Program Kursus</h2>
+            <p className="text-slate-500 text-sm">Program unggulan kami yang dirancang khusus untuk kebutuhan industri saat ini.</p>
+          </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Card 1: Full Stack Web Dev */}
+            <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between relative overflow-hidden">
+              <div>
+                <span className="absolute top-4 left-0 bg-purple-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-r-xl uppercase tracking-wider shadow-[0_4px_15px_rgba(139,92,246,0.4)] z-10">★ Recommended</span>
+                <h3 className="text-xl font-bold text-slate-900 mt-6 mb-3">Bootcamp Intensif Full Stack Web Dev</h3>
+                <ul className="space-y-3 text-xs text-slate-600 mb-8">
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Durasi Belajar 4 Bulan</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Materi Sesuai Kurikulum Industri</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Pembelajaran Project Based</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Didampingi Mentor Expert</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Mendapat Sertifikat Kompetensi</li>
+                </ul>
+              </div>
+              <div>
+                <div className="mb-4">
+                  <span className="text-xs text-slate-400">Mulai dari</span>
+                  <h4 className="text-2xl font-extrabold text-blue-600">Rp 2.500.000</h4>
+                </div>
+                <a href="https://wa.me/" target="_blank" rel="noreferrer" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2">
+                  Konsultasi Sekarang <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
+            {/* Card 2: UI/UX Design */}
+            <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between relative overflow-hidden">
+              <div>
+                <span className="absolute top-4 left-0 bg-red-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-r-xl uppercase tracking-wider shadow-[0_4px_15px_rgba(239,68,68,0.4)] z-10">🔥 Terlaris</span>
+                <h3 className="text-xl font-bold text-slate-900 mt-6 mb-3">Mastering Skill UI/UX Design</h3>
+                <ul className="space-y-3 text-xs text-slate-600 mb-8">
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Durasi Belajar 3 Bulan</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Materi Standard Industri Dunia</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Pembelajaran Project Based</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Didampingi Mentor Expert</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Mendapat Sertifikat Kompetensi</li>
+                </ul>
+              </div>
+              <div>
+                <div className="mb-4">
+                  <span className="text-xs text-slate-400">Mulai dari</span>
+                  <h4 className="text-2xl font-extrabold text-blue-600">Rp 1.800.000</h4>
+                </div>
+                <a href="https://wa.me/" target="_blank" rel="noreferrer" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2">
+                  Konsultasi Sekarang <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
+            {/* Card 3: Digital Marketing */}
+            <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between relative overflow-hidden">
+              <div>
+                <span className="absolute top-4 left-0 bg-blue-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-r-xl uppercase tracking-wider shadow-[0_4px_15px_rgba(59,130,246,0.4)] z-10">Professional</span>
+                <h3 className="text-xl font-bold text-slate-900 mt-6 mb-3">Professional Class Digital Marketing</h3>
+                <ul className="space-y-3 text-xs text-slate-600 mb-8">
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Durasi Belajar 2 Bulan</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Sertifikasi Meta & Google Ads</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Pembelajaran Project Based</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Didampingi Mentor Expert</li>
+                  <li className="flex items-start gap-2"><Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" /> Mendapat Sertifikat Kompetensi</li>
+                </ul>
+              </div>
+              <div>
+                <div className="mb-4">
+                  <span className="text-xs text-slate-400">Mulai dari</span>
+                  <h4 className="text-2xl font-extrabold text-blue-600">Rp 1.500.000</h4>
+                </div>
+                <a href="https://wa.me/" target="_blank" rel="noreferrer" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2">
+                  Konsultasi Sekarang <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
       {/* ================= MITRA ================= */}
       <section id="mitra" className="py-16 bg-white border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-6 text-center">

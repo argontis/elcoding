@@ -1,5 +1,13 @@
+@php 
+    $images = ['Magang-Online.webp', 'Skill-Lab.webp', 'Magang-Mahasiswa.webp'];
+    $randomImg = $images[$artikel->id % 3];
+    $bgImage = $artikel->image_path ? asset($artikel->image_path) : asset('assets/wp-content/uploads/2026/02/'.$randomImg);
+    $excerpt = Str::limit(strip_tags($artikel->content ?? 'Artikel informatif dari Elcoding.'), 150);
+@endphp
 <x-layout>
-    <x-slot:title>Detail Artikel - Elcoding Academy</x-slot>
+    <x-slot:title>{{ $artikel->title }}</x-slot>
+    <x-slot:description>{{ $excerpt }}</x-slot>
+    <x-slot:ogImage>{{ $bgImage }}</x-slot>
 
     <style>
         .article-hero { position: relative; padding: 80px 20px 100px 20px; text-align: center; background: #1F2937; color: #fff; }
@@ -46,11 +54,6 @@
     </div>
 
     <div class="article-container">
-        @php 
-            $images = ['Magang-Online.webp', 'Skill-Lab.webp', 'Magang-Mahasiswa.webp'];
-            $randomImg = $images[$artikel->id % 3];
-            $bgImage = $artikel->image_path ? asset($artikel->image_path) : asset('assets/wp-content/uploads/2026/02/'.$randomImg);
-        @endphp
         <img src="{{ $bgImage }}" alt="{{ $artikel->title }}" class="article-featured-image">
         
         <div class="article-content">
@@ -68,4 +71,30 @@
             <a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20artikel%20yang%20saya%20baca%20di%20website%20dan%20ingin%20berkonsultasi%20lebih%20lanjut." target="_blank"><i class="fab fa-whatsapp"></i></a>
         </div>
     </div>
+@push('schema')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ $artikel->title }}",
+  "image": [
+    "{{ $bgImage }}"
+  ],
+  "datePublished": "{{ $artikel->published_at ? \Carbon\Carbon::parse($artikel->published_at)->toIso8601String() : $artikel->created_at->toIso8601String() }}",
+  "dateModified": "{{ $artikel->updated_at->toIso8601String() }}",
+  "author": [{
+      "@type": "Person",
+      "name": "{{ $artikel->author->name ?? 'Admin Elcoding' }}"
+  }],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Elcoding Academy",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ asset('gambar/aset/logo-elcoding.png') }}"
+    }
+  }
+}
+</script>
+@endpush
 </x-layout>

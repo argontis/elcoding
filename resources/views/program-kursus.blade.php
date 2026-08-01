@@ -278,4 +278,31 @@
         }
     </style>
 
+@push('schema')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    @foreach($programs as $index => $program)
+    {
+      "@type": "ListItem",
+      "position": {{ $index + 1 }},
+      "item": {
+        "@type": "Course",
+        "url": "{{ url('/program-kursus') }}",
+        "name": "{{ $program->title }}",
+        "description": "Program Bootcamp intensif dengan durasi {{ $program->duration }}",
+        "provider": {
+          "@type": "Organization",
+          "name": "Elcoding Academy",
+          "sameAs": "{{ url('/') }}"
+        }
+      }
+    }{{ !$loop->last ? ',' : '' }}
+    @endforeach
+  ]
+}
+</script>
+@endpush
 </x-layout>

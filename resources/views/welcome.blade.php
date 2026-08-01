@@ -688,4 +688,24 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+@push('schema')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Elcoding Academy",
+  "image": "{{ asset('gambar/aset/logo-elcoding.png') }}",
+  "@id": "{{ url('/') }}",
+  "url": "{{ url('/') }}",
+  "telephone": "+6281476652656",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Ruko Citraland",
+    "addressLocality": "Tegal",
+    "addressRegion": "Jawa Tengah",
+    "addressCountry": "ID"
+  }
+}
+</script>
+@endpush
 </x-layout>

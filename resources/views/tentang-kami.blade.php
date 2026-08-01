@@ -861,4 +861,18 @@ function closeLightbox() {
 <style>
 .global-subtitle-pill { display: inline-block; color: #6D28D9; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
 </style>
+@push('schema')
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Elcoding Academy",
+    "description": "Lembaga Kursus dan Pelatihan IT terpadu berbasis praktik dan Software House profesional.",
+    "url": "{{ url('/') }}"
+  }
+}
+</script>
+@endpush
 </x-layout>

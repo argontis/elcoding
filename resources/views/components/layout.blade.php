@@ -13,15 +13,15 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="{{ isset($title) ? $title . ' | Elcoding' : 'Elcoding - Software House & IT Training Center' }}">
-    <meta property="og:description" content="{{ $description ?? 'Software House profesional dan Lembaga Kursus Pelatihan IT terpadu.' }}">
-    <meta property="og:image" content="{{ asset('gambar/aset/logo-elcoding.png') }}">
+    <meta property="og:description" content="{{ $description ?? 'Software House profesional dan Lembaga Kursus Pelatihan IT terpadu. Menyediakan jasa pembuatan aplikasi, website, dan program bootcamp IT terlengkap.' }}">
+    <meta property="og:image" content="{{ $ogImage ?? asset('gambar/aset/logo-elcoding.png') }}">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="{{ url()->current() }}">
     <meta name="twitter:title" content="{{ isset($title) ? $title . ' | Elcoding' : 'Elcoding - Software House & IT Training Center' }}">
-    <meta name="twitter:description" content="{{ $description ?? 'Software House profesional dan Lembaga Kursus Pelatihan IT terpadu.' }}">
-    <meta name="twitter:image" content="{{ asset('gambar/aset/logo-elcoding.png') }}">
+    <meta name="twitter:description" content="{{ $description ?? 'Software House profesional dan Lembaga Kursus Pelatihan IT terpadu. Menyediakan jasa pembuatan aplikasi, website, dan program bootcamp IT terlengkap.' }}">
+    <meta name="twitter:image" content="{{ $ogImage ?? asset('gambar/aset/logo-elcoding.png') }}">
 
     <link rel="icon" href="{{ asset('gambar/aset/logo-elcoding.svg') }}" type="image/svg+xml">
 	
@@ -239,6 +239,9 @@
             }
         }
     </style>
+    
+    <!-- JSON-LD Schema Stack -->
+    @stack('schema')
 </head>
 <body class="home wp-singular page-template page-template-elementor_header_footer page wp-embed-responsive wp-theme-hello-elementor wp-child-theme-hello-elementor-child hello-elementor-default elementor-default elementor-template-full-width elementor-page elementor-kit-7138 elementor-page-6296">
 

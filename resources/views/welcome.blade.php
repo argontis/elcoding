@@ -1,4 +1,7 @@
 <x-layout title="Elcoding Academy - Belajar Skill Digital untuk Masa Depan">
+@push('preload')
+<link rel="preload" as="image" href="{{ asset('assets/wp-content/uploads/2023/01/ikon-1.svg') }}">
+@endpush
 
 @push('styles')
 <style>

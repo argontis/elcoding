@@ -1,4 +1,7 @@
-<x-layout title="Kontak - Elcoding Academy">
+<x-layout title="Hubungi Kami - Elcoding Academy">
+@push('preload')
+<link rel="preload" as="image" href="{{ asset('assets/wp-content/uploads/2026/02/Hubungi-Kami.jpg') }}">
+@endpush
 
     @push('styles')
     <link rel='stylesheet' id='elementor-post-11887-css' href='{{ asset("css/post-11887.css") }}' media='all' />

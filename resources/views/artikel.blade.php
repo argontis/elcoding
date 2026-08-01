@@ -1,4 +1,7 @@
-<x-layout title="Artikel - Elcoding Academy">
+<x-layout title="Blog & Artikel - Elcoding Academy">
+@push('preload')
+<link rel="preload" as="image" href="{{ asset('gambar/aset/Untitled-1.png') }}">
+@endpush
 
     @push('styles')
     <link rel='stylesheet' id='elementor-post-11887-css' href='{{ asset("css/post-11887.css") }}' media='all' />

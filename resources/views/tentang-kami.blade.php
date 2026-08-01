@@ -1,4 +1,7 @@
 <x-layout title="Tentang Kami - Elcoding Academy">
+@push('preload')
+<link rel="preload" as="image" href="{{ asset('gambar/aset/Untitled-1.png') }}">
+@endpush
 
 <!doctype html>
 <html lang="en-US">

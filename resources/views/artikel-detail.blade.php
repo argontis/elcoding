@@ -8,6 +8,10 @@
     <x-slot:title>{{ $artikel->title }}</x-slot>
     <x-slot:description>{{ $excerpt }}</x-slot>
     <x-slot:ogImage>{{ $bgImage }}</x-slot>
+    
+    @push('preload')
+    <link rel="preload" as="image" href="{{ $bgImage }}">
+    @endpush
 
     <style>
         .article-hero { position: relative; padding: 80px 20px 100px 20px; text-align: center; background: #1F2937; color: #fff; }

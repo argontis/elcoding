@@ -24,12 +24,17 @@
     <meta name="twitter:image" content="{{ $ogImage ?? asset('gambar/aset/logo-elcoding.png') }}">
 
     <link rel="icon" href="{{ asset('gambar/aset/logo-elcoding.svg') }}" type="image/svg+xml">
-	
+    
+    <!-- LCP Preload Stack -->
+    @stack('preload')
+    
     <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}"></noscript>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"></noscript>
     
     <link rel='stylesheet' id='parent-style-css' href='{{ asset("assets/wp-content/themes/hello-elementor/style.css") }}' media='all' />
     <link rel='stylesheet' id='child-style-css' href='{{ asset("assets/wp-content/themes/hello-elementor-child/style.css") }}' media='all' />
@@ -38,24 +43,26 @@
     <link rel='stylesheet' id='hello-elementor-theme-style-css' href='{{ asset("assets/wp-content/themes/hello-elementor/assets/css/theme.css") }}' media='all' />
     <link rel='stylesheet' id='hello-elementor-header-footer-css' href='{{ asset("assets/wp-content/themes/hello-elementor/assets/css/header-footer.css") }}' media='all' />
     <link rel='stylesheet' id='elementor-frontend-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/frontend.min.css") }}' media='all' />
-    <link rel='stylesheet' id='widget-nav-menu-css' href='{{ asset("assets/wp-content/plugins/pro-elements/assets/css/widget-nav-menu.min.css") }}' media='all' />
-    <link rel='stylesheet' id='widget-image-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-image.min.css") }}' media='all' />
-    <link rel='stylesheet' id='e-sticky-css' href='{{ asset("assets/wp-content/plugins/pro-elements/assets/css/modules/sticky.min.css") }}' media='all' />
-    <link rel='stylesheet' id='widget-heading-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-heading.min.css") }}' media='all' />
-    <link rel='stylesheet' id='widget-breadcrumbs-css' href='{{ asset("assets/wp-content/plugins/pro-elements/assets/css/widget-breadcrumbs.min.css") }}' media='all' />
-    <link rel='stylesheet' id='widget-divider-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-divider.min.css") }}' media='all' />
-    <link rel='stylesheet' id='widget-spacer-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-spacer.min.css") }}' media='all' />
-    <link rel='stylesheet' id='widget-icon-list-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css") }}' media='all' />
-    <link rel='stylesheet' id='e-animation-shrink-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/lib/animations/styles/e-animation-shrink.min.css") }}' media='all' />
-    <link rel='stylesheet' id='widget-social-icons-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css") }}' media='all' />
-    <link rel='stylesheet' id='elementor-icons-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css") }}' media='all' />
-    <link rel='stylesheet' id='elementor-post-7138-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-7138.css") }}' media='all' />
-    <link rel='stylesheet' id='swiper-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css") }}' media='all' />
-    <link rel='stylesheet' id='widget-image-carousel-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css") }}' media='all' />
-    <link rel='stylesheet' id='widget-icon-box-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-icon-box.min.css") }}' media='all' />
-    <link rel='stylesheet' id='elementor-post-6296-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-6296.css") }}' media='all' />
-    <link rel='stylesheet' id='elementor-post-11887-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-11887.css") }}' media='all' />
-    <link rel='stylesheet' id='elementor-post-8310-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-8310.css") }}' media='all' />
+    
+    <!-- Deferred Widget CSS -->
+    <link rel='stylesheet' id='widget-nav-menu-css' href='{{ asset("assets/wp-content/plugins/pro-elements/assets/css/widget-nav-menu.min.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='widget-image-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-image.min.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='e-sticky-css' href='{{ asset("assets/wp-content/plugins/pro-elements/assets/css/modules/sticky.min.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='widget-heading-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-heading.min.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='widget-breadcrumbs-css' href='{{ asset("assets/wp-content/plugins/pro-elements/assets/css/widget-breadcrumbs.min.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='widget-divider-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-divider.min.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='widget-spacer-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-spacer.min.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='widget-icon-list-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='e-animation-shrink-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/lib/animations/styles/e-animation-shrink.min.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='widget-social-icons-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='elementor-icons-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='elementor-post-7138-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-7138.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='swiper-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='widget-image-carousel-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='widget-icon-box-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-icon-box.min.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='elementor-post-6296-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-6296.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='elementor-post-11887-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-11887.css") }}' media="print" onload="this.media='all'" />
+    <link rel='stylesheet' id='elementor-post-8310-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-8310.css") }}' media="print" onload="this.media='all'" />
     
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }

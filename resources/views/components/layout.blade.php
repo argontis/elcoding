@@ -269,7 +269,7 @@
             </button>
 
             <div class="elementor-element elementor-element-5928938 elementor-nav-menu--dropdown-none elementor-widget elementor-widget-nav-menu" data-id="5928938" data-element_type="widget" data-e-type="widget" data-settings="{&quot;layout&quot;:&quot;horizontal&quot;,&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;&lt;i class=\&quot;fas fa-caret-down\&quot; aria-hidden=\&quot;true\&quot;&gt;&lt;\/i&gt;&quot;,&quot;library&quot;:&quot;fa-solid&quot;}}" data-widget_type="nav-menu.default" id="main-nav">
-                <nav aria-label="Menu" class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-text e--animation-skew">
+                <nav aria-label="Menu" class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal">
                     <ul id="menu-1-5928938" class="elementor-nav-menu">
                         <li class="menu-item menu-item-home"><a href="{{ url('/') }}" class="elementor-item {{ request()->is('/') ? 'elementor-item-active' : '' }}">Beranda</a></li>
                         <li class="menu-item"><a href="{{ url('/tentang-kami') }}" class="elementor-item {{ request()->is('tentang-kami') ? 'elementor-item-active' : '' }}">Tentang Kami</a></li>

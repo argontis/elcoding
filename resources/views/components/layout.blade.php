@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             <h3 class="footer-heading">Jam Operasional</h3>
             <ul class="footer-list icon-list">
-                <li><i class="far fa-clock"></i> Senin - Sabtu (08.00 - 20.00 WIB)</li>
+                <li><i class="far fa-clock"></i> Senin - Sabtu (08.00 - 17.00 WIB)</li>
                 <li><i class="far fa-calendar-times"></i> Minggu (Libur)</li>
             </ul>
         </div>

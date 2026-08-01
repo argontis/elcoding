@@ -687,50 +687,6 @@ text-decoration:underline;
     <x-mitra mode="grid" theme="transparent" style="--mitra-margin-top: 0; padding: 0;" />
 <div class="elementor-element elementor-element-6a05cc7 e-flex e-con-boxed e-con e-parent" data-id="6a05cc7" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
-
-					<div class="elementor-element e-flex e-con-boxed e-con e-parent" data-element_type="container" style="padding: 60px 0; background-color: #ffffff;">
-    <div class="e-con-inner" style="flex-direction: column; width: 100%; max-width: 1200px; margin: 0 auto;">
-        
-        <!-- Header Title -->
-        <div class="elementor-element e-con-full e-flex e-con" style="text-align: center; align-items: center; margin-bottom: 40px; width: 100%;">
-            <span class="global-subtitle-pill">Hasil Karya</span>
-            <h2 class="elementor-heading-title elementor-size-default" style="font-size: 32px; font-weight: 800; color: #1F2937; margin-bottom: 10px;">Portofolio Kami</h2>
-            <p style="color: #666; font-size: 15px; max-width: 600px; margin: 0 auto;">Kumpulan karya nyata dari siswa dan tim Elcoding dalam membangun solusi teknologi yang inovatif.</p>
-        </div>
-
-        <!-- Grid Cards Portofolio -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; width: 100%;">
-            
-            <!-- Item 1 -->
-            <div style="background: #fff; border: 1px solid #f0f0f0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: transform 0.3s ease;">
-                <img src="{{ asset('assets/images/portfolio/port1.jpg') }}" onerror="this.src='https://via.placeholder.com/600x400?text=Film+Islami+Kemenag'" alt="Film Islami Kemenag" style="width: 100%; height: 220px; object-fit: cover; cursor: pointer;" onclick="openLightbox(this.src)">
-                <div style="padding: 24px;">
-                    <h3 style="font-size: 18px; font-weight: 700; color: #1F2937; margin: 0 0 8px 0;">Film Islami Kemenag</h3>
-                    <p style="font-size: 14px; color: #6D28D9; font-weight: 600; margin: 0;">Coding & Development</p>
-                </div>
-            </div>
-
-            <!-- Item 2 -->
-            <div style="background: #fff; border: 1px solid #f0f0f0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: transform 0.3s ease;">
-                <img src="{{ asset('assets/images/portfolio/port2.jpg') }}" onerror="this.src='https://via.placeholder.com/600x400?text=TOSTEM+Prima+Cipta'" alt="TOSTEM Prima Cipta" style="width: 100%; height: 220px; object-fit: cover; cursor: pointer;" onclick="openLightbox(this.src)">
-                <div style="padding: 24px;">
-                    <h3 style="font-size: 18px; font-weight: 700; color: #1F2937; margin: 0 0 8px 0;">TOSTEM Prima Cipta</h3>
-                    <p style="font-size: 14px; color: #6D28D9; font-weight: 600; margin: 0;">Desain Grafis</p>
-                </div>
-            </div>
-
-            <!-- Item 3 -->
-            <div style="background: #fff; border: 1px solid #f0f0f0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: transform 0.3s ease;">
-                <img src="{{ asset('assets/images/portfolio/port3.jpg') }}" onerror="this.src='https://via.placeholder.com/600x400?text=Tutur+Bangsa'" alt="Tutur Bangsa" style="width: 100%; height: 220px; object-fit: cover; cursor: pointer;" onclick="openLightbox(this.src)">
-                <div style="padding: 24px;">
-                    <h3 style="font-size: 18px; font-weight: 700; color: #1F2937; margin: 0 0 8px 0;">Tutur Bangsa</h3>
-                    <p style="font-size: 14px; color: #6D28D9; font-weight: 600; margin: 0;">Pengembangan Bahasa</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
 		<div class="elementor-element elementor-element-b069c1e e-con-full e-flex e-con e-child" data-id="b069c1e" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-612f955 elementor-widget elementor-widget-heading" data-id="612f955" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 					<h2 class="elementor-heading-title elementor-size-default" style="margin-bottom: 30px;">Mekanisme Elcoding</h2>				</div>
@@ -842,9 +798,9 @@ text-decoration:underline;
 
 		
 <div id="custom-lightbox" class="custom-lightbox" onclick="if(event.target === this) closeLightbox()">
-            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-            <img class="lightbox-content" id="lightbox-img">
-        </div>
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+</div>
 <style>
 .custom-lightbox {
     display: none;

@@ -74,7 +74,7 @@
                                 <div class="info-icon"><i class="far fa-clock"></i></div>
                                 <div class="info-text">
                                     <strong>Jam Operasional</strong>
-                                    <span>Senin - Sabtu (08.00 - 17.00 WIB)</span>
+                                    <span>Senin - Sabtu (08.00 - 20.00 WIB)</span>
                                 </div>
                             </li>
                         </ul>

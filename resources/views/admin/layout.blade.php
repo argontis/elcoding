@@ -28,28 +28,8 @@
         ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
 
-        /* --- PENGATURAN RESPONSIF SIDEBAR (HAMBURGER MENU) --- */
-        #sidebar-container {
-            background: var(--sidebar-bg);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        @media (max-width: 1023px) {
-            #sidebar-container {
-                position: fixed;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                width: 280px;
-                z-index: 50;
-                transform: translateX(-100%); /* Sembunyikan total ke kiri secara default */
-            }
-            #sidebar-container.sidebar-open {
-                transform: translateX(0); /* Munculkan saat dibuka */
-            }
-        }
-
         /* Sidebar Styling */
+        .sidebar { background: var(--sidebar-bg); }
         .sidebar-item {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
@@ -87,6 +67,13 @@
             transform: translateY(-2px);
         }
 
+        /* Topbar styling */
+        .topbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+        }
+
         /* Buttons */
         .btn-primary {
             background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%);
@@ -116,32 +103,29 @@
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+            70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden">
     
-    <!-- Latar Belakang Gelap (Overlay) saat Hamburger Menu dibuka di HP -->
-    <div id="mobile-overlay" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-40 hidden transition-opacity lg:hidden"></div>
-
-    <!-- Sidebar Wrapper -->
-    <div id="sidebar-container">
-        <x-admin-sidebar />
-    </div>
+    <!-- Sidebar -->
+    <x-admin-sidebar />
 
     <!-- Main Content -->
-    <main class="flex-1 flex flex-col h-screen overflow-hidden relative w-full">
-        
-        <!-- Mobile Header (Tombol Hamburger Icon untuk HP) -->
-        <div class="lg:hidden bg-white shadow-sm border-b px-6 py-4 flex justify-between items-center z-30">
-            <div class="font-bold text-xl text-blue-600">elcoding<span class="text-gray-800">.id</span></div>
-            <button id="mobile-menu-btn" class="text-gray-600 hover:text-blue-600 focus:outline-none p-2">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-        </div>
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative">
+        <!-- Topbar removed per user request -->
 
         <!-- Content Area -->
-        <div class="flex-1 overflow-y-auto p-4 lg:p-8 pb-12 w-full">
-            <div class="max-w-[1600px] mx-auto fade-in-up w-full">
+        <div class="flex-1 overflow-y-auto p-8 pb-12">
+            <div class="max-w-[1600px] mx-auto fade-in-up">
                 @yield('content')
             </div>
         </div>
@@ -156,24 +140,12 @@
         .ql-toolbar.ql-snow { border-top-left-radius: 8px; border-top-right-radius: 8px; border-color: #e2e8f0; background: #f8fafc; }
         .ql-container.ql-snow { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; border-color: #e2e8f0; }
     </style>
-    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const mobileBtn = document.getElementById('mobile-menu-btn');
-            const sidebar = document.getElementById('sidebar-container');
-            const overlay = document.getElementById('mobile-overlay');
-
-            function toggleMenu() {
-                sidebar.classList.toggle('sidebar-open');
-                overlay.classList.toggle('hidden');
-            }
-
-            if(mobileBtn) mobileBtn.addEventListener('click', toggleMenu);
-            if(overlay) overlay.addEventListener('click', toggleMenu);
-
-            // --- Logika Quill Editor ---
+            // Initialize Quill
             const richTextFields = document.querySelectorAll('.rich-text');
             richTextFields.forEach(field => {
+                // Quill needs a div container, not a textarea
                 const container = document.createElement('div');
                 field.parentNode.insertBefore(container, field);
                 field.style.display = 'none';
@@ -191,25 +163,37 @@
                         ]
                     }
                 });
+
+                // Load initial content
                 quill.root.innerHTML = field.value;
+
+                // Sync on change
                 quill.on('text-change', function() {
                     field.value = quill.root.innerHTML;
                 });
             });
 
-            // --- Fungsi Pencarian (Search) di Tabel ---
+            // 1. Fungsi Pencarian (Search) di Tabel
             const searchInputs = document.querySelectorAll('input[placeholder^="Cari"]');
             searchInputs.forEach(input => {
                 input.addEventListener('input', function(e) {
                     const term = e.target.value.toLowerCase();
+                    // Cari tabel di dalam container yang sama (surface-card)
                     const card = this.closest('.surface-card') || document;
                     const tbody = card.querySelector('tbody');
                     
                     if(tbody) {
                         const rows = tbody.querySelectorAll('tr');
+                        let visibleCount = 0;
+                        
                         rows.forEach(row => {
                             const text = row.textContent.toLowerCase();
-                            row.style.display = text.includes(term) ? '' : 'none';
+                            if(text.includes(term)) {
+                                row.style.display = '';
+                                visibleCount++;
+                            } else {
+                                row.style.display = 'none';
+                            }
                         });
                     }
                 });

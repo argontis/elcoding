@@ -864,10 +864,10 @@ function closeLightbox() {
 @push('schema')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
+  "@@context": "https://schema.org",
+  "@@type": "AboutPage",
   "mainEntity": {
-    "@type": "Organization",
+    "@@type": "Organization",
     "name": "Elcoding Academy",
     "description": "Lembaga Kursus dan Pelatihan IT terpadu berbasis praktik dan Software House profesional.",
     "url": "{{ url('/') }}"

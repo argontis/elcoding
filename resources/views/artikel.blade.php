@@ -213,16 +213,16 @@
 @push('schema')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "Blog",
+  "@@context": "https://schema.org",
+  "@@type": "Blog",
   "name": "Blog & Artikel - Elcoding Academy",
   "url": "{{ url('/artikel') }}",
   "description": "Kumpulan artikel edukatif seputar dunia programming, teknologi, dan tips karir IT.",
   "publisher": {
-    "@type": "Organization",
+    "@@type": "Organization",
     "name": "Elcoding Academy",
     "logo": {
-      "@type": "ImageObject",
+      "@@type": "ImageObject",
       "url": "{{ asset('gambar/aset/logo-elcoding.png') }}"
     }
   }

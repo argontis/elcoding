@@ -691,15 +691,15 @@ document.addEventListener("DOMContentLoaded", function() {
 @push('schema')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@@context": "https://schema.org",
+  "@@type": "LocalBusiness",
   "name": "Elcoding Academy",
   "image": "{{ asset('gambar/aset/logo-elcoding.png') }}",
-  "@id": "{{ url('/') }}",
+  "@@id": "{{ url('/') }}",
   "url": "{{ url('/') }}",
   "telephone": "+6281476652656",
   "address": {
-    "@type": "PostalAddress",
+    "@@type": "PostalAddress",
     "streetAddress": "Ruko Citraland",
     "addressLocality": "Tegal",
     "addressRegion": "Jawa Tengah",

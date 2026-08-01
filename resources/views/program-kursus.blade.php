@@ -281,20 +281,20 @@
 @push('schema')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
+  "@@context": "https://schema.org",
+  "@@type": "ItemList",
   "itemListElement": [
     @foreach($programs as $index => $program)
     {
-      "@type": "ListItem",
+      "@@type": "ListItem",
       "position": {{ $index + 1 }},
       "item": {
-        "@type": "Course",
+        "@@type": "Course",
         "url": "{{ url('/program-kursus') }}",
         "name": "{{ $program->title }}",
         "description": "Program Bootcamp intensif dengan durasi {{ $program->duration }}",
         "provider": {
-          "@type": "Organization",
+          "@@type": "Organization",
           "name": "Elcoding Academy",
           "sameAs": "{{ url('/') }}"
         }

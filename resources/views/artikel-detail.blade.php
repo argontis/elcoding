@@ -74,8 +74,8 @@
 @push('schema')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "Article",
+  "@@context": "https://schema.org",
+  "@@type": "Article",
   "headline": "{{ $artikel->title }}",
   "image": [
     "{{ $bgImage }}"
@@ -83,14 +83,14 @@
   "datePublished": "{{ $artikel->published_at ? \Carbon\Carbon::parse($artikel->published_at)->toIso8601String() : $artikel->created_at->toIso8601String() }}",
   "dateModified": "{{ $artikel->updated_at->toIso8601String() }}",
   "author": [{
-      "@type": "Person",
+      "@@type": "Person",
       "name": "{{ $artikel->author->name ?? 'Admin Elcoding' }}"
   }],
   "publisher": {
-    "@type": "Organization",
+    "@@type": "Organization",
     "name": "Elcoding Academy",
     "logo": {
-      "@type": "ImageObject",
+      "@@type": "ImageObject",
       "url": "{{ asset('gambar/aset/logo-elcoding.png') }}"
     }
   }

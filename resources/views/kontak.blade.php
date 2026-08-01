@@ -222,14 +222,14 @@
 @push('schema')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "ContactPage",
+  "@@context": "https://schema.org",
+  "@@type": "ContactPage",
   "name": "Kontak Kami - Elcoding Academy",
   "url": "{{ url('/kontak') }}",
   "mainEntity": {
-    "@type": "Organization",
+    "@@type": "Organization",
     "contactPoint": {
-      "@type": "ContactPoint",
+      "@@type": "ContactPoint",
       "telephone": "+6281476652656",
       "contactType": "customer service",
       "areaServed": "ID",

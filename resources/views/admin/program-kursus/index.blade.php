@@ -54,7 +54,7 @@
                             @if($program->image_path)
                                 <img src="{{ asset(str_replace(' ', '%20', $program->image_path)) }}" class="w-full h-full object-cover" alt="{{ $program->title }}">
                             @else
-                                <i class="fas fa-graduation-cap text-slate-400"></i>
+                                <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" class="w-full h-full object-cover" alt="{{ $program->title }}">
                             @endif
                         </div>
                     </td>

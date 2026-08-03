@@ -24,12 +24,8 @@
                 </div>
                 <div>
                     <p class="text-sm text-slate-800 font-medium">
-                        {{ $activity->type }} <span class="font-bold text-blue-600">"{{ Str::limit($activity->title, 60) }}"</span>
-                        @if($activity->created_at->diffInSeconds($activity->updated_at) < 5)
-                            berhasil ditambahkan.
-                        @else
-                            berhasil diperbarui.
-                        @endif
+                        {{ $activity->type }} <span class="font-bold text-blue-600">"{{ Str::limit($activity->title, 60) }}"</span><br>
+                        <span class="text-slate-500 font-normal mt-1 block">{{ $activity->description }}</span>
                     </p>
                     <p class="text-xs text-slate-400 mt-1">{{ $activity->updated_at->format('d M Y, H:i') }} ({{ $activity->updated_at->diffForHumans() }})</p>
                 </div>

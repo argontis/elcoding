@@ -41,14 +41,14 @@
 
 
 
-<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="{ asset('assets/wp-json/oembed/1.0/embed') }" />
-<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="{ asset('assets/wp-json/oembed/1.0/embed&#038;format=xml') }" />
-<link rel="preload" href="{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-400.woff2') }" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-400.woff') }" as="font" type="font/woff" crossorigin="anonymous">
-<link rel="preload" href="{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-500.woff2') }" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-500.woff') }" as="font" type="font/woff" crossorigin="anonymous">
-<link rel="preload" href="{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-700.woff2') }" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-700.woff') }" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="{{ asset('assets/wp-json/oembed/1.0/embed') }}" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="{{ asset('assets/wp-json/oembed/1.0/embed&#038;format=xml') }}" />
+<link rel="preload" href="{{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-400.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="{{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-400.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="{{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-500.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="{{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-500.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
+<link rel="preload" href="{{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-700.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="{{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-700.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-K1VB14XSX9"></script>
     <script>
@@ -355,9 +355,9 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <link rel='stylesheet' id='elementor-icons-fa-solid-css' href='../assets/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css' media='all' />
 <link rel='stylesheet' id='elementor-icons-fa-brands-css' href='../assets/wp-content/plugins/elementor/assets/lib/font-awesome/css/brands.min.css' media='all' />
 <link rel='stylesheet' id='elementor-icons-fa-regular-css' href='../assets/wp-content/plugins/elementor/assets/lib/font-awesome/css/regular.min.css' media='all' />
-<script id="jquery-core-js" src="{ asset('assets/wp-includes/js/jquery/jquery.min.js') }"></script>
-<script id="jquery-migrate-js" src="{ asset('assets/wp-includes/js/jquery/jquery-migrate.min.js') }"></script>
-<link rel="https://api.w.org/" href="{ asset('assets/wp-json/') }" /><link rel="alternate" title="JSON" type="application/json" href="{ asset('assets/wp-json/wp/v2/pages/6097') }" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="xmlrpc.php?rsd.php" />
+<script id="jquery-core-js" src="{{ asset('assets/wp-includes/js/jquery/jquery.min.js') }}"></script>
+<script id="jquery-migrate-js" src="{{ asset('assets/wp-includes/js/jquery/jquery-migrate.min.js') }}"></script>
+<link rel="https://api.w.org/" href="{{ asset('assets/wp-json/') }}" /><link rel="alternate" title="JSON" type="application/json" href="{{ asset('assets/wp-json/wp/v2/pages/6097') }}" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="xmlrpc.php?rsd.php" />
 <meta name="generator" content="WordPress 7.0" />
 
 <meta name="generator" content="Elementor 4.1.3; features: additional_custom_breakpoints; settings: css_print_method-external, google_font-disabled, font_display-auto">
@@ -384,9 +384,9 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 @font-face{font-family:"Plus Jakarta Sans";font-style:normal;font-weight:500;font-display:fallback;src:url('../assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-500.woff2') format('woff2'), url('../assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-500.woff') format('woff');}
 @font-face{font-family:"Plus Jakarta Sans";font-style:normal;font-weight:700;font-display:fallback;src:url('../assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-700.woff2') format('woff2'), url('../assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-700.woff') format('woff');}
 </style>
-<link rel="icon" href="{ asset('assets/wp-content/uploads/2022/07/cropped-Group-48096048-32x32.png') }" sizes="32x32" />
-<link rel="icon" href="{ asset('assets/wp-content/uploads/2022/07/cropped-Group-48096048-192x192.png') }" sizes="192x192" />
-<link rel="apple-touch-icon" href="{ asset('assets/wp-content/uploads/2022/07/cropped-Group-48096048-180x180.png') }" />
+<link rel="icon" href="{{ asset('assets/wp-content/uploads/2022/07/cropped-Group-48096048-32x32.png') }}" sizes="32x32" />
+<link rel="icon" href="{{ asset('assets/wp-content/uploads/2022/07/cropped-Group-48096048-192x192.png') }}" sizes="192x192" />
+<link rel="apple-touch-icon" href="{{ asset('assets/wp-content/uploads/2022/07/cropped-Group-48096048-180x180.png') }}" />
 <meta name="msapplication-TileImage" content="../assets/wp-content/uploads/2022/07/cropped-Group-48096048-270x270.png" />
 <style id="wp-custom-css">
 .baca-juga-box{
@@ -456,6 +456,9 @@ text-decoration:underline;
     .elementor-element-e591b30 {
         width: 100% !important;
     }
+    /* Mobile Layout Spacing Reductions */
+    .elementor-section { padding-top: 48px !important; padding-bottom: 48px !important; }
+    .elementor-heading-title { font-size: 28px !important; }
 }
 </style>
 </head>
@@ -466,7 +469,7 @@ text-decoration:underline;
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     
-<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
 
 
 		

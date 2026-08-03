@@ -1,6 +1,6 @@
 <x-layout title="Hubungi Kami - Elcoding Academy">
 @push('preload')
-<link rel="preload" as="image" href="{{ asset('assets/wp-content/uploads/2026/02/Hubungi-Kami.jpg') }}">
+<link rel="preload" as="image" href="{{ asset('gambar/aset/Untitled-1.png') }}">
 @endpush
 
     @push('styles')
@@ -56,21 +56,21 @@
                                 <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
                                 <div class="info-text">
                                     <strong>Alamat Lengkap</strong>
-                                    <span>Ruko Citraland, Tegal, Jawa Tengah, Indonesia 52111</span>
+                                    <span>{{ \App\Models\Setting::getValue('contact_address', 'Ruko Citraland, Tegal, Jawa Tengah, Indonesia 52111') }}</span>
                                 </div>
                             </li>
                             <li>
                                 <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
                                 <div class="info-text">
                                     <strong>Telepon / WhatsApp</strong>
-                                    <span>+62 814-7665-2656 (Admin Edukasi)</span>
+                                    <span>{{ \App\Models\Setting::getValue('contact_phone', '+62 814-7665-2656') }}</span>
                                 </div>
                             </li>
                             <li>
                                 <div class="info-icon"><i class="far fa-envelope"></i></div>
                                 <div class="info-text">
                                     <strong>Email</strong>
-                                    <span>info@elcodingacademy.com</span>
+                                    <span>{{ \App\Models\Setting::getValue('contact_email', 'info@elcodingacademy.com') }}</span>
                                 </div>
                             </li>
                             <li>
@@ -84,17 +84,16 @@
 
                         <div class="social-links">
                             <strong>Ikuti Kami:</strong>
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/elcoding.id?igsh=c2pndTFlYW5laXk0&utm_source=qr"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="{{ \App\Models\Setting::getValue('social_facebook', '#') }}"><i class="fab fa-facebook-f"></i></a>
+                            <a href="{{ \App\Models\Setting::getValue('social_instagram', '#') }}"><i class="fab fa-instagram"></i></a>
+                            <a href="{{ \App\Models\Setting::getValue('social_youtube', '#') }}"><i class="fab fa-youtube"></i></a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Map Column -->
                 <div class="contact-map-col" style="display: flex;">
                     <div class="map-container" style="width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eaeaea; display: flex;">
-                        <iframe src="https://maps.google.com/maps?q=Azzahra%20Computer%20Tegal&t=&z=17&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0; min-height: 450px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="{{ \App\Models\Setting::getValue('contact_map_iframe', 'https://maps.google.com/maps?q=Azzahra%20Computer%20Tegal&t=&z=17&ie=UTF8&iwloc=&output=embed') }}" width="100%" height="100%" style="border:0; min-height: 450px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
 
@@ -216,9 +215,10 @@
             .contact-grid { grid-template-columns: 1fr; gap: 30px; } 
         }
         @media (max-width: 768px) { 
-            .page-title { font-size: 32px; }
-            .info-card { padding: 30px 20px; }
+            .page-title { font-size: 28px; }
+            .info-card { padding: 20px; }
             .social-links { flex-wrap: wrap; }
+            .contact-section { padding: 48px 16px 64px 16px; }
         }
     </style>
 

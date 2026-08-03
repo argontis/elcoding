@@ -21,8 +21,16 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
-            return redirect()->intended('/admin');
+            
+            \App\Models\ActivityLog::add(
+                'Autentikasi', 
+                'Admin Login', 
+                'Admin berhasil masuk ke dalam sistem dari alamat IP: ' . $request->ip(),
+                'green',
+                'fa-sign-in-alt'
+            );
+            
+            return redirect()->intended('/admin/dashboard');
         }
 
         return back()->withErrors([
@@ -32,6 +40,14 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        \App\Models\ActivityLog::add(
+            'Autentikasi', 
+            'Admin Logout', 
+            'Admin telah keluar dari sistem.',
+            'slate',
+            'fa-sign-out-alt'
+        );
+
         Auth::logout();
 
         $request->session()->invalidate();

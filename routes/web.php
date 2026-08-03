@@ -13,8 +13,9 @@ use Inertia\Inertia;
 Route::get('/', function () {
     $mitras = \App\Models\Mitra::latest()->get();
     $programs = \App\Models\ProgramKursus::latest()->take(3)->get();
+    $portofolios = \App\Models\Portofolio::latest()->take(3)->get();
     $artikels = \App\Models\Artikel::where('status', 'Published')->latest()->take(3)->get();
-    return view('welcome', compact('mitras', 'programs', 'artikels'));
+    return view('welcome', compact('mitras', 'programs', 'portofolios', 'artikels'));
 });
 
 Route::get('/tentang-kami', function () {
@@ -27,7 +28,15 @@ Route::get('/program-kursus', function () {
     return view('program-kursus', compact('programs'));
 });
 
+Route::get('/portofolio', function () {
+    $portofolios = \App\Models\Portofolio::latest()->paginate(9);
+    return view('portofolio', compact('portofolios'));
+});
 
+Route::get('/portofolio/{id}', function ($id) {
+    $portofolio = \App\Models\Portofolio::findOrFail($id);
+    return view('portofolio-detail', compact('portofolio'));
+});
 
 Route::get('/artikel', function () {
     $artikels = \App\Models\Artikel::where('status', 'Published')->latest()->paginate(9);
@@ -73,8 +82,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/program-kursus/{id}', [AdminController::class, 'updateProgram']);
         Route::delete('/program-kursus/{id}', [AdminController::class, 'destroyProgram']);
 
+        // Portofolio CRUD
+        Route::get('/portofolio', [AdminController::class, 'portofolio']);
+        Route::get('/portofolio/create', [AdminController::class, 'createPortofolio']);
+        Route::post('/portofolio', [AdminController::class, 'storePortofolio']);
+        Route::get('/portofolio/{id}/edit', [AdminController::class, 'editPortofolio']);
+        Route::put('/portofolio/{id}', [AdminController::class, 'updatePortofolio']);
+        Route::delete('/portofolio/{id}', [AdminController::class, 'destroyPortofolio']);
 
-
+        // Kategori Portofolio CRUD
+        Route::get('/kategori-portofolio', [AdminController::class, 'kategoriPortofolio']);
+        Route::post('/kategori-portofolio', [AdminController::class, 'storeKategoriPortofolio']);
+        Route::put('/kategori-portofolio/{id}', [AdminController::class, 'updateKategoriPortofolio']);
+        Route::delete('/kategori-portofolio/{id}', [AdminController::class, 'destroyKategoriPortofolio']);
         // Artikel CRUD
         Route::get('/artikel', [AdminController::class, 'artikel']);
         Route::get('/artikel/create', [AdminController::class, 'createArtikel']);
@@ -82,6 +102,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/artikel/{id}/edit', [AdminController::class, 'editArtikel']);
         Route::put('/artikel/{id}', [AdminController::class, 'updateArtikel']);
         Route::delete('/artikel/{id}', [AdminController::class, 'destroyArtikel']);
+
+        // Pengaturan Situs
+        Route::get('/settings', [AdminController::class, 'settings']);
+        Route::post('/settings', [AdminController::class, 'updateSettings']);
+        
+        // MoU
+        Route::get('/mou', [\App\Http\Controllers\Admin\MouController::class, 'index']);
+        Route::get('/mou/create', [\App\Http\Controllers\Admin\MouController::class, 'create']);
+        Route::post('/mou', [\App\Http\Controllers\Admin\MouController::class, 'store']);
+        Route::get('/mou/{id}/edit', [\App\Http\Controllers\Admin\MouController::class, 'edit']);
+        Route::put('/mou/{id}', [\App\Http\Controllers\Admin\MouController::class, 'update']);
+        Route::delete('/mou/{id}', [\App\Http\Controllers\Admin\MouController::class, 'destroy']);
+        Route::get('/mou/{id}/pdf', [\App\Http\Controllers\Admin\MouController::class, 'downloadPdf']);
     });
 });
 

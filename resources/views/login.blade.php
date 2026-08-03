@@ -4,258 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login - Elcoding Academy</title>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f8fafc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .login-container {
-            display: flex;
-            width: 100%;
-            max-width: 1000px;
-            background: #ffffff;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            margin: 20px;
-        }
-
-        .login-left {
-            flex: 1;
-            background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
-            padding: 60px 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            color: #ffffff;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-left::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            top: -100px;
-            right: -100px;
-        }
-
-        .login-left::after {
-            content: '';
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            bottom: -50px;
-            left: -50px;
-        }
-
-        .login-left h1 {
-            font-size: 36px;
-            font-weight: 800;
-            margin: 0 0 15px 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .login-left p {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #e0e7ff;
-            margin: 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .login-right {
-            flex: 1;
-            padding: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .login-header {
-            margin-bottom: 40px;
-        }
-
-        .login-header h2 {
-            font-size: 28px;
-            font-weight: 800;
-            color: #1F2937;
-            margin: 0 0 10px 0;
-        }
-
-        .login-header p {
-            color: #64748b;
-            margin: 0;
-            font-size: 15px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            color: #334155;
-            margin-bottom: 8px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 15px 20px 15px 45px;
-            font-size: 15px;
-            font-family: inherit;
-            color: #1F2937;
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            outline: none;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-        }
-
-        .form-control:focus {
-            background-color: #ffffff;
-            border-color: #2563EB;
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
-        }
-
-        .input-icon-wrapper {
-            position: relative;
-        }
-
-        .input-icon {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 16px;
-            transition: color 0.3s ease;
-        }
-
-        .form-control:focus + .input-icon {
-            color: #2563EB;
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 16px;
-            background-color: #2563EB;
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .btn-login:hover {
-            background-color: #1E40AF;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
-        }
-
-        .back-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 30px;
-            color: #64748b;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .back-link:hover {
-            color: #2563EB;
-        }
-
-        @media (max-width: 768px) {
-            .login-container {
-                flex-direction: column;
-                max-width: 450px;
-            }
-            .login-left {
-                padding: 40px;
-                text-align: center;
-            }
-            .login-right {
-                padding: 40px;
+    
+    <!-- Tailwind CSS (CDN for simplicity as used in admin layout) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
             }
         }
-    </style>
+    </script>
 </head>
-<body>
+<body class="bg-slate-50 min-h-screen flex items-center justify-center relative overflow-hidden antialiased text-slate-800">
 
-    <div class="login-container">
-        <!-- Left Side: Branding -->
-        <div class="login-left">
-            <h1>Elcoding.id</h1>
-            <p>Selamat datang di Portal Admin Elcoding Academy. Silakan masuk untuk mengelola program kursus, artikel, dan data peserta.</p>
+    <!-- Ambient Background Elements -->
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-brand-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+        <div class="absolute top-[20%] right-[-5%] w-96 h-96 bg-purple-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-pink-500/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob" style="animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Login Container -->
+    <div class="relative z-10 w-full max-w-md px-6">
+        
+        <!-- Logo -->
+        <div class="text-center mb-10 animate-fade-in-down">
+            <img src="{{ asset('gambar/aset/logo-elcoding.svg') }}" alt="Elcoding Academy" class="h-10 mx-auto drop-shadow-sm">
+            <div class="mt-4 inline-flex items-center justify-center space-x-2 bg-white/60 backdrop-blur-md px-3 py-1 rounded-full border border-white shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                <span class="text-xs font-bold text-brand-700 uppercase tracking-widest">Portal Admin</span>
+            </div>
         </div>
 
-        <!-- Right Side: Login Form -->
-        <div class="login-right">
-            <div class="login-header">
-                <h2>Admin Login</h2>
-                <p>Masukkan username dan password Anda.</p>
+        <!-- Form Card -->
+        <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white p-8 sm:p-10 transition-all duration-300 hover:shadow-[0_8px_40px_rgb(0,0,0,0.08)]">
+            <div class="mb-8 text-center">
+                <h1 class="text-2xl font-extrabold text-slate-900 tracking-tight">Selamat Datang</h1>
+                <p class="text-slate-500 text-sm mt-2">Silakan masuk menggunakan kredensial Anda.</p>
             </div>
 
-            <form action="{{ url('/login') }}" method="POST">
+            <form action="{{ url('/login') }}" method="POST" class="space-y-6">
                 @csrf
-                <!-- Username Field -->
-                <div class="form-group">
-                    <label class="form-label" for="username">Username</label>
-                    <div class="input-icon-wrapper">
-                        <input type="text" id="username" name="username" class="form-control" placeholder="username" required value="{{ old('username') }}">
-                        <i class="far fa-user input-icon"></i>
+                
+                <!-- Username -->
+                <div class="space-y-2 relative group">
+                    <label for="username" class="block text-sm font-semibold text-slate-700 transition-colors group-focus-within:text-brand-600">Username</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-brand-600 transition-colors">
+                            <i class="far fa-user"></i>
+                        </div>
+                        <input type="text" id="username" name="username" value="{{ old('username') }}" 
+                               class="block w-full pl-11 pr-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white transition-all outline-none shadow-sm"
+                               placeholder="Masukkan username" required autofocus>
                     </div>
                     @error('username')
-                        <p style="color: #ef4444; font-size: 13px; margin-top: 5px;">{{ $message }}</p>
+                        <p class="text-red-500 text-xs mt-1.5 font-medium flex items-center gap-1">
+                            <i class="fas fa-exclamation-circle"></i> {{ $message }}
+                        </p>
                     @enderror
                 </div>
 
-                <!-- Password Field -->
-                <div class="form-group">
-                    <label class="form-label" for="password">Password</label>
-                    <div class="input-icon-wrapper">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="password" required>
-                        <i class="fas fa-lock input-icon"></i>
+                <!-- Password -->
+                <div class="space-y-2 relative group">
+                    <label for="password" class="block text-sm font-semibold text-slate-700 transition-colors group-focus-within:text-brand-600">Password</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-brand-600 transition-colors">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <input type="password" id="password" name="password" 
+                               class="block w-full pl-11 pr-4 py-3.5 bg-slate-50/50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 focus:bg-white transition-all outline-none shadow-sm"
+                               placeholder="••••••••" required>
                     </div>
                 </div>
 
-                <!-- Submit Button -->
-                <button type="submit" class="btn-login">Masuk ke Dashboard</button>
+                <!-- Submit -->
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>Masuk ke Dasbor</span>
+                        <i class="fas fa-arrow-right text-sm"></i>
+                    </button>
+                </div>
             </form>
 
-            <a href="{{ url('/') }}" class="back-link">
-                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
-            </a>
+            <div class="mt-8 text-center border-t border-slate-100 pt-6">
+                <a href="{{ url('/') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-brand-600 transition-colors">
+                    <i class="fas fa-home"></i> Kembali ke Beranda
+                </a>
+            </div>
         </div>
+        
+        <p class="text-center text-xs text-slate-400 mt-8 font-medium">
+            &copy; {{ date('Y') }} Elcoding Academy. All rights reserved.
+        </p>
     </div>
 
 </body>

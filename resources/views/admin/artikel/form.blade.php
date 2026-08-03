@@ -2,7 +2,7 @@
 @section('title', isset($data) ? 'Edit Artikel' : 'Tulis Artikel')
 @section('header', 'Artikel Blog')
 @section('content')
-<div class="surface-card p-6 max-w-3xl">
+<div class="surface-card p-6 w-full">
     <h3 class="text-xl font-bold text-slate-800 mb-6">{{ isset($data) ? 'Edit Artikel' : 'Tulis Artikel Baru' }}</h3>
     <form action="{{ isset($data) ? url('admin/artikel/'.$data->id) : url('admin/artikel') }}" method="POST" enctype="multipart/form-data">
         @csrf

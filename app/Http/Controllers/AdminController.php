@@ -10,84 +10,26 @@ class AdminController extends Controller
         $stats = [
             'mitra' => \App\Models\Mitra::count(),
             'program' => \App\Models\ProgramKursus::count(),
+            'portofolio' => \App\Models\Portofolio::count(),
             'artikel' => \App\Models\Artikel::count(),
         ];
 
-        // Gather latest activities (updated_at)
+        // Fetch Real Visitor Data for the last 7 days
+        $visitorLabels = [];
+        $visitorData = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = now()->subDays($i);
+            $visitorLabels[] = $date->locale('id')->translatedFormat('l'); // e.g. "Senin"
+            $visitorData[] = \App\Models\Visitor::where('visited_date', $date->toDateString())->count();
+        }
 
-        $latestArtikels = \App\Models\Artikel::latest('updated_at')->take(3)->get()->map(function($item) {
-            return (object) [
-                'type' => 'Artikel',
-                'title' => $item->title,
-                'created_at' => clone $item->created_at,
-                'updated_at' => clone $item->updated_at,
-                'icon' => 'fa-newspaper',
-                'color' => 'blue'
-            ];
-        });
+        $activities = \App\Models\ActivityLog::latest()->take(5)->get();
 
-        $latestPrograms = \App\Models\ProgramKursus::latest('updated_at')->take(3)->get()->map(function($item) {
-            return (object) [
-                'type' => 'Program',
-                'title' => $item->title,
-                'created_at' => clone $item->created_at,
-                'updated_at' => clone $item->updated_at,
-                'icon' => 'fa-graduation-cap',
-                'color' => 'amber'
-            ];
-        });
-
-        $activities = collect()
-            ->concat($latestArtikels)
-            ->concat($latestPrograms)
-            ->sortByDesc('updated_at')
-            ->take(5);
-
-        return view('admin.dashboard', compact('stats', 'activities'));
+        return view('admin.dashboard', compact('stats', 'activities', 'visitorLabels', 'visitorData'));
     }
 
     public function aktivitas() {
-        // Gather latest activities (updated_at) up to 100
-
-        $latestArtikels = \App\Models\Artikel::latest('updated_at')->take(100)->get()->map(function($item) {
-            return (object) [
-                'type' => 'Artikel',
-                'title' => $item->title,
-                'created_at' => clone $item->created_at,
-                'updated_at' => clone $item->updated_at,
-                'icon' => 'fa-newspaper',
-                'color' => 'blue'
-            ];
-        });
-
-        $latestPrograms = \App\Models\ProgramKursus::latest('updated_at')->take(100)->get()->map(function($item) {
-            return (object) [
-                'type' => 'Program',
-                'title' => $item->title,
-                'created_at' => clone $item->created_at,
-                'updated_at' => clone $item->updated_at,
-                'icon' => 'fa-graduation-cap',
-                'color' => 'amber'
-            ];
-        });
-
-        // Use custom paginator for collection
-        $activities = collect()
-            ->concat($latestArtikels)
-            ->concat($latestPrograms)
-            ->sortByDesc('updated_at')
-            ->take(100);
-
-        $page = request('page', 1);
-        $perPage = 25;
-        $activitiesPaginator = new \Illuminate\Pagination\LengthAwarePaginator(
-            $activities->forPage($page, $perPage),
-            $activities->count(),
-            $perPage,
-            $page,
-            ['path' => request()->url(), 'query' => request()->query()]
-        );
-
+        $activitiesPaginator = \App\Models\ActivityLog::latest()->paginate(25);
         return view('admin.aktivitas', compact('activitiesPaginator'));
     }
 
@@ -96,10 +38,34 @@ class AdminController extends Controller
             if ($oldPath && \Illuminate\Support\Facades\Storage::disk('public')->exists(str_replace('storage/', '', $oldPath))) {
                 \Illuminate\Support\Facades\Storage::disk('public')->delete(str_replace('storage/', '', $oldPath));
             }
+            
             $file = $request->file($fieldName);
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('uploads', $filename, 'public');
-            return 'storage/' . $path;
+            
+            try {
+                // Initialize ImageManager with GD driver
+                $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
+                
+                // Read image from temporary upload path
+                $image = $manager->decode($file->getPathname());
+                
+                // Convert to WebP with 80% quality
+                $encoded = $image->encodeUsingFileExtension('webp', 80);
+                
+                // Create filename with .webp extension
+                $originalNameWithoutExt = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $filename = time() . '_' . \Illuminate\Support\Str::slug($originalNameWithoutExt) . '.webp';
+                $path = 'uploads/' . $filename;
+                
+                // Save to public storage
+                \Illuminate\Support\Facades\Storage::disk('public')->put($path, (string) $encoded);
+                
+                return 'storage/' . $path;
+            } catch (\Exception $e) {
+                // Fallback to basic upload if image processing fails (e.g. not an image)
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('uploads', $filename, 'public');
+                return 'storage/' . $path;
+            }
         }
         return $oldPath;
     }
@@ -116,7 +82,7 @@ class AdminController extends Controller
         if ($request->search) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
-        $mitras = $query->paginate(10)->withQueryString();
+        $mitras = $query->get();
         return view('admin.mitra.index', compact('mitras'));
     }
     public function createMitra() { return view('admin.mitra.form'); }
@@ -126,6 +92,7 @@ class AdminController extends Controller
             $data['logo_path'] = $this->handleUpload($request, 'logo_file');
         }
         \App\Models\Mitra::create($data);
+        \App\Models\ActivityLog::add('Mitra', 'Tambah Mitra', 'Mitra "' . $request->name . '" telah ditambahkan.', 'indigo', 'fa-handshake');
         return redirect('/admin/mitra')->with('success', 'Mitra berhasil ditambahkan.');
     }
     public function editMitra($id) {
@@ -139,12 +106,17 @@ class AdminController extends Controller
             $data['logo_path'] = $this->handleUpload($request, 'logo_file', $mitra->logo_path);
         }
         $mitra->update($data);
+        $desc = 'Data mitra "' . $mitra->name . '" telah diperbarui';
+        if ($request->hasFile('logo_file')) $desc .= ' (Logo diperbarui)';
+        \App\Models\ActivityLog::add('Mitra', 'Perbarui Mitra', $desc . '.', 'indigo', 'fa-handshake');
         return redirect('/admin/mitra')->with('success', 'Mitra berhasil diperbarui.');
     }
     public function destroyMitra($id) {
         $mitra = \App\Models\Mitra::findOrFail($id);
+        $name = $mitra->name;
         $this->deleteFile($mitra->logo_path);
         $mitra->delete();
+        \App\Models\ActivityLog::add('Mitra', 'Hapus Mitra', 'Mitra "' . $name . '" telah dihapus.', 'red', 'fa-trash-alt');
         return redirect('/admin/mitra')->with('success', 'Mitra berhasil dihapus.');
     }
 
@@ -189,6 +161,7 @@ class AdminController extends Controller
             $data['image_path'] = $this->handleUpload($request, 'image_file');
         }
         \App\Models\ProgramKursus::create($data);
+        \App\Models\ActivityLog::add('Program Kursus', 'Tambah Program', 'Program "' . $request->title . '" telah ditambahkan.', 'amber', 'fa-graduation-cap');
         return redirect('/admin/program-kursus')->with('success', 'Program berhasil ditambahkan.');
     }
     public function editProgram($id) {
@@ -202,15 +175,57 @@ class AdminController extends Controller
             $data['image_path'] = $this->handleUpload($request, 'image_file', $program->image_path);
         }
         $program->update($data);
+        $desc = 'Data program "' . $program->title . '" telah diperbarui';
+        if ($request->hasFile('image_file')) $desc .= ' (Thumbnail diperbarui)';
+        \App\Models\ActivityLog::add('Program Kursus', 'Perbarui Program', $desc . '.', 'amber', 'fa-graduation-cap');
         return redirect('/admin/program-kursus')->with('success', 'Program berhasil diperbarui.');
     }
     public function destroyProgram($id) {
         $program = \App\Models\ProgramKursus::findOrFail($id);
+        $title = $program->title;
         $this->deleteFile($program->image_path);
         $program->delete();
+        \App\Models\ActivityLog::add('Program Kursus', 'Hapus Program', 'Program "' . $title . '" telah dihapus.', 'red', 'fa-trash-alt');
         return redirect('/admin/program-kursus')->with('success', 'Program berhasil dihapus.');
     }
 
+    // --- Portofolio CRUD ---
+    public function portofolio(Request $request) {
+        $query = \App\Models\Portofolio::latest();
+        if ($request->search) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+        $portofolios = $query->paginate(10)->withQueryString();
+        return view('admin.portofolio.index', compact('portofolios'));
+    }
+    public function createPortofolio() { return view('admin.portofolio.form'); }
+    public function storePortofolio(Request $request) {
+        $data = $request->except('image_file');
+        if ($request->hasFile('image_file')) {
+            $data['image_path'] = $this->handleUpload($request, 'image_file');
+        }
+        \App\Models\Portofolio::create($data);
+        return redirect('/admin/portofolio')->with('success', 'Portofolio berhasil ditambahkan.');
+    }
+    public function editPortofolio($id) {
+        $data = \App\Models\Portofolio::findOrFail($id);
+        return view('admin.portofolio.form', compact('data'));
+    }
+    public function updatePortofolio(Request $request, $id) {
+        $portofolio = \App\Models\Portofolio::findOrFail($id);
+        $data = $request->except('image_file');
+        if ($request->hasFile('image_file')) {
+            $data['image_path'] = $this->handleUpload($request, 'image_file', $portofolio->image_path);
+        }
+        $portofolio->update($data);
+        return redirect('/admin/portofolio')->with('success', 'Portofolio berhasil diperbarui.');
+    }
+    public function destroyPortofolio($id) {
+        $portofolio = \App\Models\Portofolio::findOrFail($id);
+        $this->deleteFile($portofolio->image_path);
+        $portofolio->delete();
+        return redirect('/admin/portofolio')->with('success', 'Portofolio berhasil dihapus.');
+    }
 
     // --- Artikel CRUD ---
     public function artikel(Request $request) {
@@ -232,6 +247,7 @@ class AdminController extends Controller
             $data['image_path'] = $this->handleUpload($request, 'image_file');
         }
         \App\Models\Artikel::create($data);
+        \App\Models\ActivityLog::add('Artikel', 'Tambah Artikel', 'Artikel "' . $request->title . '" telah dipublikasikan.', 'blue', 'fa-newspaper');
         return redirect('/admin/artikel')->with('success', 'Artikel berhasil ditambahkan.');
     }
     public function editArtikel($id) {
@@ -245,14 +261,69 @@ class AdminController extends Controller
             $data['image_path'] = $this->handleUpload($request, 'image_file', $artikel->image_path);
         }
         $artikel->update($data);
+        $desc = 'Artikel "' . $artikel->title . '" telah diperbarui';
+        if ($request->hasFile('image_file')) $desc .= ' (Gambar sampul diperbarui)';
+        \App\Models\ActivityLog::add('Artikel', 'Perbarui Artikel', $desc . '.', 'blue', 'fa-newspaper');
         return redirect('/admin/artikel')->with('success', 'Artikel berhasil diperbarui.');
     }
     public function destroyArtikel($id) {
         $artikel = \App\Models\Artikel::findOrFail($id);
+        $title = $artikel->title;
         $this->deleteFile($artikel->image_path);
         $artikel->delete();
+        \App\Models\ActivityLog::add('Artikel', 'Hapus Artikel', 'Artikel "' . $title . '" telah dihapus.', 'red', 'fa-trash-alt');
         return redirect('/admin/artikel')->with('success', 'Artikel berhasil dihapus.');
     }
 
+    // Kategori Portofolio CRUD
+    public function kategoriPortofolio() {
+        $kategori = \App\Models\KategoriPortofolio::latest()->paginate(10);
+        return view('admin.kategori-portofolio.index', compact('kategori'));
+    }
+    public function storeKategoriPortofolio(Request $request) {
+        $colors = ['blue', 'purple', 'emerald', 'amber', 'rose', 'indigo', 'cyan', 'fuchsia'];
+        $color = $colors[array_rand($colors)]; // Assign random color
+        \App\Models\KategoriPortofolio::create([
+            'name' => $request->name,
+            'color' => $color
+        ]);
+        return redirect('/admin/kategori-portofolio')->with('success', 'Kategori berhasil ditambahkan.');
+    }
+    public function updateKategoriPortofolio(Request $request, $id) {
+        $kategori = \App\Models\KategoriPortofolio::findOrFail($id);
+        // Also update portfolio entries if the name changes
+        if ($kategori->name !== $request->name) {
+            \App\Models\Portofolio::where('category', $kategori->name)->update(['category' => $request->name]);
+        }
+        $kategori->update([
+            'name' => $request->name,
+            'color' => $request->color ?? $kategori->color
+        ]);
+        return redirect('/admin/kategori-portofolio')->with('success', 'Kategori berhasil diperbarui.');
+    }
+    public function destroyKategoriPortofolio($id) {
+        $kategori = \App\Models\KategoriPortofolio::findOrFail($id);
+        \App\Models\Portofolio::where('category', $kategori->name)->update(['category' => 'Lainnya']);
+        $kategori->delete();
+        return redirect('/admin/kategori-portofolio')->with('success', 'Kategori berhasil dihapus.');
+    }
+
+    // --- Pengaturan Situs ---
+    public function settings() {
+        // Get all settings as key-value pairs
+        $settings = \App\Models\Setting::pluck('value', 'key')->toArray();
+        return view('admin.settings.index', compact('settings'));
+    }
+
+    public function updateSettings(Request $request) {
+        $data = $request->except('_token', '_method');
+        
+        foreach ($data as $key => $value) {
+            \App\Models\Setting::updateOrCreate(['key' => $key], ['value' => $value]);
+        }
+        
+        \App\Models\ActivityLog::add('Sistem', 'Pembaruan Pengaturan', 'Pengaturan informasi situs telah diperbarui.', 'slate', 'fa-cog');
+        return redirect('/admin/settings')->with('success', 'Pengaturan situs berhasil diperbarui.');
+    }
 
 }

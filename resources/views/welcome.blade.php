@@ -20,32 +20,40 @@
         .elementor-element-22c61dc {
             padding-top: 0 !important; /* Reduce gap to header */
             margin-top: -80px !important;
+            padding-left: 20px !important;
+            padding-right: 20px !important;
         }
         .elementor-element-22c61dc > .e-con-inner {
-            max-width: 1300px !important;
+            max-width: 1200px !important;
             margin-left: auto !important;
             margin-right: auto !important;
             width: 100% !important;
             align-items: center;
+            display: flex;
+            justify-content: space-between;
         }
         @media (min-width: 768px) {
-            .elementor-element-8110f2a { width: 50% !important; display: flex; justify-content: center; }
-            .elementor-element-b83b4d6 { width: 50% !important; padding-left: 30px; display: flex; flex-direction: column; justify-content: center; }
+            .elementor-element-8110f2a { width: 45% !important; display: flex; justify-content: center; }
+            .elementor-element-b83b4d6 { width: 55% !important; padding-left: 30px; display: flex; flex-direction: column; justify-content: center; }
         }
         @media (max-width: 767px) {
             .elementor-element-22c61dc {
                 margin-top: 0 !important;
-                padding-top: 40px !important;
-                padding-bottom: 50px !important;
+                padding-top: 20px !important;
+                padding-bottom: 40px !important;
             }
             .elementor-element-22c61dc > .e-con-inner {
-                flex-direction: column;
+                flex-direction: column-reverse;
                 text-align: center;
-                gap: 20px;
+                gap: 30px;
             }
-            .elementor-element-b83b4d6 { padding-left: 0 !important; align-items: center; }
-            .elementor-element-728fa4a .elementor-heading-title { font-size: 28px !important; line-height: 1.3 !important; }
-            .elementor-element-3d35e7c p { font-size: 14px !important; }
+            .elementor-element-8110f2a { width: 100% !important; display: flex; justify-content: center; }
+            .elementor-element-b83b4d6 { width: 100% !important; padding-left: 0 !important; display: flex; flex-direction: column; align-items: center; }
+            .elementor-element-af1e2b3 p { font-size: 14px !important; margin-bottom: 5px !important; color: #6D28D9 !important; font-weight: 600; }
+            .elementor-element-728fa4a .elementor-heading-title { font-size: 28px !important; line-height: 1.3 !important; margin-bottom: 15px !important; }
+            .elementor-element-3d35e7c p { font-size: 14px !important; line-height: 1.6 !important; margin-bottom: 25px !important; padding: 0 10px; }
+            .hero-buttons-container { justify-content: center; width: 100%; }
+            .elementor-element-88aaeff img { max-width: 80% !important; height: auto !important; }
         }
     </style>
     <div class="elementor-element elementor-element-22c61dc e-flex e-con-boxed e-con e-parent" data-id="22c61dc" data-element_type="container" data-e-type="container">
@@ -154,6 +162,12 @@
     @media (min-width: 768px) {
         .services-grid { grid-template-columns: repeat(2, 1fr); }
     }
+    @media (max-width: 767px) {
+        .services-section { padding: 0 16px 48px; }
+        .section-title { font-size: 28px; }
+        .section-header { margin-bottom: 40px; }
+        .service-card { padding: 24px; }
+    }
     
     .service-card {
         background: #ffffff;
@@ -248,6 +262,10 @@
     @media (min-width: 1024px) {
         .why-us-grid { grid-template-columns: repeat(4, 1fr); }
     }
+    @media (max-width: 767px) {
+        .why-us-section { padding: 48px 16px 64px; }
+        .why-us-card { padding: 24px 20px; }
+    }
     
     .why-us-card {
         background: #ffffff;
@@ -300,29 +318,29 @@
     <div class="why-us-container">
         <div class="section-header">
             <h2 class="section-title">Mengapa Memilih Kami?</h2>
-            <p class="section-subtitle">Berinvestasi pada pendidikan yang tepat adalah kunci sukses di era digital. Inilah alasan mengapa ratusan siswa mempercayakan karirnya pada Elcoding.</p>
+            <p class="section-subtitle">Lebih dari sekadar tempat kursus, Elcoding adalah Software House profesional yang menjembatani dunia pendidikan dan industri nyata. Temukan alasan mengapa ratusan siswa dan mitra bisnis mempercayakan solusi IT mereka kepada kami.</p>
         </div>
         
         <div class="why-us-grid">
             <div class="why-us-card">
                 <div class="why-us-icon"><i class="fas fa-chalkboard-teacher"></i></div>
-                <h3>Mentor Expert</h3>
+                <h3>Mentor Praktisi</h3>
                 <p>Belajar langsung dari praktisi profesional yang aktif di industri teknologi.</p>
             </div>
             <div class="why-us-card">
                 <div class="why-us-icon"><i class="fas fa-laptop-code"></i></div>
-                <h3>Fokus Praktik</h3>
-                <p>Kurikulum berbasis 80% praktik nyata untuk membangun insting problem-solving.</p>
+                <h3>Fokus Praktik & Proyek</h3>
+                <p>Kurikulum berbasis 80% praktik nyata untuk membangun portofolio aplikasi dan insting problem-solving.</p>
             </div>
             <div class="why-us-card">
-                <div class="why-us-icon"><i class="fas fa-project-diagram"></i></div>
-                <h3>Project Based</h3>
-                <p>Hasilkan portofolio aplikasi nyata di akhir kelas untuk melamar pekerjaan.</p>
+                <div class="why-us-icon"><i class="fas fa-building"></i></div>
+                <h3>Standar Software House</h3>
+                <p>Rasakan pengalaman bekerja dengan standar industri melalui ekosistem pengembangan perangkat lunak kami yang sesungguhnya.</p>
             </div>
             <div class="why-us-card">
                 <div class="why-us-icon"><i class="fas fa-briefcase"></i></div>
                 <h3>Penyaluran Kerja</h3>
-                <p>Akses ke jaringan mitra perusahaan kami untuk peluang karir setelah lulus.</p>
+                <p>Akses ke jaringan mitra perusahaan kami untuk peluang karir nyata setelah Anda lulus.</p>
             </div>
         </div>
     </div>
@@ -462,13 +480,16 @@
         .program-btn { display: block; text-align: center; background: #2563EB; color: #ffffff !important; font-weight: 700; font-size: 15px; padding: 12px; border-radius: 8px; text-decoration: none; transition: all 0.3s ease; border: none; }
         .program-btn:hover { background: #1E40AF; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3); }
         @media (max-width: 1024px) { .programs-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .programs-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { 
+            .programs-grid { grid-template-columns: 1fr; } 
+            .programs-section { padding: 48px 16px; }
+            .program-card-body { padding: 20px; }
+            .program-card-footer { padding: 0 20px 20px 20px; }
+            .program-card-header { height: 160px; }
+        }
     </style>
     @endif
 
-
-
-    @if(isset($testimonis) && $testimonis->count() > 0)
     <!-- Testimonial Section -->
     <section class="testimonial-section">
         <div class="testimonial-container">
@@ -508,9 +529,12 @@
     .testimonial-author h4 { font-size: 15px; font-weight: 700; color: #1F2937; margin: 0 0 4px 0; }
     .testimonial-author p { font-size: 13px; color: #666; margin: 0; }
     @media (max-width: 992px) { .testimonial-card { flex: 0 0 calc(50% - 15px); } }
-    @media (max-width: 768px) { .testimonial-card { flex: 0 0 100%; } .testimonial-title { font-size: 28px; } }
+    @media (max-width: 768px) { 
+        .testimonial-card { flex: 0 0 100%; padding: 20px; } 
+        .testimonial-title { font-size: 28px; } 
+        .testimonial-section { padding: 0 0 48px 0; }
+    }
     </style>
-    @endif
 
     <!-- Combined Statistics & CTA Section -->
     <section class="statistics-cta-section">
@@ -557,7 +581,46 @@
         .statistics-cta-section { padding: 30px 20px; margin-bottom: 40px; }
     }
     </style>
+    @if(isset($portofolios) && $portofolios->count() > 0)
+    <!-- Gallery Section -->
+    <section class="portfolio-section" id="Portofolio">
+        <div class="portfolio-container">
+            <div class="portfolio-header">
+                <h2 class="portfolio-title">Portofolio</h2>
+            </div>
+            
+            <div class="portfolio-grid">
+                @foreach($portofolios as $portofolio)
+                <a href="{{ url('/portofolio/' . $portofolio->id) }}" class="portfolio-card" draggable="false">
+                    <img src="{{ asset($portofolio->image_path ?? 'assets/wp-content/uploads/2026/02/Garap-Edu.webp') }}" class="portfolio-img" alt="{{ $portofolio->title }}" loading="lazy">
+                    <div class="portfolio-info">
+                        <h4>{{ $portofolio->title }}</h4>
+                        <p>{{ $portofolio->category }}</p>
+                    </div>
+                </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
 
+    <style>
+    .portfolio-section { padding: 80px 0 40px 0; background: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .portfolio-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .portfolio-header { text-align: center; margin-bottom: 50px; }
+    .portfolio-subtitle { display: inline-block; color: #6D28D9; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
+    .portfolio-title { font-size: 38px; font-weight: 800; color: #1F2937; line-height: 1.2; margin: 0; }
+    .portfolio-grid { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: none; }
+    .portfolio-grid::-webkit-scrollbar { display: none; }
+    .portfolio-card { flex: 0 0 calc(33.333% - 20px); scroll-snap-align: start; display: flex; flex-direction: column; background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); text-decoration: none; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .portfolio-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
+    .portfolio-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #f0f0f0; }
+    .portfolio-info { padding: 25px; text-align: center; }
+    .portfolio-info h4 { font-size: 20px; font-weight: 700; color: #000000; margin: 0 0 8px 0; }
+    .portfolio-info p { font-size: 14px; color: #666; margin: 0; }
+    @media (max-width: 992px) { .portfolio-card { flex: 0 0 calc(50% - 15px); } }
+    @media (max-width: 768px) { .portfolio-card { flex: 0 0 100%; } }
+    </style>
+    @endif
 
     @if(isset($artikels) && $artikels->count() > 0)
     <!-- Blog Section -->
@@ -573,7 +636,7 @@
                     <!-- For dummy we use static image based on iteration, for real you can add image_path to article model -->
                     @php 
                         $images = ['Magang-Online.webp', 'Skill-Lab.webp', 'Magang-Mahasiswa.webp'];
-                        $randomImg = $images[$loop->index % 3];
+                        $randomImg = $images[$artikel->id % 3];
                         $bgImage = $artikel->image_path ? asset($artikel->image_path) : asset('assets/wp-content/uploads/2026/02/'.$randomImg);
                     @endphp
                     <img src="{{ $bgImage }}" class="blog-img" alt="{{ $artikel->title }}" loading="lazy">
@@ -609,7 +672,13 @@
     .blog-btn { display: inline-block; align-self: flex-start; background: #2563EB; color: #fff !important; font-size: 13px; font-weight: 600; text-transform: uppercase; text-decoration: none; padding: 12px 25px; border-radius: 50px; transition: all 0.3s ease; }
     .blog-btn:hover { background: #1E40AF; transform: translateY(-2px); }
     @media (max-width: 992px) { .blog-card { flex: 0 0 calc(50% - 15px); } }
-    @media (max-width: 768px) { .blog-card { flex: 0 0 100%; } }
+    @media (max-width: 768px) { 
+        .blog-card { flex: 0 0 100%; } 
+        .blog-title { font-size: 28px; }
+        .blog-content { padding: 20px; }
+        .blog-img { height: 180px; }
+        .blog-section { padding: 0 0 32px 0; }
+    }
     </style>
     @endif
 

@@ -1,42 +1,93 @@
 @props(["mode" => "grid", "theme" => "default"])
 
 @php
-    $mitras = \App\Models\Mitra::latest()->take(15)->get();
+    $mitras = \App\Models\Mitra::latest()->get();
+    $count = $mitras->count();
+    $chunkSize = max(1, ceil($count / 3));
+    $chunks = $mitras->chunk($chunkSize);
 @endphp
 
 <section class="happy-customer-section {{ $attributes->get("class") }}" style="{{ $attributes->get("style") }}">
     <div class="happy-customer-container mode-{{ $mode }} theme-{{ $theme }}">
         <h2 class="happy-customer-title">Mitra</h2>
         
-        @if($mode === "marquee")
-        @php
-            $isMarqueeActive = $mitras->count() >= 10;
-        @endphp
-        <div class="marquee-container {{ !$isMarqueeActive ? 'static-mode' : '' }}">
-            <div class="{{ $isMarqueeActive ? 'marquee-track' : 'marquee-track-static' }}" style="{{ $isMarqueeActive ? 'animation-duration: 35s;' : '' }}">
-                @foreach($mitras as $mitra)
+        <!-- Marquee Display -->
+        <div class="marquee-container mitra-marquee">
+            @foreach($chunks as $index => $chunk)
+            <div class="marquee-track" style="animation-duration: 20s; animation-direction: {{ $index % 2 === 1 ? 'reverse' : 'normal' }};">
+                @foreach($chunk as $mitra)
                 <a href="#" class="marquee-item"><img src="{{ asset($mitra->logo_path ?? 'assets/wp-content/uploads/2026/02/Icon-Nutrition.webp') }}" alt="{{ $mitra->name }}" loading="lazy"></a>
                 @endforeach
                 
-                @if($isMarqueeActive)
+                @if($chunk->count() > 0)
                 <!-- Duplicate for seamless loop -->
-                @foreach($mitras as $mitra)
+                @foreach($chunk as $mitra)
                 <a href="#" class="marquee-item" aria-hidden="true"><img src="{{ asset($mitra->logo_path ?? 'assets/wp-content/uploads/2026/02/Icon-Nutrition.webp') }}" alt="{{ $mitra->name }}" loading="lazy"></a>
                 @endforeach
                 @endif
             </div>
+            @endforeach
         </div>
-        @else
+
+        <!-- Grid Display -->
         <div class="mitra-grid">
             @foreach($mitras as $mitra)
             <div class="mitra-item"><img src="{{ asset($mitra->logo_path ?? 'assets/wp-content/uploads/2026/02/Icon-Nutrition.webp') }}" alt="{{ $mitra->name }}" loading="lazy"></div>
             @endforeach
         </div>
-        @endif
     </div>
 </section>
 
 <style>
+/* Smart Grid to Marquee Logic */
+@if($mode === 'grid' || $mode === 'smart')
+    /* Base Desktop (5 cols, max 15 items for 3 rows) */
+    @if($count > 15)
+        .mitra-grid { display: none !important; }
+        .mitra-marquee { display: flex !important; }
+    @else
+        .mitra-marquee { display: none !important; }
+    @endif
+
+    /* Tablet (4 cols, max 12 items for 3 rows) */
+    @media (max-width: 1024px) {
+        @if($count > 12)
+            .mitra-grid { display: none !important; }
+            .mitra-marquee { display: flex !important; }
+        @else
+            .mitra-grid { display: grid !important; }
+            .mitra-marquee { display: none !important; }
+        @endif
+    }
+
+    /* Mobile (3 cols, max 9 items for 3 rows) */
+    @media (max-width: 768px) {
+        @if($count > 9)
+            .mitra-grid { display: none !important; }
+            .mitra-marquee { display: flex !important; }
+        @else
+            .mitra-grid { display: grid !important; }
+            .mitra-marquee { display: none !important; }
+        @endif
+    }
+
+    /* Small Mobile (2 cols, max 6 items for 3 rows) */
+    @media (max-width: 480px) {
+        @if($count > 6)
+            .mitra-grid { display: none !important; }
+            .mitra-marquee { display: flex !important; }
+        @else
+            .mitra-grid { display: grid !important; }
+            .mitra-marquee { display: none !important; }
+        @endif
+    }
+@endif
+
+@if($mode === 'marquee')
+    .mitra-grid { display: none !important; }
+    .mitra-marquee { display: flex !important; }
+@endif
+
 /* Base Styles */
 .happy-customer-section {
     padding: 0 0 60px 0;
@@ -47,7 +98,7 @@
 .happy-customer-container {
     border-radius: 20px;
     padding: 40px 0;
-    max-width: 1300px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -80,6 +131,8 @@
     margin: 5px 20px;
     padding: 5px 0;
     display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 .marquee-container.static-mode {
     overflow: visible;
@@ -105,7 +158,7 @@
 }
 .marquee-item img {
     height: 140px;
-    max-width: 320px;
+    width: 220px;
     object-fit: contain;
     border-radius: 5px;
     border: 1px solid rgba(0,0,0,0.08);
@@ -169,7 +222,7 @@
     .happy-customer-section { margin-top: 0; }
     .happy-customer-container { padding: 30px 0; margin: 0 10px; border-radius: 15px; }
     .happy-customer-title { font-size: 2em; }
-    .marquee-item img { height: 90px; max-width: 120px; }
+    .marquee-item img { height: 90px; width: 140px; }
     .mitra-grid { grid-template-columns: repeat(3, 1fr); padding: 0 5px; gap: 5px; }
 }
 @media (max-width: 480px) {

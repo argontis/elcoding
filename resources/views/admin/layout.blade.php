@@ -10,10 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --sidebar-bg: #0B1121;
-            --sidebar-hover: #1E293B;
-            --accent: #3B82F6;
-            --bg-main: #F4F7F6;
+            --sidebar-bg: #0f172a; /* slate-900 */
+            --sidebar-hover: #1e293b; /* slate-800 */
+            --accent: #3b82f6;
+            --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            --bg-main: #f8fafc; /* slate-50 */
         }
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
@@ -33,38 +34,37 @@
         .sidebar-item {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            overflow: hidden;
             color: #94A3B8;
+            margin: 4px 16px;
+            padding: 10px 16px !important;
+            border-radius: 12px !important;
+            width: auto;
         }
-        .sidebar-item::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0; width: 4px;
-            background: var(--accent);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-            border-radius: 0 4px 4px 0;
-        }
-        .sidebar-item:hover, .sidebar-item.active {
+        .sidebar-item:hover {
             color: #FFFFFF;
             background: rgba(255, 255, 255, 0.05);
+            transform: translateX(4px);
         }
-        .sidebar-item.active::before { transform: scaleY(1); }
+        .sidebar-item.active {
+            color: #FFFFFF;
+            background: var(--accent-gradient);
+            box-shadow: 0 4px 15px -3px rgba(59, 130, 246, 0.4);
+        }
         .sidebar-item i { transition: transform 0.3s ease; }
-        .sidebar-item:hover i { transform: scale(1.1); color: var(--accent); }
-        .sidebar-item.active i { color: var(--accent); }
+        .sidebar-item:hover i { transform: scale(1.1); color: #fff; }
+        .sidebar-item.active i { color: #fff; }
 
         /* Cards & Surfaces */
         .surface-card {
             background: #FFFFFF;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px -4px rgba(0,0,0,0.03), 0 0 1px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid #F1F5F9;
+            border: 1px solid rgba(241, 245, 249, 0.8);
         }
         .surface-card:hover {
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 0 1px rgba(0,0,0,0.05);
-            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.02);
+            transform: translateY(-4px);
         }
 
         /* Topbar styling */

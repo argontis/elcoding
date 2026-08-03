@@ -105,7 +105,7 @@
 
 <div data-elementor-type="archive" data-elementor-id="10899" class="elementor elementor-10899 elementor-location-archive" data-elementor-post-type="elementor_library">
 
-		<div class="elementor-element elementor-element-ca56c8f e-con-full e-flex e-con e-parent" data-id="ca56c8f" data-element_type="container" data-e-type="container">
+		<div class="elementor-element elementor-element-ca56c8f e-con-full e-flex e-con e-parent" data-id="ca56c8f" data-element_type="container" data-e-type="container" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
 		<div class="elementor-element elementor-element-635d385 e-con-full e-flex e-con e-child" data-id="635d385" data-element_type="container" data-e-type="container">
 		<div class="elementor-element elementor-element-c2b2d44 e-con-full e-flex e-con e-child" data-id="c2b2d44" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;sticky&quot;:&quot;top&quot;,&quot;sticky_on&quot;:[&quot;desktop&quot;],&quot;sticky_offset&quot;:120,&quot;sticky_parent&quot;:&quot;yes&quot;,&quot;sticky_effects_offset&quot;:0,&quot;sticky_anchor_link_offset&quot;:0}" style="position: sticky; top: 120px; align-self: flex-start; z-index: 9;">
 				<div class="elementor-element elementor-element-87c266d elementor-widget elementor-widget-heading" data-id="87c266d" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">

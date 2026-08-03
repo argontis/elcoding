@@ -70,9 +70,10 @@
 
         <div class="article-share">
             <span class="article-share-title">Bagikan Artikel Ini:</span>
-            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20artikel%20yang%20saya%20baca%20di%20website%20dan%20ingin%20berkonsultasi%20lebih%20lanjut." target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" target="_blank" title="Bagikan ke Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->fullUrl()) }}&text={{ urlencode($artikel->title) }}" target="_blank" title="Bagikan ke Twitter (X)"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(request()->fullUrl()) }}" target="_blank" title="Bagikan ke LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://api.whatsapp.com/send?text={{ urlencode($artikel->title . ' - ' . request()->fullUrl()) }}" target="_blank" title="Bagikan ke WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
     </div>
 @push('schema')

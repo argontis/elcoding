@@ -66,59 +66,171 @@
     <!-- Left Col (Main content) -->
     <div class="space-y-8">
         <!-- Quick Actions Banner -->
-        <div class="surface-card p-8 bg-gradient-to-br from-indigo-900 via-blue-900 to-slate-900 border-none relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
-            <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse" style="animation-delay: 2s;"></div>
+        <div class="surface-card p-10 bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 border-none relative overflow-hidden shadow-2xl">
+            <!-- Animated Mesh Background -->
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-500 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-pulse"></div>
+            <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-purple-500 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-pulse" style="animation-delay: 2s;"></div>
             
-            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="text-white">
-                    <h3 class="text-2xl font-bold mb-2">Selamat Datang di Command Center! 🚀</h3>
-                    <p class="text-blue-100 text-sm max-w-lg leading-relaxed">
-                        Kelola seluruh aset digital Elcoding dari satu tempat. Anda dapat menambahkan portofolio baru, menyesuaikan program kursus, dan memperbarui berita terbaru dengan cepat.
+                    @php
+                        $hour = \Carbon\Carbon::now('Asia/Jakarta')->format('H');
+                        $greeting = 'Selamat Malam';
+                        if ($hour >= 5 && $hour < 11) $greeting = 'Selamat Pagi';
+                        elseif ($hour >= 11 && $hour < 15) $greeting = 'Selamat Siang';
+                        elseif ($hour >= 15 && $hour < 18) $greeting = 'Selamat Sore';
+                    @endphp
+                    <h3 class="text-3xl font-extrabold mb-3 tracking-tight">{{ $greeting }}, Admin! 👋</h3>
+                    <p class="text-blue-100/80 text-base max-w-xl leading-relaxed">
+                        Selamat datang di Command Center. Kelola seluruh aset digital Elcoding dari satu tempat dengan mudah dan cepat.
                     </p>
                 </div>
-                <div class="flex gap-3 shrink-0">
-                    <a href="/admin/artikel" class="px-5 py-2.5 bg-indigo-800/50 text-white font-bold rounded-lg border border-indigo-400/30 hover:bg-indigo-800 transition-colors backdrop-blur-sm">
-                        Tulis Artikel
+                <div class="flex gap-4 shrink-0">
+                    <a href="/admin/artikel/create" class="px-6 py-3 bg-white/10 text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 hover:scale-105 transition-all backdrop-blur-md shadow-lg flex items-center gap-2">
+                        <i class="fas fa-pen-nib"></i> Tulis Artikel
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- Recent Activities -->
-        <div class="surface-card">
-            <div class="p-6 border-b border-slate-100 flex justify-between items-center">
-                <h3 class="text-lg font-bold text-slate-800">Aktivitas Terbaru</h3>
-                <a href="{{ url('admin/aktivitas') }}" class="text-sm font-semibold text-blue-600 hover:text-blue-700">Lihat Semua</a>
+        <!-- Bottom Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Chart Section -->
+            <div class="lg:col-span-2">
+                <div class="surface-card p-0 h-full flex flex-col">
+                    <div class="p-6 px-8 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-[20px]">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fas fa-chart-area text-blue-500"></i> Statistik Pengunjung (Minggu Ini)
+                        </h3>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-center">
+                        <canvas id="visitorChart" style="width: 100%; max-height: 350px;"></canvas>
+                    </div>
+                </div>
             </div>
-            <div class="p-0">
-                <div class="divide-y divide-slate-100">
+
+            <!-- Recent Activities Timeline -->
+            <div class="surface-card p-0 lg:col-span-1 h-fit">
+            <div class="p-6 px-8 border-b border-slate-100 flex justify-between items-center bg-slate-50/50 rounded-t-20">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fas fa-history text-blue-500"></i> Log Aktivitas Terbaru
+                </h3>
+                <a href="{{ url('admin/aktivitas') }}" class="text-sm font-semibold text-blue-600 hover:text-blue-700 hover:underline">Lihat Semua</a>
+            </div>
+            <div class="p-8">
+                <div class="relative border-l-2 border-slate-100 ml-4 space-y-8">
                     @forelse($activities as $activity)
-                    <!-- Activity item -->
-                    <div class="p-4 px-6 flex items-start gap-4 hover:bg-slate-50 transition-colors">
-                        <div class="w-10 h-10 rounded-full bg-{{ $activity->color }}-100 text-{{ $activity->color }}-600 flex items-center justify-center shrink-0">
-                            <i class="fas {{ $activity->icon }}"></i>
+                    <!-- Timeline item -->
+                    <div class="relative pl-8 group">
+                        <!-- Connector Dot -->
+                        <div class="absolute -left-[17px] top-1 w-8 h-8 rounded-full bg-white border-2 border-slate-100 flex items-center justify-center group-hover:border-{{ $activity->color }}-400 transition-colors shadow-sm">
+                            <div class="w-2.5 h-2.5 rounded-full bg-{{ $activity->color }}-500 group-hover:scale-125 transition-transform"></div>
                         </div>
-                        <div>
-                            <p class="text-sm text-slate-800 font-medium">
-                                {{ $activity->type }} <span class="font-bold text-blue-600">"{{ Str::limit($activity->title, 40) }}"</span>
-                                @if($activity->created_at->diffInSeconds($activity->updated_at) < 5)
-                                    berhasil ditambahkan.
-                                @else
-                                    berhasil diperbarui.
-                                @endif
+                        
+                        <div class="bg-white border border-slate-100 p-5 rounded-2xl shadow-sm group-hover:shadow-md transition-shadow">
+                            <div class="flex items-start justify-between gap-4 mb-2">
+                                <h4 class="font-bold text-slate-800 text-base">
+                                    {{ $activity->type }} <span class="text-blue-600">"{{ Str::limit($activity->title, 50) }}"</span>
+                                </h4>
+                                <span class="text-xs font-semibold text-slate-400 bg-slate-50 px-2.5 py-1 rounded-md shrink-0 border border-slate-100">
+                                    {{ $activity->updated_at->diffForHumans() }}
+                                </span>
+                            </div>
+                            <p class="text-sm text-slate-500">
+                                {{ $activity->description }}
                             </p>
-                            <p class="text-xs text-slate-400 mt-1">{{ $activity->updated_at->diffForHumans() }}</p>
                         </div>
                     </div>
                     @empty
-                    <div class="p-6 text-center text-slate-500 text-sm">
-                        Belum ada aktivitas terbaru.
+                    <div class="pl-8 text-slate-500 text-sm">
+                        Belum ada log aktivitas.
                     </div>
                     @endforelse
                 </div>
             </div>
         </div>
     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Chart Initialization Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('visitorChart');
+    if (ctx) {
+        // Gradient for chart area
+        const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(59, 130, 246, 0.2)'); // blue-500
+        gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {!! json_encode($visitorLabels ?? []) !!},
+                datasets: [{
+                    label: 'Pengunjung Aktif',
+                    data: {!! json_encode($visitorData ?? []) !!},
+                    borderColor: '#3b82f6', // blue-500
+                    backgroundColor: gradient,
+                    borderWidth: 3,
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderColor: '#3b82f6',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    fill: true,
+                    tension: 0.4 // Smooth curves
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#1e293b',
+                        padding: 12,
+                        titleFont: { size: 13, family: "'Plus Jakarta Sans', sans-serif" },
+                        bodyFont: { size: 14, weight: 'bold', family: "'Plus Jakarta Sans', sans-serif" },
+                        displayColors: false,
+                        cornerRadius: 8,
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#f1f5f9',
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            color: '#64748b',
+                            font: { family: "'Plus Jakarta Sans', sans-serif" }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false,
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            color: '#64748b',
+                            font: { family: "'Plus Jakarta Sans', sans-serif" }
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+            }
+        });
+    }
+});
+</script>
 @endsection

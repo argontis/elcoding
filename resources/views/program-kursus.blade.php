@@ -276,8 +276,12 @@
             .programs-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
-            .programs-hero-title { font-size: 32px; }
+            .programs-hero-title { font-size: 28px; }
             .programs-grid { grid-template-columns: 1fr; }
+            .programs-section { padding: 48px 16px 64px 16px; }
+            .program-card-body { padding: 20px; }
+            .program-card-footer { padding: 0 20px 20px 20px; }
+            .program-card-header { height: 160px; }
         }
     </style>
 

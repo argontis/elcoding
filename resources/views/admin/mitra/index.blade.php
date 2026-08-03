@@ -52,8 +52,5 @@
         </div>
     </div>
     
-    <div class="p-5 border-t border-slate-100">
-        {{ $mitras->links() }}
-    </div>
 </div>
 @endsection

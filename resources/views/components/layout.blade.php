@@ -44,25 +44,25 @@
     <link rel='stylesheet' id='hello-elementor-header-footer-css' href='{{ asset("assets/wp-content/themes/hello-elementor/assets/css/header-footer.css") }}' media='all' />
     <link rel='stylesheet' id='elementor-frontend-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/frontend.min.css") }}' media='all' />
     
-    <!-- Deferred Widget CSS -->
-    <link rel='stylesheet' id='widget-nav-menu-css' href='{{ asset("assets/wp-content/plugins/pro-elements/assets/css/widget-nav-menu.min.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='widget-image-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-image.min.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='e-sticky-css' href='{{ asset("assets/wp-content/plugins/pro-elements/assets/css/modules/sticky.min.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='widget-heading-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-heading.min.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='widget-breadcrumbs-css' href='{{ asset("assets/wp-content/plugins/pro-elements/assets/css/widget-breadcrumbs.min.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='widget-divider-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-divider.min.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='widget-spacer-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-spacer.min.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='widget-icon-list-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='e-animation-shrink-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/lib/animations/styles/e-animation-shrink.min.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='widget-social-icons-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='elementor-icons-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='elementor-post-7138-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-7138.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='swiper-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='widget-image-carousel-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='widget-icon-box-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-icon-box.min.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='elementor-post-6296-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-6296.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='elementor-post-11887-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-11887.css") }}' media="print" onload="this.media='all'" />
-    <link rel='stylesheet' id='elementor-post-8310-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-8310.css") }}' media="print" onload="this.media='all'" />
+    <!-- Widget CSS -->
+    <link rel='stylesheet' id='widget-nav-menu-css' href='{{ asset("assets/wp-content/plugins/pro-elements/assets/css/widget-nav-menu.min.css") }}' media="all" />
+    <link rel='stylesheet' id='widget-image-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-image.min.css") }}' media="all" />
+    <link rel='stylesheet' id='e-sticky-css' href='{{ asset("assets/wp-content/plugins/pro-elements/assets/css/modules/sticky.min.css") }}' media="all" />
+    <link rel='stylesheet' id='widget-heading-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-heading.min.css") }}' media="all" />
+    <link rel='stylesheet' id='widget-breadcrumbs-css' href='{{ asset("assets/wp-content/plugins/pro-elements/assets/css/widget-breadcrumbs.min.css") }}' media="all" />
+    <link rel='stylesheet' id='widget-divider-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-divider.min.css") }}' media="all" />
+    <link rel='stylesheet' id='widget-spacer-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-spacer.min.css") }}' media="all" />
+    <link rel='stylesheet' id='widget-icon-list-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css") }}' media="all" />
+    <link rel='stylesheet' id='e-animation-shrink-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/lib/animations/styles/e-animation-shrink.min.css") }}' media="all" />
+    <link rel='stylesheet' id='widget-social-icons-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css") }}' media="all" />
+    <link rel='stylesheet' id='elementor-icons-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css") }}' media="all" />
+    <link rel='stylesheet' id='elementor-post-7138-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-7138.css") }}' media="all" />
+    <link rel='stylesheet' id='swiper-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css") }}' media="all" />
+    <link rel='stylesheet' id='widget-image-carousel-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css") }}' media="all" />
+    <link rel='stylesheet' id='widget-icon-box-css' href='{{ asset("assets/wp-content/plugins/elementor/assets/css/widget-icon-box.min.css") }}' media="all" />
+    <link rel='stylesheet' id='elementor-post-6296-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-6296.css") }}' media="all" />
+    <link rel='stylesheet' id='elementor-post-11887-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-11887.css") }}' media="all" />
+    <link rel='stylesheet' id='elementor-post-8310-css' href='{{ asset("assets/wp-content/uploads/elementor/css/post-8310.css") }}' media="all" />
     
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
@@ -73,9 +73,20 @@
     @stack('styles')
     <style>
         /* Global Active and Hover colors for Navigation & Footer */
+        .elementor-nav-menu .menu-item a.elementor-item {
+            transition: color 0.2s ease !important;
+            transform: none !important;
+            background: transparent !important;
+        }
+        /* Disable any underline/pointer animations from Elementor */
+        .elementor-nav-menu .menu-item a.elementor-item::before,
+        .elementor-nav-menu .menu-item a.elementor-item::after {
+            display: none !important;
+        }
         .elementor-nav-menu .menu-item a.elementor-item-active,
-        .elementor-nav-menu .menu-item a:hover {
+        .elementor-nav-menu .menu-item a.elementor-item:hover {
             color: #7C3AED !important; /* purple */
+            transform: none !important;
         }
         /* Footer Social Icons and Icon List Hover */
         .elementor-location-footer a:hover,
@@ -117,7 +128,9 @@
         }
 
         /* Mobile Header CSS */
-        .elementor-element-178d229 .e-con-inner {
+        .elementor-element-178d229 > .e-con-inner {
+            max-width: 1200px !important;
+            margin: 0 auto !important;
             display: flex !important;
             justify-content: space-between !important;
             align-items: center !important;
@@ -177,11 +190,11 @@
                 display: none;
                 position: absolute !important;
                 top: 100% !important;
-                left: 20px !important;
+                left: auto !important;
                 right: 20px !important;
-                width: calc(100% - 40px) !important;
+                width: 220px !important;
                 order: 4 !important;
-                margin-top: 15px !important;
+                margin-top: 5px !important;
                 background: #ffffff;
                 padding: 10px 0;
                 border-radius: 12px;
@@ -252,7 +265,7 @@
 </head>
 <body class="home wp-singular page-template page-template-elementor_header_footer page wp-embed-responsive wp-theme-hello-elementor wp-child-theme-hello-elementor-child hello-elementor-default elementor-default elementor-template-full-width elementor-page elementor-kit-7138 elementor-page-6296">
 
-<a href="#main-content" class="skip-to-content">Skip to content</a>
+
 
 <header data-elementor-type="header" data-elementor-id="11887" class="elementor elementor-11887 elementor-location-header" data-elementor-post-type="elementor_library">
     <div class="elementor-element elementor-element-178d229 e-flex e-con-boxed e-con e-parent" data-id="178d229" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;sticky&quot;:&quot;top&quot;,&quot;sticky_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;,&quot;mobile&quot;],&quot;sticky_offset&quot;:0,&quot;sticky_effects_offset&quot;:0,&quot;sticky_anchor_link_offset&quot;:0}">
@@ -274,14 +287,14 @@
                         <li class="menu-item menu-item-home"><a href="{{ url('/') }}" class="elementor-item {{ request()->is('/') ? 'elementor-item-active' : '' }}">Beranda</a></li>
                         <li class="menu-item"><a href="{{ url('/tentang-kami') }}" class="elementor-item {{ request()->is('tentang-kami') ? 'elementor-item-active' : '' }}">Tentang Kami</a></li>
                         <li class="menu-item"><a href="{{ url('/program-kursus') }}" class="elementor-item {{ request()->is('program-kursus*') ? 'elementor-item-active' : '' }}">Program Kursus</a></li>
-
+                        <li class="menu-item"><a href="{{ url('/portofolio') }}" class="elementor-item {{ request()->is('portofolio*') ? 'elementor-item-active' : '' }}">Portofolio</a></li>
                         <li class="menu-item"><a href="{{ url('/artikel') }}" class="elementor-item {{ request()->is('artikel') ? 'elementor-item-active' : '' }}">Artikel</a></li>
                         <li class="menu-item"><a href="{{ url('/kontak') }}" class="elementor-item {{ request()->is('kontak') ? 'elementor-item-active' : '' }}">Kontak</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="elementor-element elementor-element-5ebed42 elementor-align-center elementor-widget elementor-widget-button" data-id="5ebed42" data-element_type="widget" data-e-type="widget" data-widget_type="button.default" id="header-btn" style="order: 4;">
-                <a class="elementor-button elementor-size-md" href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20layanan%20yang%20ada%20dan%20ingin%20berkonsultasi%20lebih%20lanjut." target="_blank" rel="noopener noreferrer" role="button">
+                <a class="elementor-button elementor-size-md" href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20layanan%20yang%20ada%20dan%20ingin%20berkonsultasi%20lebih%20lanjut." target="_blank" rel="noopener noreferrer" role="button">
                     <span class="elementor-button-content-wrapper">
                         <span class="elementor-button-text">Konsultasi</span>
                     </span>
@@ -341,7 +354,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <h3 class="footer-heading">Quick Links</h3>
             <ul class="footer-list">
                 <li><a href="{{ url('/tentang-kami') }}">Tentang Kami</a></li>
-
+                <li><a href="{{ url('/program-kursus') }}">Program Kursus</a></li>
+                <li><a href="{{ url('/portofolio') }}">Portofolio</a></li>
                 <li><a href="{{ url('/artikel') }}">Artikel</a></li>
                 <li><a href="{{ url('/kontak') }}">Kontak</a></li>
             </ul>
@@ -363,14 +377,15 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="footer-col">
             <h3 class="footer-heading">Informasi Kontak</h3>
             <ul class="footer-list icon-list contact-list">
-                <li><i class="fas fa-map-marker-alt"></i> Ruko Citraland, Tegal, Jawa Tengah</li>
-                <li><i class="fab fa-whatsapp"></i> Admin : +62 814-7665-2656</li>
-                <li><i class="far fa-envelope"></i> info@elcodingacademy.com</li>
+                <li><i class="fas fa-map-marker-alt"></i> {{ \App\Models\Setting::getValue('contact_address', 'Ruko Citraland, Tegal, Jawa Tengah') }}</li>
+                <li><i class="fab fa-whatsapp"></i> Admin : {{ \App\Models\Setting::getValue('contact_phone', '+62 814-7665-2656') }}</li>
+                <li><i class="fas fa-envelope"></i> {{ \App\Models\Setting::getValue('contact_email', 'info@elcodingacademy.com') }}</li>
             </ul>
             
             <div class="footer-socials">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/elcoding.id?igsh=c2pndTFlYW5laXk0&utm_source=qr" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="{{ \App\Models\Setting::getValue('social_facebook', '#') }}"><i class="fab fa-facebook-f"></i></a>
+                    <a href="{{ \App\Models\Setting::getValue('social_instagram', '#') }}"><i class="fab fa-instagram"></i></a>
+                    <a href="{{ \App\Models\Setting::getValue('social_youtube', '#') }}"><i class="fab fa-youtube"></i></a>
                 <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
             </div>
         </div>
@@ -389,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
     border-top: 1px solid #e5e7eb;
 }
 .footer-container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
     display: grid;
@@ -574,7 +589,7 @@ var ElementorProFrontendConfig = {"ajaxurl":"","nonce":"bdfd649656","urls":{"ass
             <button onclick="askBot('Berapa biaya kursus IT?', 'Biaya kursus bootcamp mulai dari Rp 1.500.000 hingga Rp 3.500.000. Tersedia juga sistem cicilan yang fleksibel!')">Berapa biaya kursus IT?</button>
             <button onclick="askBot('Kelas kursus online/offline?', 'Kami menyediakan kelas reguler (offline) di ruko kami, dan kelas online interaktif via Zoom.')">Kelas kursus online/offline?</button>
             <button onclick="askBot('Apakah dapat sertifikat kursus?', 'Ya! Lulusan kursus akan mendapatkan sertifikat kompetensi yang diakui dan bimbingan penyaluran kerja.')">Apakah dapat sertifikat kursus?</button>
-            <button onclick="askBot('Bagaimana cara konsultasi?', 'Anda bisa menghubungi tim kami dengan menekan tombol \'Konsultasi\' di menu atas atau hubungi WhatsApp kami di +62 814-7665-2656.')">Bagaimana cara konsultasi?</button>
+            <button onclick="askBot('Bagaimana cara konsultasi?', 'Anda bisa menghubungi tim kami dengan menekan tombol \'Konsultasi\' di menu atas atau hubungi WhatsApp kami di {{ \App\Models\Setting::getValue('contact_phone', '+62 814-7665-2656') }}.')">Bagaimana cara konsultasi?</button>
         </div>
     </div>
     <div class="chatbot-footer">

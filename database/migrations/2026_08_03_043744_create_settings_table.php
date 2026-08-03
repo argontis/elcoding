@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('portofolios');
-        Schema::dropIfExists('kategori_portofolios');
+        Schema::create('settings', function (Blueprint $table) {
+            $table->id();
+            $table->string('key')->unique();
+            $table->text('value')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -20,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Not recreating tables in down method since this is a feature removal
+        Schema::dropIfExists('settings');
     }
 };

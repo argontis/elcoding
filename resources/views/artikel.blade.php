@@ -78,7 +78,7 @@
                 <div class="blog-card">
                     @php 
                         $images = ['Magang-Online.webp', 'Skill-Lab.webp', 'Magang-Mahasiswa.webp'];
-                        $randomImg = $images[$loop->index % 3];
+                        $randomImg = $images[$artikel->id % 3];
                         $bgImage = $artikel->image_path ? asset($artikel->image_path) : asset('assets/wp-content/uploads/2026/02/'.$randomImg);
                     @endphp
                     <div class="blog-img" style="background-image: url('{{ $bgImage }}');"></div>
@@ -209,7 +209,10 @@
         }
         @media (max-width: 768px) { 
             .blog-grid { grid-template-columns: 1fr; } 
-            .page-title { font-size: 32px; }
+            .page-title { font-size: 28px; }
+            .blog-section { padding: 48px 16px 64px 16px; }
+            .blog-content { padding: 20px; }
+            .blog-img { height: 160px; }
         }
     </style>
 

@@ -22,6 +22,7 @@
             margin-top: -80px !important;
             padding-left: 20px !important;
             padding-right: 20px !important;
+            padding-bottom: 100px !important;
         }
         .elementor-element-22c61dc > .e-con-inner {
             max-width: 1200px !important;

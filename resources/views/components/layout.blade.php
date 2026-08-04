@@ -1,10 +1,13 @@
 <!doctype html>
 <html lang="id">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{{ isset($title) ? $title . ' | Elcoding' : 'Elcoding - Software House & IT Training Center' }}</title>
-	<meta name="description" content="{{ $description ?? 'Elcoding adalah Software House profesional dan Lembaga Kursus Pelatihan IT terpadu. Menyediakan jasa pembuatan aplikasi, website, dan program bootcamp IT terlengkap.' }}" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSRF Token wajib ada agar script bisa POST ke Laravel -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    <title>{{ isset($title) ? $title . ' | Elcoding' : 'Elcoding - Software House & IT Training Center' }}</title>
+    <meta name="description" content="{{ $description ?? 'Elcoding adalah Software House profesional dan Lembaga Kursus Pelatihan IT terpadu. Menyediakan jasa pembuatan aplikasi, website, dan program bootcamp IT terlengkap.' }}" />
     <meta name="keywords" content="Software House Tegal, Jasa Pembuatan Website, Jasa Aplikasi, Kursus Coding, Pelatihan IT, Bootcamp IT, Elcoding">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="{{ url()->current() }}">
@@ -320,12 +323,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Dropdown toggle on mobile
     const dropdownParents = document.querySelectorAll('.menu-item-has-children > a');
     dropdownParents.forEach(parent => {
         parent.addEventListener('click', (e) => {
-            // Dropdown disabled on mobile per user request.
-            // Clicking will navigate directly to the link.
+            
         });
     });
 });
@@ -359,8 +360,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <li><a href="{{ url('/artikel') }}">Artikel</a></li>
                 <li><a href="{{ url('/kontak') }}">Kontak</a></li>
             </ul>
-
-
         </div>
 
         <!-- Col 3 -->
@@ -407,9 +406,9 @@ document.addEventListener('DOMContentLoaded', () => {
             </ul>
             
             <div class="footer-socials">
-                    <a href="{{ \App\Models\Setting::getValue('social_facebook', '#') }}"><i class="fab fa-facebook-f"></i></a>
-                    <a href="{{ \App\Models\Setting::getValue('social_instagram', '#') }}"><i class="fab fa-instagram"></i></a>
-                    <a href="{{ \App\Models\Setting::getValue('social_youtube', '#') }}"><i class="fab fa-youtube"></i></a>
+                <a href="{{ \App\Models\Setting::getValue('social_facebook', '#') }}"><i class="fab fa-facebook-f"></i></a>
+                <a href="{{ \App\Models\Setting::getValue('social_instagram', '#') }}"><i class="fab fa-instagram"></i></a>
+                <a href="{{ \App\Models\Setting::getValue('social_youtube', '#') }}"><i class="fab fa-youtube"></i></a>
                 <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
             </div>
         </div>
@@ -587,16 +586,16 @@ var ElementorProFrontendConfig = {"ajaxurl":"","nonce":"bdfd649656","urls":{"ass
 <script id="pro-elements-handlers-js" src="{{ asset('assets/wp-content/plugins/pro-elements/assets/js/elements-handlers.min.js') }}" defer></script>
 
 
-<!-- Chatbot Modal -->
+<!-- Chatbot Modal terhubung ke ChatController -->
 <div id="chatbot-modal" class="chatbot-modal">
     <div class="chatbot-header">
         <div class="header-info">
             <div class="avatar-wrap">
-                <i class="fas fa-headset"></i>
+                <i class="fas fa-user-circle"></i>
                 <span class="status-dot"></span>
             </div>
             <div>
-                <h4>Customer Service</h4>
+                <h4>Admin Elcoding</h4>
                 <span>Online</span>
             </div>
         </div>
@@ -604,21 +603,19 @@ var ElementorProFrontendConfig = {"ajaxurl":"","nonce":"bdfd649656","urls":{"ass
     </div>
     <div class="chatbot-body" id="chatbot-body">
         <div class="msg-wrapper bot-wrapper">
-            <div class="msg-avatar"><i class="fas fa-headset"></i></div>
-            <div class="chatbot-msg bot-msg">Halo! Saya Customer Service Elcoding. Silakan pilih topik yang ingin ditanyakan:</div>
+            <div class="msg-avatar"><i class="fas fa-user-circle"></i></div>
+            <div class="chatbot-msg bot-msg">Halo Kak! Ada yang bisa dibantu terkait layanan di Elcoding? Silakan pilih topik di bawah ini, atau langsung ketik pesan Kakak.</div>
         </div>
         <div class="chatbot-options" id="chatbot-options">
-            <button onclick="askBot('Jasa buat aplikasi apa saja?', 'Kami melayani pembuatan Website Company Profile, Sistem Informasi Manajemen, Toko Online, hingga Aplikasi Mobile (Android/iOS) custom.')">Jasa buat aplikasi apa saja?</button>
-            <button onclick="askBot('Berapa biaya buat aplikasi?', 'Biaya pembuatan aplikasi bergantung pada tingkat kerumitan fitur. Silakan tekan tombol Konsultasi agar tim kami dapat memberikan penawaran terbaik.')">Berapa biaya buat aplikasi?</button>
-            <button onclick="askBot('Berapa biaya kursus IT?', 'Biaya kursus bootcamp mulai dari Rp 1.500.000 hingga Rp 3.500.000. Tersedia juga sistem cicilan yang fleksibel!')">Berapa biaya kursus IT?</button>
-            <button onclick="askBot('Kelas kursus online/offline?', 'Kami menyediakan kelas reguler (offline) di ruko kami, dan kelas online interaktif via Zoom.')">Kelas kursus online/offline?</button>
-            <button onclick="askBot('Apakah dapat sertifikat kursus?', 'Ya! Lulusan kursus akan mendapatkan sertifikat kompetensi yang diakui dan bimbingan penyaluran kerja.')">Apakah dapat sertifikat kursus?</button>
-            <button onclick="askBot('Bagaimana cara konsultasi?', 'Anda bisa menghubungi tim kami dengan menekan tombol \'Konsultasi\' di menu atas atau hubungi WhatsApp kami di {{ \App\Models\Setting::getValue('contact_phone', '+62 814-7665-2656') }}.')">Bagaimana cara konsultasi?</button>
+            <button onclick="askBot('Jasa buat aplikasi apa saja?')">Jasa buat aplikasi apa saja?</button>
+            <button onclick="askBot('Berapa biaya buat aplikasi?')">Berapa biaya buat aplikasi?</button>
+            <button onclick="askBot('Berapa biaya kursus IT?')">Berapa biaya kursus IT?</button>
+            <button onclick="askBot('Bagaimana cara konsultasi?')">Bagaimana cara konsultasi?</button>
         </div>
     </div>
     <div class="chatbot-footer">
-        <input type="text" placeholder="Pilih pertanyaan di atas..." readonly style="background: #f1f5f9; cursor: not-allowed; color: #94a3b8;">
-        <button style="background: #94a3b8; cursor: not-allowed;"><i class="fas fa-paper-plane"></i></button>
+        <input type="text" id="chat-input" placeholder="Ketik pesan di sini..." onkeypress="handleEnter(event)" style="background: #fff; color: #1e293b; cursor: text;">
+        <button onclick="sendUserMessage()" style="background: #2563EB; cursor: pointer;"><i class="fas fa-paper-plane"></i></button>
     </div>
 </div>
 
@@ -749,63 +746,86 @@ var ElementorProFrontendConfig = {"ajaxurl":"","nonce":"bdfd649656","urls":{"ass
     justify-content: center;
 }
 </style>
+
 <script>
-function askBot(question, answer) {
-    const body = document.getElementById('chatbot-body');
-    const options = document.getElementById('chatbot-options');
-    
-    if(options) options.style.display = 'none';
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    // Munculkan pesan user
-    const userWrap = document.createElement('div');
-    userWrap.className = 'msg-wrapper user-wrapper';
-    const userDiv = document.createElement('div');
-    userDiv.className = 'chatbot-msg user-msg';
-    userDiv.innerText = question;
-    userWrap.appendChild(userDiv);
-    body.appendChild(userWrap);
-    body.scrollTop = body.scrollHeight;
+    function toggleChatbot(e) {
+        e.preventDefault();
+        const modal = document.getElementById('chatbot-modal');
+        modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+    }
 
-    // Munculkan animasi typing
-    const typingWrap = document.createElement('div');
-    typingWrap.className = 'msg-wrapper bot-wrapper';
-    typingWrap.innerHTML = `
-        <div class="msg-avatar"><i class="fas fa-headset"></i></div>
-        <div class="typing-indicator">
-            <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
-        </div>
-    `;
-    body.appendChild(typingWrap);
-    body.scrollTop = body.scrollHeight;
+    function handleEnter(event) {
+        if (event.key === 'Enter') sendUserMessage();
+    }
 
-    // Setelah delay (seolah olah bot ngetik), hapus typing dan munculkan jawaban bot
-    setTimeout(() => {
-        body.removeChild(typingWrap);
-        
-        const botWrap = document.createElement('div');
-        botWrap.className = 'msg-wrapper bot-wrapper';
-        botWrap.innerHTML = `
-            <div class="msg-avatar"><i class="fas fa-headset"></i></div>
-            <div class="chatbot-msg bot-msg">${answer}</div>
-        `;
-        body.appendChild(botWrap);
+    function sendUserMessage() {
+        const inputField = document.getElementById('chat-input');
+        const message = inputField.value.trim();
+        if (!message) return;
+
+        inputField.value = ''; 
+        hideOptions();
+        askGeminiAPI(message);
+    }
+
+    function askBot(question) {
+        hideOptions();
+        askGeminiAPI(question);
+    }
+
+    function hideOptions() {
+        const options = document.getElementById('chatbot-options');
+        if (options) options.style.display = 'none';
+    }
+
+    async function askGeminiAPI(message) {
+        const body = document.getElementById('chatbot-body');
+
+        const userWrap = document.createElement('div');
+        userWrap.className = 'msg-wrapper user-wrapper';
+        userWrap.innerHTML = '<div class="chatbot-msg user-msg">' + message + '</div>';
+        body.appendChild(userWrap);
         body.scrollTop = body.scrollHeight;
 
-        // Tampilkan opsi lagi
-        setTimeout(() => {
-            if(options) {
-                options.style.display = 'grid';
-                body.appendChild(options);
-            }
+        const typingWrap = document.createElement('div');
+        typingWrap.className = 'msg-wrapper bot-wrapper';
+        typingWrap.innerHTML = '<div class="msg-avatar"><i class="fas fa-user-circle"></i></div><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+        body.appendChild(typingWrap);
+        body.scrollTop = body.scrollHeight;
+
+        try {
+            const response = await fetch('/chat-gemini', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken 
+                },
+                body: JSON.stringify({ message: message })
+            });
+
+            const data = await response.json();
+            body.removeChild(typingWrap);
+            
+            const botWrap = document.createElement('div');
+            botWrap.className = 'msg-wrapper bot-wrapper';
+            
+            const formattedAnswer = data.answer.replace(/\n/g, '<br>');
+            
+            botWrap.innerHTML = '<div class="msg-avatar"><i class="fas fa-user-circle"></i></div><div class="chatbot-msg bot-msg">' + formattedAnswer + '</div>';
+            body.appendChild(botWrap);
             body.scrollTop = body.scrollHeight;
-        }, 800);
-    }, 1200);
-}
-function toggleChatbot(e) {
-    e.preventDefault();
-    const modal = document.getElementById('chatbot-modal');
-    modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
-}
+
+        } catch (error) {
+            body.removeChild(typingWrap);
+            const errWrap = document.createElement('div');
+            errWrap.className = 'msg-wrapper bot-wrapper';
+            errWrap.innerHTML = '<div class="chatbot-msg bot-msg">Mohon maaf Kak, sistem sedang terkendala. Silakan coba lagi.</div>';
+            body.appendChild(errWrap);
+            body.scrollTop = body.scrollHeight;
+        }
+    }
 </script>
 
 <!-- Footer Modals -->
@@ -935,7 +955,7 @@ function toggleChatbot(e) {
 function openFooterModal(modalId, event) {
     if(event) event.preventDefault();
     document.getElementById(modalId).style.display = 'block';
-    document.body.style.overflow = 'hidden'; // prevent background scrolling
+    document.body.style.overflow = 'hidden'; 
 }
 function closeFooterModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
@@ -948,9 +968,6 @@ window.addEventListener('click', function(event) {
     }
 });
 </script>
-
-</body>
-</html>
 
 <!-- Floating AI Chatbot Button -->
 <a href="#" class="floating-chatbot" title="Chat dengan Customer Service" onclick="toggleChatbot(event)">
@@ -996,3 +1013,6 @@ window.addEventListener('click', function(event) {
     }
 }
 </style>
+
+</body>
+</html>

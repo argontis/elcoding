@@ -6,7 +6,9 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\ChatController;
 
+Route::post('/chat-gemini', [ChatController::class, 'askGemini']);
 // ==========================================
 // ROUTE PUBLIC (LANDING PAGE - BLADE)
 // ==========================================

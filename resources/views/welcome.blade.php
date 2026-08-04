@@ -40,7 +40,10 @@
             .elementor-element-22c61dc {
                 margin-top: 0 !important;
                 padding-top: 20px !important;
-                padding-bottom: 40px !important;
+                padding-bottom: 60px !important;
+                min-height: fit-content !important;
+                height: auto !important;
+                overflow: visible !important;
             }
             .elementor-element-22c61dc > .e-con-inner {
                 flex-direction: column-reverse;

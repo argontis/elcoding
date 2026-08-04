@@ -33,11 +33,11 @@
             display: flex;
             justify-content: space-between;
         }
-        @media (min-width: 768px) {
+        @media (min-width: 1025px) {
             .elementor-element-8110f2a { width: 45% !important; display: flex; justify-content: center; }
             .elementor-element-b83b4d6 { width: 55% !important; padding-left: 30px; display: flex; flex-direction: column; justify-content: center; }
         }
-        @media (max-width: 767px) {
+        @media (max-width: 1024px) {
             .elementor-element-22c61dc {
                 margin-top: 0 !important;
                 padding-top: 20px !important;

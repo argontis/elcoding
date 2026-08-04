@@ -55,10 +55,28 @@
                             <li>
                                 <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
                                 <div class="info-text">
-                                    <strong>Alamat Lengkap</strong>
+                                    <strong>Kantor Utama</strong>
                                     <span>{{ \App\Models\Setting::getValue('contact_address', 'Ruko Citraland, Tegal, Jawa Tengah, Indonesia 52111') }}</span>
                                 </div>
                             </li>
+                            @if(\App\Models\Setting::getValue('contact_address_bekasi'))
+                            <li>
+                                <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                <div class="info-text">
+                                    <strong>Kantor Bekasi</strong>
+                                    <span>{{ \App\Models\Setting::getValue('contact_address_bekasi') }}</span>
+                                </div>
+                            </li>
+                            @endif
+                            @if(\App\Models\Setting::getValue('contact_address_jakarta'))
+                            <li>
+                                <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                <div class="info-text">
+                                    <strong>Kampus USM (Jakarta)</strong>
+                                    <span>{{ \App\Models\Setting::getValue('contact_address_jakarta') }}</span>
+                                </div>
+                            </li>
+                            @endif
                             <li>
                                 <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
                                 <div class="info-text">
@@ -77,7 +95,7 @@
                                 <div class="info-icon"><i class="far fa-clock"></i></div>
                                 <div class="info-text">
                                     <strong>Jam Operasional</strong>
-                                    <span>Senin - Sabtu (08.00 - 20.00 WIB)</span>
+                                    <span>Senin - Sabtu (08.00 - 17.00 WIB)</span>
                                 </div>
                             </li>
                         </ul>

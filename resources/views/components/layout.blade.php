@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             <h3 class="footer-heading">Jam Operasional</h3>
             <ul class="footer-list icon-list">
-                <li><i class="far fa-clock"></i> Senin - Sabtu (08.00 - 20.00 WIB)</li>
+                <li><i class="far fa-clock"></i> Senin - Sabtu (08.00 - 17.00 WIB)</li>
                 <li><i class="far fa-calendar-times"></i> Minggu (Libur)</li>
             </ul>
         </div>
@@ -377,8 +377,32 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="footer-col">
             <h3 class="footer-heading">Informasi Kontak</h3>
             <ul class="footer-list icon-list contact-list">
-                <li><i class="fas fa-map-marker-alt"></i> {{ \App\Models\Setting::getValue('contact_address', 'Ruko Citraland, Tegal, Jawa Tengah') }}</li>
-                <li><i class="fab fa-whatsapp"></i> Admin : {{ \App\Models\Setting::getValue('contact_phone', '+62 814-7665-2656') }}</li>
+                <li>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <strong>Kantor Utama:</strong><br>
+                        {{ \App\Models\Setting::getValue('contact_address', 'Ruko Citraland, Tegal, Jawa Tengah') }}
+                    </div>
+                </li>
+                @if(\App\Models\Setting::getValue('contact_address_bekasi'))
+                <li style="margin-top: 10px;">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <strong>Kantor Bekasi:</strong><br>
+                        {{ \App\Models\Setting::getValue('contact_address_bekasi') }}
+                    </div>
+                </li>
+                @endif
+                @if(\App\Models\Setting::getValue('contact_address_jakarta'))
+                <li style="margin-top: 10px;">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <strong>Kampus USM (Jakarta):</strong><br>
+                        {{ \App\Models\Setting::getValue('contact_address_jakarta') }}
+                    </div>
+                </li>
+                @endif
+                <li style="margin-top: 12px;"><i class="fab fa-whatsapp"></i> Admin : {{ \App\Models\Setting::getValue('contact_phone', '+62 814-7665-2656') }}</li>
                 <li><i class="fas fa-envelope"></i> {{ \App\Models\Setting::getValue('contact_email', 'info@elcodingacademy.com') }}</li>
             </ul>
             

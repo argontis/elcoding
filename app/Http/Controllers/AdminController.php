@@ -41,9 +41,24 @@ class AdminController extends Controller
             
             $file = $request->file($fieldName);
             
+            // Detect if file is SVG (by MIME type, extension, or content)
+            $mime = $file->getMimeType();
+            $originalExtension = strtolower($file->getClientOriginalExtension());
+            $firstBytes = @file_get_contents($file->getPathname(), false, null, 0, 150);
+            $isSvg = ($mime === 'image/svg+xml' || $originalExtension === 'svg' || str_contains($firstBytes, '<svg') || str_contains($firstBytes, '<?xml'));
+
+            if ($isSvg) {
+                $originalNameWithoutExt = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $filename = time() . '_' . \Illuminate\Support\Str::slug($originalNameWithoutExt) . '.svg';
+                $path = $file->storeAs('uploads', $filename, 'public');
+                return 'storage/' . $path;
+            }
+
             try {
-                // Initialize ImageManager with GD driver
-                $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\Gd\Driver());
+                // Initialize ImageManager with GD driver (Intervention Image v4)
+                $manager = new \Intervention\Image\ImageManager(
+                    driver: \Intervention\Image\Drivers\Gd\Driver::class
+                );
                 
                 // Read image from temporary upload path
                 $image = $manager->decode($file->getPathname());
@@ -316,10 +331,20 @@ class AdminController extends Controller
     }
 
     public function updateSettings(Request $request) {
-        $data = $request->except('_token', '_method');
+        $data = $request->except('_token', '_method', 'workflow_step1', 'workflow_step2', 'workflow_step3', 'workflow_step4');
         
         foreach ($data as $key => $value) {
             \App\Models\Setting::updateOrCreate(['key' => $key], ['value' => $value]);
+        }
+
+        // Handle workflow images
+        for ($i = 1; $i <= 4; $i++) {
+            $fieldName = 'workflow_step' . $i;
+            if ($request->hasFile($fieldName)) {
+                $oldValue = \App\Models\Setting::getValue($fieldName);
+                $newPath = $this->handleUpload($request, $fieldName, $oldValue);
+                \App\Models\Setting::updateOrCreate(['key' => $fieldName], ['value' => $newPath]);
+            }
         }
         
         \App\Models\ActivityLog::add('Sistem', 'Pembaruan Pengaturan', 'Pengaturan informasi situs telah diperbarui.', 'slate', 'fa-cog');

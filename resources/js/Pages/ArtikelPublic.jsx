@@ -132,7 +132,7 @@ export default function ArtikelPublic() {
             
             <h5 className="font-bold text-slate-800 text-sm mb-3 border-b border-slate-300 inline-block pb-1">Jam Operasional</h5>
             <div className="space-y-2 text-sm text-slate-600">
-              <p className="flex items-center gap-2"><Clock className="w-4 h-4 text-blue-600" /> Senin - Sabtu (08.00 - 20.00 WIB)</p>
+              <p className="flex items-center gap-2"><Clock className="w-4 h-4 text-blue-600" /> Senin - Sabtu (08.00 - 17.00 WIB)</p>
               <p className="flex items-center gap-2 text-red-500"><Calendar className="w-4 h-4" /> Minggu (Libur)</p>
             </div>
           </div>

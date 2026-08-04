@@ -90,7 +90,7 @@ export default function KontakPublic() {
                 </div>
                 <div>
                   <p className="text-[11px] font-bold tracking-wider text-amber-600 uppercase mb-0.5">Jam Operasional</p>
-                  <p className="text-sm text-slate-700 leading-snug">Senin - Sabtu (08.00 - 20.00 WIB)</p>
+                  <p className="text-sm text-slate-700 leading-snug">Senin - Sabtu (08.00 - 17.00 WIB)</p>
                 </div>
               </div>
             </div>
@@ -186,7 +186,7 @@ export default function KontakPublic() {
             
             <h5 className="font-bold text-white text-xs mb-3">Jam Operasional</h5>
             <div className="space-y-2 text-xs text-slate-400">
-              <p className="flex items-center gap-2"><Clock className="w-4 h-4 text-blue-500" /> Senin - Sabtu (08.00 - 20.00 WIB)</p>
+              <p className="flex items-center gap-2"><Clock className="w-4 h-4 text-blue-500" /> Senin - Sabtu (08.00 - 17.00 WIB)</p>
               <p className="flex items-center gap-2 text-slate-500">📅 Minggu (Libur)</p>
             </div>
           </div>

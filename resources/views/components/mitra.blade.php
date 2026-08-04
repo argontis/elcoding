@@ -1,4 +1,4 @@
-@props(["mode" => "grid", "theme" => "default"])
+@props(["mode" => "marquee", "theme" => "default"])
 
 @php
     $mitras = \App\Models\Mitra::latest()->get();
@@ -109,7 +109,9 @@
     /* theme-default will handle background */
 }
 .happy-customer-container.theme-default {
-    background-color: #F5F3FF;
+    background: linear-gradient(135deg, #F5F3FF 0%, #FFFFFF 50%, #FDF2F8 100%);
+    border: 1px solid rgba(139, 92, 246, 0.12);
+    box-shadow: 0 20px 40px -20px rgba(139, 92, 246, 0.15), 0 2px 8px rgba(139, 92, 246, 0.05);
 }
 .happy-customer-container.theme-transparent {
     background-color: transparent;

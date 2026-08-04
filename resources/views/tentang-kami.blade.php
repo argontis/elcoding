@@ -690,7 +690,7 @@ text-decoration:underline;
 				</div>
 					</div>
 				</div>
-    <x-mitra mode="grid" theme="transparent" style="--mitra-margin-top: 0; padding: 0;" />
+    <x-mitra mode="marquee" theme="transparent" style="--mitra-margin-top: 0; padding: 0;" />
 <div class="elementor-element elementor-element-6a05cc7 e-flex e-con-boxed e-con e-parent" data-id="6a05cc7" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 					<div class="e-con-inner">
 		<div class="elementor-element elementor-element-b069c1e e-con-full e-flex e-con e-child" data-id="b069c1e" data-element_type="container" data-e-type="container">
@@ -701,7 +701,7 @@ text-decoration:underline;
 		<div class="elementor-element elementor-element-7efdc6b e-con-full e-flex e-con e-child" data-id="7efdc6b" data-element_type="container" data-e-type="container">
 		<div class="elementor-element elementor-element-55d9e4d e-con-full content-proses e-flex e-con e-child" data-id="55d9e4d" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-72268eb elementor-widget elementor-widget-image" data-id="72268eb" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
-															<img decoding="async" src="{{ asset('assets/images/workflow/step1.png') }}" title="Pendaftaran dan Konsultasi" alt="Ilustrasi Pendaftaran dan Konsultasi Karir" loading="lazy" />															</div>
+															<img decoding="async" src="{{ asset(\App\Models\Setting::getValue('workflow_step1', 'assets/images/workflow/step1.png')) }}" title="Pendaftaran dan Konsultasi" alt="Ilustrasi Pendaftaran dan Konsultasi Karir" loading="lazy" />															</div>
 		<div class="elementor-element elementor-element-910ba76 e-con-full child-content-proses e-flex e-con e-child" data-id="910ba76" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;position&quot;:&quot;absolute&quot;}">
 				<div class="elementor-element elementor-element-d84fd07 elementor-widget elementor-widget-heading" data-id="d84fd07" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 					<p class="elementor-heading-title elementor-size-default">1</p>				</div>
@@ -727,7 +727,7 @@ text-decoration:underline;
 		<div class="elementor-element elementor-element-8f44821 e-con-full e-flex e-con e-child" data-id="8f44821" data-element_type="container" data-e-type="container">
 		<div class="elementor-element elementor-element-8ab5093 e-con-full content-proses e-flex e-con e-child" data-id="8ab5093" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-06db500 elementor-widget elementor-widget-image" data-id="06db500" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
-															<img decoding="async" src="{{ asset('assets/images/workflow/step2.png') }}" title="Pembelajaran Praktik" alt="Ilustrasi Pembelajaran Praktik IT" loading="lazy" />															</div>
+															<img decoding="async" src="{{ asset(\App\Models\Setting::getValue('workflow_step2', 'assets/images/workflow/step2.png')) }}" title="Pembelajaran Praktik" alt="Ilustrasi Pembelajaran Praktik IT" loading="lazy" />															</div>
 		<div class="elementor-element elementor-element-718c55f e-con-full child-content-proses e-flex e-con e-child" data-id="718c55f" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;position&quot;:&quot;absolute&quot;}">
 				<div class="elementor-element elementor-element-c4bbb56 elementor-widget elementor-widget-heading" data-id="c4bbb56" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 					<p class="elementor-heading-title elementor-size-default">2</p>				</div>
@@ -753,7 +753,7 @@ text-decoration:underline;
 		<div class="elementor-element elementor-element-daad8a6 e-con-full e-flex e-con e-child" data-id="daad8a6" data-element_type="container" data-e-type="container">
 		<div class="elementor-element elementor-element-3e78430 e-con-full content-proses e-flex e-con e-child" data-id="3e78430" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-f2da6c2 elementor-widget elementor-widget-image" data-id="f2da6c2" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
-															<img decoding="async" src="{{ asset('assets/images/workflow/step3.png') }}" title="Pembuatan Final Project" alt="Ilustrasi Pembuatan Final Project" loading="lazy" />															</div>
+															<img decoding="async" src="{{ asset(\App\Models\Setting::getValue('workflow_step3', 'assets/images/workflow/step3.png')) }}" title="Pembuatan Final Project" alt="Ilustrasi Pembuatan Final Project" loading="lazy" />															</div>
 		<div class="elementor-element elementor-element-b42a5cf e-con-full child-content-proses e-flex e-con e-child" data-id="b42a5cf" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;position&quot;:&quot;absolute&quot;}">
 				<div class="elementor-element elementor-element-07d7b88 elementor-widget elementor-widget-heading" data-id="07d7b88" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 					<p class="elementor-heading-title elementor-size-default">3</p>				</div>
@@ -779,7 +779,7 @@ text-decoration:underline;
 		<div class="elementor-element elementor-element-103eb85 e-con-full e-flex e-con e-child" data-id="103eb85" data-element_type="container" data-e-type="container">
 		<div class="elementor-element elementor-element-ff09450 e-con-full content-proses e-flex e-con e-child" data-id="ff09450" data-element_type="container" data-e-type="container">
 				<div class="elementor-element elementor-element-581e956 elementor-widget elementor-widget-image" data-id="581e956" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
-															<img decoding="async" src="{{ asset('assets/images/workflow/step4.png') }}" title="Penyaluran Kerja dan Magang" alt="Ilustrasi Penyaluran Kerja dan Magang" loading="lazy" />															</div>
+															<img decoding="async" src="{{ asset(\App\Models\Setting::getValue('workflow_step4', 'assets/images/workflow/step4.png')) }}" title="Penyaluran Kerja dan Magang" alt="Ilustrasi Penyaluran Kerja dan Magang" loading="lazy" />															</div>
 		<div class="elementor-element elementor-element-80b6864 e-con-full child-content-proses e-flex e-con e-child" data-id="80b6864" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;position&quot;:&quot;absolute&quot;}">
 				<div class="elementor-element elementor-element-a686a0f elementor-widget elementor-widget-heading" data-id="a686a0f" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 					<p class="elementor-heading-title elementor-size-default">4</p>				</div>
@@ -808,6 +808,34 @@ text-decoration:underline;
     <img class="lightbox-content" id="lightbox-img">
 </div>
 <style>
+.content-proses {
+    overflow: hidden !important;
+    border-radius: 50% !important;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.content-proses .elementor-widget-image,
+.content-proses .elementor-widget-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+    overflow: hidden !important;
+    border-radius: 50% !important;
+}
+.content-proses .elementor-widget-image,
+.content-proses .elementor-widget-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
 .custom-lightbox {
     display: none;
     position: fixed;

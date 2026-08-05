@@ -39,6 +39,7 @@
                     <th class="px-6 py-4">Judul Portofolio</th>
                     <th class="px-6 py-4 w-48">Kategori</th>
                     <th class="px-6 py-4 text-center w-32">Aksi</th>
+                    <th class="px-6 py-4 text-center w-32">Detail</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,6 +78,9 @@
                                 </button>
                             </form>
                         </div>
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        <a href="{{ url('portofolio/' . $portofolio->id) }}" class="text-blue-600 hover:underline" target="_blank">Detail</a>
                     </td>
                 </tr>
                 @empty

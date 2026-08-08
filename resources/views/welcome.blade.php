@@ -790,7 +790,7 @@ document.addEventListener("DOMContentLoaded", function() {
   "telephone": "+6281476652656",
   "address": {
     "@@type": "PostalAddress",
-    "streetAddress": "Ruko Citraland",
+    "streetAddress": "CitraLand Tegal blok Belleza Plaza Lt.2",
     "addressLocality": "Tegal",
     "addressRegion": "Jawa Tengah",
     "addressCountry": "ID"

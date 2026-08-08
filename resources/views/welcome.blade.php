@@ -604,8 +604,6 @@
                             <a href="{{ url('/portofolio/' . $portofolio->id) }}" class="porto-btn porto-btn-detail"><i class="fas fa-info-circle"></i> Detail</a>
                             @if($portofolio->url)
                                 <a href="{{ $portofolio->url }}" target="_blank" rel="noopener noreferrer" class="porto-btn porto-btn-url"><i class="fas fa-external-link-alt"></i> Web</a>
-                            @else
-                                <span class="porto-btn-url-disabled"><i class="fas fa-lock"></i> Private</span>
                             @endif
                         </div>
                     </div>

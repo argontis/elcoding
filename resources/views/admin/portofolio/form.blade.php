@@ -33,10 +33,14 @@
                 <input type="file" name="image_file" accept="image/*" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50">
                 <p class="text-xs text-slate-400 mt-1">Biarkan kosong jika tidak ingin mengubah gambar. Rekomendasi rasio 16:9.</p>
             </div>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Klien (Opsional)</label>
                     <input type="text" name="client" value="{{ $data->client ?? '' }}" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="Nama perusahaan/klien">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">URL Web (Opsional)</label>
+                    <input type="url" name="url" value="{{ $data->url ?? '' }}" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="https://...">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Tanggal Project (Opsional)</label>

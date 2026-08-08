@@ -49,23 +49,37 @@
 <link rel="preload" href="{{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-500.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
 <link rel="preload" href="{{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-700.woff2') }}" as="font" type="font/woff2" crossorigin="anonymous">
 <link rel="preload" href="{{ asset('assets/wp-content/themes/hello-elementor-child/fonts/plus-jakarta-sans-700.woff') }}" as="font" type="font/woff" crossorigin="anonymous">
-    <!-- Google Analytics (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K1VB14XSX9"></script>
+<link rel="preload" href="{{ asset('assets/wp-content/uploads/2023/08/DMSans-SemiBold.ttf') }}" as="font" type="font/ttf" crossorigin="anonymous">
+    <!-- Google Analytics & Tag Manager (Delayed) -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-K1VB14XSX9');
-    </script>
-    <!-- End Google Analytics (GA4) -->
+      function loadGTM() {
+        if (window.gtmLoaded) return;
+        window.gtmLoaded = true;
+        
+        // GA4
+        var gtagScript = document.createElement('script');
+        gtagScript.async = true;
+        gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-K1VB14XSX9";
+        document.head.appendChild(gtagScript);
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-K1VB14XSX9');
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-N23KLWBS');</script>
-    <!-- End Google Tag Manager -->
+        // GTM
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-N23KLWBS');
+      }
+
+      ['scroll', 'mousemove', 'touchstart', 'keydown'].forEach(function(e) {
+          window.addEventListener(e, loadGTM, { once: true, passive: true });
+      });
+      setTimeout(loadGTM, 5000);
+    </script>
+    <!-- End GA & GTM -->
     <style id="wp-img-auto-sizes-contain-inline-css">
 img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 /*# sourceURL=wp-img-auto-sizes-contain-inline-css */
@@ -355,8 +369,8 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <link rel='stylesheet' id='elementor-icons-fa-solid-css' href='../assets/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css' media='all' />
 <link rel='stylesheet' id='elementor-icons-fa-brands-css' href='../assets/wp-content/plugins/elementor/assets/lib/font-awesome/css/brands.min.css' media='all' />
 <link rel='stylesheet' id='elementor-icons-fa-regular-css' href='../assets/wp-content/plugins/elementor/assets/lib/font-awesome/css/regular.min.css' media='all' />
-<script id="jquery-core-js" src="{{ asset('assets/wp-includes/js/jquery/jquery.min.js') }}"></script>
-<script id="jquery-migrate-js" src="{{ asset('assets/wp-includes/js/jquery/jquery-migrate.min.js') }}"></script>
+<script defer id="jquery-core-js" src="{{ asset('assets/wp-includes/js/jquery/jquery.min.js') }}"></script>
+<script defer id="jquery-migrate-js" src="{{ asset('assets/wp-includes/js/jquery/jquery-migrate.min.js') }}"></script>
 <link rel="https://api.w.org/" href="{{ asset('assets/wp-json/') }}" /><link rel="alternate" title="JSON" type="application/json" href="{{ asset('assets/wp-json/wp/v2/pages/6097') }}" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="xmlrpc.php?rsd.php" />
 <meta name="generator" content="WordPress 7.0" />
 

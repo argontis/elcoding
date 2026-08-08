@@ -112,21 +112,6 @@
             70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
             100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
         }
-
-        /* Mobile: sidebar hidden by default, shown when open */
-        @media (max-width: 1023px) {
-            #admin-sidebar {
-                height: 100dvh;
-                top: 0;
-                left: 0;
-            }
-            #admin-sidebar.sidebar-open {
-                transform: translateX(0) !important;
-            }
-            body {
-                overflow: hidden;
-            }
-        }
     </style>
 </head>
 <body class="flex h-screen overflow-hidden">
@@ -135,22 +120,11 @@
     <x-admin-sidebar />
 
     <!-- Main Content -->
-    <main class="flex-1 flex flex-col h-screen overflow-hidden relative min-w-0">
-        <!-- Mobile Topbar -->
-        <div class="lg:hidden flex items-center justify-between px-4 py-3 bg-slate-900 border-b border-slate-700 z-20 sticky top-0">
-            <button id="hamburger-btn" onclick="openSidebar()" class="text-white p-2 rounded-lg hover:bg-slate-700 transition-colors" aria-label="Buka Menu">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-                    <line x1="3" y1="6" x2="21" y2="6"/>
-                    <line x1="3" y1="12" x2="21" y2="12"/>
-                    <line x1="3" y1="18" x2="21" y2="18"/>
-                </svg>
-            </button>
-            <span class="text-white font-bold text-base tracking-wide">elcoding.id</span>
-            <span class="text-[10px] font-extrabold text-white bg-blue-600/80 px-2 py-1 rounded-md uppercase tracking-widest border border-blue-500/50">ADMIN</span>
-        </div>
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative">
+        <!-- Topbar removed per user request -->
 
         <!-- Content Area -->
-        <div class="flex-1 overflow-y-auto p-4 lg:p-8 pb-12">
+        <div class="flex-1 overflow-y-auto p-8 pb-12">
             <div class="max-w-[1600px] mx-auto fade-in-up">
                 @yield('content')
             </div>
@@ -222,31 +196,6 @@
                             }
                         });
                     }
-                });
-            });
-        });
-
-        // Sidebar toggle functions
-        function openSidebar() {
-            const sidebar = document.getElementById('admin-sidebar');
-            const overlay = document.getElementById('sidebar-overlay');
-            if (sidebar) sidebar.classList.add('sidebar-open');
-            if (overlay) overlay.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeSidebar() {
-            const sidebar = document.getElementById('admin-sidebar');
-            const overlay = document.getElementById('sidebar-overlay');
-            if (sidebar) sidebar.classList.remove('sidebar-open');
-            if (overlay) overlay.classList.add('hidden');
-            document.body.style.overflow = '';
-        }
-        // Close sidebar when clicking any nav link on mobile
-        document.addEventListener('DOMContentLoaded', () => {
-            const sidebarLinks = document.querySelectorAll('#admin-sidebar a, #admin-sidebar button[type="submit"]');
-            sidebarLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (window.innerWidth < 1024) closeSidebar();
                 });
             });
         });

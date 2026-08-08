@@ -86,65 +86,19 @@
                 padding: 6px 12px !important;
             }
         }
-
-        /* Portfolio Card Buttons */
-        .porto-card-wrapper {
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-        }
-        .porto-card-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-        .porto-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.25s ease;
-            cursor: pointer;
-        }
-        .porto-btn-detail {
-            background: #2563EB;
-            color: #fff !important;
-        }
-        .porto-btn-detail:hover {
-            background: #1d4ed8;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(37,99,235,0.35);
-        }
-        .porto-btn-url {
-            background: transparent;
-            color: #2563EB !important;
-            border: 1.5px solid #2563EB;
-        }
-        .porto-btn-url:hover {
-            background: #2563EB;
-            color: #fff !important;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(37,99,235,0.25);
-        }
-        .porto-btn-url-disabled {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 600;
-            border: 1.5px solid #cbd5e1;
-            color: #94a3b8 !important;
-            background: transparent;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
+        .portfolio-card { height: 100%; display: flex; flex-direction: column; background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .portfolio-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
+        .portfolio-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #f0f0f0; }
+        .portfolio-info { padding: 25px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; }
+        .portfolio-info h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 700; color: #000000; margin: 0 0 8px 0; }
+        .portfolio-category-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .porto-card-actions { display: flex; gap: 8px; margin-top: auto; justify-content: center; flex-wrap: wrap; }
+        .porto-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.25s ease; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .porto-btn-detail { background: #2563EB; color: #fff !important; }
+        .porto-btn-detail:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.35); }
+        .porto-btn-url { background: transparent; color: #2563EB !important; border: 1.5px solid #2563EB; }
+        .porto-btn-url:hover { background: #2563EB; color: #fff !important; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+        .porto-btn-url-disabled { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; border: 1.5px solid #cbd5e1; color: #94a3b8 !important; background: transparent; cursor: not-allowed; opacity: 0.6; font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 @endpush
 
@@ -174,10 +128,7 @@
 									<button class="e-filter-item" data-filter="__all" aria-pressed="true">
 				All			</button>
 							@php
-								$categories = \App\Models\KategoriPortofolio::orderBy('name')->pluck('name');
-								if ($categories->isEmpty()) {
-									$categories = $portofolios->pluck('category')->unique();
-								}
+								$categories = $portofolios->pluck('category')->unique();
 							@endphp
 							@foreach($categories as $category)
 							<button class="e-filter-item" data-filter="{{ Str::slug($category) }}" aria-pressed="false">{{ $category }}</button>
@@ -192,37 +143,23 @@
 							<div class="elementor-loop-container elementor-grid" role="list">
 		<style id="loop-9722">.elementor-9722 .elementor-element.elementor-element-944eda6{--display:flex;--gap:20px 20px;--row-gap:20px;--column-gap:20px;--background-transition:0.3s;border-style:solid;--border-style:solid;border-width:1px 1px 1px 1px;--border-top-width:1px;--border-right-width:1px;--border-bottom-width:1px;--border-left-width:1px;border-color:#C4C4C43B;--border-color:#C4C4C43B;--border-radius:15px 15px 15px 15px;--margin-top:0px;--margin-bottom:0px;--margin-left:0px;--margin-right:0px;}.elementor-9722 .elementor-element.elementor-element-944eda6:not(.elementor-motion-effects-element-type-background), .elementor-9722 .elementor-element.elementor-element-944eda6 > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-color:var( --e-global-color-133101c );}.elementor-9722 .elementor-element.elementor-element-944eda6:hover{background-color:var( --e-global-color-549540e );}.elementor-9722 .elementor-element.elementor-element-7370c6a{--display:flex;--min-height:220px;--justify-content:center;--border-radius:15px 15px 0px 0px;--padding-top:0px;--padding-bottom:0px;--padding-left:0px;--padding-right:0px;}.elementor-9722 .elementor-element.elementor-element-7370c6a:not(.elementor-motion-effects-element-type-background), .elementor-9722 .elementor-element.elementor-element-7370c6a > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-position:center center;background-repeat:no-repeat;background-size:cover;}.elementor-9722 .elementor-element.elementor-element-81d6b82{--display:flex;--gap:10px 10px;--row-gap:10px;--column-gap:10px;--padding-top:0em;--padding-bottom:1em;--padding-left:0em;--padding-right:0em;}.elementor-widget-heading .elementor-heading-title{font-family:var( --e-global-typography-primary-font-family ), Sans-serif;font-size:var( --e-global-typography-primary-font-size );font-weight:var( --e-global-typography-primary-font-weight );color:var( --e-global-color-primary );}.elementor-9722 .elementor-element.elementor-element-26c85cc{text-align:center;}.elementor-9722 .elementor-element.elementor-element-26c85cc .elementor-heading-title{font-size:1.5em;font-weight:600;color:#000000;}.elementor-9722 .elementor-element.elementor-element-6845be9{text-align:center;}.elementor-9722 .elementor-element.elementor-element-6845be9 .elementor-heading-title{font-weight:500;color:var( --e-global-color-secondary );}@media(min-width:768px){.elementor-9722 .elementor-element.elementor-element-944eda6{--content-width:1200px;}.elementor-9722 .elementor-element.elementor-element-7370c6a{--content-width:1200px;}}@media(max-width:1024px){.elementor-widget-heading .elementor-heading-title{font-size:var( --e-global-typography-primary-font-size );}}@media(max-width:767px){.elementor-widget-heading .elementor-heading-title{font-size:var( --e-global-typography-primary-font-size );}}</style>		
 
+        @php $kategoriColors = \App\Models\KategoriPortofolio::pluck('color', 'name')->toArray(); @endphp
         @foreach($portofolios as $portofolio)
         <div data-elementor-type="loop-item" data-elementor-id="9722" class="elementor elementor-9722 e-loop-item e-loop-item-{{ $portofolio->id }} post-{{ $portofolio->id }} portofolio type-portofolio status-publish has-post-thumbnail hentry category-portofolio-{{ Str::slug($portofolio->category) }}" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
-			<div class="elementor-element elementor-element-944eda6 e-flex e-con-boxed e-con e-parent porto-card-wrapper" data-id="944eda6" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-				<div class="e-con-inner">
-                    <div class="elementor-element elementor-element-7370c6a e-flex e-con-boxed e-con e-child" data-id="7370c6a" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}" style="background-image:url('{{ asset($portofolio->image_path ?? 'gambar/portofolio/Film-Islami-Kemenag.webp') }}');">
-                        <div class="e-con-inner">
-                        </div>
+            <div class="portfolio-card">
+                <img src="{{ asset($portofolio->image_path ?? 'gambar/portofolio/Film-Islami-Kemenag.webp') }}" class="portfolio-img" alt="{{ $portofolio->title }}" loading="lazy">
+                <div class="portfolio-info">
+                    <h4>{{ $portofolio->title }}</h4>
+                    @php $catColor = $kategoriColors[$portofolio->category] ?? '#2563EB'; @endphp
+                    <div style="margin-bottom: 15px;"><span class="portfolio-category-badge" style="background-color: {{ $catColor }}; color: #ffffff; box-shadow: 0 4px 10px {{ $catColor }}40;">{{ $portofolio->category }}</span></div>
+                    <div class="porto-card-actions">
+                        <a href="{{ url('/portofolio/' . $portofolio->id) }}" class="porto-btn porto-btn-detail"><i class="fas fa-info-circle"></i> Detail</a>
+                        @if($portofolio->url)
+                            <a href="{{ $portofolio->url }}" target="_blank" rel="noopener noreferrer" class="porto-btn porto-btn-url"><i class="fas fa-external-link-alt"></i> Web</a>
+                        @endif
                     </div>
-                    <div class="elementor-element elementor-element-81d6b82 e-flex e-con-boxed e-con e-child" data-id="81d6b82" data-element_type="container" data-e-type="container">
-                        <div class="e-con-inner">
-                            <div class="elementor-element elementor-element-26c85cc elementor-widget elementor-widget-heading" data-id="26c85cc" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-                                <p class="elementor-heading-title elementor-size-default">{{ $portofolio->title }}</p>				
-                            </div>
-                            <div class="elementor-element elementor-element-6845be9 elementor-widget elementor-widget-heading" data-id="6845be9" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-                                <p class="elementor-heading-title elementor-size-default">{{ $portofolio->category }}</p>				
-                            </div>
-                            {{-- Tombol Detail & URL --}}
-                            <div class="porto-card-actions">
-                                <a href="{{ url('/portofolio/' . $portofolio->id) }}" class="porto-btn porto-btn-detail">
-                                    <i class="fas fa-eye"></i> Detail
-                                </a>
-                                @if($portofolio->url)
-                                <a href="{{ $portofolio->url }}" class="porto-btn porto-btn-url" target="_blank" rel="noopener noreferrer">
-                                    <i class="fas fa-external-link-alt"></i> URL
-                                </a>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-				</div>
-			</div>
+                </div>
+            </div>
 		</div>
         @endforeach
 		</div>

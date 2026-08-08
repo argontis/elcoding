@@ -2,7 +2,7 @@
 @section('title', isset($data) ? 'Edit Portofolio' : 'Tambah Portofolio')
 @section('header', 'Portofolio Project')
 @section('content')
-<div class="surface-card p-6 max-w-2xl">
+<div class="surface-card p-6 w-full">
     <h3 class="text-xl font-bold text-slate-800 mb-6">{{ isset($data) ? 'Edit Project' : 'Tambah Project Baru' }}</h3>
     <form action="{{ isset($data) ? url('admin/portofolio/'.$data->id) : url('admin/portofolio') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -33,10 +33,14 @@
                 <input type="file" name="image_file" accept="image/*" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50">
                 <p class="text-xs text-slate-400 mt-1">Biarkan kosong jika tidak ingin mengubah gambar. Rekomendasi rasio 16:9.</p>
             </div>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Klien (Opsional)</label>
                     <input type="text" name="client" value="{{ $data->client ?? '' }}" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="Nama perusahaan/klien">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">URL Web (Opsional)</label>
+                    <input type="url" name="url" value="{{ $data->url ?? '' }}" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="https://...">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-slate-700 mb-1">Tanggal Project (Opsional)</label>
@@ -46,11 +50,6 @@
             <div>
                 <label class="block text-sm font-medium text-slate-700 mb-1">Deskripsi Project (Opsional)</label>
                 <textarea name="content" rows="6" class="rich-text w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="Jelaskan detail dari project ini...">{{ $data->content ?? '' }}</textarea>
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">URL Project (Opsional)</label>
-                <input type="url" name="url" value="{{ $data->url ?? '' }}" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50" placeholder="https://contoh.com">
-                <p class="text-xs text-slate-400 mt-1">Link website / URL live project yang akan ditampilkan di kartu portofolio.</p>
             </div>
         </div>
         <div class="mt-8 flex gap-3 border-t border-slate-100 pt-5">

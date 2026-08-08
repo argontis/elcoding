@@ -78,126 +78,126 @@
 	font-family: 'DM Sans';
 	font-style: normal;
 	font-weight: 100;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-Thin.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: italic;
 	font-weight: 100;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-ThinItalic.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: normal;
 	font-weight: 200;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-ExtraLight.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: italic;
 	font-weight: 200;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-ExtraLightItalic.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: normal;
 	font-weight: 300;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-Light.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: italic;
 	font-weight: 300;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-LightItalic.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: normal;
 	font-weight: 400;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-Regular.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: italic;
 	font-weight: 400;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-Italic.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: normal;
 	font-weight: 500;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-Medium.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: italic;
 	font-weight: 500;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-MediumItalic.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: normal;
 	font-weight: 600;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-SemiBold.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: italic;
 	font-weight: 600;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-SemiBoldItalic.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: normal;
 	font-weight: 700;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-Bold.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: italic;
 	font-weight: 700;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-BoldItalic.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: normal;
 	font-weight: 800;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-ExtraBold.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: italic;
 	font-weight: 800;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-BoldItalic.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: normal;
 	font-weight: 900;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-Black.ttf') format('truetype');
 }
 @font-face {
 	font-family: 'DM Sans';
 	font-style: italic;
 	font-weight: 900;
-	font-display: auto;
+	font-display: swap;
 	src: url('../assets/wp-content/uploads/2023/08/DMSans-BlackItalic.ttf') format('truetype');
 }
 /* End Custom Fonts CSS */

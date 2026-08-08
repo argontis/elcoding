@@ -594,12 +594,14 @@
             </div>
             
             <div class="portfolio-grid">
+                @php $kategoriColors = \App\Models\KategoriPortofolio::pluck('color', 'name')->toArray(); @endphp
                 @foreach($portofolios as $portofolio)
                 <div class="portfolio-card" draggable="false">
                     <img src="{{ asset($portofolio->image_path ?? 'assets/wp-content/uploads/2026/02/Garap-Edu.webp') }}" class="portfolio-img" alt="{{ $portofolio->title }}" loading="lazy">
                     <div class="portfolio-info">
                         <h4>{{ $portofolio->title }}</h4>
-                        <p>{{ $portofolio->category }}</p>
+                        @php $catColor = $kategoriColors[$portofolio->category] ?? '#2563EB'; @endphp
+                        <div style="margin-bottom: 15px;"><span class="portfolio-category-badge" style="background-color: {{ $catColor }}15; color: {{ $catColor }}; border: 1px solid {{ $catColor }}30;">{{ $portofolio->category }}</span></div>
                         <div class="porto-card-actions">
                             <a href="{{ url('/portofolio/' . $portofolio->id) }}" class="porto-btn porto-btn-detail"><i class="fas fa-info-circle"></i> Detail</a>
                             @if($portofolio->url)
@@ -625,7 +627,7 @@
     .portfolio-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #f0f0f0; }
     .portfolio-info { padding: 25px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; }
     .portfolio-info h4 { font-size: 20px; font-weight: 700; color: #000000; margin: 0 0 8px 0; }
-    .portfolio-info p { font-size: 14px; color: #666; margin: 0 0 15px 0; }
+    .portfolio-category-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; }
     .porto-card-actions { display: flex; gap: 8px; margin-top: auto; justify-content: center; flex-wrap: wrap; }
     .porto-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.25s ease; cursor: pointer; }
     .porto-btn-detail { background: #2563EB; color: #fff !important; }

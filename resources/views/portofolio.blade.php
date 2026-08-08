@@ -86,6 +86,65 @@
                 padding: 6px 12px !important;
             }
         }
+
+        /* Portfolio Card Buttons */
+        .porto-card-wrapper {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+        }
+        .porto-card-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .porto-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+        .porto-btn-detail {
+            background: #2563EB;
+            color: #fff !important;
+        }
+        .porto-btn-detail:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37,99,235,0.35);
+        }
+        .porto-btn-url {
+            background: transparent;
+            color: #2563EB !important;
+            border: 1.5px solid #2563EB;
+        }
+        .porto-btn-url:hover {
+            background: #2563EB;
+            color: #fff !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+        }
+        .porto-btn-url-disabled {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1.5px solid #cbd5e1;
+            color: #94a3b8 !important;
+            background: transparent;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
     </style>
 @endpush
 
@@ -115,7 +174,10 @@
 									<button class="e-filter-item" data-filter="__all" aria-pressed="true">
 				All			</button>
 							@php
-								$categories = $portofolios->pluck('category')->unique();
+								$categories = \App\Models\KategoriPortofolio::orderBy('name')->pluck('name');
+								if ($categories->isEmpty()) {
+									$categories = $portofolios->pluck('category')->unique();
+								}
 							@endphp
 							@foreach($categories as $category)
 							<button class="e-filter-item" data-filter="{{ Str::slug($category) }}" aria-pressed="false">{{ $category }}</button>
@@ -132,22 +194,35 @@
 
         @foreach($portofolios as $portofolio)
         <div data-elementor-type="loop-item" data-elementor-id="9722" class="elementor elementor-9722 e-loop-item e-loop-item-{{ $portofolio->id }} post-{{ $portofolio->id }} portofolio type-portofolio status-publish has-post-thumbnail hentry category-portofolio-{{ Str::slug($portofolio->category) }}" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
-			<a class="elementor-element elementor-element-944eda6 e-flex e-con-boxed e-con e-parent" data-id="944eda6" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}" href="{{ url('/portofolio/' . $portofolio->id) }}">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-7370c6a e-flex e-con-boxed e-con e-child" data-id="7370c6a" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}" style="background-image:url('{{ asset($portofolio->image_path ?? 'gambar/portofolio/Film-Islami-Kemenag.webp') }}');">
-					<div class="e-con-inner">
-					</div>
+			<div class="elementor-element elementor-element-944eda6 e-flex e-con-boxed e-con e-parent porto-card-wrapper" data-id="944eda6" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+				<div class="e-con-inner">
+                    <div class="elementor-element elementor-element-7370c6a e-flex e-con-boxed e-con e-child" data-id="7370c6a" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}" style="background-image:url('{{ asset($portofolio->image_path ?? 'gambar/portofolio/Film-Islami-Kemenag.webp') }}');">
+                        <div class="e-con-inner">
+                        </div>
+                    </div>
+                    <div class="elementor-element elementor-element-81d6b82 e-flex e-con-boxed e-con e-child" data-id="81d6b82" data-element_type="container" data-e-type="container">
+                        <div class="e-con-inner">
+                            <div class="elementor-element elementor-element-26c85cc elementor-widget elementor-widget-heading" data-id="26c85cc" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+                                <p class="elementor-heading-title elementor-size-default">{{ $portofolio->title }}</p>				
+                            </div>
+                            <div class="elementor-element elementor-element-6845be9 elementor-widget elementor-widget-heading" data-id="6845be9" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+                                <p class="elementor-heading-title elementor-size-default">{{ $portofolio->category }}</p>				
+                            </div>
+                            {{-- Tombol Detail & URL --}}
+                            <div class="porto-card-actions">
+                                <a href="{{ url('/portofolio/' . $portofolio->id) }}" class="porto-btn porto-btn-detail">
+                                    <i class="fas fa-eye"></i> Detail
+                                </a>
+                                @if($portofolio->url)
+                                <a href="{{ $portofolio->url }}" class="porto-btn porto-btn-url" target="_blank" rel="noopener noreferrer">
+                                    <i class="fas fa-external-link-alt"></i> URL
+                                </a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
 				</div>
-		<div class="elementor-element elementor-element-81d6b82 e-flex e-con-boxed e-con e-child" data-id="81d6b82" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-26c85cc elementor-widget elementor-widget-heading" data-id="26c85cc" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-					<p class="elementor-heading-title elementor-size-default">{{ $portofolio->title }}</p>				</div>
-				<div class="elementor-element elementor-element-6845be9 elementor-widget elementor-widget-heading" data-id="6845be9" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-					<p class="elementor-heading-title elementor-size-default">{{ $portofolio->category }}</p>				</div>
-					</div>
-				</div>
-					</div>
-				</a>
+			</div>
 		</div>
         @endforeach
 		</div>

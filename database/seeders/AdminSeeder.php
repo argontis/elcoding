@@ -9,8 +9,6 @@ use App\Models\Portofolio;
 use App\Models\Artikel;
 use App\Models\Setting;
 
-use App\Models\KategoriPortofolio;
-
 class AdminSeeder extends Seeder
 {
     public function run(): void
@@ -28,10 +26,6 @@ class AdminSeeder extends Seeder
         Mitra::create(['name' => 'Partner Logo 4', 'logo_path' => 'gambar/mitra/Partner_Logo_4.svg']);
         Mitra::create(['name' => 'Partner Logo 5 (1)', 'logo_path' => 'gambar/mitra/Partner_Logo_5__1_.svg']);
         Mitra::create(['name' => 'Partner Logo 5', 'logo_path' => 'gambar/mitra/Partner_Logo_5.svg']);
-
-        KategoriPortofolio::firstOrCreate(['name' => 'Coding'], ['color' => 'blue']);
-        KategoriPortofolio::firstOrCreate(['name' => 'Desain Grafis'], ['color' => 'purple']);
-        KategoriPortofolio::firstOrCreate(['name' => 'B. Inggris & Mandarin'], ['color' => 'amber']);
 
         ProgramKursus::create(['title' => 'Bootcamp Intensif Full Stack Web Dev', 'duration' => '4 Bulan', 'price' => 'Rp2.500.000', 'badge' => 'Recommended']);
         ProgramKursus::create(['title' => 'Mastering Skill UI/UX Design', 'duration' => '3 Bulan', 'price' => 'Rp1.800.000', 'badge' => 'Terlaris']);

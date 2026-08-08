@@ -1,7 +1,4 @@
-{{-- Mobile Overlay --}}
-<div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-30 hidden lg:hidden" onclick="closeSidebar()"></div>
-
-<aside id="admin-sidebar" class="sidebar w-72 flex flex-col h-full shrink-0 z-40 shadow-xl shadow-slate-900/10 border-r border-slate-800 fixed lg:relative lg:translate-x-0 -translate-x-full transition-transform duration-300 ease-in-out">
+<aside class="sidebar w-72 flex flex-col h-full shrink-0 z-20 shadow-xl shadow-slate-900/10 border-r border-slate-800">
     <!-- Logo Area -->
     <div class="h-24 flex flex-col justify-center px-8 border-b border-white/5 bg-slate-900/50">
         <div class="flex items-center gap-3">

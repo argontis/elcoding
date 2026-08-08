@@ -585,6 +585,53 @@ var ElementorProFrontendConfig = {"ajaxurl":"","nonce":"bdfd649656","urls":{"ass
 <script id="elementor-pro-frontend-js" src="{{ asset('assets/wp-content/plugins/pro-elements/assets/js/frontend.min.js') }}" defer></script>
 <script id="pro-elements-handlers-js" src="{{ asset('assets/wp-content/plugins/pro-elements/assets/js/elements-handlers.min.js') }}" defer></script>
 
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20ingin%20bertanya..." class="floating-whatsapp" target="_blank" rel="noopener noreferrer" title="Chat WhatsApp Admin">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+<style>
+.floating-whatsapp {
+    position: fixed;
+    bottom: 110px; /* 30px (bottom chatbot) + 60px (tinggi chatbot) + 20px (jarak) */
+    right: 30px; /* Sejajar dengan chatbot */
+    width: 60px; /* Ukuran sama dengan chatbot */
+    height: 60px;
+    background-color: #25d366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+    z-index: 9999;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.floating-whatsapp:hover {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
+}
+
+.floating-whatsapp img {
+    width: 35px;
+    height: 35px;
+}
+
+/* Penyesuaian untuk layar HP/Mobile agar sejajar dengan chatbot mobile */
+@media (max-width: 480px) {
+    .floating-whatsapp {
+        bottom: 85px; /* 20px + 50px + 15px */
+        right: 20px;
+        width: 50px;
+        height: 50px;
+    }
+    .floating-whatsapp img {
+        width: 30px;
+        height: 30px;
+    }
+}
+</style>
 
 <!-- Chatbot Modal terhubung ke ChatController -->
 <div id="chatbot-modal" class="chatbot-modal">

@@ -151,7 +151,7 @@
                 <div class="portfolio-info">
                     <h4>{{ $portofolio->title }}</h4>
                     @php $catColor = $kategoriColors[$portofolio->category] ?? '#2563EB'; @endphp
-                    <div style="margin-bottom: 15px;"><span class="portfolio-category-badge" style="background-color: {{ $catColor }}15; color: {{ $catColor }}; border: 1px solid {{ $catColor }}30;">{{ $portofolio->category }}</span></div>
+                    <div style="margin-bottom: 15px;"><span class="portfolio-category-badge" style="background-color: {{ $catColor }}; color: #ffffff; box-shadow: 0 4px 10px {{ $catColor }}40;">{{ $portofolio->category }}</span></div>
                     <div class="porto-card-actions">
                         <a href="{{ url('/portofolio/' . $portofolio->id) }}" class="porto-btn porto-btn-detail"><i class="fas fa-info-circle"></i> Detail</a>
                         @if($portofolio->url)

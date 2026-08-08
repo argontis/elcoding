@@ -86,84 +86,19 @@
                 padding: 6px 12px !important;
             }
         }
-        /* Portfolio Card Buttons */
-        .e-loop-item {
-            height: 100%;
-        }
-        .porto-card-wrapper {
-            text-decoration: none;
-            display: flex !important;
-            flex-direction: column !important;
-            height: 100% !important;
-        }
-        .porto-card-wrapper > .e-con-inner {
-            display: flex !important;
-            flex-direction: column !important;
-            flex-grow: 1 !important;
-        }
-        .elementor-element-81d6b82 {
-            display: flex !important;
-            flex-direction: column !important;
-            flex-grow: 1 !important;
-        }
-        .elementor-element-81d6b82 > .e-con-inner {
-            display: flex !important;
-            flex-direction: column !important;
-            flex-grow: 1 !important;
-        }
-        .porto-card-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: auto !important;
-            padding-top: 15px;
-            flex-wrap: wrap;
-        }
-        .porto-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.25s ease;
-            cursor: pointer;
-        }
-        .porto-btn-detail {
-            background: #2563EB;
-            color: #fff !important;
-        }
-        .porto-btn-detail:hover {
-            background: #1d4ed8;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(37,99,235,0.35);
-        }
-        .porto-btn-url {
-            background: transparent;
-            color: #2563EB !important;
-            border: 1.5px solid #2563EB;
-        }
-        .porto-btn-url:hover {
-            background: #2563EB;
-            color: #fff !important;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(37,99,235,0.25);
-        }
-        .porto-btn-url-disabled {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 13px;
-            font-weight: 600;
-            border: 1.5px solid #cbd5e1;
-            color: #94a3b8 !important;
-            background: transparent;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
+        .portfolio-card { height: 100%; display: flex; flex-direction: column; background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .portfolio-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
+        .portfolio-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #f0f0f0; }
+        .portfolio-info { padding: 25px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; }
+        .portfolio-info h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; font-weight: 700; color: #000000; margin: 0 0 8px 0; }
+        .portfolio-info p { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: #666; margin: 0 0 15px 0; }
+        .porto-card-actions { display: flex; gap: 8px; margin-top: auto; justify-content: center; flex-wrap: wrap; }
+        .porto-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.25s ease; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .porto-btn-detail { background: #2563EB; color: #fff !important; }
+        .porto-btn-detail:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.35); }
+        .porto-btn-url { background: transparent; color: #2563EB !important; border: 1.5px solid #2563EB; }
+        .porto-btn-url:hover { background: #2563EB; color: #fff !important; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+        .porto-btn-url-disabled { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; border: 1.5px solid #cbd5e1; color: #94a3b8 !important; background: transparent; cursor: not-allowed; opacity: 0.6; font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 @endpush
 
@@ -210,22 +145,21 @@
 
         @foreach($portofolios as $portofolio)
         <div data-elementor-type="loop-item" data-elementor-id="9722" class="elementor elementor-9722 e-loop-item e-loop-item-{{ $portofolio->id }} post-{{ $portofolio->id }} portofolio type-portofolio status-publish has-post-thumbnail hentry category-portofolio-{{ Str::slug($portofolio->category) }}" data-elementor-post-type="elementor_library" data-custom-edit-handle="1">
-			<a class="elementor-element elementor-element-944eda6 e-flex e-con-boxed e-con e-parent" data-id="944eda6" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}" href="{{ url('/portofolio/' . $portofolio->id) }}">
-					<div class="e-con-inner">
-		<div class="elementor-element elementor-element-7370c6a e-flex e-con-boxed e-con e-child" data-id="7370c6a" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}" style="background-image:url('{{ asset($portofolio->image_path ?? 'gambar/portofolio/Film-Islami-Kemenag.webp') }}');">
-					<div class="e-con-inner">
-					</div>
-				</div>
-		<div class="elementor-element elementor-element-81d6b82 e-flex e-con-boxed e-con e-child" data-id="81d6b82" data-element_type="container" data-e-type="container">
-					<div class="e-con-inner">
-				<div class="elementor-element elementor-element-26c85cc elementor-widget elementor-widget-heading" data-id="26c85cc" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-					<p class="elementor-heading-title elementor-size-default">{{ $portofolio->title }}</p>				</div>
-				<div class="elementor-element elementor-element-6845be9 elementor-widget elementor-widget-heading" data-id="6845be9" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-					<p class="elementor-heading-title elementor-size-default">{{ $portofolio->category }}</p>				</div>
-					</div>
-				</div>
-					</div>
-				</a>
+            <div class="portfolio-card">
+                <img src="{{ asset($portofolio->image_path ?? 'gambar/portofolio/Film-Islami-Kemenag.webp') }}" class="portfolio-img" alt="{{ $portofolio->title }}" loading="lazy">
+                <div class="portfolio-info">
+                    <h4>{{ $portofolio->title }}</h4>
+                    <p>{{ $portofolio->category }}</p>
+                    <div class="porto-card-actions">
+                        <a href="{{ url('/portofolio/' . $portofolio->id) }}" class="porto-btn porto-btn-detail"><i class="fas fa-info-circle"></i> Detail</a>
+                        @if($portofolio->url)
+                            <a href="{{ $portofolio->url }}" target="_blank" rel="noopener noreferrer" class="porto-btn porto-btn-url"><i class="fas fa-external-link-alt"></i> Web</a>
+                        @else
+                            <span class="porto-btn-url-disabled"><i class="fas fa-lock"></i> Private</span>
+                        @endif
+                    </div>
+                </div>
+            </div>
 		</div>
         @endforeach
 		</div>

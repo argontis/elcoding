@@ -595,13 +595,21 @@
             
             <div class="portfolio-grid">
                 @foreach($portofolios as $portofolio)
-                <a href="{{ url('/portofolio/' . $portofolio->id) }}" class="portfolio-card" draggable="false">
+                <div class="portfolio-card" draggable="false">
                     <img src="{{ asset($portofolio->image_path ?? 'assets/wp-content/uploads/2026/02/Garap-Edu.webp') }}" class="portfolio-img" alt="{{ $portofolio->title }}" loading="lazy">
                     <div class="portfolio-info">
                         <h4>{{ $portofolio->title }}</h4>
                         <p>{{ $portofolio->category }}</p>
+                        <div class="porto-card-actions">
+                            <a href="{{ url('/portofolio/' . $portofolio->id) }}" class="porto-btn porto-btn-detail"><i class="fas fa-info-circle"></i> Detail</a>
+                            @if($portofolio->url)
+                                <a href="{{ $portofolio->url }}" target="_blank" rel="noopener noreferrer" class="porto-btn porto-btn-url"><i class="fas fa-external-link-alt"></i> Web</a>
+                            @else
+                                <span class="porto-btn-url-disabled"><i class="fas fa-lock"></i> Private</span>
+                            @endif
+                        </div>
                     </div>
-                </a>
+                </div>
                 @endforeach
             </div>
         </div>
@@ -611,16 +619,22 @@
     .portfolio-section { padding: 80px 0 40px 0; background: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
     .portfolio-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     .portfolio-header { text-align: center; margin-bottom: 50px; }
-    .portfolio-subtitle { display: inline-block; color: #6D28D9; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
     .portfolio-title { font-size: 38px; font-weight: 800; color: #1F2937; line-height: 1.2; margin: 0; }
     .portfolio-grid { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: none; }
     .portfolio-grid::-webkit-scrollbar { display: none; }
-    .portfolio-card { flex: 0 0 calc(33.333% - 20px); scroll-snap-align: start; display: flex; flex-direction: column; background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); text-decoration: none; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .portfolio-card { flex: 0 0 calc(33.333% - 20px); scroll-snap-align: start; display: flex; flex-direction: column; background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
     .portfolio-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
     .portfolio-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #f0f0f0; }
-    .portfolio-info { padding: 25px; text-align: center; }
+    .portfolio-info { padding: 25px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; }
     .portfolio-info h4 { font-size: 20px; font-weight: 700; color: #000000; margin: 0 0 8px 0; }
-    .portfolio-info p { font-size: 14px; color: #666; margin: 0; }
+    .portfolio-info p { font-size: 14px; color: #666; margin: 0 0 15px 0; }
+    .porto-card-actions { display: flex; gap: 8px; margin-top: auto; justify-content: center; flex-wrap: wrap; }
+    .porto-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.25s ease; cursor: pointer; }
+    .porto-btn-detail { background: #2563EB; color: #fff !important; }
+    .porto-btn-detail:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.35); }
+    .porto-btn-url { background: transparent; color: #2563EB !important; border: 1.5px solid #2563EB; }
+    .porto-btn-url:hover { background: #2563EB; color: #fff !important; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+    .porto-btn-url-disabled { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; border: 1.5px solid #cbd5e1; color: #94a3b8 !important; background: transparent; cursor: not-allowed; opacity: 0.6; }
     @media (max-width: 992px) { .portfolio-card { flex: 0 0 calc(50% - 15px); } }
     @media (max-width: 768px) { .portfolio-card { flex: 0 0 100%; } }
     </style>

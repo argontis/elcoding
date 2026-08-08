@@ -86,6 +86,84 @@
                 padding: 6px 12px !important;
             }
         }
+        /* Portfolio Card Buttons */
+        .e-loop-item {
+            height: 100%;
+        }
+        .porto-card-wrapper {
+            text-decoration: none;
+            display: flex !important;
+            flex-direction: column !important;
+            height: 100% !important;
+        }
+        .porto-card-wrapper > .e-con-inner {
+            display: flex !important;
+            flex-direction: column !important;
+            flex-grow: 1 !important;
+        }
+        .elementor-element-81d6b82 {
+            display: flex !important;
+            flex-direction: column !important;
+            flex-grow: 1 !important;
+        }
+        .elementor-element-81d6b82 > .e-con-inner {
+            display: flex !important;
+            flex-direction: column !important;
+            flex-grow: 1 !important;
+        }
+        .porto-card-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: auto !important;
+            padding-top: 15px;
+            flex-wrap: wrap;
+        }
+        .porto-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+        .porto-btn-detail {
+            background: #2563EB;
+            color: #fff !important;
+        }
+        .porto-btn-detail:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37,99,235,0.35);
+        }
+        .porto-btn-url {
+            background: transparent;
+            color: #2563EB !important;
+            border: 1.5px solid #2563EB;
+        }
+        .porto-btn-url:hover {
+            background: #2563EB;
+            color: #fff !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+        }
+        .porto-btn-url-disabled {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1.5px solid #cbd5e1;
+            color: #94a3b8 !important;
+            background: transparent;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
     </style>
 @endpush
 

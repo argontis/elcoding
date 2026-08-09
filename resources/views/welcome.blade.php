@@ -503,13 +503,13 @@
             
             <div class="testimonial-grid">
                 <div class="testimonial-card" style="padding: 0; border: none; background: transparent; box-shadow: none;">
-                    <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-1.jpg') }}" alt="Testimoni Afif" loading="lazy" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-1.jpg') }}" alt="Testimoni Afif" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
                 </div>
                 <div class="testimonial-card" style="padding: 0; border: none; background: transparent; box-shadow: none;">
-                    <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-2.jpg') }}" alt="Testimoni Risqi" loading="lazy" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-2.jpg') }}" alt="Testimoni Risqi" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
                 </div>
                 <div class="testimonial-card" style="padding: 0; border: none; background: transparent; box-shadow: none;">
-                    <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-3.jpg') }}" alt="Testimoni Josias" loading="lazy" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-3.jpg') }}" alt="Testimoni Josias" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
                 </div>
             </div>
         </div>
@@ -624,7 +624,7 @@
     .portfolio-grid::-webkit-scrollbar { display: none; }
     .portfolio-card { flex: 0 0 calc(33.333% - 20px); scroll-snap-align: start; display: flex; flex-direction: column; background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
     .portfolio-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
-    .portfolio-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #f0f0f0; }
+    .portfolio-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 1px solid #f0f0f0; display: block; }
     .portfolio-info { padding: 25px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; }
     .portfolio-info h4 { font-size: 20px; font-weight: 700; color: #000000; margin: 0 0 8px 0; }
     .portfolio-category-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -680,7 +680,7 @@
     .blog-grid::-webkit-scrollbar { display: none; }
     .blog-card { flex: 0 0 calc(33.333% - 20px); scroll-snap-align: start; display: flex; flex-direction: column; background: #fff; border: 1px solid #f0f0f0; border-radius: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
     .blog-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-    .blog-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #f0f0f0; }
+    .blog-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 1px solid #f0f0f0; display: block; }
     .blog-content { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; }
     .blog-content h4 { font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0 0 15px 0; }
     .blog-content h4 a { color: #1F2937; text-decoration: none; transition: color 0.3s ease; }
@@ -694,7 +694,6 @@
         .blog-card { flex: 0 0 100%; } 
         .blog-title { font-size: 28px; }
         .blog-content { padding: 20px; }
-        .blog-img { height: 180px; }
         .blog-section { padding: 0 0 32px 0; }
     }
     </style>

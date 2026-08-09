@@ -834,9 +834,23 @@ text-decoration:underline;
     justify-content: center;
 }
 
-.content-proses .elementor-widget-image {
+/* Kontainer dengan gambar: jadikan membulat agar bordernya bulat */
+.content-proses:has(.elementor-widget-image) {
     width: 200px !important;
     height: 200px !important;
+    border-radius: 50% !important;
+}
+
+/* Kontainer teks: hilangkan border dan shadow (jangan sampai ada border kotak) */
+.content-proses:not(:has(.elementor-widget-image)) {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.content-proses .elementor-widget-image {
+    width: 100% !important;
+    height: 100% !important;
     border-radius: 50% !important;
     overflow: hidden !important;
     margin: 0 auto !important;

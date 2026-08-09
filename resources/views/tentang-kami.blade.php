@@ -823,32 +823,35 @@ text-decoration:underline;
 </div>
 <style>
 .content-proses {
-    overflow: hidden !important;
-    border-radius: 50% !important;
-    width: 200px;
-    height: 200px;
+    overflow: visible !important;
+    border-radius: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.content-proses .elementor-widget-image,
-.content-proses .elementor-widget-image img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-    overflow: hidden !important;
+
+.content-proses .elementor-widget-image {
+    width: 200px !important;
+    height: 200px !important;
     border-radius: 50% !important;
+    overflow: hidden !important;
+    margin: 0 auto !important;
 }
-.content-proses .elementor-widget-image,
+
 .content-proses .elementor-widget-image img {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
     margin: 0 !important;
     padding: 0 !important;
+}
+
+.child-content-proses {
+    z-index: 10 !important;
 }
 .custom-lightbox {
     display: none;

@@ -24,11 +24,11 @@ class SecurityHeaders
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
         $response->headers->set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
 
-        // CSP Header temporarily disabled to fix server asset blocking
-        // $response->headers->set(
-        //     'Content-Security-Policy',
-        //     "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; connect-src 'self' wss: https:;"
-        // );
+        // CSP Header - using a slightly permissive default to allow inline styles/scripts which Laravel often uses
+        $response->headers->set(
+            'Content-Security-Policy',
+            "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; frame-src 'self' https:; connect-src 'self' wss: https:;"
+        );
 
         return $response;
     }

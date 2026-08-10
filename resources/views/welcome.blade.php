@@ -96,14 +96,6 @@
                         background-color: #4C1D95 !important;
                         border-color: #4C1D95 !important;
                     }
-                    .btn-outline {
-                        background-color: transparent !important;
-                        color: #6D28D9 !important;
-                    }
-                    .btn-outline:hover {
-                        background-color: rgba(109, 40, 217, 0.05) !important;
-                        border-color: #4C1D95 !important;
-                        color: #4C1D95 !important;
                     }
                 </style>
                 <div class="hero-buttons-container">
@@ -116,7 +108,7 @@
                         </a>
                     </div>
                     <div class="elementor-element elementor-element-c29eb8e elementor-align-justify elementor-widget elementor-widget-button" data-id="c29eb8e-2" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
-                        <a class="elementor-button elementor-button-link elementor-size-sm btn-software-house btn-outline" href="/program-kursus">
+                        <a class="elementor-button elementor-button-link elementor-size-sm btn-software-house" href="/program-kursus">
                             <span class="elementor-button-content-wrapper">
                                 <span class="elementor-button-icon"><i aria-hidden="true" class="fas fa-graduation-cap"></i></span>
                                 <span class="elementor-button-text">Ikut Kursus</span>

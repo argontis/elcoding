@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ChatController;
 
+Route::get('/clear-cache-all', function () {
+    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+    return 'Semua cache (termasuk view dan route) berhasil dibersihkan! Silakan kembali ke panel admin dan refresh (F5).';
+});
+
 Route::post('/chat-gemini', [ChatController::class, 'askGemini']);
 // ==========================================
 // ROUTE PUBLIC (LANDING PAGE - BLADE)

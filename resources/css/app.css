@@ -1,3 +1,65 @@
+/* resources/css/app.css */
+
+/* ==========================================
+   1. Import Tema Utama & Reset (Hello Elementor)
+   ========================================== */
+@import '../../public/assets/wp-content/themes/hello-elementor-child/style.css';
+@import '../../public/assets/wp-content/themes/hello-elementor-child/fonts-override.css';
+@import '../../public/assets/wp-content/themes/hello-elementor/style.css';
+@import '../../public/assets/wp-content/themes/hello-elementor/assets/css/reset.css';
+@import '../../public/assets/wp-content/themes/hello-elementor/assets/css/theme.css';
+@import '../../public/assets/wp-content/themes/hello-elementor/assets/css/header-footer.css';
+
+/* ==========================================
+   2. Core Elementor & Pro Elements Frontend
+   ========================================== */
+@import '../../public/assets/wp-content/plugins/elementor/assets/css/frontend.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/lib/animations/styles/e-animation-shrink.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/css/conditionals/apple-webkit.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css';
+
+/* ==========================================
+   3. Widget Elementor (Modul Statis)
+   ========================================== */
+@import '../../public/assets/wp-content/plugins/pro-elements/assets/css/widget-nav-menu.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/css/widget-image.min.css';
+@import '../../public/assets/wp-content/plugins/pro-elements/assets/css/modules/sticky.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/css/widget-heading.min.css';
+@import '../../public/assets/wp-content/plugins/pro-elements/assets/css/widget-breadcrumbs.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/css/widget-spacer.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/css/widget-divider.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/css/widget-icon-box.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/css/widget-image-box.min.css';
+@import '../../public/assets/wp-content/plugins/pro-elements/assets/css/widget-loop-common.min.css';
+@import '../../public/assets/wp-content/plugins/pro-elements/assets/css/widget-loop-carousel.min.css';
+
+/* ==========================================
+   4. Icon Fonts (Font Awesome)
+   ========================================== */
+@import '../../public/assets/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/lib/font-awesome/css/brands.min.css';
+@import '../../public/assets/wp-content/plugins/elementor/assets/lib/font-awesome/css/regular.min.css';
+@import '../../public/assets/fontawesome/css/all.min.css';
+
+/* ==========================================
+   5. Custom Page CSS (Elementor Post & Local CSS)
+   ========================================== */
+@import '../../public/assets/wp-content/uploads/elementor/css/post-7138.css';
+@import '../../public/assets/wp-content/uploads/elementor/css/post-6296.css';
+@import '../../public/assets/wp-content/uploads/elementor/css/post-11887.css';
+@import '../../public/assets/wp-content/uploads/elementor/css/post-8310.css';
+@import '../../public/css/header-footer.css';
+@import '../../public/css/post-6097.css';
+
+/* ==========================================
+   6. Tailwind CSS Directives
+   ========================================== */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

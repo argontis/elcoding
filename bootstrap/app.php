@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
             \App\Http\Middleware\TrackVisitor::class,
-            \App\Http\Middleware\RemoveHtmlComments::class,
+            // \App\Http\Middleware\RemoveHtmlComments::class,
         ]);
 
         //

@@ -17,10 +17,10 @@
                 <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-sm">
                     <th class="py-4 px-6 font-semibold w-16">No</th>
                     <th class="py-4 px-6 font-semibold">Nama File</th>
+                    <th class="py-4 px-6 font-semibold">Nomor Surat</th>
                     <th class="py-4 px-6 font-semibold">Customer</th>
                     <th class="py-4 px-6 font-semibold">Lokasi</th>
                     <th class="py-4 px-6 font-semibold">Tanggal</th>
-                    <th class="py-4 px-6 font-semibold">Grand Total</th>
                     <th class="py-4 px-6 font-semibold">Dibuat Oleh</th>
                     <th class="py-4 px-6 font-semibold text-center">Aksi</th>
                 </tr>
@@ -30,10 +30,10 @@
                 <tr class="hover:bg-slate-50/50 transition-colors">
                     <td class="py-4 px-6 text-slate-500">{{ $loop->iteration }}</td>
                     <td class="py-4 px-6 font-medium text-slate-800">{{ $mou->nama_file }}</td>
+                    <td class="py-4 px-6 text-slate-600">{{ $mou->nomor_surat }}</td>
                     <td class="py-4 px-6 text-slate-600">{{ $mou->nama_customer }}</td>
                     <td class="py-4 px-6 text-slate-600">{{ $mou->lokasi }}</td>
                     <td class="py-4 px-6 text-slate-600">{{ \Carbon\Carbon::parse($mou->tanggal)->format('d/m/Y') }}</td>
-                    <td class="py-4 px-6 text-slate-600">Rp. {{ number_format($mou->grand_total, 0, ',', '.') }},-</td>
                     <td class="py-4 px-6 text-slate-600">{{ $mou->created_by }}</td>
                     <td class="py-4 px-6 text-center">
                         <div class="flex items-center justify-center gap-2">

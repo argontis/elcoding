@@ -27,38 +27,27 @@ class MouController extends Controller
     {
         $request->validate([
             'nama_file' => 'required',
+            'nomor_surat' => 'required',
+            'perihal' => 'required',
+            'lampiran' => 'required',
             'tanggal' => 'required|date',
             'lokasi' => 'required',
             'nama_customer' => 'required',
+            'created_by' => 'required',
         ]);
 
         DB::beginTransaction();
         try {
             $mou = Mou::create([
                 'nama_file' => $request->nama_file,
+                'nomor_surat' => $request->nomor_surat,
+                'perihal' => $request->perihal,
+                'lampiran' => $request->lampiran,
                 'tanggal' => $request->tanggal,
                 'lokasi' => $request->lokasi,
                 'nama_customer' => $request->nama_customer,
-                'pengantar_surat_type' => $request->pengantar_surat_type,
-                'pengantar_surat' => $request->pengantar_surat_type === 'template' ? 'Ini adalah pengantar surat default...' : $request->pengantar_surat,
-                'ketentuan_type' => $request->ketentuan_type,
-                'ketentuan' => $request->ketentuan_type === 'template' ? '1. Ketentuan default satu\n2. Ketentuan default dua' : $request->ketentuan,
-                'grand_total' => $request->grand_total ?? 0,
-                'created_by' => auth()->user()->name ?? 'Admin',
+                'created_by' => $request->created_by,
             ]);
-
-            if ($request->items && is_array($request->items)) {
-                foreach ($request->items as $item) {
-                    if (isset($item['spesifikasi'])) {
-                        $mou->items()->create([
-                            'spesifikasi' => $item['spesifikasi'],
-                            'qty' => $item['qty'] ?? 1,
-                            'harga' => $item['harga'] ?? 0,
-                            'total' => $item['total'] ?? 0,
-                        ]);
-                    }
-                }
-            }
 
             DB::commit();
             \App\Models\ActivityLog::add('Sistem', 'Tambah MoU', "MoU baru: {$mou->nama_file} ditambahkan.", 'blue', 'fa-file-signature');
@@ -79,9 +68,13 @@ class MouController extends Controller
     {
         $request->validate([
             'nama_file' => 'required',
+            'nomor_surat' => 'required',
+            'perihal' => 'required',
+            'lampiran' => 'required',
             'tanggal' => 'required|date',
             'lokasi' => 'required',
             'nama_customer' => 'required',
+            'created_by' => 'required',
         ]);
 
         DB::beginTransaction();
@@ -89,29 +82,16 @@ class MouController extends Controller
             $mou = Mou::findOrFail($id);
             $mou->update([
                 'nama_file' => $request->nama_file,
+                'nomor_surat' => $request->nomor_surat,
+                'perihal' => $request->perihal,
+                'lampiran' => $request->lampiran,
                 'tanggal' => $request->tanggal,
                 'lokasi' => $request->lokasi,
                 'nama_customer' => $request->nama_customer,
-                'pengantar_surat_type' => $request->pengantar_surat_type,
-                'pengantar_surat' => $request->pengantar_surat_type === 'template' ? 'Ini adalah pengantar surat default...' : $request->pengantar_surat,
-                'ketentuan_type' => $request->ketentuan_type,
-                'ketentuan' => $request->ketentuan_type === 'template' ? '1. Ketentuan default satu\n2. Ketentuan default dua' : $request->ketentuan,
-                'grand_total' => $request->grand_total ?? 0,
+                'created_by' => $request->created_by,
             ]);
 
             $mou->items()->delete();
-            if ($request->items && is_array($request->items)) {
-                foreach ($request->items as $item) {
-                    if (isset($item['spesifikasi'])) {
-                        $mou->items()->create([
-                            'spesifikasi' => $item['spesifikasi'],
-                            'qty' => $item['qty'] ?? 1,
-                            'harga' => $item['harga'] ?? 0,
-                            'total' => $item['total'] ?? 0,
-                        ]);
-                    }
-                }
-            }
 
             DB::commit();
             \App\Models\ActivityLog::add('Sistem', 'Edit MoU', "MoU {$mou->nama_file} diperbarui.", 'orange', 'fa-edit');

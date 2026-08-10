@@ -22,13 +22,23 @@
                     <input type="text" name="price" value="{{ $data->price ?? '' }}" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50" required placeholder="Cth: Rp2.500.000">
                 </div>
             </div>
-            <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Label (Opsional)</label>
-                <select name="badge" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50">
-                    <option value="" {{ (isset($data) && $data->badge == '') ? 'selected' : '' }}>Reguler (Tanpa Label)</option>
-                    <option value="Recommended" {{ (isset($data) && $data->badge == 'Recommended') ? 'selected' : '' }}>Recommended</option>
-                    <option value="Terlaris" {{ (isset($data) && $data->badge == 'Terlaris') ? 'selected' : '' }}>Terlaris</option>
-                </select>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Label (Opsional)</label>
+                    <select name="badge" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                        <option value="" {{ (isset($data) && $data->badge == '') ? 'selected' : '' }}>Reguler (Tanpa Label)</option>
+                        <option value="Recommended" {{ (isset($data) && $data->badge == 'Recommended') ? 'selected' : '' }}>Recommended</option>
+                        <option value="Terlaris" {{ (isset($data) && $data->badge == 'Terlaris') ? 'selected' : '' }}>Terlaris</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Tema Warna Card</label>
+                    <select name="theme_color" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                        <option value="theme-1" {{ (!isset($data) || $data->theme_color == 'theme-1') ? 'selected' : '' }}>Tema 1 (Beige/Cokelat)</option>
+                        <option value="theme-2" {{ (isset($data) && $data->theme_color == 'theme-2') ? 'selected' : '' }}>Tema 2 (Biru Muda/Navy)</option>
+                        <option value="theme-3" {{ (isset($data) && $data->theme_color == 'theme-3') ? 'selected' : '' }}>Tema 3 (Cyan/Teal)</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <label class="block text-sm font-medium text-slate-700 mb-1">Upload Gambar Header Program</label>

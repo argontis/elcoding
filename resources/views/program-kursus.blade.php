@@ -76,17 +76,25 @@
             <div class="programs-grid">
                 
                 @forelse($programs as $program)
-                <div class="program-card">
+                @php
+                    $theme = $program->theme_color ?? 'theme-1';
+                    $bgClass = 'card-' . $theme;
+                    $btnClass = 'btn-' . $theme;
+                    $textClass = 'text-' . $theme;
+                @endphp
+                <div class="program-card {{ $bgClass }}">
                     <div class="program-card-header" style="background-image: url('{{ $program->image_path ? asset(str_replace(' ', '%20', $program->image_path)) : asset('gambar/aset/ilustrasi-belajar.jpg') }}');">
                         @if($program->badge && $program->badge != 'Reguler')
                         <div class="program-badge {{ strtolower($program->badge) == 'terlaris' ? 'terlaris' : '' }}"><i class="fas {{ strtolower($program->badge) == 'terlaris' ? 'fa-fire' : 'fa-star' }}"></i> {{ $program->badge }}</div>
                         @endif
                     </div>
                     <div class="program-card-body">
-                        <h2 class="program-title">{!! nl2br(e($program->title)) !!}</h2>
-                        <ul class="program-features">
-                            <li><i class="fas fa-check-circle" style="color: #2563EB;"></i> <span>Durasi belajar <strong>{{ $program->duration }}</strong></span></li>
-                        </ul>
+                        <div class="program-header-info">
+                            <h2 class="program-title">{!! nl2br(e($program->title)) !!}</h2>
+                            <span class="start-from {{ $textClass }}">Start From</span>
+                            <div class="price-value">{{ $program->price }}</div>
+                        </div>
+                        
                         <div class="program-features-content">
                             @if($program->features)
                                 {!! $program->features !!}
@@ -101,10 +109,7 @@
                         </div>
                     </div>
                     <div class="program-card-footer">
-                        <div class="program-price-wrap">
-                            <div class="price-value">{{ $program->price }}</div>
-                        </div>
-                        <a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dan%20ingin%20berkonsultasi%20mengenai%20program%20kursus%20{{ rawurlencode($program->title) }}.%20Mohon%20informasi%20lebih%20lanjut." target="_blank" class="program-btn">Konsultasi Sekarang <i class="fas fa-arrow-right" style="margin-left: 8px; font-size: 14px;"></i></a>
+                        <a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dan%20ingin%20berkonsultasi%20mengenai%20program%20kursus%20{{ rawurlencode($program->title) }}.%20Mohon%20informasi%20lebih%20lanjut." target="_blank" class="program-btn {{ $btnClass }}">Pesan Sekarang</a>
                     </div>
                 </div>
                 @empty
@@ -145,21 +150,27 @@
             margin-bottom: 60px;
         }
         .program-card {
-            background: #fff;
-            border-radius: 16px;
+            border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease;
             position: relative;
+        }
+        .program-card.card-theme-1 {
+            background-color: #FAF6F0;
+        }
+        .program-card.card-theme-2 {
+            background-color: #F4F7FE;
+        }
+        .program-card.card-theme-3 {
+            background-color: #F0FAFA;
         }
         .program-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
         .program-card-header {
-            background-image: url('{{ asset("gambar/aset/ilustrasi-belajar.jpg") }}');
             background-size: cover;
             background-position: center;
             height: 180px;
@@ -186,90 +197,89 @@
             background: #EF4444;
             box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
         }
+        
+        .program-header-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
         .program-title {
-            font-size: 22px !important;
+            font-size: 18px !important;
             font-weight: 700;
-            color: #1F2937;
-            margin: 0 0 16px 0;
+            color: #4B5563;
+            margin: 0 0 8px 0;
             line-height: 1.4;
         }
-        .program-card-body {
-            padding: 30px;
-            flex-grow: 1;
-        }
-        .program-features {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .program-features li {
-            font-size: 15px;
-            color: #4B5563;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            line-height: 1.5;
-        }
-        .program-features li i {
-            color: #2563EB;
-            font-size: 20px;
-            margin-top: 2px;
-        }
-        .program-features li span {
-            flex: 1;
-        }
-        .program-features li strong {
-            color: #1F2937;
-        }
-        
-        .program-features-content { margin-top: 16px; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; }
-        .program-features-content p { font-size: 15px; color: #4B5563; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 12px; line-height: 1.5; }
-        .program-features-content p::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #2563EB; font-size: 20px; margin-top: 2px; }
-        .program-features-content p br { display: none; }
-        .program-features-content ul { list-style: none; padding: 0; margin: 0; }
-        .program-features-content ul li { font-size: 15px; color: #4B5563; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 12px; line-height: 1.5; }
-        .program-features-content ul li::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: #2563EB; font-size: 20px; margin-top: 2px; }
-        .program-features-content ol { list-style: decimal; padding-left: 20px; margin-bottom: 16px; }
-        .program-features-content ol li { font-size: 15px; color: #4B5563; margin-bottom: 8px; }
-        .program-features-content strong { color: #1F2937; }
-        .program-card-footer {
-            padding: 0 30px 30px 30px;
-        }
-        .program-price-wrap {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-        .price-label {
+        .start-from {
+            font-size: 16px;
+            font-weight: 600;
             display: block;
-            font-size: 14px;
-            color: #6B7280;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
+        .start-from.text-theme-1 { color: #D2A882; }
+        .start-from.text-theme-2 { color: #132252; }
+        .start-from.text-theme-3 { color: #1D667F; }
+        
         .price-value {
-            font-size: 24px !important;
+            font-size: 32px !important;
             font-weight: 800;
-            color: #2563EB;
+            color: #1F2937;
             line-height: 1;
         }
+
+        .program-card-body {
+            flex-grow: 1;
+            padding: 30px 20px 0 20px;
+        }
+        
+        .program-features-content { word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; }
+        .program-features-content ul, .program-features-content ol { list-style: none; padding: 0; margin: 0; }
+        .program-features-content p, .program-features-content ul li { 
+            font-size: 14px; 
+            color: #4B5563; 
+            padding: 12px 0; 
+            margin: 0;
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            line-height: 1.4;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        .program-features-content ul li:last-child {
+            border-bottom: none;
+        }
+        .program-features-content p::before, .program-features-content ul li::before { 
+            content: "\f058"; 
+            font-family: "Font Awesome 6 Free"; 
+            font-weight: 400; 
+            color: #4B5563; 
+            font-size: 18px; 
+            min-width: 18px;
+        }
+        .program-features-content p br { display: none; }
+        .program-features-content strong { color: #1F2937; font-weight: 600; }
+        
+        .program-card-footer {
+            padding: 30px 10px 0 10px;
+            display: flex;
+            justify-content: center;
+        }
         .program-btn {
-            display: block;
+            display: inline-block;
             text-align: center;
-            background: #2563EB;
-            color: #ffffff !important;
-            font-weight: 700;
-            font-size: 16px;
-            padding: 14px;
-            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 12px 30px;
+            border-radius: 30px;
             text-decoration: none;
             transition: all 0.3s ease;
             border: none;
         }
-        .program-btn:hover {
-            background: #1E40AF;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
-        }
+        .program-btn.btn-theme-1 { background: #D2A882; color: #ffffff !important; }
+        .program-btn.btn-theme-1:hover { background: #b89270; transform: translateY(-2px); }
+        .program-btn.btn-theme-2 { background: #132252; color: #ffffff !important; }
+        .program-btn.btn-theme-2:hover { background: #0c1638; transform: translateY(-2px); }
+        .program-btn.btn-theme-3 { background: #1D667F; color: #ffffff !important; }
+        .program-btn.btn-theme-3:hover { background: #14495c; transform: translateY(-2px); }
 
         /* Responsive */
         @media (max-width: 1024px) {
@@ -279,9 +289,6 @@
             .programs-hero-title { font-size: 28px; }
             .programs-grid { grid-template-columns: 1fr; }
             .programs-section { padding: 48px 16px 64px 16px; }
-            .program-card-body { padding: 20px; }
-            .program-card-footer { padding: 0 20px 20px 20px; }
-            .program-card-header { height: 160px; }
         }
     </style>
 

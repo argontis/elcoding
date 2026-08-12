@@ -2,11 +2,16 @@
 
 namespace App\Services;
 
+use App\Models\Order;
 use Xendit\Configuration;
+use Xendit\Invoice\InvoiceApi;
+use Xendit\Invoice\CreateInvoiceRequest;
 use Exception;
 
 class XenditService
 {
+    protected InvoiceApi $invoiceApi;
+
     /**
      * Inisialisasi Xendit Configuration.
      */
@@ -19,13 +24,46 @@ class XenditService
         }
 
         Configuration::setXenditKey($secretKey);
+        $this->invoiceApi = new InvoiceApi();
     }
 
     /**
-     * Contoh metode untuk mengecek setup
+     * Mengecek apakah Xendit sudah dikonfigurasi.
      */
     public function isConfigured(): bool
     {
         return !empty(config('xendit.secret_key'));
+    }
+
+    /**
+     * Membuat invoice Xendit untuk sebuah Order.
+     *
+     * @return array{invoice_id: string, invoice_url: string}
+     */
+    public function createInvoice(Order $order): array
+    {
+        $program = $order->programKursus;
+
+        $request = new CreateInvoiceRequest([
+            'external_id' => $order->external_id,
+            'amount' => $order->amount,
+            'description' => "Pembayaran kursus: {$program->title}",
+            'currency' => 'IDR',
+            'invoice_duration' => 86400, // 24 jam
+            'customer' => [
+                'given_names' => $order->user_name,
+                'email' => $order->user_email,
+                'mobile_number' => $order->user_phone,
+            ],
+            'success_redirect_url' => url('/payment/success?order_id=' . $order->external_id),
+            'failure_redirect_url' => url('/program-kursus/' . $program->id),
+        ]);
+
+        $result = $this->invoiceApi->createInvoice($request);
+
+        return [
+            'invoice_id' => $result->getId(),
+            'invoice_url' => $result->getInvoiceUrl(),
+        ];
     }
 }

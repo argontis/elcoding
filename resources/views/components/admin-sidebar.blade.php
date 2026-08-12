@@ -45,6 +45,18 @@
         
         <p class="px-8 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4 mt-8">Operasional</p>
 
+        @php
+            $pendingOrdersCount = \App\Models\Order::where('status', 'pending')->count();
+        @endphp
+        <a href="/admin/orders" class="sidebar-item flex items-center justify-between font-medium {{ request()->is('admin/orders*') ? 'active' : '' }}">
+            <div class="flex items-center gap-4">
+                <i class="fas fa-shopping-cart w-6 text-center text-lg"></i> <span>Transaksi & Bayar</span>
+            </div>
+            @if($pendingOrdersCount > 0)
+                <span class="bg-amber-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full shadow-sm">{{ $pendingOrdersCount }}</span>
+            @endif
+        </a>
+
         <a href="/admin/mou" class="sidebar-item flex items-center gap-4 font-medium {{ request()->is('admin/mou*') ? 'active' : '' }}">
             <i class="fas fa-file-signature w-6 text-center text-lg"></i> <span>MoU & Penawaran</span>
         </a>

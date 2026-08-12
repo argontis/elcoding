@@ -12,7 +12,12 @@ class AdminController extends Controller
             'program' => \App\Models\ProgramKursus::count(),
             'portofolio' => \App\Models\Portofolio::count(),
             'artikel' => \App\Models\Artikel::count(),
+            'orders_count' => \App\Models\Order::count(),
+            'orders_paid' => \App\Models\Order::whereIn('status', ['paid', 'PAID', 'SETTLED'])->count(),
+            'orders_revenue' => \App\Models\Order::whereIn('status', ['paid', 'PAID', 'SETTLED'])->sum('amount'),
         ];
+
+        $recentOrders = \App\Models\Order::with('programKursus')->latest()->take(5)->get();
 
         // Fetch Real Visitor Data for the last 7 days
         $visitorLabels = [];
@@ -25,7 +30,7 @@ class AdminController extends Controller
 
         $activities = \App\Models\ActivityLog::latest()->take(5)->get();
 
-        return view('admin.dashboard', compact('stats', 'activities', 'visitorLabels', 'visitorData'));
+        return view('admin.dashboard', compact('stats', 'activities', 'visitorLabels', 'visitorData', 'recentOrders'));
     }
 
     public function aktivitas() {

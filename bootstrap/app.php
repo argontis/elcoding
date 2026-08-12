@@ -19,7 +19,9 @@ return Application::configure(basePath: dirname(__DIR__))
             // \App\Http\Middleware\RemoveHtmlComments::class,
         ]);
 
-        //
+        $middleware->validateCsrfTokens(except: [
+            'xendit/callback',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

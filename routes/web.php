@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProgramKursusController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,6 +35,11 @@ Route::get('/program-kursus', function () {
     $programs = \App\Models\ProgramKursus::latest()->paginate(9);
     return view('program-kursus', compact('programs'));
 });
+
+Route::get('/program-kursus/{id}', [ProgramKursusController::class, 'show']);
+Route::post('/program-kursus/{id}/checkout', [ProgramKursusController::class, 'checkout']);
+Route::get('/payment/success', [ProgramKursusController::class, 'paymentSuccess']);
+Route::post('/xendit/callback', [ProgramKursusController::class, 'callback']);
 
 Route::get('/portofolio', function () {
     $portofolios = \App\Models\Portofolio::latest()->paginate(9);
@@ -122,6 +128,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/mou/{id}', [\App\Http\Controllers\Admin\MouController::class, 'update']);
         Route::delete('/mou/{id}', [\App\Http\Controllers\Admin\MouController::class, 'destroy']);
         Route::get('/mou/{id}/pdf', [\App\Http\Controllers\Admin\MouController::class, 'downloadPdf']);
+
+        // Transaksi & Pembayaran Kursus
+        Route::get('/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index']);
+        Route::put('/orders/{id}/status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus']);
+        Route::delete('/orders/{id}', [\App\Http\Controllers\Admin\OrderController::class, 'destroy']);
     });
 });
 

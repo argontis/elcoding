@@ -19,8 +19,7 @@
             </div>
         </div>
         <div class="relative z-10 flex items-center gap-2 text-sm">
-            <span class="text-green-500 font-semibold flex items-center gap-1"><i class="fas fa-arrow-up text-xs"></i> 12%</span>
-            <span class="text-slate-500">dari bulan lalu</span>
+            <span class="text-slate-500">Klien & Partner Kerja</span>
         </div>
     </div>
     
@@ -37,11 +36,27 @@
             </div>
         </div>
         <div class="relative z-10 flex items-center gap-2 text-sm">
-            <span class="text-slate-500">2 program terlaris</span>
+            <span class="text-slate-500">Program Bootcamp & Kursus</span>
         </div>
     </div>
 
-
+    <!-- Stat Card 3 (Transaksi & Revenue) -->
+    <div class="surface-card p-6 flex flex-col relative overflow-hidden group">
+        <div class="absolute -right-4 -top-4 w-24 h-24 bg-emerald-50 rounded-full scale-150 z-0"></div>
+        <div class="relative z-10 flex justify-between items-start mb-4">
+            <div>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Transaksi Lunas</p>
+                <h3 class="text-3xl font-extrabold text-slate-800">{{ $stats['orders_paid'] }} <span class="text-xs text-slate-400 font-normal">/ {{ $stats['orders_count'] }}</span></h3>
+            </div>
+            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl shadow-inner">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+        </div>
+        <div class="relative z-10 flex items-center gap-2 text-sm">
+            <span class="text-emerald-600 font-bold">Rp{{ number_format($stats['orders_revenue'], 0, ',', '.') }}</span>
+            <span class="text-slate-400">Total Pendapatan</span>
+        </div>
+    </div>
 
     <!-- Stat Card 4 -->
     <div class="surface-card p-6 flex flex-col relative overflow-hidden group">
@@ -56,7 +71,7 @@
             </div>
         </div>
         <div class="relative z-10 flex items-center gap-2 text-sm">
-            <span class="text-slate-500">Diperbarui 2 hari lalu</span>
+            <span class="text-slate-500">Artikel & Berita</span>
         </div>
     </div>
 </div>

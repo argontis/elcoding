@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <div class="program-card-footer">
-                        <a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dan%20ingin%20berkonsultasi%20mengenai%20program%20kursus%20{{ rawurlencode($program->title) }}.%20Mohon%20informasi%20lebih%20lanjut." target="_blank" class="program-btn {{ $btnClass }}">Pesan Sekarang</a>
+                        <a href="{{ url('/program-kursus/' . $program->id) }}" class="program-btn {{ $btnClass }}">Lihat Detail</a>
                     </div>
                 </div>
                 @empty

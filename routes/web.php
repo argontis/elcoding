@@ -20,7 +20,7 @@ Route::post('/chat-gemini', [ChatController::class, 'askGemini']);
 // ==========================================
 Route::get('/', function () {
     $mitras = \App\Models\Mitra::latest()->get();
-    $programs = \App\Models\ProgramKursus::latest()->take(3)->get();
+    $programs = \App\Models\ProgramKursus::oldest()->take(3)->get();
     $portofolios = \App\Models\Portofolio::latest()->take(3)->get();
     $artikels = \App\Models\Artikel::where('status', 'Published')->latest()->take(3)->get();
     return view('welcome', compact('mitras', 'programs', 'portofolios', 'artikels'));
@@ -32,7 +32,7 @@ Route::get('/tentang-kami', function () {
 });
 
 Route::get('/program-kursus', function () {
-    $programs = \App\Models\ProgramKursus::latest()->paginate(9);
+    $programs = \App\Models\ProgramKursus::oldest()->paginate(9);
     return view('program-kursus', compact('programs'));
 });
 

@@ -38,6 +38,27 @@ class MouController extends Controller
 
         DB::beginTransaction();
         try {
+            $items = json_decode($request->items, true);
+            if (empty($items)) {
+                throw new \Exception("Minimal harus ada 1 item penawaran");
+            }
+            
+            $grand_total = 0;
+            $processedItems = [];
+            foreach ($items as $item) {
+                $qty = floatval($item['qty']);
+                $harga = floatval(str_replace(['.', ','], '', $item['harga']));
+                $total = $qty * $harga;
+                $grand_total += $total;
+                
+                $processedItems[] = [
+                    'spesifikasi' => $item['spesifikasi'],
+                    'qty' => $qty,
+                    'harga' => $harga,
+                    'total' => $total,
+                ];
+            }
+
             $mou = Mou::create([
                 'nama_file' => $request->nama_file,
                 'nomor_surat' => $request->nomor_surat,
@@ -46,8 +67,17 @@ class MouController extends Controller
                 'tanggal' => $request->tanggal,
                 'lokasi' => $request->lokasi,
                 'nama_customer' => $request->nama_customer,
+                'pengantar_surat_type' => $request->pengantar_surat_type ?? 'custom',
+                'pengantar_surat' => $request->pengantar_surat,
+                'ketentuan_type' => $request->ketentuan_type ?? 'custom',
+                'ketentuan' => $request->ketentuan,
+                'grand_total' => $grand_total,
                 'created_by' => $request->created_by,
             ]);
+
+            foreach ($processedItems as $item) {
+                $mou->items()->create($item);
+            }
 
             DB::commit();
             \App\Models\ActivityLog::add('Sistem', 'Tambah MoU', "MoU baru: {$mou->nama_file} ditambahkan.", 'blue', 'fa-file-signature');
@@ -79,6 +109,27 @@ class MouController extends Controller
 
         DB::beginTransaction();
         try {
+            $items = json_decode($request->items, true);
+            if (empty($items)) {
+                throw new \Exception("Minimal harus ada 1 item penawaran");
+            }
+            
+            $grand_total = 0;
+            $processedItems = [];
+            foreach ($items as $item) {
+                $qty = floatval($item['qty']);
+                $harga = floatval(str_replace(['.', ','], '', $item['harga']));
+                $total = $qty * $harga;
+                $grand_total += $total;
+                
+                $processedItems[] = [
+                    'spesifikasi' => $item['spesifikasi'],
+                    'qty' => $qty,
+                    'harga' => $harga,
+                    'total' => $total,
+                ];
+            }
+
             $mou = Mou::findOrFail($id);
             $mou->update([
                 'nama_file' => $request->nama_file,
@@ -88,10 +139,18 @@ class MouController extends Controller
                 'tanggal' => $request->tanggal,
                 'lokasi' => $request->lokasi,
                 'nama_customer' => $request->nama_customer,
+                'pengantar_surat_type' => $request->pengantar_surat_type ?? 'custom',
+                'pengantar_surat' => $request->pengantar_surat,
+                'ketentuan_type' => $request->ketentuan_type ?? 'custom',
+                'ketentuan' => $request->ketentuan,
+                'grand_total' => $grand_total,
                 'created_by' => $request->created_by,
             ]);
 
             $mou->items()->delete();
+            foreach ($processedItems as $item) {
+                $mou->items()->create($item);
+            }
 
             DB::commit();
             \App\Models\ActivityLog::add('Sistem', 'Edit MoU', "MoU {$mou->nama_file} diperbarui.", 'orange', 'fa-edit');

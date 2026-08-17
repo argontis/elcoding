@@ -51,7 +51,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            background: #7c3aed;
+            background: #20689b;
             color: #ffffff !important;
             font-size: 15px;
             font-weight: 700;
@@ -62,7 +62,7 @@
             box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4);
         }
         .btn-home:hover, .btn-home:focus, .btn-home:active, .btn-home:visited {
-            background: #6d28d9;
+            background: #20689b;
             color: #ffffff !important;
             transform: translateY(-2px);
             text-decoration: none !important;

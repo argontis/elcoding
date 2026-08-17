@@ -93,7 +93,7 @@
         .price-tag {
             font-size: 32px;
             font-weight: 800;
-            color: #7c3aed;
+            color: #20689b;
             margin-bottom: 5px;
         }
         .price-label {
@@ -121,12 +121,12 @@
             transition: all 0.2s ease;
         }
         .form-input:focus {
-            border-color: #7c3aed;
+            border-color: #20689b;
             box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
         }
         .btn-pay {
             width: 100%;
-            background: #7c3aed;
+            background: #20689b;
             color: #ffffff;
             font-weight: 700;
             font-size: 16px;
@@ -142,7 +142,7 @@
             box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
         }
         .btn-pay:hover {
-            background: #6d28d9;
+            background: #20689b;
             transform: translateY(-2px);
         }
         .alert-error {

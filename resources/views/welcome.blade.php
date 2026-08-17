@@ -53,7 +53,7 @@
             }
             .elementor-element-8110f2a { width: 100% !important; display: flex; justify-content: center; }
             .elementor-element-b83b4d6 { width: 100% !important; padding-left: 0 !important; display: flex; flex-direction: column; align-items: center; }
-            .elementor-element-af1e2b3 p { font-size: 14px !important; margin-bottom: 5px !important; color: #6D28D9 !important; font-weight: 600; }
+            .elementor-element-af1e2b3 p { font-size: 14px !important; margin-bottom: 5px !important; color: #20689b !important; font-weight: 600; }
             .elementor-element-728fa4a .elementor-heading-title { font-size: 28px !important; line-height: 1.3 !important; margin-bottom: 15px !important; }
             .elementor-element-3d35e7c p { font-size: 14px !important; line-height: 1.6 !important; margin-bottom: 25px !important; padding: 0 10px; }
             .hero-buttons-container { justify-content: center; width: 100%; }
@@ -85,17 +85,17 @@
                         margin-top: 20px;
                     }
                     .elementor-element-c29eb8e .elementor-button, .btn-software-house {
-                        background-color: #6D28D9 !important; /* ungu tua */
-                        border: 2px solid #6D28D9 !important;
+                        background-color: #20689b !important; /* ungu tua */
+                        border: 2px solid #20689b !important;
                         color: #ffffff !important;
                         padding: 12px 25px !important;
                         border-radius: 8px !important;
                         font-weight: 600 !important;
                     }
                     .elementor-element-c29eb8e .elementor-button:hover, .btn-software-house:hover {
-                        background-color: #4C1D95 !important;
-                        border-color: #4C1D95 !important;
-                    }
+                        background-color: #20689b !important;
+                        border-color: #20689b !important;
+                        opacity: 0.9;
                     }
                 </style>
                 <div class="hero-buttons-container">
@@ -200,7 +200,7 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        color: #6D28D9;
+        color: #20689b;
         font-weight: 600;
         font-size: 15px;
         text-decoration: none;
@@ -240,7 +240,7 @@
 <style>
     .why-us-section {
         padding: 60px 20px 80px;
-        background-color: #F5F3FF;
+        background-color: #f8fafc;
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
     .why-us-container {
@@ -275,14 +275,14 @@
     .why-us-card:hover {
         transform: translateY(-8px);
         box-shadow: 0 15px 40px rgba(0,0,0,0.06);
-        border-color: rgba(109, 40, 217, 0.1);
+        border-color: rgba(32, 104, 155, 0.1);
     }
     
     .why-us-icon {
         width: 70px;
         height: 70px;
-        background: rgba(109, 40, 217, 0.05);
-        color: #6D28D9;
+        background: #eef6fc;
+        color: #20689b;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -292,7 +292,7 @@
         transition: all 0.3s ease;
     }
     .why-us-card:hover .why-us-icon {
-        background: #6D28D9;
+        background: #20689b;
         color: #ffffff;
     }
     
@@ -557,7 +557,7 @@
     .testimonial-section { padding: 0 0 80px 0; background: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
     .testimonial-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     .testimonial-header { text-align: center; margin-bottom: 50px; }
-    .testimonial-subtitle { display: inline-block; color: #6D28D9; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
+    .testimonial-subtitle { display: inline-block; color: #20689b; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
     .testimonial-title { font-size: 38px; font-weight: 800; color: #1F2937; line-height: 1.2; margin: 0; }
     .testimonial-grid { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: none; }
     .testimonial-grid::-webkit-scrollbar { display: none; }
@@ -602,7 +602,7 @@
     <style>
     .statistics-cta-section { 
         padding: 40px 20px; 
-        background-color: #2563EB; 
+        background-color: #20689b; 
         background-image: linear-gradient(to bottom, rgba(37, 99, 235, 0.85), rgba(37, 99, 235, 0.95)), url('{{ asset("gambar/aset/ilustrasi-belajar.jpg") }}');
         background-size: cover;
         background-position: center;
@@ -638,7 +638,7 @@
                     <img src="{{ asset($portofolio->image_path ?? 'assets/wp-content/uploads/2026/02/Garap-Edu.webp') }}" class="portfolio-img" alt="{{ $portofolio->title }}" loading="lazy">
                     <div class="portfolio-info">
                         <h4>{{ $portofolio->title }}</h4>
-                        @php $catColor = $kategoriColors[$portofolio->category] ?? '#2563EB'; @endphp
+                        @php $catColor = $kategoriColors[$portofolio->category] ?? '#20689b'; @endphp
                         <div style="margin-bottom: 15px;"><span class="portfolio-category-badge" style="background-color: {{ $catColor }}; color: #ffffff; box-shadow: 0 4px 10px {{ $catColor }}40;">{{ $portofolio->category }}</span></div>
                         <div class="porto-card-actions">
                             <a href="{{ url('/portofolio/' . $portofolio->id) }}" class="porto-btn porto-btn-detail"><i class="fas fa-info-circle"></i> Detail</a>
@@ -668,10 +668,10 @@
     .portfolio-category-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; }
     .porto-card-actions { display: flex; gap: 8px; margin-top: auto; justify-content: center; flex-wrap: wrap; }
     .porto-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.25s ease; cursor: pointer; }
-    .porto-btn-detail { background: #2563EB; color: #fff !important; }
+    .porto-btn-detail { background: #20689b; color: #fff !important; }
     .porto-btn-detail:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.35); }
-    .porto-btn-url { background: transparent; color: #2563EB !important; border: 1.5px solid #2563EB; }
-    .porto-btn-url:hover { background: #2563EB; color: #fff !important; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+    .porto-btn-url { background: transparent; color: #20689b !important; border: 1.5px solid #20689b; }
+    .porto-btn-url:hover { background: #20689b; color: #fff !important; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
     .porto-btn-url-disabled { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; border: 1.5px solid #cbd5e1; color: #94a3b8 !important; background: transparent; cursor: not-allowed; opacity: 0.6; }
     @media (max-width: 992px) { .portfolio-card { flex: 0 0 calc(50% - 15px); } }
     @media (max-width: 768px) { .portfolio-card { flex: 0 0 100%; } }
@@ -712,7 +712,7 @@
     .blog-section { padding: 0 0 40px 0; background: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
     .blog-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     .blog-header { text-align: center; margin-bottom: 50px; }
-    .blog-subtitle { display: inline-block; color: #6D28D9; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
+    .blog-subtitle { display: inline-block; color: #20689b; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
     .blog-title { font-size: 38px; font-weight: 800; color: #1F2937; line-height: 1.2; margin: 0; }
     .blog-grid { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: none; }
     .blog-grid::-webkit-scrollbar { display: none; }
@@ -722,10 +722,10 @@
     .blog-content { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; }
     .blog-content h4 { font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0 0 15px 0; }
     .blog-content h4 a { color: #1F2937; text-decoration: none; transition: color 0.3s ease; }
-    .blog-content h4 a:hover { color: #2563EB; }
+    .blog-content h4 a:hover { color: #20689b; }
     .blog-meta { font-size: 13px; color: #000000; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; font-weight: 500; }
     .blog-content p { font-size: 14px; color: #666; line-height: 1.6; margin: 0 0 25px 0; flex-grow: 1; }
-    .blog-btn { display: inline-block; align-self: flex-start; background: #2563EB; color: #fff !important; font-size: 13px; font-weight: 600; text-transform: uppercase; text-decoration: none; padding: 12px 25px; border-radius: 50px; transition: all 0.3s ease; }
+    .blog-btn { display: inline-block; align-self: flex-start; background: #20689b; color: #fff !important; font-size: 13px; font-weight: 600; text-transform: uppercase; text-decoration: none; padding: 12px 25px; border-radius: 50px; transition: all 0.3s ease; }
     .blog-btn:hover { background: #1E40AF; transform: translateY(-2px); }
     @media (max-width: 992px) { .blog-card { flex: 0 0 calc(50% - 15px); } }
     @media (max-width: 768px) { 

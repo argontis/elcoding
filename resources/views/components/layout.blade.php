@@ -132,7 +132,7 @@
             position: absolute;
             top: -100px;
             left: 0;
-            background: #2563EB;
+            background: #20689b;
             color: white;
             padding: 10px 15px;
             z-index: 100000;
@@ -163,7 +163,7 @@
 
         .elementor-nav-menu .menu-item a.elementor-item-active,
         .elementor-nav-menu .menu-item a.elementor-item:hover {
-            color: #7C3AED !important;
+            color: #20689b !important;
             /* purple */
             transform: none !important;
         }
@@ -172,12 +172,12 @@
         .elementor-location-footer a:hover,
         .elementor-location-footer .elementor-icon-list-item a:hover .elementor-icon-list-icon i,
         .elementor-location-footer .elementor-icon-list-item a:hover .elementor-icon-list-text {
-            color: #7C3AED !important;
+            color: #20689b !important;
             /* purple */
         }
 
         .elementor-location-footer .elementor-social-icon:hover {
-            background-color: #7C3AED !important;
+            background-color: #20689b !important;
             color: #ffffff !important;
         }
 
@@ -196,7 +196,7 @@
 
         /* Header Konsultasi Button */
         .elementor-element-5ebed42 .elementor-button {
-            background-color: #2563EB !important;
+            background-color: #20689b !important;
             color: #ffffff !important;
             font-size: 13px !important;
             font-weight: 600 !important;
@@ -247,7 +247,7 @@
         .mobile-menu-btn:active,
         .mobile-menu-btn:hover {
             outline: none !important;
-            color: #2563EB !important;
+            color: #20689b !important;
             background: transparent !important;
             background-color: transparent !important;
         }
@@ -814,7 +814,7 @@
             bottom: 0;
             width: 40px;
             height: 3px;
-            background-color: #2563EB;
+            background-color: #20689b;
         }
 
         .footer-list {
@@ -836,7 +836,7 @@
         }
 
         .footer-list li a:hover {
-            color: #2563EB;
+            color: #20689b;
         }
 
         .icon-list li {
@@ -875,12 +875,12 @@
         }
 
         .footer-socials a:hover {
-            background-color: #2563EB;
+            background-color: #20689b;
             color: #fff;
         }
 
         .footer-bottom {
-            background-color: #2563EB;
+            background-color: #20689b;
             color: #ffffff;
             text-align: center;
             padding: 20px;
@@ -1269,7 +1269,7 @@
         <div class="chatbot-footer">
             <input type="text" id="chat-input" placeholder="Ketik pesan di sini..."
                 onkeypress="handleEnter(event)" style="background: #fff; color: #1e293b; cursor: text;">
-            <button onclick="sendUserMessage()" style="background: #2563EB; cursor: pointer;"><i
+            <button onclick="sendUserMessage()" style="background: #20689b; cursor: pointer;"><i
                     class="fas fa-paper-plane"></i></button>
         </div>
     </div>
@@ -1321,7 +1321,7 @@
             position: relative;
             width: 42px;
             height: 42px;
-            background: linear-gradient(135deg, #2563EB 0%, #8B5CF6 100%);
+            background: linear-gradient(135deg, #20689b 0%, #8B5CF6 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1399,7 +1399,7 @@
         .msg-avatar {
             width: 28px;
             height: 28px;
-            background: linear-gradient(135deg, #2563EB 0%, #8B5CF6 100%);
+            background: linear-gradient(135deg, #20689b 0%, #8B5CF6 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1425,7 +1425,7 @@
         }
 
         .user-msg {
-            background: #2563EB;
+            background: #20689b;
             color: #fff;
             border-radius: 16px 16px 4px 16px;
         }
@@ -1495,8 +1495,8 @@
 
         .chatbot-options button {
             background: #fff;
-            color: #2563EB;
-            border: 1px solid #2563EB;
+            color: #20689b;
+            border: 1px solid #20689b;
             border-radius: 12px;
             padding: 8px 10px;
             font-size: 12px;
@@ -1510,7 +1510,7 @@
         }
 
         .chatbot-options button:hover {
-            background: #2563EB;
+            background: #20689b;
             color: #fff;
         }
 
@@ -1533,7 +1533,7 @@
         }
 
         .chatbot-footer button {
-            background: #2563EB;
+            background: #20689b;
             color: #fff;
             border: none;
             width: 44px;
@@ -1817,7 +1817,7 @@
             right: 30px;
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #2563EB 0%, #8B5CF6 100%);
+            background: linear-gradient(135deg, #20689b 0%, #8B5CF6 100%);
             color: #fff;
             border-radius: 50%;
             display: flex;

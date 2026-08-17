@@ -22,10 +22,10 @@
             transition: color 0.3s ease;
         }
         .custom-pagination .page-numbers:hover {
-            color: #7C3AED;
+            color: #20689b;
         }
         .custom-pagination .page-numbers.current {
-            color: #7C3AED;
+            color: #20689b;
         }
         .custom-pagination .dots {
             color: #4B5563;
@@ -149,7 +149,7 @@
             display: inline-block;
             align-self: flex-start;
             background: #e5f3f3;
-            color: #2563EB;
+            color: #20689b;
             font-size: 12px;
             font-weight: 700;
             padding: 5px 12px;
@@ -168,7 +168,7 @@
             text-decoration: none; 
             transition: color 0.3s ease; 
         }
-        .blog-content h4 a:hover { color: #2563EB; }
+        .blog-content h4 a:hover { color: #20689b; }
         .blog-meta { 
             font-size: 13px; 
             color: #000000; 
@@ -188,7 +188,7 @@
         .blog-btn { 
             display: inline-block; 
             align-self: flex-start; 
-            background: #2563EB; 
+            background: #20689b; 
             color: #fff !important; 
             font-size: 13px; 
             font-weight: 600; 

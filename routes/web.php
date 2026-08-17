@@ -27,10 +27,12 @@ Route::get('/', function () {
 });
 
 Route::get('/layanan', function () {
-return view('layanan'); 
+    $layanans = \App\Models\Layanan::latest()->get();
+    return view('layanan', compact('layanans')); 
 });
-Route::get('/layanan/detail', function () {
-return view('detail-layanan'); 
+Route::get('/layanan/detail/{slug}', function ($slug) {
+    $layanan = \App\Models\Layanan::where('slug', $slug)->firstOrFail();
+    return view('detail-layanan', compact('layanan')); 
 });
 
 Route::get('/tentang-kami', function () {
@@ -80,11 +82,19 @@ Route::get('/artikel/{id}', function ($id) {
 Route::middleware(['auth', 'verified'])->group(function () {
     
     // 1. Route Beranda / Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::redirect('/dashboard', '/admin/mitra')->name('dashboard');
 
     Route::prefix('admin')->group(function () {
-        Route::get('/', [AdminController::class, 'dashboard']);
+        Route::redirect('/', '/admin/mitra');
         Route::get('/aktivitas', [AdminController::class, 'aktivitas']);
+        
+        // Layanan CRUD
+        Route::get('/layanan', [\App\Http\Controllers\Admin\LayananController::class, 'index']);
+        Route::get('/layanan/create', [\App\Http\Controllers\Admin\LayananController::class, 'create']);
+        Route::post('/layanan', [\App\Http\Controllers\Admin\LayananController::class, 'store']);
+        Route::get('/layanan/{id}/edit', [\App\Http\Controllers\Admin\LayananController::class, 'edit']);
+        Route::put('/layanan/{id}', [\App\Http\Controllers\Admin\LayananController::class, 'update']);
+        Route::delete('/layanan/{id}', [\App\Http\Controllers\Admin\LayananController::class, 'destroy']);
         
         // Mitra CRUD
         Route::get('/mitra', [AdminController::class, 'mitra']);

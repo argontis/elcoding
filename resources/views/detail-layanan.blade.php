@@ -1,5 +1,5 @@
 <x-layout>
-    <x-slot name="title">Detail Layanan - Jasa Pembuatan Website</x-slot>
+    <x-slot name="title">Detail Layanan - {{ $layanan->title }}</x-slot>
 
     <!-- 1. HERO SECTION (Judul Layanan) -->
     <section class="detail-hero">
@@ -7,10 +7,10 @@
             <div class="breadcrumb">
                 <a href="{{ url('/') }}">Beranda</a> <i class="fas fa-chevron-right"></i> 
                 <a href="{{ url('/layanan') }}">Layanan</a> <i class="fas fa-chevron-right"></i> 
-                <span>Jasa Pembuatan Website</span>
+                <span>{{ $layanan->title }}</span>
             </div>
-            <h1 class="detail-title">Jasa Pembuatan Website Profesional</h1>
-            <p class="detail-subtitle">Bangun kredibilitas digital bisnis Anda dengan website modern, responsif, dan SEO-friendly yang dirancang khusus sesuai kebutuhan Anda.</p>
+            <h1 class="detail-title">{{ $layanan->title }}</h1>
+            <p class="detail-subtitle">{{ $layanan->short_description }}</p>
         </div>
     </section>
 
@@ -20,70 +20,85 @@
             
             <!-- Bagian Kiri: Deskripsi & Fitur -->
             <div class="content-left">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ilustrasi Website" class="content-image">
+                @if($layanan->image_path)
+                <img src="{{ asset($layanan->image_path) }}" alt="{{ $layanan->title }}" class="content-image">
+                @else
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ilustrasi Layanan" class="content-image">
+                @endif
                 
                 <h2>Deskripsi Layanan</h2>
-                <p>Di era digital saat ini, memiliki website bukan lagi sebuah pilihan, melainkan keharusan. Elcoding hadir membantu Anda merancang dan mendevelop website dari nol, mulai dari Company Profile, E-Commerce, Portal Berita, hingga Sistem Informasi Akademik yang kompleks.</p>
-                <p>Kami menggunakan teknologi terbaru yang menjamin website Anda cepat diakses, aman dari serangan siber, dan tampil sempurna di segala ukuran layar (HP, Tablet, Desktop).</p>
+                <div class="rich-text-content">
+                    {!! $layanan->description !!}
+                </div>
 
+                @if(!empty($layanan->features_main))
                 <h2 style="margin-top: 40px;">Fitur Utama yang Anda Dapatkan</h2>
                 <div class="features-list">
+                    @foreach($layanan->features_main as $fm)
                     <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
+                        <i class="{{ $fm['icon'] ?? 'fas fa-check-circle' }}"></i>
                         <div>
-                            <h4>Desain Premium & Responsif</h4>
-                            <p>Tampilan elegan dan menyesuaikan dengan layar perangkat pengunjung secara otomatis.</p>
+                            <h4>{{ $fm['title'] ?? '' }}</h4>
+                            <p>{{ $fm['desc'] ?? '' }}</p>
                         </div>
                     </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <div>
-                            <h4>SEO Friendly</h4>
-                            <p>Struktur kode yang dioptimasi agar mudah ditemukan di halaman pertama Google.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <div>
-                            <h4>Panel Admin (CMS)</h4>
-                            <p>Dashboard yang mudah digunakan untuk mengubah teks, gambar, atau artikel secara mandiri.</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <div>
-                            <h4>Gratis Domain & Hosting 1 Tahun</h4>
-                            <p>Terima beres! Paket sudah termasuk nama domain pilihan Anda dan hosting yang cepat.</p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
+                @endif
             </div>
 
             <!-- Bagian Kanan: Kartu Harga & CTA (Sticky) -->
             <div class="content-right">
                 <div class="pricing-card">
-                    <span class="card-badge">Paket Bisnis</span>
-                    <h3 class="price-title">Mulai dari</h3>
-                    <div class="price-amount">Rp 2.500.000 <span>/ web</span></div>
+                    <span class="card-badge">{{ $layanan->badge ?? 'Layanan' }}</span>
+                    <h3 class="price-title">{{ $layanan->price_label ?? 'Mulai dari' }}</h3>
+                    <div class="price-amount">{{ $layanan->price }} <span>{{ $layanan->price_period }}</span></div>
                     
+                    @if(!empty($layanan->pricing_includes))
                     <ul class="pricing-includes">
-                        <li><i class="fas fa-check"></i> Desain Custom (Bukan Template)</li>
-                        <li><i class="fas fa-check"></i> Maksimal 10 Halaman</li>
-                        <li><i class="fas fa-check"></i> Bandwidth Unlimited</li>
-                        <li><i class="fas fa-check"></i> SSL Certificate (HTTPS)</li>
-                        <li><i class="fas fa-check"></i> Support & Garansi Bug 3 Bulan</li>
+                        @foreach($layanan->pricing_includes as $pi)
+                        <li><i class="fas fa-check"></i> {{ $pi }}</li>
+                        @endforeach
                     </ul>
+                    @endif
 
-                    <a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20ingin%20pesan%20layanan%20Pembuatan%20Website." class="btn-order" target="_blank">
+                    @php
+                        $waMsg = $layanan->whatsapp_message ?: 'Halo Admin Elcoding, saya ingin pesan layanan '.$layanan->title.'.';
+                        $waLink = 'https://wa.me/6281476652656?text=' . urlencode($waMsg);
+                    @endphp
+                    <a href="{{ $waLink }}" class="btn-order" target="_blank">
                         Pesan Sekarang
                     </a>
                     
-                    <a href="#" class="btn-download"><i class="fas fa-file-pdf"></i> Unduh Proposal Layanan</a>
+                    <a href="#" class="btn-download"><i class="fas fa-file-pdf"></i> Unduh Proposal Penawaran</a>
                 </div>
             </div>
 
         </div>
     </section>
+
+    <!-- 3. FITUR LENGKAP -->
+    @if(!empty($layanan->features_full))
+    <section class="full-features-section">
+        <div class="container">
+            <div class="features-header text-center">
+                <span class="badge-title"><i class="fas fa-check" style="color: #20689b; margin-right: 5px;"></i> Yang Anda Dapatkan</span>
+                <h2>Fitur Lengkap di Setiap Paket</h2>
+                <p>Semua yang dibutuhkan sekolah sudah termasuk — tanpa biaya tersembunyi.</p>
+            </div>
+            
+            <div class="full-features-grid">
+                @foreach($layanan->features_full as $ff)
+                <div class="ff-card">
+                    <div class="ff-icon {{ $ff['color_class'] ?? 'icon-blue' }}"><i class="{{ $ff['icon'] ?? 'fas fa-bolt' }}"></i></div>
+                    <h4>{{ $ff['title'] ?? '' }}</h4>
+                    <p>{{ $ff['desc'] ?? '' }}</p>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
 
     <!-- CSS STYLING MURNI -->
     <style>
@@ -120,7 +135,7 @@
             font-size: 36px;
             font-weight: 800;
             margin: 0 0 15px;
-            color: #ffffff;
+            color: #ffffff !important;
         }
         .detail-subtitle {
             font-size: 18px;
@@ -262,7 +277,7 @@
         .btn-order {
             display: block;
             background: #005a96;
-            color: #ffffff;
+            color: #ffffff !important;
             padding: 14px;
             border-radius: 8px;
             font-weight: 700;
@@ -291,8 +306,83 @@
             color: #1e293b;
         }
 
+        /* Full Features Section */
+        .full-features-section {
+            padding: 80px 0;
+            background: #ffffff;
+        }
+        .text-center { text-align: center; }
+        .features-header {
+            margin-bottom: 50px;
+        }
+        .features-header h2 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1e293b;
+            margin: 15px 0 10px;
+        }
+        .features-header p {
+            font-size: 16px;
+            color: #64748b;
+        }
+        .full-features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .ff-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        .ff-card:hover {
+            border-color: #20689b;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transform: translateY(-3px);
+        }
+        .ff-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .ff-icon.icon-blue { background: #eef6fc; color: #20689b; }
+        .ff-icon.icon-cyan { background: #e0f2fe; color: #0284c7; }
+        .ff-icon.icon-purple { background: #f3e8ff; color: #9333ea; }
+        .ff-icon.icon-green { background: #dcfce7; color: #16a34a; }
+        
+        .ff-card h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0 0 10px;
+            line-height: 1.4;
+        }
+        .ff-card p {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.6;
+            margin: 0;
+        }
+        .badge-title {
+            background-color: #eef6fc;
+            color: #20689b;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
         /* Responsif Mobile & Tablet */
         @media (max-width: 1024px) {
+            .full-features-grid { grid-template-columns: repeat(2, 1fr); }
             .detail-grid { grid-template-columns: 1fr; }
             .content-right { position: static; }
         }
@@ -301,6 +391,7 @@
             .content-left { padding: 20px; }
             .features-list { grid-template-columns: 1fr; }
             .content-image { height: 250px; }
+            .full-features-grid { grid-template-columns: 1fr; }
         }
     </style>
 </x-layout>

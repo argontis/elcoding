@@ -120,11 +120,11 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow-x: hidden;
+            overflow-x: clip;
         }
 
         html {
-            overflow-x: hidden;
+            overflow-x: clip;
             scroll-behavior: smooth;
         }
 
@@ -408,14 +408,17 @@
                     <li><a href="{{ url('/tentang-kami') }}" class="nav-link {{ request()->is('tentang-kami') ? 'active' : '' }}">Tentang Kami</a></li>
                     
                     <!-- Dropdown "Lainnya" -->
+                    @php
+                        $isLainnyaActive = request()->is('portofolio*') || request()->is('artikel*') || request()->is('kontak*');
+                    @endphp
                     <li class="dropdown" id="navDropdown">
-                        <a href="#" class="nav-link dropdown-toggle" id="dropdownBtn">
+                        <a href="#" class="nav-link dropdown-toggle {{ $isLainnyaActive ? 'active' : '' }}" id="dropdownBtn">
                             Lainnya <i class="fas fa-chevron-down" style="font-size: 12px; margin-left: 3px;"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('/portofolio') }}">Portofolio</a></li>
-                            <li><a href="{{ url('/artikel') }}">Artikel</a></li>
-                            <li><a href="{{ url('/kontak') }}">Kontak</a></li>
+                            <li><a href="{{ url('/portofolio') }}" class="{{ request()->is('portofolio*') ? 'active' : '' }}">Portofolio</a></li>
+                            <li><a href="{{ url('/artikel') }}" class="{{ request()->is('artikel*') ? 'active' : '' }}">Artikel</a></li>
+                            <li><a href="{{ url('/kontak') }}" class="{{ request()->is('kontak*') ? 'active' : '' }}">Kontak</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -478,7 +481,7 @@
             gap: 8px;
         }
         .nav-link {
-            color: #4B5563;
+            color: #20689b !important;
             font-size: 14px;
             font-weight: 600;
             text-decoration: none;
@@ -488,13 +491,10 @@
             display: flex;
             align-items: center;
         }
-        .nav-link:hover {
-            color: #20689b;
-        }
-        /* Style untuk Menu Aktif (Highlight Biru Muda) */
+        .nav-link:hover,
         .nav-link.active {
-            color: #20689b;
-            background-color: #eef6fc;
+            color: #20689b !important;
+            background-color: #eef6fc !important;
         }
         /* Dropdown Styles */
         .dropdown {
@@ -531,9 +531,10 @@
             text-decoration: none;
             transition: 0.2s;
         }
-        .dropdown-menu li a:hover {
-            background: #f8fafc;
-            color: #20689b;
+        .dropdown-menu li a:hover,
+        .dropdown-menu li a.active {
+            background: #eef6fc !important;
+            color: #20689b !important;
         }
         /* Style Tombol Kanan */
         .header-actions {
@@ -542,7 +543,7 @@
             gap: 12px;
         }
         .btn-solid {
-            background: #005a96;
+            background: #20689b;
             color: #fff !important;
             padding: 10px 24px;
             border-radius: 8px;
@@ -552,7 +553,7 @@
             transition: 0.3s;
         }
         .btn-solid:hover {
-            background: #004a7a;
+            background: #20689b;
             transform: translateY(-2px);
         }
         .btn-outline {

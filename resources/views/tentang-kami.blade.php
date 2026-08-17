@@ -133,7 +133,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <link rel='stylesheet' id='widget-image-carousel-css' href='../assets/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css' media='all' />
 <link rel='stylesheet' id='widget-loop-common-css' href='../assets/wp-content/plugins/pro-elements/assets/css/widget-loop-common.min.css' media='all' />
 <link rel='stylesheet' id='widget-loop-carousel-css' href='../assets/wp-content/plugins/pro-elements/assets/css/widget-loop-carousel.min.css' media='all' />
-<link rel='stylesheet' id='elementor-post-6097-css' href='../css/post-6097.css' media='all' />
+<link rel='stylesheet' id='elementor-post-6097.css?v=2' href='../css/post-6097.css?v=2' media='all' />
 <link rel='stylesheet' id='elementor-post-11887-css' href='../assets/wp-content/uploads/elementor/css/post-11887.css' media='all' />
 <link rel='stylesheet' id='elementor-post-8310-css' href='../assets/wp-content/uploads/elementor/css/post-8310.css' media='all' />
 <style id="elementor-pro-custom-fonts-inline-css">

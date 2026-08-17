@@ -384,94 +384,291 @@
 
 
 
-    <header data-elementor-type="header" data-elementor-id="11887"
-        class="elementor elementor-11887 elementor-location-header" data-elementor-post-type="elementor_library">
-        <div class="elementor-element elementor-element-178d229 e-flex e-con-boxed e-con e-parent" data-id="178d229"
-            data-element_type="container" data-e-type="container"
-            data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;sticky&quot;:&quot;top&quot;,&quot;sticky_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;,&quot;mobile&quot;],&quot;sticky_offset&quot;:0,&quot;sticky_effects_offset&quot;:0,&quot;sticky_anchor_link_offset&quot;:0}">
-            <div class="e-con-inner">
-                <div class="elementor-element elementor-element-e02dfdc elementor-widget__width-initial elementor-widget elementor-widget-image"
-                    data-id="e02dfdc" data-element_type="widget" data-e-type="widget"
-                    data-widget_type="image.default" style="order: 1;">
-                    <a href="{{ url('/') }}">
-                        <img src="{{ asset('gambar/aset/logo-elcoding.svg') }}" alt="elcoding.id" width="133"
-                            height="32" fetchpriority="high"
-                            style="height: 32px; width: auto; object-fit: contain;">
-                    </a>
-                </div>
+    <!-- ================= NAVBAR BARU (Desain Websekolah) ================= -->
+    <header class="custom-header">
+        <div class="header-container">
+            <!-- 1. BAGIAN KIRI: Logo -->
+            <div class="header-logo">
+                <a href="{{ url('/') }}">
+                    <img src="{{ asset('gambar/aset/logo-elcoding.svg') }}" alt="Elcoding" style="height: 40px; width: auto;">
+                </a>
+            </div>
 
-                <!-- Hamburger Button for Mobile -->
-                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle Navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
+            <!-- Tombol Hamburger untuk Mobile -->
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Navigation">
+                <i class="fas fa-bars"></i>
+            </button>
 
-                <div class="elementor-element elementor-element-5928938 elementor-nav-menu--dropdown-none elementor-widget elementor-widget-nav-menu"
-                    data-id="5928938" data-element_type="widget" data-e-type="widget"
-                    data-settings="{&quot;layout&quot;:&quot;horizontal&quot;,&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;&lt;i class=\&quot;fas fa-caret-down\&quot; aria-hidden=\&quot;true\&quot;&gt;&lt;\/i&gt;&quot;,&quot;library&quot;:&quot;fa-solid&quot;}}"
-                    data-widget_type="nav-menu.default" id="main-nav">
-                    <nav aria-label="Menu"
-                        class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal">
-                        <ul id="menu-1-5928938" class="elementor-nav-menu">
-                            <li class="menu-item menu-item-home"><a href="{{ url('/') }}"
-                                    class="elementor-item {{ request()->is('/') ? 'elementor-item-active' : '' }}">Beranda</a>
-                            </li>
-                            <li class="menu-item"><a href="{{ url('/tentang-kami') }}"
-                                    class="elementor-item {{ request()->is('tentang-kami') ? 'elementor-item-active' : '' }}">Tentang
-                                    Kami</a></li>
-                            <li class="menu-item"><a href="{{ url('/program-kursus') }}"
-                                    class="elementor-item {{ request()->is('program-kursus*') ? 'elementor-item-active' : '' }}">Program
-                                    Kursus</a></li>
-                            <li class="menu-item"><a href="{{ url('/portofolio') }}"
-                                    class="elementor-item {{ request()->is('portofolio*') ? 'elementor-item-active' : '' }}">Portofolio</a>
-                            </li>
-                            <li class="menu-item"><a href="{{ url('/artikel') }}"
-                                    class="elementor-item {{ request()->is('artikel') ? 'elementor-item-active' : '' }}">Artikel</a>
-                            </li>
-                            <li class="menu-item"><a href="{{ url('/kontak') }}"
-                                    class="elementor-item {{ request()->is('kontak') ? 'elementor-item-active' : '' }}">Kontak</a>
-                            </li>
+            <!-- 2. BAGIAN TENGAH: Menu Navigasi -->
+            <nav class="header-nav" id="header-nav">
+                <ul class="nav-list">
+                    <li><a href="{{ url('/') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">Beranda</a></li>
+                    <li><a href="{{ url('/layanan') }}" class="nav-link {{ request()->is('layanan') ? 'active' : '' }}">Layanan</a></li>
+                    <li><a href="{{ url('/program-kursus') }}" class="nav-link {{ request()->is('program-kursus*') ? 'active' : '' }}">Program Kursus</a></li>
+                    <li><a href="{{ url('/tentang-kami') }}" class="nav-link {{ request()->is('tentang-kami') ? 'active' : '' }}">Tentang Kami</a></li>
+                    
+                    <!-- Dropdown "Lainnya" -->
+                    <li class="dropdown" id="navDropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="dropdownBtn">
+                            Lainnya <i class="fas fa-chevron-down" style="font-size: 12px; margin-left: 3px;"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url('/portofolio') }}">Portofolio</a></li>
+                            <li><a href="{{ url('/artikel') }}">Artikel</a></li>
+                            <li><a href="{{ url('/kontak') }}">Kontak</a></li>
                         </ul>
-                    </nav>
+                    </li>
+                </ul>
+
+                <!-- 3. BAGIAN KANAN (Tampil di Mobile) -->
+                <div class="header-actions mobile-actions">
+                    <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}" class="btn-solid" target="_blank">Konsultasi</a>
                 </div>
-                <div class="elementor-element elementor-element-5ebed42 elementor-align-center elementor-widget elementor-widget-button"
-                    data-id="5ebed42" data-element_type="widget" data-e-type="widget"
-                    data-widget_type="button.default" id="header-btn" style="order: 4;">
-                    <a class="elementor-button elementor-size-md"
-                        href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20layanan%20yang%20ada%20dan%20ingin%20berkonsultasi%20lebih%20lanjut."
-                        target="_blank" rel="noopener noreferrer" role="button">
-                        <span class="elementor-button-content-wrapper">
-                            <span class="elementor-button-text">Konsultasi</span>
-                        </span>
-                    </a>
-                </div>
+            </nav>
+
+            <!-- 3. BAGIAN KANAN (Tampil di Desktop) -->
+            <div class="header-actions desktop-actions">
+                <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}" class="btn-solid" target="_blank">Konsultasi</a>
             </div>
         </div>
     </header>
 
+    <!-- CSS Navbar Baru -->
+    <style>
+        .custom-header {
+            background: #ffffff;
+            border-bottom: 1px solid #f1f5f9;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-logo a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .header-logo img {
+            height: 38px;
+            width: auto;
+        }
+        .header-logo span {
+            font-size: 24px;
+            font-weight: 800;
+            color: #20689b; /* Warna biru khas */
+            letter-spacing: -0.5px;
+        }
+        .nav-list {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 8px;
+        }
+        .nav-link {
+            color: #4B5563;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        .nav-link:hover {
+            color: #20689b;
+        }
+        /* Style untuk Menu Aktif (Highlight Biru Muda) */
+        .nav-link.active {
+            color: #20689b;
+            background-color: #eef6fc;
+        }
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #fff;
+            border: 1px solid #f1f5f9;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            min-width: 200px;
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        .dropdown.show .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-menu li a {
+            display: block;
+            padding: 10px 24px;
+            color: #4B5563;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .dropdown-menu li a:hover {
+            background: #f8fafc;
+            color: #20689b;
+        }
+        /* Style Tombol Kanan */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .btn-solid {
+            background: #005a96;
+            color: #fff !important;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-solid:hover {
+            background: #004a7a;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background: transparent;
+            color: #005a96 !important;
+            border: 1.5px solid #005a96;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-outline:hover {
+            background: #eef6fc;
+        }
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #1F2937;
+            cursor: pointer;
+        }
+        .desktop-actions { display: flex; }
+        .mobile-actions { display: none; }
+
+        /* Responsif untuk Layar HP/Tablet */
+        @media (max-width: 1024px) {
+            .mobile-toggle { display: block; }
+            .desktop-actions { display: none; }
+            .header-nav {
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+                display: none;
+                flex-direction: column;
+                border-top: 1px solid #f1f5f9;
+            }
+            .header-nav.active { display: flex; }
+            .nav-list {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+            }
+            .nav-list li { width: 100%; }
+            .nav-link { width: 100%; padding: 14px; border-bottom: 1px solid #f1f5f9;}
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                border: none;
+                padding-left: 20px;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                display: none;
+            }
+            .dropdown.show .dropdown-menu { display: block; }
+            .mobile-actions {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 20px;
+                gap: 10px;
+            }
+            .mobile-actions a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+
+    <!-- Script Navbar Baru -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const mobileBtn = document.getElementById('mobile-menu-btn');
-            const mainNav = document.getElementById('main-nav');
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const headerNav = document.getElementById('header-nav');
+            const dropdownBtn = document.getElementById('dropdownBtn');
+            const dropdown = document.getElementById('navDropdown');
 
-            if (mobileBtn && mainNav) {
-                mobileBtn.addEventListener('click', () => {
-                    mainNav.classList.toggle('active');
-                    if (mainNav.classList.contains('active')) {
-                        mobileBtn.innerHTML = '<i class="fas fa-times"></i>';
+            // Buka tutup menu mobile
+            if (mobileToggle && headerNav) {
+                mobileToggle.addEventListener('click', () => {
+                    headerNav.classList.toggle('active');
+                    const icon = mobileToggle.querySelector('i');
+                    if(headerNav.classList.contains('active')){
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
                     } else {
-                        mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
                     }
                 });
             }
 
-            const dropdownParents = document.querySelectorAll('.menu-item-has-children > a');
-            dropdownParents.forEach(parent => {
-                parent.addEventListener('click', (e) => {
-
+            // Buka tutup menu dropdown "Lainnya"
+            if (dropdownBtn) {
+                dropdownBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    dropdown.classList.toggle('show');
                 });
+            }
+
+            // Tutup dropdown jika klik di luar area
+            window.addEventListener('click', (e) => {
+                if (dropdown && !dropdown.contains(e.target)) {
+                    dropdown.classList.remove('show');
+                }
             });
         });
     </script>
+    <!-- ================= END NAVBAR BARU ================= -->
 
     <main id="main-content">
         {{ $slot }}

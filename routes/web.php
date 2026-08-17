@@ -19,10 +19,10 @@ Route::post('/chat-gemini', [ChatController::class, 'askGemini']);
 // ROUTE PUBLIC (LANDING PAGE - BLADE)
 // ==========================================
 Route::get('/', function () {
-    $mitras = \App\Models\Mitra::latest()->get();
+    $mitras = \App\Models\Mitra::oldest()->get();
     $programs = \App\Models\ProgramKursus::oldest()->take(3)->get();
-    $portofolios = \App\Models\Portofolio::latest()->take(3)->get();
-    $artikels = \App\Models\Artikel::where('status', 'Published')->latest()->take(3)->get();
+    $portofolios = \App\Models\Portofolio::oldest()->take(3)->get();
+    $artikels = \App\Models\Artikel::where('status', 'Published')->oldest()->take(3)->get();
     return view('welcome', compact('mitras', 'programs', 'portofolios', 'artikels'));
 });
 
@@ -35,7 +35,7 @@ Route::get('/layanan/detail', function () {
 
 
 Route::get('/tentang-kami', function () {
-    $mitras = \App\Models\Mitra::latest()->get();
+    $mitras = \App\Models\Mitra::oldest()->get();
     return view('tentang-kami', compact('mitras'));
 });
 

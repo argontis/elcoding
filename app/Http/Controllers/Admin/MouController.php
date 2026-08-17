@@ -14,7 +14,7 @@ class MouController extends Controller
 {
     public function index()
     {
-        $mous = Mou::orderBy('created_at', 'desc')->get();
+        $mous = Mou::orderBy('created_at', 'asc')->get();
         return view('admin.mou.index', compact('mous'));
     }
 
@@ -38,27 +38,6 @@ class MouController extends Controller
 
         DB::beginTransaction();
         try {
-            $items = json_decode($request->items, true);
-            if (empty($items)) {
-                throw new \Exception("Minimal harus ada 1 item penawaran");
-            }
-            
-            $grand_total = 0;
-            $processedItems = [];
-            foreach ($items as $item) {
-                $qty = floatval($item['qty']);
-                $harga = floatval(str_replace(['.', ','], '', $item['harga']));
-                $total = $qty * $harga;
-                $grand_total += $total;
-                
-                $processedItems[] = [
-                    'spesifikasi' => $item['spesifikasi'],
-                    'qty' => $qty,
-                    'harga' => $harga,
-                    'total' => $total,
-                ];
-            }
-
             $mou = Mou::create([
                 'nama_file' => $request->nama_file,
                 'nomor_surat' => $request->nomor_surat,
@@ -71,12 +50,41 @@ class MouController extends Controller
                 'pengantar_surat' => $request->pengantar_surat,
                 'ketentuan_type' => $request->ketentuan_type ?? 'custom',
                 'ketentuan' => $request->ketentuan,
-                'grand_total' => $grand_total,
                 'created_by' => $request->created_by,
             ]);
 
-            foreach ($processedItems as $item) {
-                $mou->items()->create($item);
+            if ($request->has('sections')) {
+                foreach ($request->sections as $index => $section) {
+                    if (empty($section['title'])) continue;
+                    
+                    $blocks = [];
+                    if (isset($section['blocks']) && is_array($section['blocks'])) {
+                        foreach ($section['blocks'] as $blockData) {
+                            $type = $blockData['type'] ?? 'text';
+                            $block = ['type' => $type];
+                            
+                            if ($type === 'text' || $type === 'note') {
+                                $block['content'] = $blockData['content'] ?? '';
+                                if ($type === 'note') {
+                                    $block['title'] = $blockData['title'] ?? '';
+                                }
+                            } elseif ($type === 'point_left' || $type === 'point_top') {
+                                $block['points'] = isset($blockData['points']) ? array_values($blockData['points']) : [];
+                            } elseif ($type === 'table' || $type === 'dynamic_table') {
+                                $block['headers'] = isset($blockData['headers']) ? array_values($blockData['headers']) : [];
+                                $block['rows'] = isset($blockData['rows']) ? array_values($blockData['rows']) : [];
+                            }
+                            $blocks[] = $block;
+                        }
+                    }
+
+                    $mou->sections()->create([
+                        'title' => $section['title'],
+                        'type' => 'block',
+                        'content' => json_encode($blocks),
+                        'order' => $index,
+                    ]);
+                }
             }
 
             DB::commit();
@@ -90,7 +98,7 @@ class MouController extends Controller
 
     public function edit($id)
     {
-        $mou = Mou::with('items')->findOrFail($id);
+        $mou = Mou::with(['items', 'sections'])->findOrFail($id);
         return view('admin.mou.form', compact('mou'));
     }
 
@@ -109,27 +117,6 @@ class MouController extends Controller
 
         DB::beginTransaction();
         try {
-            $items = json_decode($request->items, true);
-            if (empty($items)) {
-                throw new \Exception("Minimal harus ada 1 item penawaran");
-            }
-            
-            $grand_total = 0;
-            $processedItems = [];
-            foreach ($items as $item) {
-                $qty = floatval($item['qty']);
-                $harga = floatval(str_replace(['.', ','], '', $item['harga']));
-                $total = $qty * $harga;
-                $grand_total += $total;
-                
-                $processedItems[] = [
-                    'spesifikasi' => $item['spesifikasi'],
-                    'qty' => $qty,
-                    'harga' => $harga,
-                    'total' => $total,
-                ];
-            }
-
             $mou = Mou::findOrFail($id);
             $mou->update([
                 'nama_file' => $request->nama_file,
@@ -143,13 +130,42 @@ class MouController extends Controller
                 'pengantar_surat' => $request->pengantar_surat,
                 'ketentuan_type' => $request->ketentuan_type ?? 'custom',
                 'ketentuan' => $request->ketentuan,
-                'grand_total' => $grand_total,
                 'created_by' => $request->created_by,
             ]);
 
-            $mou->items()->delete();
-            foreach ($processedItems as $item) {
-                $mou->items()->create($item);
+            $mou->sections()->delete();
+            if ($request->has('sections')) {
+                foreach ($request->sections as $index => $section) {
+                    if (empty($section['title'])) continue;
+                    
+                    $blocks = [];
+                    if (isset($section['blocks']) && is_array($section['blocks'])) {
+                        foreach ($section['blocks'] as $blockData) {
+                            $type = $blockData['type'] ?? 'text';
+                            $block = ['type' => $type];
+                            
+                            if ($type === 'text' || $type === 'note') {
+                                $block['content'] = $blockData['content'] ?? '';
+                                if ($type === 'note') {
+                                    $block['title'] = $blockData['title'] ?? '';
+                                }
+                            } elseif ($type === 'point_left' || $type === 'point_top') {
+                                $block['points'] = isset($blockData['points']) ? array_values($blockData['points']) : [];
+                            } elseif ($type === 'table' || $type === 'dynamic_table') {
+                                $block['headers'] = isset($blockData['headers']) ? array_values($blockData['headers']) : [];
+                                $block['rows'] = isset($blockData['rows']) ? array_values($blockData['rows']) : [];
+                            }
+                            $blocks[] = $block;
+                        }
+                    }
+
+                    $mou->sections()->create([
+                        'title' => $section['title'],
+                        'type' => 'block',
+                        'content' => json_encode($blocks),
+                        'order' => $index,
+                    ]);
+                }
             }
 
             DB::commit();
@@ -164,6 +180,17 @@ class MouController extends Controller
     public function destroy($id)
     {
         $mou = Mou::findOrFail($id);
+        
+        foreach ($mou->sections as $section) {
+            if (!empty($section->images)) {
+                foreach ($section->images as $img) {
+                    if (file_exists(public_path($img))) {
+                        @unlink(public_path($img));
+                    }
+                }
+            }
+        }
+        
         $mou->delete();
         \App\Models\ActivityLog::add('Sistem', 'Hapus MoU', "MoU {$mou->nama_file} dihapus.", 'red', 'fa-trash');
         return redirect('admin/mou')->with('success', 'MoU berhasil dihapus.');
@@ -171,7 +198,7 @@ class MouController extends Controller
 
     public function downloadPdf($id)
     {
-        $mou = Mou::with('items')->findOrFail($id);
+        $mou = Mou::with(['items', 'sections'])->findOrFail($id);
         
         $logoPath = public_path('assets/image/logo.png');
         $qrcode = (string) \SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')
@@ -179,7 +206,7 @@ class MouController extends Controller
             ->size(100)
             ->generate(url('/admin/mou/' . $mou->id . '/pdf'));
 
-        $pdf = Pdf::loadView('admin.mou.pdf', compact('mou', 'qrcode'));
+        $pdf = Pdf::setOption(['isPhpEnabled' => true])->loadView('admin.mou.pdf', compact('mou', 'qrcode'));
         $pdf->setPaper('A4', 'portrait');
         
         return $pdf->download('MoU_' . str_replace(' ', '_', $mou->nama_file) . '.pdf');

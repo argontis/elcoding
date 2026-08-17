@@ -12,4 +12,9 @@ class Mou extends Model
     {
         return $this->hasMany(MouItem::class);
     }
+
+    public function sections()
+    {
+        return $this->hasMany(MouSection::class)->orderBy('order');
+    }
 }

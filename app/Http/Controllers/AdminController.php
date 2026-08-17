@@ -211,7 +211,7 @@ class AdminController extends Controller
 
     // --- Portofolio CRUD ---
     public function portofolio(Request $request) {
-        $query = \App\Models\Portofolio::latest();
+        $query = \App\Models\Portofolio::oldest();
         if ($request->search) {
             $query->where('title', 'like', '%' . $request->search . '%');
         }
@@ -249,7 +249,7 @@ class AdminController extends Controller
 
     // --- Artikel CRUD ---
     public function artikel(Request $request) {
-        $query = \App\Models\Artikel::latest();
+        $query = \App\Models\Artikel::oldest();
         if ($request->search) {
             $query->where('title', 'like', '%' . $request->search . '%');
         }

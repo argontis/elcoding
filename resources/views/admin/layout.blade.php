@@ -137,6 +137,13 @@
     <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <style>
         .ql-editor { min-height: 300px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; }
+        .ql-editor p { margin-bottom: 10px; }
+        .ql-editor p.ql-indent-1 { padding-left: 0 !important; text-indent: 3em !important; }
+        .ql-editor p.ql-indent-2 { padding-left: 0 !important; text-indent: 6em !important; }
+        .ql-editor p.ql-indent-3 { padding-left: 0 !important; text-indent: 9em !important; }
+        .ql-editor p.ql-indent-4 { padding-left: 0 !important; text-indent: 12em !important; }
+        .ql-editor p.ql-indent-5 { padding-left: 0 !important; text-indent: 15em !important; }
+        .ql-editor p.ql-indent-6 { padding-left: 0 !important; text-indent: 18em !important; }
         .ql-toolbar.ql-snow { border-top-left-radius: 8px; border-top-right-radius: 8px; border-color: #e2e8f0; background: #f8fafc; }
         .ql-container.ql-snow { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; border-color: #e2e8f0; }
     </style>
@@ -156,9 +163,9 @@
                         toolbar: [
                             [{ 'header': [1, 2, 3, false] }],
                             ['bold', 'italic', 'underline', 'strike'],
-                            [{ 'color': [] }, { 'background': [] }],
+                            [{ 'align': [] }, { 'indent': '-1'}, { 'indent': '+1' }],
                             [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                            [{ 'align': [] }],
+                            [{ 'color': [] }, { 'background': [] }],
                             ['link', 'clean']
                         ]
                     }

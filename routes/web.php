@@ -26,6 +26,13 @@ Route::get('/', function () {
     return view('welcome', compact('mitras', 'programs', 'portofolios', 'artikels'));
 });
 
+Route::get('/layanan', function () {
+return view('layanan'); 
+});
+Route::get('/layanan/detail', function () {
+return view('detail-layanan'); 
+});
+
 Route::get('/tentang-kami', function () {
     $mitras = \App\Models\Mitra::oldest()->get();
     return view('tentang-kami', compact('mitras'));

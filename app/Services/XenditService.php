@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Order;
+use App\Models\LayananOrder;
 use Xendit\Configuration;
 use Xendit\Invoice\InvoiceApi;
 use Xendit\Invoice\CreateInvoiceRequest;
@@ -57,6 +58,31 @@ class XenditService
             ],
             'success_redirect_url' => url('/payment/success?order_id=' . $order->external_id),
             'failure_redirect_url' => url('/program-kursus/' . $program->id),
+        ]);
+
+        $result = $this->invoiceApi->createInvoice($request);
+
+        return [
+            'invoice_id' => $result->getId(),
+            'invoice_url' => $result->getInvoiceUrl(),
+        ];
+    public function createLayananInvoice(LayananOrder $order): array
+    {
+        $layanan = $order->layanan;
+
+        $request = new CreateInvoiceRequest([
+            'external_id' => $order->external_id,
+            'amount' => $order->amount,
+            'description' => "Pembayaran Layanan: {$layanan->title}",
+            'currency' => 'IDR',
+            'invoice_duration' => 86400, // 24 jam
+            'customer' => [
+                'given_names' => $order->user_name,
+                'email' => $order->user_email,
+                'mobile_number' => $order->user_phone,
+            ],
+            'success_redirect_url' => url('/layanan/payment/success?order_id=' . $order->external_id),
+            'failure_redirect_url' => url('/layanan/detail/' . $layanan->slug),
         ]);
 
         $result = $this->invoiceApi->createInvoice($request);

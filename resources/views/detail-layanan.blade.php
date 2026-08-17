@@ -4,6 +4,11 @@
     <!-- 1. HERO SECTION (Judul Layanan) -->
     <section class="detail-hero">
         <div class="container">
+            @if(session('error'))
+                <div style="background: #fef2f2; color: #991b1b; padding: 12px 16px; border-radius: 10px; border: 1px solid #fecaca; margin-bottom: 20px; font-size: 14px; text-align: center;">
+                    <i class="fas fa-exclamation-circle mr-2"></i> {{ session('error') }}
+                </div>
+            @endif
             <div class="breadcrumb">
                 <a href="{{ url('/') }}">Beranda</a> <i class="fas fa-chevron-right"></i> 
                 <a href="{{ url('/layanan') }}">Layanan</a> <i class="fas fa-chevron-right"></i> 
@@ -66,9 +71,38 @@
                         $waMsg = $layanan->whatsapp_message ?: 'Halo Admin Elcoding, saya ingin pesan layanan '.$layanan->title.'.';
                         $waLink = 'https://wa.me/6281476652656?text=' . urlencode($waMsg);
                     @endphp
+
+                    @if($layanan->price_amount > 0)
+                    <form action="{{ url('/layanan/' . $layanan->id . '/checkout') }}" method="POST">
+                        @csrf
+                        <div class="form-group" style="text-align: left;">
+                            <label class="form-label" for="user_name">Nama Lengkap</label>
+                            <input type="text" name="user_name" id="user_name" class="form-input" placeholder="Masukkan nama Anda" required value="{{ old('user_name', auth()->user()->name ?? '') }}">
+                        </div>
+
+                        <div class="form-group" style="text-align: left;">
+                            <label class="form-label" for="user_email">Alamat Email</label>
+                            <input type="email" name="user_email" id="user_email" class="form-input" placeholder="contoh@email.com" required value="{{ old('user_email', auth()->user()->email ?? '') }}">
+                        </div>
+
+                        <div class="form-group" style="text-align: left;">
+                            <label class="form-label" for="user_phone">Nomor WhatsApp / HP</label>
+                            <input type="tel" name="user_phone" id="user_phone" class="form-input" placeholder="08xxxxxxxxxx" required value="{{ old('user_phone') }}">
+                        </div>
+
+                        <button type="submit" class="btn-order">
+                            <i class="fas fa-credit-card"></i> Bayar Sekarang
+                        </button>
+                    </form>
+                    
+                    <div class="mt-3 text-center text-xs text-gray-500 mb-4" style="font-size: 11px;">
+                        <i class="fas fa-shield-alt text-green-500"></i> Terenkripsi & Pembayaran Instan via Xendit
+                    </div>
+                    @else
                     <a href="{{ $waLink }}" class="btn-order" target="_blank">
-                        Pesan Sekarang
+                        Konsultasi via WhatsApp
                     </a>
+                    @endif
                     
                     <a href="#" class="btn-download"><i class="fas fa-file-pdf"></i> Unduh Proposal Penawaran</a>
                 </div>
@@ -304,6 +338,32 @@
         .btn-download:hover {
             background: #e2e8f0;
             color: #1e293b;
+        }
+
+        /* Form Checkout CSS */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 5px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+        .form-input:focus {
+            border-color: #20689b;
+            box-shadow: 0 0 0 3px rgba(32, 104, 155, 0.15);
         }
 
         /* Full Features Section */

@@ -35,6 +35,11 @@ Route::get('/layanan/detail/{slug}', function ($slug) {
     return view('detail-layanan', compact('layanan')); 
 });
 
+Route::post('/layanan/{id}/checkout', [\App\Http\Controllers\CheckoutLayananController::class, 'checkout']);
+Route::get('/layanan/payment/success', [\App\Http\Controllers\CheckoutLayananController::class, 'paymentSuccess']);
+Route::post('/xendit/layanan/callback', [\App\Http\Controllers\CheckoutLayananController::class, 'callback']);
+
+
 Route::get('/tentang-kami', function () {
     $mitras = \App\Models\Mitra::oldest()->get();
     return view('tentang-kami', compact('mitras'));

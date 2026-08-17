@@ -27,12 +27,11 @@ Route::get('/', function () {
 });
 
 Route::get('/layanan', function () {
-    return view('layanan'); 
+return view('layanan'); 
 });
 Route::get('/layanan/detail', function () {
-    return view('detail-layanan'); 
+return view('detail-layanan'); 
 });
-
 
 Route::get('/tentang-kami', function () {
     $mitras = \App\Models\Mitra::oldest()->get();

@@ -50,6 +50,10 @@ Route::get('/program-kursus', function () {
     return view('program-kursus', compact('programs'));
 });
 
+Route::get('/event-webinar', function () {
+    return view('event-webinar');
+});
+
 Route::get('/program-kursus/{id}', [ProgramKursusController::class, 'show']);
 Route::post('/program-kursus/{id}/checkout', [ProgramKursusController::class, 'checkout']);
 Route::get('/payment/success', [ProgramKursusController::class, 'paymentSuccess']);

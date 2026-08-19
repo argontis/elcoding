@@ -303,7 +303,7 @@
                     </div>
                 </div>
                 <div class="event-footer">
-                    <a href="#" class="btn-event btn-primary">Daftar Kelas <i class="fas fa-arrow-right"></i></a>
+                    <a href="{{ url('/daftar-event') }}" class="btn-event btn-primary">Daftar Kelas <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
@@ -326,8 +326,8 @@
                     </div>
                 </div>
                 <div class="event-footer">
-                    <a href="#" class="btn-event btn-outline" style="margin-bottom: 10px;">Pelajari Silabus</a>
-                    <a href="#" class="btn-event btn-primary">Daftar Kelas</a>
+                    <a href="{{ url('/silabus') }}" class="btn-event btn-outline" style="margin-bottom: 10px;">Pelajari Silabus</a>
+                    <a href="{{ url('/daftar-event') }}" class="btn-event btn-primary">Daftar Kelas</a>
                 </div>
             </div>
 
@@ -351,7 +351,7 @@
                     </div>
                 </div>
                 <div class="event-footer">
-                    <a href="#" class="btn-event btn-outline">Daftar Event <i class="far fa-calendar-check"></i></a>
+                    <a href="{{ url('/daftar-event') }}" class="btn-event btn-outline">Daftar Event <i class="far fa-calendar-check"></i></a>
                 </div>
             </div>
 

@@ -201,6 +201,16 @@
                         </ul>
                     @endif
                 </div>
+
+                <div class="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-base mb-1">Ingin melihat kurikulum detail?</h4>
+                        <p class="text-xs text-gray-500">Lihat rincian modul per minggu dan project yang akan Anda bangun.</p>
+                    </div>
+                    <a href="{{ url('/silabus') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-sky-50 text-sky-700 hover:bg-sky-100 font-semibold rounded-xl text-sm transition">
+                        <i class="fas fa-book-open"></i> Pelajari Silabus
+                    </a>
+                </div>
             </div>
 
             <div class="checkout-card">

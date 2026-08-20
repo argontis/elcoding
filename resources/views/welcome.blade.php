@@ -17,108 +17,162 @@
     
     <!-- Hero Section -->
     <style>
-        .elementor-element-22c61dc {
-            padding-top: 0 !important; /* Reduce gap to header */
-            margin-top: -80px !important;
-            padding-left: 20px !important;
-            padding-right: 20px !important;
-            padding-bottom: 100px !important;
+        .hero-section {
+            position: relative;
+            padding: 140px 20px 100px;
+            text-align: center;
+            background-color: #0f172a;
+            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('{{ asset("gambar/aset/ilustrasi-belajar.jpg") }}');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            margin-top: -80px; /* Adjust based on navbar height to reach the top */
         }
-        .elementor-element-22c61dc > .e-con-inner {
-            max-width: 1200px !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-            width: 100% !important;
+        .hero-badge {
+            display: inline-flex;
             align-items: center;
+            gap: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 18px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #f97316; /* Orange color */
+            backdrop-filter: blur(4px);
+        }
+        .hero-badge i {
+            color: #d1d5db;
+        }
+        .hero-title-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 24px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        @media (min-width: 1025px) {
-            .elementor-element-8110f2a { width: 45% !important; display: flex; justify-content: center; }
-            .elementor-element-b83b4d6 { width: 55% !important; padding-left: 30px; display: flex; flex-direction: column; justify-content: center; }
+        .hero-title-brace {
+            font-size: 100px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.15);
+            line-height: 1;
+            margin: 0 15px;
+            font-family: monospace;
+            user-select: none;
         }
-        @media (max-width: 1024px) {
-            .elementor-element-22c61dc {
-                margin-top: 0 !important;
-                padding-top: 20px !important;
-                padding-bottom: 60px !important;
-                min-height: fit-content !important;
-                height: auto !important;
-                overflow: visible !important;
+        .hero-title {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.25;
+            color: #ffffff;
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .hero-subtitle {
+            max-width: 650px;
+            margin: 0 auto 40px;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #9ca3af;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .btn-hero-primary {
+            background-color: #a5b4fc; /* light blue */
+            color: #1e3a8a;
+            font-weight: 600;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+        .btn-hero-primary:hover {
+            background-color: #c7d2fe;
+            transform: translateY(-2px);
+            color: #1e3a8a;
+            box-shadow: 0 10px 25px rgba(165, 180, 252, 0.2);
+        }
+        .btn-hero-secondary {
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-weight: 600;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+        }
+        .btn-hero-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+            color: #ffffff;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 32px;
             }
-            .elementor-element-22c61dc > .e-con-inner {
-                flex-direction: column-reverse;
-                text-align: center;
-                gap: 30px;
+            .hero-title-brace {
+                font-size: 60px;
+                margin: 0 8px;
             }
-            .elementor-element-8110f2a { width: 100% !important; display: flex; justify-content: center; }
-            .elementor-element-b83b4d6 { width: 100% !important; padding-left: 0 !important; display: flex; flex-direction: column; align-items: center; }
-            .elementor-element-af1e2b3 p { font-size: 14px !important; margin-bottom: 5px !important; color: #20689b !important; font-weight: 600; }
-            .elementor-element-728fa4a .elementor-heading-title { font-size: 28px !important; line-height: 1.3 !important; margin-bottom: 15px !important; }
-            .elementor-element-3d35e7c p { font-size: 14px !important; line-height: 1.6 !important; margin-bottom: 25px !important; padding: 0 10px; }
-            .hero-buttons-container { justify-content: center; width: 100%; }
-            .elementor-element-88aaeff img { max-width: 80% !important; height: auto !important; }
+            .hero-subtitle {
+                font-size: 15px;
+                padding: 0 15px;
+            }
+            .hero-section {
+                padding: 120px 15px 60px;
+            }
+            .btn-hero-primary, .btn-hero-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
         }
     </style>
-    <div class="elementor-element elementor-element-22c61dc e-flex e-con-boxed e-con e-parent" data-id="22c61dc" data-element_type="container" data-e-type="container">
-        <div class="e-con-inner">
-            <div class="elementor-element elementor-element-8110f2a e-con-full e-flex e-con e-child" data-id="8110f2a" data-element_type="container" data-e-type="container">
-                <div class="elementor-element elementor-element-88aaeff elementor-widget elementor-widget-image" data-id="88aaeff" data-element_type="widget" data-e-type="widget" data-widget_type="image.default" style="width: 100%;">
-                    <img fetchpriority="high" decoding="async" src="{{ asset('assets/wp-content/uploads/2023/01/ikon-1.svg') }}" class="attachment-medium_large size-medium_large" alt="Elcoding Academy Hero" style="width: 100%; height: auto; max-width: 600px;" />
-                </div>
-            </div>
-            <div class="elementor-element elementor-element-b83b4d6 e-con-full e-flex e-con e-child" data-id="b83b4d6" data-element_type="container" data-e-type="container">
-                <div class="elementor-element elementor-element-af1e2b3 elementor-widget elementor-widget-heading" data-id="af1e2b3" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-                    <p class="elementor-heading-title elementor-size-default">Solusi Digital Lengkap untuk Bisnis & Karir Anda</p>
-                </div>
-                <div class="elementor-element elementor-element-728fa4a elementor-widget elementor-widget-heading" data-id="728fa4a" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-                    <h1 class="elementor-heading-title elementor-size-default">Software House Profesional & Pusat Pelatihan IT Terbaik</h1>
-                </div>
-                <div class="elementor-element elementor-element-3d35e7c elementor-widget elementor-widget-text-editor" data-id="3d35e7c" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-                    <p>Elcoding adalah mitra terpercaya Anda, menyediakan jasa pembuatan website & aplikasi (Software House) untuk digitalisasi bisnis, sekaligus menyelenggarakan program kursus IT intensif berbasis praktik untuk mencetak talenta digital berdaya saing tinggi.</p>
-                </div>
-                <style>
-                    .hero-buttons-container {
-                        display: flex;
-                        gap: 15px;
-                        flex-wrap: wrap;
-                        margin-top: 20px;
-                    }
-                    .elementor-element-c29eb8e .elementor-button, .btn-software-house {
-                        background-color: #20689b !important; /* ungu tua */
-                        border: 2px solid #20689b !important;
-                        color: #ffffff !important;
-                        padding: 12px 25px !important;
-                        border-radius: 8px !important;
-                        font-weight: 600 !important;
-                    }
-                    .elementor-element-c29eb8e .elementor-button:hover, .btn-software-house:hover {
-                        background-color: #20689b !important;
-                        border-color: #20689b !important;
-                        opacity: 0.9;
-                    }
-                </style>
-                <div class="hero-buttons-container">
-                    <div class="elementor-element elementor-element-c29eb8e elementor-align-justify elementor-widget elementor-widget-button" data-id="c29eb8e" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
-                        <a class="elementor-button elementor-button-link elementor-size-sm btn-software-house" href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20jasa%20pembuatan%20aplikasi/website%20dan%20ingin%20berkonsultasi." target="_blank">
-                            <span class="elementor-button-content-wrapper">
-                                <span class="elementor-button-icon"><i aria-hidden="true" class="fas fa-code"></i></span>
-                                <span class="elementor-button-text">Buat Aplikasi</span>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="elementor-element elementor-element-c29eb8e elementor-align-justify elementor-widget elementor-widget-button" data-id="c29eb8e-2" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
-                        <a class="elementor-button elementor-button-link elementor-size-sm btn-software-house" href="/program-kursus">
-                            <span class="elementor-button-content-wrapper">
-                                <span class="elementor-button-icon"><i aria-hidden="true" class="fas fa-graduation-cap"></i></span>
-                                <span class="elementor-button-text">Ikut Kursus</span>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+
+    <section class="hero-section">
+        <div class="hero-badge">
+            <i class="fas fa-laptop-code"></i> Akademi Coding & Transformasi Digital #1
         </div>
-    </div>
+        
+        <div class="hero-title-container">
+            <span class="hero-title-brace">{</span>
+            <h1 class="hero-title">Software House Profesional &<br>Pusat Pelatihan IT Terbaik</h1>
+            <span class="hero-title-brace">}</span>
+        </div>
+        
+        <p class="hero-subtitle">
+            Elcoding adalah mitra terpercaya anda, menyediakan jasa pembuatan websit&aplikasi(Software House) untuk digitalisasi bisnis.
+        </p>
+        
+        <div class="hero-buttons">
+            <a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20jasa%20pembuatan%20aplikasi/website%20dan%20ingin%20berkonsultasi." target="_blank" class="btn-hero-primary">
+                Buat Aplikasi
+            </a>
+            <a href="/program-kursus" class="btn-hero-secondary">
+                Daftar Kursus <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
 
     <x-mitra />
 

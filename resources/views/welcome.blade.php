@@ -340,27 +340,38 @@
 <!-- Layanan Utama Section -->
 <style>
     .services-section {
-        padding: 0 20px 60px;
+        padding: 40px 20px 60px;
         background-color: #ffffff;
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
     .services-container {
-        max-width: 1200px;
+        max-width: 1000px;
         margin: 0 auto;
     }
     .section-header {
         text-align: center;
-        margin-bottom: 60px;
+        margin-bottom: 40px;
     }
-    .section-title {
-        font-size: 36px;
+    .top-badge {
+        display: inline-block;
+        background-color: #fff7ed;
+        color: #f97316;
+        font-size: 11px;
         font-weight: 800;
-        color: #222222;
+        letter-spacing: 0.5px;
+        padding: 6px 16px;
+        border-radius: 50px;
         margin-bottom: 16px;
     }
+    .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 12px;
+    }
     .section-subtitle {
-        font-size: 16px;
-        color: #666666;
+        font-size: 15px;
+        color: #4b5563;
         max-width: 600px;
         margin: 0 auto;
         line-height: 1.6;
@@ -368,84 +379,163 @@
     .services-grid {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 24px;
     }
     @media (min-width: 768px) {
         .services-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 767px) {
-        .services-section { padding: 0 16px 48px; }
-        .section-title { font-size: 28px; }
-        .section-header { margin-bottom: 40px; }
-        .service-card { padding: 24px; }
-    }
     
     .service-card {
         background: #ffffff;
-        border: 1px solid transparent;
-        border-radius: 20px;
-        padding: 40px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #f3f4f6;
+        border-radius: 12px;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.2s ease;
     }
     .service-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.06);
-        border-color: rgba(109, 40, 217, 0.1);
+        border-color: #e5e7eb;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
     }
     
-    .service-icon {
-        font-size: 40px;
-        color: #000000;
+    .icon-box {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         margin-bottom: 24px;
     }
+    .icon-box.blue {
+        background-color: #eef2ff;
+        color: #1e3a8a;
+    }
+    .icon-box.orange {
+        background-color: #fff7ed;
+        color: #9a3412;
+    }
+    .icon-box i {
+        font-size: 20px;
+    }
+
     .service-card h3 {
-        font-size: 22px;
-        font-weight: 700;
-        color: #222222;
+        font-size: 17px;
+        font-weight: 600;
+        color: #374151;
         margin-bottom: 16px;
     }
     .service-card p {
-        font-size: 15px;
-        color: #666666;
+        font-size: 14px;
+        color: #4b5563;
         line-height: 1.6;
         margin-bottom: 24px;
+        flex-grow: 1;
     }
-    .service-link {
+    
+    .tech-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 32px;
+    }
+    .tech-badges span {
+        background-color: #f3f4f6;
+        color: #4b5563;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 4px;
+    }
+
+    .btn-solid-blue {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
-        color: #20689b;
-        font-weight: 600;
-        font-size: 15px;
+        background-color: #002e94;
+        color: white;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 10px 20px;
+        border-radius: 6px;
         text-decoration: none;
-        transition: gap 0.3s ease;
+        align-self: flex-start;
+        transition: background-color 0.2s;
     }
-    .service-link:hover {
-        gap: 12px;
+    .btn-solid-blue:hover {
+        background-color: #002277;
+        color: white;
+    }
+
+    .btn-outline-blue {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background-color: transparent;
+        color: #1e3a8a;
+        border: 1px solid #d1d5db;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 10px 20px;
+        border-radius: 6px;
         text-decoration: none;
+        align-self: flex-start;
+        transition: all 0.2s;
+    }
+    .btn-outline-blue:hover {
+        border-color: #1e3a8a;
+        background-color: #f8fafc;
+        color: #1e3a8a;
     }
 </style>
 
 <section class="services-section">
     <div class="services-container">
         <div class="section-header">
+            <span class="top-badge">SOLUSI DIGITAL TERINTEGRASI</span>
             <h2 class="section-title">Layanan Utama Kami</h2>
-            <p class="section-subtitle">Solusi digital komprehensif mulai dari pelatihan SDM hingga pengembangan sistem skala enterprise.</p>
+            <p class="section-subtitle">Mewujudkan ide Anda menjadi produk digital unggulan dan mencetak talenta IT berkualitas untuk masa depan.</p>
         </div>
         
         <div class="services-grid">
+            <!-- Software House -->
             <div class="service-card">
-                <i class="fas fa-code-branch service-icon"></i>
+                <div class="icon-box blue">
+                    <i class="fas fa-network-wired"></i>
+                </div>
                 <h3>Software House</h3>
-                <p>Jasa pembuatan aplikasi website, sistem informasi, dan mobile apps secara custom untuk kebutuhan digitalisasi bisnis instansi Anda.</p>
-                <a href="/kontak" class="service-link">Konsultasi Project <i class="fas fa-arrow-right"></i></a>
+                <p>Jasa pembuatan aplikasi website, sistem informasi, dan mobile apps secara custom. Solusi IT cerdas yang disesuaikan dengan kebutuhan bisnis Anda, didukung dengan arsitektur modern dan aman.</p>
+                
+                <div class="tech-badges">
+                    <span>React</span>
+                    <span>Next.js</span>
+                    <span>Flutter</span>
+                    <span>Node.js</span>
+                    <span>AWS Cloud</span>
+                </div>
+                
+                <a href="/kontak" class="btn-solid-blue">Konsultasi Project <i class="fas fa-arrow-right"></i></a>
             </div>
+            
+            <!-- Pelatihan & Kursus IT -->
             <div class="service-card">
-                <i class="fas fa-graduation-cap service-icon"></i>
+                <div class="icon-box orange">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
                 <h3>Pelatihan & Kursus IT</h3>
-                <p>Program bootcamp intensif bersertifikat. Dirancang untuk membangun fondasi karir di industri teknologi digital dengan kurikulum terstruktur.</p>
-                <a href="/program-kursus" class="service-link">Lihat Program <i class="fas fa-arrow-right"></i></a>
+                <p>Program bootcamp intensif bersertifikat. Dirancang khusus untuk membangun fondasi karir Anda di dunia teknologi dengan kurikulum berbasis praktik industri yang mutakhir.</p>
+                
+                <div class="tech-badges">
+                    <span>Fullstack Dev</span>
+                    <span>Mobile App</span>
+                    <span>AI Bootcamp</span>
+                    <span>Portfolio Mentoring</span>
+                </div>
+                
+                <a href="/program-kursus" class="btn-outline-blue">Lihat Program Kursus <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </div>

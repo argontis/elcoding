@@ -16,6 +16,23 @@ Route::get('/clear-cache-all', function () {
 
 Route::post('/chat-gemini', [ChatController::class, 'askGemini']);
 // ==========================================
+// ROUTE SEO
+// ==========================================
+Route::get('/sitemap.xml', function () {
+    $layanans = \App\Models\Layanan::all();
+    $programs = \App\Models\ProgramKursus::all();
+    $portofolios = \App\Models\Portofolio::all();
+    $artikels = \App\Models\Artikel::where('status', 'Published')->get();
+
+    return response()->view('sitemap', [
+        'layanans' => $layanans,
+        'programs' => $programs,
+        'portofolios' => $portofolios,
+        'artikels' => $artikels,
+    ])->header('Content-Type', 'text/xml');
+});
+
+// ==========================================
 // ROUTE PUBLIC (LANDING PAGE - BLADE)
 // ==========================================
 Route::get('/', function () {

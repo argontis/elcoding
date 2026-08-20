@@ -71,6 +71,53 @@ Route::get('/event-webinar', function () {
     return view('event-webinar');
 });
 
+Route::get('/daftar-event', function () {
+    return view('daftar-event');
+});
+
+Route::get('/data-diri', function () {
+    return view('data-diri');
+});
+
+Route::get('/pembayaran', function () {
+    return view('pembayaran');
+});
+
+Route::get('/pembayaran-berhasil', function () {
+    return view('pembayaran-berhasil');
+});
+
+Route::get('/daftar-event-berhasil', function () {
+    return view('daftar-event-berhasil');
+});
+
+Route::post('/daftar-event', function (\Illuminate\Http\Request $request) {
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'whatsapp' => 'required|string|max:20',
+    ]);
+
+    \App\Models\ActivityLog::add(
+        'Pendaftaran Event',
+        'Peserta Baru',
+        "Pendaftaran event dari {$request->nama} ({$request->email} / {$request->whatsapp}).",
+        'sky',
+        'fa-user-check'
+    );
+
+    return redirect('/daftar-event-berhasil');
+});
+
+Route::get('/silabus', function () {
+    return view('silabus');
+});
+
+Route::get('/program-kursus/{id}/silabus', function ($id) {
+    $program = \App\Models\ProgramKursus::find($id);
+    return view('silabus', compact('program'));
+});
+
 Route::get('/program-kursus/{id}', [ProgramKursusController::class, 'show']);
 Route::post('/program-kursus/{id}/checkout', [ProgramKursusController::class, 'checkout']);
 Route::get('/payment/success', [ProgramKursusController::class, 'paymentSuccess']);

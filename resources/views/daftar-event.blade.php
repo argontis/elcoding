@@ -315,10 +315,10 @@
                 <!-- Footer area -->
                 <div class="event-modal-footer">
                     <p class="event-footer-info">
-                        Informasi lebih lanjut akan dikirim ke WhatsApp dan Email Anda.
+                        Anda akan diarahkan ke halaman pembayaran aman (Xendit). Harga tiket Event: <strong>Rp 50.000</strong>.
                     </p>
                     <button type="submit" class="btn-submit-event">
-                        Selesaikan Pendaftaran & Dapatkan Link <i class="fas fa-arrow-right"></i>
+                        Lanjut ke Pembayaran <i class="fas fa-arrow-right"></i>
                     </button>
                 </div>
             </form>

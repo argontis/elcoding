@@ -98,23 +98,9 @@ Route::get('/daftar-event-berhasil', function () {
     return view('daftar-event-berhasil');
 });
 
-Route::post('/daftar-event', function (\Illuminate\Http\Request $request) {
-    $request->validate([
-        'nama' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'whatsapp' => 'required|string|max:20',
-    ]);
-
-    \App\Models\ActivityLog::add(
-        'Pendaftaran Event',
-        'Peserta Baru',
-        "Pendaftaran event dari {$request->nama} ({$request->email} / {$request->whatsapp}).",
-        'sky',
-        'fa-user-check'
-    );
-
-    return redirect('/daftar-event-berhasil');
-});
+Route::post('/daftar-event', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
+Route::get('/event-webinar/payment/success', [\App\Http\Controllers\EventCheckoutController::class, 'paymentSuccess']);
+Route::post('/xendit/event/callback', [\App\Http\Controllers\EventCheckoutController::class, 'callback']);
 
 Route::get('/silabus', function () {
     return view('silabus');

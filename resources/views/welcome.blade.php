@@ -176,6 +176,167 @@
 
     <x-mitra />
 
+    <!-- Tentang Elcoding Section -->
+    <style>
+        .tentang-section {
+            padding: 80px 20px;
+            background-color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .tentang-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        .tentang-left {
+            flex: 1;
+            max-width: 500px;
+        }
+        .tentang-subtitle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #3b82f6; /* blue-500 */
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .tentang-subtitle::before {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 1px;
+            background-color: #93c5fd; /* blue-300 */
+        }
+        .tentang-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.3;
+            margin-bottom: 30px;
+        }
+        .tentang-code-block {
+            background-color: #f8fafc;
+            border: 1px solid #f1f5f9;
+            border-radius: 12px;
+            padding: 24px;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.6;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+        .tentang-right {
+            flex: 1.2;
+            display: flex;
+            gap: 20px;
+            justify-content: flex-end;
+        }
+        .tentang-card {
+            background-color: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-radius: 16px;
+            padding: 30px 20px;
+            width: 190px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        .tentang-card:hover {
+            transform: translateY(-5px);
+        }
+        .tentang-card.glow-card {
+            background: radial-gradient(circle at bottom right, #ffedd5 0%, #ffffff 70%);
+            border: 1px solid #ffedd5;
+        }
+        .tentang-card-icon {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .icon-blue { color: #3b82f6; }
+        .icon-orange { color: #f97316; }
+        .tentang-card-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            word-break: break-word;
+        }
+        .tentang-card-label {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 1024px) {
+            .tentang-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+            .tentang-left, .tentang-right {
+                flex: none;
+                width: 100%;
+                max-width: 100%;
+                justify-content: center;
+            }
+        }
+        @media (max-width: 768px) {
+            .tentang-title { font-size: 26px; }
+            .tentang-right {
+                flex-wrap: wrap;
+            }
+            .tentang-card {
+                width: calc(50% - 10px);
+                padding: 24px 16px;
+            }
+            .tentang-card-value { font-size: 28px; }
+        }
+        @media (max-width: 480px) {
+            .tentang-card {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <section class="tentang-section">
+        <div class="tentang-container">
+            <div class="tentang-left">
+                <div class="tentang-subtitle">TENTANG ELCODING</div>
+                <h2 class="tentang-title">Mencetak ribuan developer siap kerja dan mentransformasi puluhan infrastruktur digital enterprise.</h2>
+                <div class="tentang-code-block">
+                    &gt; sys.initialize({<br>
+                    &nbsp;&nbsp;mode: 'production',<br>
+                    &nbsp;&nbsp;target: 'excellence'<br>
+                    });
+                </div>
+            </div>
+            <div class="tentang-right">
+                <div class="tentang-card">
+                    <div class="tentang-card-icon icon-blue"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="tentang-card-value">&gt;1.500+</div>
+                    <div class="tentang-card-label">Alumni Sukses Bekerja</div>
+                </div>
+                <div class="tentang-card">
+                    <div class="tentang-card-icon icon-blue"><i class="fas fa-check-circle"></i></div>
+                    <div class="tentang-card-value">&gt;96%</div>
+                    <div class="tentang-card-label">Tingkat Kelulusan</div>
+                </div>
+                <div class="tentang-card glow-card">
+                    <div class="tentang-card-icon icon-orange"><i class="fas fa-rocket"></i></div>
+                    <div class="tentang-card-value">&gt;120+</div>
+                    <div class="tentang-card-label">Proyek Enterprise</div>
+                </div>
+            </div>
+        </div>
+    </section>
 <!-- Layanan Utama Section -->
 <style>
     .services-section {

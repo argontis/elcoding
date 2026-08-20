@@ -18,6 +18,9 @@ class ProgramKursusController extends Controller
         $program = ProgramKursus::findOrFail($id);
         $relatedPrograms = ProgramKursus::where('id', '!=', $id)->latest()->take(3)->get();
 
+        \Artesaos\SEOTools\Facades\SEOTools::setTitle($program->title);
+        \Artesaos\SEOTools\Facades\SEOTools::setDescription(strip_tags(substr($program->description, 0, 160)));
+
         return view('program-kursus-detail', compact('program', 'relatedPrograms'));
     }
 

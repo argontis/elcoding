@@ -13,31 +13,7 @@
     <!-- CSRF Token wajib ada agar script bisa POST ke Laravel -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ isset($title) ? $title . ' | Elcoding' : 'Elcoding - Software House & IT Training Center' }}</title>
-    <meta name="description"
-        content="{{ $description ?? 'Elcoding adalah Software House profesional dan Lembaga Kursus Pelatihan IT terpadu. Menyediakan jasa pembuatan aplikasi, website, dan program bootcamp IT terlengkap.' }}" />
-    <meta name="keywords"
-        content="Software House Tegal, Jasa Pembuatan Website, Jasa Aplikasi, Kursus Coding, Pelatihan IT, Bootcamp IT, Elcoding">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="{{ url()->current() }}">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title"
-        content="{{ isset($title) ? $title . ' | Elcoding' : 'Elcoding - Software House & IT Training Center' }}">
-    <meta property="og:description"
-        content="{{ $description ?? 'Software House profesional dan Lembaga Kursus Pelatihan IT terpadu. Menyediakan jasa pembuatan aplikasi, website, dan program bootcamp IT terlengkap.' }}">
-    <meta property="og:image" content="{{ $ogImage ?? asset('gambar/aset/logo-elcoding.png') }}">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="{{ url()->current() }}">
-    <meta name="twitter:title"
-        content="{{ isset($title) ? $title . ' | Elcoding' : 'Elcoding - Software House & IT Training Center' }}">
-    <meta name="twitter:description"
-        content="{{ $description ?? 'Software House profesional dan Lembaga Kursus Pelatihan IT terpadu. Menyediakan jasa pembuatan aplikasi, website, dan program bootcamp IT terlengkap.' }}">
-    <meta name="twitter:image" content="{{ $ogImage ?? asset('gambar/aset/logo-elcoding.png') }}">
+    {!! SEO::generate() !!}
 
     <link rel="icon" href="{{ asset('gambar/aset/logo-elcoding.svg?v=2') }}" type="image/svg+xml">
 

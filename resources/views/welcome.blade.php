@@ -174,8 +174,6 @@
         </div>
     </section>
 
-    <x-mitra />
-
     <!-- Tentang Elcoding Section -->
     <style>
         .tentang-section {
@@ -337,6 +335,8 @@
             </div>
         </div>
     </section>
+
+    <x-mitra />
 <!-- Layanan Utama Section -->
 <style>
     .services-section {

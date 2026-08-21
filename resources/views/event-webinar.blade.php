@@ -274,10 +274,10 @@
         
         <!-- Filters -->
         <div class="filter-bar">
-            <button class="filter-btn active">Semua Program</button>
-            <button class="filter-btn">Bootcamp Intensif</button>
-            <button class="filter-btn">Webinar Tech</button>
-            <button class="filter-btn">Workshop Online</button>
+            <a href="{{ url('/event-webinar') }}" class="filter-btn active" style="text-decoration: none;">Semua Event</a>
+            <a href="{{ url('/webinar-tech') }}" class="filter-btn" style="text-decoration: none;">Webinar Tech</a>
+            <a href="{{ url('/workshop-online') }}" class="filter-btn" style="text-decoration: none;">Workshop Online</a>
+            <a href="{{ url('/bootcamp-intensif') }}" class="filter-btn" style="text-decoration: none;">Bootcamp Intensif</a>
         </div>
 
         <!-- Grid -->

@@ -50,11 +50,39 @@ Route::get('/program-kursus', function () {
     return view('program-kursus', compact('programs'));
 });
 
+Route::get('/bootcamp-intensif', function () {
+    return view('bootcamp-intensif');
+});
+
+Route::get('/pendaftaran-bootcamp', function () {
+    return view('pendaftaran-bootcamp');
+});
+
+Route::get('/status-pembayaran-bootcamp', function () {
+    return view('status-pembayaran-bootcamp');
+});
+
 Route::get('/event-webinar', function () {
     return view('event-webinar');
 });
 
+Route::get('/webinar-tech', function () {
+    return view('webinar-tech');
+});
+
+Route::get('/workshop-online', function () {
+    return view('workshop-online');
+});
+
+Route::get('/pendaftaran-workshop', function () {
+    return view('pendaftaran-workshop');
+});
+
 Route::get('/daftar-event', function () {
+    return view('daftar-event');
+});
+
+Route::get('/pendaftaran-webinar', function () {
     return view('daftar-event');
 });
 
@@ -90,6 +118,42 @@ Route::post('/daftar-event', function (\Illuminate\Http\Request $request) {
     );
 
     return redirect('/daftar-event-berhasil');
+});
+
+Route::post('/pendaftaran-bootcamp', function (\Illuminate\Http\Request $request) {
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'whatsapp' => 'required|string|max:20',
+    ]);
+
+    \App\Models\ActivityLog::add(
+        'Pendaftaran Bootcamp',
+        'Peserta Baru',
+        "Pendaftaran bootcamp dari {$request->nama} ({$request->email} / {$request->whatsapp}).",
+        'sky',
+        'fa-user-check'
+    );
+
+    return redirect('/status-pembayaran-bootcamp');
+});
+
+Route::post('/pendaftaran-workshop', function (\Illuminate\Http\Request $request) {
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'whatsapp' => 'required|string|max:20',
+    ]);
+
+    \App\Models\ActivityLog::add(
+        'Pendaftaran Workshop',
+        'Peserta Baru',
+        "Pendaftaran workshop dari {$request->nama} ({$request->email} / {$request->whatsapp}).",
+        'sky',
+        'fa-user-check'
+    );
+
+    return redirect('/pembayaran-berhasil');
 });
 
 Route::get('/silabus', function () {

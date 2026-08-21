@@ -404,8 +404,8 @@
                 <ul class="nav-list">
                     <li><a href="{{ url('/') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">Beranda</a></li>
                     <li><a href="{{ url('/layanan') }}" class="nav-link {{ request()->is('layanan') ? 'active' : '' }}">Layanan</a></li>
-                    <li><a href="{{ url('/program-kursus') }}" class="nav-link {{ request()->is('program-kursus*') ? 'active' : '' }}">Program Kursus</a></li>
-                    <li><a href="{{ url('/event-webinar') }}" class="nav-link {{ request()->is('event-webinar*') ? 'active' : '' }}">Event & Webinar</a></li>
+                    <li><a href="{{ url('/program-kursus') }}" class="nav-link {{ request()->is('program-kursus*') || request()->is('bootcamp-intensif*') ? 'active' : '' }}">Program Kursus</a></li>
+                    <li><a href="{{ url('/event-webinar') }}" class="nav-link {{ request()->is('event-webinar*') || request()->is('webinar-tech*') || request()->is('workshop-online*') ? 'active' : '' }}">Event & Webinar</a></li>
                     <li><a href="{{ url('/tentang-kami') }}" class="nav-link {{ request()->is('tentang-kami') ? 'active' : '' }}">Tentang Kami</a></li>
                     
                     <!-- Dropdown "Lainnya" -->

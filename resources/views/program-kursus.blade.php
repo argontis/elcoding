@@ -73,6 +73,16 @@
     <section class="programs-section">
         <div class="programs-container">
             
+            <!-- Navigation Filter Tabs -->
+            <div style="display: flex; justify-content: center; margin-bottom: 40px;">
+                <div style="background: #ffffff; padding: 8px 12px; border-radius: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center;">
+                    <a href="{{ url('/program-kursus') }}" style="padding: 10px 24px; border-radius: 50px; font-size: 14px; font-weight: 700; background: #20689b; color: #ffffff; text-decoration: none; box-shadow: 0 4px 12px rgba(32,104,155,0.25);">Semua Program</a>
+                    <a href="{{ url('/bootcamp-intensif') }}" style="padding: 10px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; color: #4B5563; text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#20689b';this.style.background='#f1f5f9'" onmouseout="this.style.color='#4B5563';this.style.background='transparent'">Bootcamp Intensif</a>
+                    <a href="{{ url('/event-webinar') }}" style="padding: 10px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; color: #4B5563; text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#20689b';this.style.background='#f1f5f9'" onmouseout="this.style.color='#4B5563';this.style.background='transparent'">Webinar Tech</a>
+                    <a href="{{ url('/workshop-online') }}" style="padding: 10px 24px; border-radius: 50px; font-size: 14px; font-weight: 600; color: #4B5563; text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#20689b';this.style.background='#f1f5f9'" onmouseout="this.style.color='#4B5563';this.style.background='transparent'">Workshop Online</a>
+                </div>
+            </div>
+
             <div class="programs-grid">
                 
                 @forelse($programs as $program)

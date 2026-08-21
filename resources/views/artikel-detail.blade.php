@@ -30,17 +30,17 @@
         .article-content h3 { font-size: 24px; font-weight: 600; color: #1F2937; margin: 30px 0 15px; }
         .article-content p { margin-bottom: 25px; }
         .article-content img { width: 100%; border-radius: 16px; margin: 30px 0; }
-        .article-content blockquote { border-left: 5px solid #20689b; padding: 20px 30px; background: #f8fafc; font-style: italic; font-size: 20px; color: #1F2937; border-radius: 0 16px 16px 0; margin: 40px 0; }
+        .article-content blockquote { border-left: 5px solid #4B6BF5; padding: 20px 30px; background: #f8fafc; font-style: italic; font-size: 20px; color: #1F2937; border-radius: 0 16px 16px 0; margin: 40px 0; }
         .article-content ul { list-style-type: disc; margin-left: 20px; margin-bottom: 25px; }
         .article-content ol { list-style-type: decimal; margin-left: 20px; margin-bottom: 25px; }
         .article-content li { margin-bottom: 10px; }
-        .article-content a { color: #20689b; text-decoration: underline; }
+        .article-content a { color: #4B6BF5; text-decoration: underline; }
         .article-content strong { font-weight: 700; }
         
         .article-share { display: flex; align-items: center; gap: 15px; margin-top: 60px; padding-top: 30px; border-top: 1px solid #e2e8f0; }
         .article-share-title { font-weight: 700; color: #1F2937; }
         .article-share a { display: inline-flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: #f1f5f9; color: #64748b; text-decoration: none; transition: all 0.3s; }
-        .article-share a:hover { background: #20689b; color: #fff; transform: translateY(-3px); }
+        .article-share a:hover { background: #4B6BF5; color: #fff; transform: translateY(-3px); }
 
         @media(max-width: 768px) {
             .article-title { font-size: 32px; }

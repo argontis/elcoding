@@ -103,12 +103,12 @@
         }
         .service-card:hover {
             box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-            border-color: #20689b;
+            border-color: #4B6BF5;
         }
         .card-icon {
             width: 45px;
             height: 45px;
-            background-color: #20689b;
+            background-color: #4B6BF5;
             color: white;
             border-radius: 12px;
             display: flex;
@@ -127,7 +127,7 @@
         .card-badge {
             display: inline-block;
             background: #f1f5f9;
-            color: #20689b;
+            color: #4B6BF5;
             font-size: 11px;
             font-weight: 700;
             padding: 4px 10px;
@@ -162,7 +162,7 @@
         .price-value {
             font-size: 18px;
             font-weight: 800;
-            color: #20689b;
+            color: #4B6BF5;
         }
         .price-period {
             font-size: 12px;
@@ -174,7 +174,7 @@
             justify-content: center;
             gap: 8px;
             background: white;
-            color: #20689b;
+            color: #4B6BF5;
             border: 1px solid #e2e8f0;
             padding: 10px;
             border-radius: 8px;

@@ -76,7 +76,7 @@
 
         /* Buttons */
         .btn-primary {
-            background: linear-gradient(135deg, #20689b 0%, #3B82F6 100%);
+            background: linear-gradient(135deg, #4B6BF5 0%, #3B82F6 100%);
             color: white;
             box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
             transition: all 0.3s ease;
@@ -94,7 +94,7 @@
         
         /* Action buttons in table */
         .action-btn { transition: all 0.2s; }
-        .action-btn.edit:hover { background: #EFF6FF; color: #20689b; }
+        .action-btn.edit:hover { background: #EFF6FF; color: #4B6BF5; }
         .action-btn.delete:hover { background: #FEF2F2; color: #EF4444; }
 
         /* Animations */

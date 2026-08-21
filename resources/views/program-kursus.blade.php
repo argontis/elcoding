@@ -22,10 +22,10 @@
             transition: color 0.3s ease;
         }
         .custom-pagination .page-numbers:hover {
-            color: #20689b;
+            color: #4B6BF5;
         }
         .custom-pagination .page-numbers.current {
-            color: #20689b;
+            color: #4B6BF5;
         }
         .custom-pagination .dots {
             color: #4B5563;

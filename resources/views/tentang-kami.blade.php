@@ -924,7 +924,7 @@ function closeLightbox() {
 
 		
 <style>
-.global-subtitle-pill { display: inline-block; color: #20689b; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
+.global-subtitle-pill { display: inline-block; color: #4B6BF5; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
 </style>
 @push('schema')
 <script type="application/ld+json">

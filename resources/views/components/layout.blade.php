@@ -114,7 +114,7 @@
             position: absolute;
             top: -100px;
             left: 0;
-            background: #20689b;
+            background: #4B6BF5;
             color: white;
             padding: 10px 15px;
             z-index: 100000;
@@ -145,7 +145,7 @@
 
         .elementor-nav-menu .menu-item a.elementor-item-active,
         .elementor-nav-menu .menu-item a.elementor-item:hover {
-            color: #20689b !important;
+            color: #4B6BF5 !important;
             /* purple */
             transform: none !important;
         }
@@ -154,12 +154,12 @@
         .elementor-location-footer a:hover,
         .elementor-location-footer .elementor-icon-list-item a:hover .elementor-icon-list-icon i,
         .elementor-location-footer .elementor-icon-list-item a:hover .elementor-icon-list-text {
-            color: #20689b !important;
+            color: #4B6BF5 !important;
             /* purple */
         }
 
         .elementor-location-footer .elementor-social-icon:hover {
-            background-color: #20689b !important;
+            background-color: #4B6BF5 !important;
             color: #ffffff !important;
         }
 
@@ -178,7 +178,7 @@
 
         /* Header Konsultasi Button */
         .elementor-element-5ebed42 .elementor-button {
-            background-color: #20689b !important;
+            background-color: #4B6BF5 !important;
             color: #ffffff !important;
             font-size: 13px !important;
             font-weight: 600 !important;
@@ -229,7 +229,7 @@
         .mobile-menu-btn:active,
         .mobile-menu-btn:hover {
             outline: none !important;
-            color: #20689b !important;
+            color: #4B6BF5 !important;
             background: transparent !important;
             background-color: transparent !important;
         }
@@ -483,7 +483,7 @@
         .header-logo span {
             font-size: 24px;
             font-weight: 800;
-            color: #20689b; /* Warna biru khas */
+            color: #4B6BF5; /* Warna biru khas */
             letter-spacing: -0.5px;
         }
         .nav-list {
@@ -495,7 +495,7 @@
             gap: 8px;
         }
         .nav-link {
-            color: #20689b !important;
+            color: #4B6BF5 !important;
             font-size: 14px;
             font-weight: 600;
             text-decoration: none;
@@ -507,7 +507,7 @@
         }
         .nav-link:hover,
         .nav-link.active {
-            color: #20689b !important;
+            color: #4B6BF5 !important;
             background-color: #eef6fc !important;
         }
         /* Dropdown Styles */
@@ -548,7 +548,7 @@
         .dropdown-menu li a:hover,
         .dropdown-menu li a.active {
             background: #eef6fc !important;
-            color: #20689b !important;
+            color: #4B6BF5 !important;
         }
         /* Style Tombol Kanan */
         .header-actions {
@@ -557,7 +557,7 @@
             gap: 12px;
         }
         .btn-solid {
-            background: #20689b;
+            background: #4B6BF5;
             color: #fff !important;
             padding: 10px 24px;
             border-radius: 8px;
@@ -567,7 +567,7 @@
             transition: 0.3s;
         }
         .btn-solid:hover {
-            background: #20689b;
+            background: #4B6BF5;
             transform: translateY(-2px);
         }
         .btn-outline {
@@ -838,7 +838,7 @@
             bottom: 0;
             width: 40px;
             height: 3px;
-            background-color: #20689b;
+            background-color: #4B6BF5;
         }
 
         .footer-list {
@@ -860,7 +860,7 @@
         }
 
         .footer-list li a:hover {
-            color: #20689b;
+            color: #4B6BF5;
         }
 
         .icon-list li {
@@ -899,12 +899,12 @@
         }
 
         .footer-socials a:hover {
-            background-color: #20689b;
+            background-color: #4B6BF5;
             color: #fff;
         }
 
         .footer-bottom {
-            background-color: #20689b;
+            background-color: #4B6BF5;
             color: #ffffff;
             text-align: center;
             padding: 20px;
@@ -1293,7 +1293,7 @@
         <div class="chatbot-footer">
             <input type="text" id="chat-input" placeholder="Ketik pesan di sini..."
                 onkeypress="handleEnter(event)" style="background: #fff; color: #1e293b; cursor: text;">
-            <button onclick="sendUserMessage()" style="background: #20689b; cursor: pointer;"><i
+            <button onclick="sendUserMessage()" style="background: #4B6BF5; cursor: pointer;"><i
                     class="fas fa-paper-plane"></i></button>
         </div>
     </div>
@@ -1345,7 +1345,7 @@
             position: relative;
             width: 42px;
             height: 42px;
-            background: linear-gradient(135deg, #20689b 0%, #8B5CF6 100%);
+            background: linear-gradient(135deg, #4B6BF5 0%, #8B5CF6 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1423,7 +1423,7 @@
         .msg-avatar {
             width: 28px;
             height: 28px;
-            background: linear-gradient(135deg, #20689b 0%, #8B5CF6 100%);
+            background: linear-gradient(135deg, #4B6BF5 0%, #8B5CF6 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1449,7 +1449,7 @@
         }
 
         .user-msg {
-            background: #20689b;
+            background: #4B6BF5;
             color: #fff;
             border-radius: 16px 16px 4px 16px;
         }
@@ -1519,8 +1519,8 @@
 
         .chatbot-options button {
             background: #fff;
-            color: #20689b;
-            border: 1px solid #20689b;
+            color: #4B6BF5;
+            border: 1px solid #4B6BF5;
             border-radius: 12px;
             padding: 8px 10px;
             font-size: 12px;
@@ -1534,7 +1534,7 @@
         }
 
         .chatbot-options button:hover {
-            background: #20689b;
+            background: #4B6BF5;
             color: #fff;
         }
 
@@ -1557,7 +1557,7 @@
         }
 
         .chatbot-footer button {
-            background: #20689b;
+            background: #4B6BF5;
             color: #fff;
             border: none;
             width: 44px;
@@ -1841,7 +1841,7 @@
             right: 30px;
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #20689b 0%, #8B5CF6 100%);
+            background: linear-gradient(135deg, #4B6BF5 0%, #8B5CF6 100%);
             color: #fff;
             border-radius: 50%;
             display: flex;

@@ -206,7 +206,7 @@
             width: 50px;
             height: 50px;
             background: #e5f3f3;
-            color: #20689b;
+            color: #4B6BF5;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -257,7 +257,7 @@
         }
 
         .social-links a:hover {
-            background: #20689b;
+            background: #4B6BF5;
             color: #fff;
             transform: translateY(-3px);
         }

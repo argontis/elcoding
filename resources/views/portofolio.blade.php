@@ -20,10 +20,10 @@
             transition: color 0.3s ease;
         }
         .custom-pagination .page-numbers:hover {
-            color: #20689b;
+            color: #4B6BF5;
         }
         .custom-pagination .page-numbers.current {
-            color: #20689b;
+            color: #4B6BF5;
         }
         .custom-pagination .dots {
             color: #4B5563;
@@ -65,10 +65,10 @@
             transition: all 0.3s ease;
         }
         .e-filter-item:hover {
-            color: #20689b !important;
+            color: #4B6BF5 !important;
         }
         .e-filter-item[aria-pressed="true"] {
-            background-color: #20689b !important;
+            background-color: #4B6BF5 !important;
             color: #ffffff !important;
         }
 
@@ -94,10 +94,10 @@
         .portfolio-category-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; font-family: 'Plus Jakarta Sans', sans-serif; }
         .porto-card-actions { display: flex; gap: 8px; margin-top: auto; justify-content: center; flex-wrap: wrap; }
         .porto-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.25s ease; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .porto-btn-detail { background: #20689b; color: #fff !important; }
+        .porto-btn-detail { background: #4B6BF5; color: #fff !important; }
         .porto-btn-detail:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.35); }
-        .porto-btn-url { background: transparent; color: #20689b !important; border: 1.5px solid #20689b; }
-        .porto-btn-url:hover { background: #20689b; color: #fff !important; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
+        .porto-btn-url { background: transparent; color: #4B6BF5 !important; border: 1.5px solid #4B6BF5; }
+        .porto-btn-url:hover { background: #4B6BF5; color: #fff !important; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
         .porto-btn-url-disabled { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; border: 1.5px solid #cbd5e1; color: #94a3b8 !important; background: transparent; cursor: not-allowed; opacity: 0.6; font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 @endpush
@@ -150,7 +150,7 @@
                 <img src="{{ asset($portofolio->image_path ?? 'gambar/portofolio/Film-Islami-Kemenag.webp') }}" class="portfolio-img" alt="{{ $portofolio->title }}" loading="lazy">
                 <div class="portfolio-info">
                     <h4>{{ $portofolio->title }}</h4>
-                    @php $catColor = $kategoriColors[$portofolio->category] ?? '#20689b'; @endphp
+                    @php $catColor = $kategoriColors[$portofolio->category] ?? '#4B6BF5'; @endphp
                     <div style="margin-bottom: 15px;"><span class="portfolio-category-badge" style="background-color: {{ $catColor }}; color: #ffffff; box-shadow: 0 4px 10px {{ $catColor }}40;">{{ $portofolio->category }}</span></div>
                     <div class="porto-card-actions">
                         <a href="{{ url('/portofolio/' . $portofolio->id) }}" class="porto-btn porto-btn-detail"><i class="fas fa-info-circle"></i> Detail</a>

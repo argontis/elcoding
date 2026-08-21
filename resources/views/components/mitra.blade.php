@@ -201,7 +201,7 @@
 }
 .theme-transparent .mitra-item {
     background: transparent;
-    border: 2px solid #20689b;
+    border: 2px solid #4B6BF5;
 }
 .mitra-item:hover {
     transform: translateY(-5px);

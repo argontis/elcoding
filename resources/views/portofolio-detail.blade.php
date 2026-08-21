@@ -18,7 +18,7 @@
         .portfolio-desc ol { list-style-type: decimal; margin-left: 20px; margin-bottom: 15px; color: #4B5563; line-height: 1.8; }
         .portfolio-desc li { margin-bottom: 8px; }
         .portfolio-desc strong { font-weight: 700; color: #1F2937; }
-        .portfolio-desc a { color: #20689b; text-decoration: underline; }
+        .portfolio-desc a { color: #4B6BF5; text-decoration: underline; }
 
         .portfolio-sidebar { background: #f8fafc; border-radius: 20px; padding: 40px 30px; border: 1px solid #e2e8f0; height: fit-content; }
         .portfolio-sidebar-item { margin-bottom: 30px; }
@@ -81,7 +81,7 @@
                 </div>
                 
                 <div class="portfolio-sidebar-item" style="margin-top: 40px;">
-                    <a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20proyek%20{{ urlencode($portofolio->title) }}%20dan%20ingin%20berkonsultasi%20untuk%20pembuatan%20proyek%20serupa." style="display: block; text-align: center; background: #20689b; color: #fff; padding: 15px; border-radius: 12px; font-weight: 700; text-decoration: none; transition: all 0.3s ease;">Konsultasi Proyek <i class="fab fa-whatsapp" style="margin-left: 8px;"></i></a>
+                    <a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20proyek%20{{ urlencode($portofolio->title) }}%20dan%20ingin%20berkonsultasi%20untuk%20pembuatan%20proyek%20serupa." style="display: block; text-align: center; background: #4B6BF5; color: #fff; padding: 15px; border-radius: 12px; font-weight: 700; text-decoration: none; transition: all 0.3s ease;">Konsultasi Proyek <i class="fab fa-whatsapp" style="margin-left: 8px;"></i></a>
                 </div>
             </div>
         </div>

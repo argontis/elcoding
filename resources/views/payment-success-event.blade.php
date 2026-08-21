@@ -51,7 +51,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            background: #20689b;
+            background: #4B6BF5;
             color: #ffffff !important;
             font-size: 15px;
             font-weight: 700;

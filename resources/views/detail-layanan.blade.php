@@ -116,7 +116,7 @@
     <section class="full-features-section">
         <div class="container">
             <div class="features-header text-center">
-                <span class="badge-title"><i class="fas fa-check" style="color: #20689b; margin-right: 5px;"></i> Yang Anda Dapatkan</span>
+                <span class="badge-title"><i class="fas fa-check" style="color: #4B6BF5; margin-right: 5px;"></i> Yang Anda Dapatkan</span>
                 <h2>Fitur Lengkap di Setiap Paket</h2>
                 <p>Semua yang dibutuhkan sekolah sudah termasuk — tanpa biaya tersembunyi.</p>
             </div>
@@ -232,7 +232,7 @@
         }
         .feature-item i {
             font-size: 24px;
-            color: #20689b;
+            color: #4B6BF5;
             margin-top: 3px;
         }
         .feature-item h4 {
@@ -264,7 +264,7 @@
         .card-badge {
             display: inline-block;
             background: #eef6fc;
-            color: #20689b;
+            color: #4B6BF5;
             font-size: 12px;
             font-weight: 700;
             padding: 6px 16px;
@@ -362,7 +362,7 @@
             box-sizing: border-box;
         }
         .form-input:focus {
-            border-color: #20689b;
+            border-color: #4B6BF5;
             box-shadow: 0 0 0 3px rgba(32, 104, 155, 0.15);
         }
 
@@ -398,7 +398,7 @@
             transition: all 0.3s ease;
         }
         .ff-card:hover {
-            border-color: #20689b;
+            border-color: #4B6BF5;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             transform: translateY(-3px);
         }
@@ -412,7 +412,7 @@
             font-size: 16px;
             margin-bottom: 20px;
         }
-        .ff-icon.icon-blue { background: #eef6fc; color: #20689b; }
+        .ff-icon.icon-blue { background: #eef6fc; color: #4B6BF5; }
         .ff-icon.icon-cyan { background: #e0f2fe; color: #0284c7; }
         .ff-icon.icon-purple { background: #f3e8ff; color: #9333ea; }
         .ff-icon.icon-green { background: #dcfce7; color: #16a34a; }
@@ -432,7 +432,7 @@
         }
         .badge-title {
             background-color: #eef6fc;
-            color: #20689b;
+            color: #4B6BF5;
             padding: 6px 16px;
             border-radius: 50px;
             font-size: 13px;

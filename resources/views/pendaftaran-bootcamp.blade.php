@@ -554,17 +554,7 @@
 
 <div class="pendaftaran-page">
 
-    <!-- Sub-header Navigation -->
-    <div class="sub-header-bar">
-        <div class="sub-header-container">
-            <a href="{{ url('/bootcamp-intensif') }}" class="back-link">
-                <i class="fas fa-arrow-left"></i> Kembali ke Program Bootcamp
-            </a>
-            <a href="#" class="user-avatar-btn" title="Akun Saya">
-                <i class="fas fa-user"></i>
-            </a>
-        </div>
-    </div>
+
 
     <!-- Page Title -->
     <div class="header-section">
@@ -575,169 +565,69 @@
     </div>
 
     <!-- Registration Form & Summary Grid -->
-    <form action="{{ url('/pendaftaran-bootcamp') }}" method="POST">
-        @csrf
-        <input type="hidden" name="program" value="{{ $programKey }}">
-
-        <div class="checkout-grid">
-
-            <!-- Left Column: Form Steps -->
-            <div class="left-column">
-
-                <!-- Step 1: Data Diri Peserta -->
-                <div class="step-card">
-                    <div class="step-header">
-                        <div class="step-badge">1</div>
-                        <h2 class="step-title">Data Diri Peserta</h2>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="nama">Nama Lengkap</label>
-                        <input type="text" id="nama" name="nama" class="form-control" placeholder="Masukkan nama sesuai KTP" required>
-                    </div>
-
-                    <div class="grid-2col">
-                        <div class="form-group">
-                            <label class="form-label" for="whatsapp">Nomor WhatsApp Aktif</label>
-                            <div class="input-group-wa">
-                                <span class="prefix-wa">+62</span>
-                                <input type="tel" id="whatsapp" name="whatsapp" class="form-control" placeholder="81234567890" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label" for="email">Alamat Email</label>
-                            <input type="email" id="email" name="email" class="form-control" placeholder="nama@email.com" required>
-                            <div class="form-hint">
-                                <i class="fas fa-info-circle"></i> Link LMS dan tiket kelas dikirim ke sini.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 2: Pilih Batch Belajar -->
-                <div class="step-card">
-                    <div class="step-header">
-                        <div class="step-badge">2</div>
-                        <h2 class="step-title">Pilih Batch Belajar</h2>
-                    </div>
-
-                    <div class="batch-options-grid">
-                        <!-- Option 1 -->
-                        <div class="batch-card-option selected" id="batchOption1" onclick="selectBatch(1)">
-                            <span class="slot-badge"><i class="fas fa-fire"></i> Sisa 3 Slot</span>
-                            <input type="radio" name="batch" id="batch1" value="September 2026" checked style="display: none;">
-                            <h3 class="batch-title">Batch September 2026</h3>
-                            <div class="batch-detail"><i class="far fa-calendar-alt"></i> Weekend</div>
-                            <div class="batch-detail highlight"><i class="far fa-clock"></i> Sabtu - Minggu, 19.00 WIB</div>
-                        </div>
-
-                        <!-- Option 2 -->
-                        <div class="batch-card-option" id="batchOption2" onclick="selectBatch(2)">
-                            <input type="radio" name="batch" id="batch2" value="Oktober 2026" style="display: none;">
-                            <h3 class="batch-title">Batch Oktober 2026</h3>
-                            <div class="batch-detail"><i class="far fa-calendar-alt"></i> Weekday</div>
-                            <div class="batch-detail highlight"><i class="far fa-clock"></i> Selasa - Kamis, 19.30 WIB</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Step 3: Metode Pembayaran -->
-                <div class="step-card">
-                    <div class="step-header">
-                        <div class="step-badge">3</div>
-                        <h2 class="step-title">Metode Pembayaran</h2>
-                    </div>
-
-                    <div class="payment-methods-grid">
-                        <div class="payment-option-card selected" id="payOption1" onclick="selectPayment(1, 'BCA VA')">
-                            <input type="radio" name="payment_method" value="BCA VA" checked style="display: none;">
-                            <span class="payment-icon"><i class="fas fa-university"></i></span>
-                            <span class="payment-name">BCA VA</span>
-                        </div>
-
-                        <div class="payment-option-card" id="payOption2" onclick="selectPayment(2, 'Mandiri VA')">
-                            <input type="radio" name="payment_method" value="Mandiri VA" style="display: none;">
-                            <span class="payment-icon"><i class="fas fa-landmark"></i></span>
-                            <span class="payment-name">Mandiri VA</span>
-                        </div>
-
-                        <div class="payment-option-card" id="payOption3" onclick="selectPayment(3, 'QRIS')">
-                            <input type="radio" name="payment_method" value="QRIS" style="display: none;">
-                            <span class="payment-icon"><i class="fas fa-qrcode"></i></span>
-                            <span class="payment-name">QRIS</span>
-                        </div>
-
-                        <div class="payment-option-card" id="payOption4" onclick="selectPayment(4, 'Kartu Kredit')">
-                            <input type="radio" name="payment_method" value="Kartu Kredit" style="display: none;">
-                            <span class="payment-icon"><i class="far fa-credit-card"></i></span>
-                            <span class="payment-name">Kartu Kredit</span>
-                        </div>
-                    </div>
-
-                    <div class="promo-section">
-                        <label class="form-label" for="promo">Kode Promo / Diskon</label>
-                        <div class="promo-input-wrapper">
-                            <input type="text" id="promo" name="promo_code" class="form-control" placeholder="MASUKKAN KODE">
-                            <button type="button" class="btn-apply-promo" onclick="applyPromo()">Terapkan</button>
-                        </div>
-                    </div>
-                </div>
-
+    <div class="checkout-grid">
+        <!-- Left Column: Course Details -->
+        <div class="left-column">
+            <div class="step-card">
+                <h2 class="step-title" style="margin-bottom: 20px;">Deskripsi Bootcamp</h2>
+                <p style="color: #4b5563; line-height: 1.8; font-size: 16px;">
+                    Bootcamp intensif ini dirancang untuk membimbing Anda dari tingkat dasar hingga mahir. Anda akan belajar materi berbasis kurikulum industri terbaru dan didampingi oleh mentor profesional secara langsung.
+                </p>
+                
+                <h3 style="font-size: 18px; font-weight: 700; color: #1e293b; margin: 30px 0 15px;">Fasilitas & Layanan</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    @foreach($selectedProgram['highlights'] as $highlight)
+                    <li style="font-size: 15px; color: #374151; padding: 10px 0; border-bottom: 1px dashed #e5e7eb; display: flex; align-items: center; gap: 12px;">
+                        <i class="fas fa-check-circle" style="color: #10b981; font-size: 18px;"></i>
+                        <span>{{ $highlight }}</span>
+                    </li>
+                    @endforeach
+                </ul>
             </div>
-
-            <!-- Right Column: Order Summary -->
-            <div class="right-column">
-                <div class="summary-card">
-                    <div class="summary-header">
-                        <span class="summary-badge">{{ $selectedProgram['badge'] }}</span>
-                        <h2 class="summary-course-title">{{ $selectedProgram['title'] }}</h2>
-                        <ul class="summary-highlights">
-                            @foreach($selectedProgram['highlights'] as $highlight)
-                            <li class="summary-highlight-item">
-                                <span class="check-icon"><i class="fas fa-check-circle"></i></span>
-                                <span>{{ $highlight }}</span>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-
-                    <div class="summary-body">
-                        <div class="price-row">
-                            <span>Harga Normal</span>
-                            <span class="price-strike">{{ $selectedProgram['normal_price'] }}</span>
-                        </div>
-
-                        <div class="price-row discount">
-                            <span>Diskon Launching</span>
-                            <span>{{ $selectedProgram['discount'] }}</span>
-                        </div>
-
-                        <div class="price-row free">
-                            <span>Biaya Layanan</span>
-                            <span>Gratis</span>
-                        </div>
-
-                        <div class="divider-line"></div>
-
-                        <div class="total-row">
-                            <span class="total-label">Total Pembayaran</span>
-                            <span class="total-amount">{{ $selectedProgram['total'] }}</span>
-                        </div>
-
-                        <button type="submit" class="btn-submit-pay">
-                            Bayar & Amankan Slot Kelas <i class="fas fa-arrow-right"></i>
-                        </button>
-
-                        <div class="security-badge">
-                            <i class="fas fa-lock"></i> Pembayaran aman & terenkripsi. Garansi uang kembali 7 hari.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
-    </form>
+
+        <!-- Right Column: Checkout Form -->
+        <div class="right-column">
+            <div class="summary-card" style="padding: 30px;">
+                <span class="summary-badge">{{ $selectedProgram['badge'] }}</span>
+                <h2 class="summary-course-title" style="margin-bottom: 10px;">{{ $selectedProgram['title'] }}</h2>
+                
+                <div style="font-size: 32px; font-weight: 800; color: #1c6296; margin-bottom: 5px;">{{ $selectedProgram['total'] }}</div>
+                <div style="font-size: 14px; color: #6b7280; margin-bottom: 20px;">Pembayaran Aman via Xendit Payment Gateway</div>
+
+                <form action="{{ url('/pendaftaran-bootcamp') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="event_name" value="{{ $selectedProgram['title'] }}">
+                    <input type="hidden" name="amount" value="{{ str_replace(['Rp ', '.'], '', $selectedProgram['total']) }}">
+
+                    <div class="form-group" style="margin-bottom: 18px;">
+                        <label class="form-label" style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;" for="nama">Nama Lengkap</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan nama Anda" required value="{{ old('nama', auth()->user()->name ?? '') }}">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 18px;">
+                        <label class="form-label" style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;" for="email">Alamat Email</label>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="contoh@email.com" required value="{{ old('email', auth()->user()->email ?? '') }}">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 18px;">
+                        <label class="form-label" style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;" for="whatsapp">Nomor WhatsApp / HP</label>
+                        <input type="tel" name="whatsapp" id="whatsapp" class="form-control" placeholder="08xxxxxxxxxx" required value="{{ old('whatsapp') }}">
+                    </div>
+
+                    <button type="submit" class="btn-submit-pay" style="width: 100%; margin-top: 10px;">
+                        <i class="fas fa-credit-card"></i> Bayar Sekarang
+                    </button>
+                </form>
+
+                <div class="security-badge" style="margin-top: 20px;">
+                    <i class="fas fa-shield-alt text-green-500"></i> Terenkripsi & Pembayaran Instan via Xendit
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 </div>
 

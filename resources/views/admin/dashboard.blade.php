@@ -4,6 +4,34 @@
 @section('header', 'Overview')
 
 @section('content')
+<!-- Quick Actions Banner -->
+<div class="surface-card p-10 bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 border-none relative overflow-hidden shadow-2xl mb-8">
+    <!-- Animated Mesh Background -->
+    <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-500 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-pulse"></div>
+    <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-purple-500 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-pulse" style="animation-delay: 2s;"></div>
+    
+    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="text-white">
+            @php
+                $hour = \Carbon\Carbon::now('Asia/Jakarta')->format('H');
+                $greeting = 'Selamat Malam';
+                if ($hour >= 5 && $hour < 11) $greeting = 'Selamat Pagi';
+                elseif ($hour >= 11 && $hour < 15) $greeting = 'Selamat Siang';
+                elseif ($hour >= 15 && $hour < 18) $greeting = 'Selamat Sore';
+            @endphp
+            <h3 class="text-3xl font-extrabold mb-3 tracking-tight">{{ $greeting }}, Admin! 👋</h3>
+            <p class="text-blue-100/80 text-base max-w-xl leading-relaxed">
+                Selamat datang di Command Center. Kelola seluruh aset digital Elcoding dari satu tempat dengan mudah dan cepat.
+            </p>
+        </div>
+        <div class="flex gap-4 shrink-0">
+            <a href="/admin/artikel/create" class="px-6 py-3 bg-white/10 text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 hover:scale-105 transition-all backdrop-blur-md shadow-lg flex items-center gap-2">
+                <i class="fas fa-pen-nib"></i> Tulis Artikel
+            </a>
+        </div>
+    </div>
+</div>
+
 <!-- Stats Grid -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
     <!-- Stat Card 1 -->
@@ -77,36 +105,103 @@
 </div>
 
 <!-- Charts & Main Area -->
+<!-- RFM Analysis Section -->
+<div class="space-y-6 mt-12 mb-8 border-t border-slate-200 pt-8">
+    <div class="flex items-center gap-2 mb-4">
+        <i class="fas fa-brain text-purple-600 text-2xl"></i>
+        <h2 class="text-2xl font-extrabold text-slate-800">RFM Customer Intelligence</h2>
+    </div>
+
+    <!-- Segment Distribution -->
+    <div class="surface-card p-6">
+        <h3 class="text-lg font-bold text-slate-800 mb-4">Distribusi Segmen Pelanggan</h3>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+            @foreach($segmentCounts as $segment => $count)
+                @php
+                    $color = match($segment) {
+                        'Customer Baru' => 'blue',
+                        'Loyal' => 'emerald',
+                        'Berisiko' => 'amber',
+                        'Pasif / Lama' => 'red',
+                        default => 'slate'
+                    };
+                @endphp
+                <div class="bg-{{ $color }}-50 rounded-xl p-4 border border-{{ $color }}-100 text-center">
+                    <div class="text-2xl font-bold text-{{ $color }}-600">{{ $count }}</div>
+                    <div class="text-sm font-semibold text-{{ $color }}-800 mt-1">{{ $segment }}</div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+    <!-- RFM Table -->
+    <div class="surface-card overflow-hidden">
+        <div class="p-6 border-b border-slate-100">
+            <h3 class="text-lg font-bold text-slate-800">Detail Pelanggan (Skoring RFM)</h3>
+            <p class="text-sm text-slate-500 mt-1">Sistem memberikan skor 1-5 untuk Recency (terbaru), Frequency (tersering), dan Monetary (terbesar).</p>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+                <thead class="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
+                    <tr>
+                        <th class="py-3 px-6">Pelanggan</th>
+                        <th class="py-3 px-6 text-center">Recency (Hari)</th>
+                        <th class="py-3 px-6 text-center">Frequency (Trx)</th>
+                        <th class="py-3 px-6 text-center">Monetary (Rp)</th>
+                        <th class="py-3 px-6 text-center">Skor (R-F-M)</th>
+                        <th class="py-3 px-6 text-center">Segmen</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    @forelse($rfmData as $customer)
+                        @php
+                            $segmentColor = match($customer['segment']) {
+                                'Customer Baru' => 'bg-blue-100 text-blue-700',
+                                'Loyal' => 'bg-emerald-100 text-emerald-700',
+                                'Berisiko' => 'bg-amber-100 text-amber-700',
+                                'Pasif / Lama' => 'bg-red-100 text-red-700',
+                                default => 'bg-slate-100 text-slate-700'
+                            };
+                        @endphp
+                        <tr class="hover:bg-slate-50">
+                            <td class="py-3 px-6">
+                                <div class="font-semibold text-slate-800">{{ $customer['name'] }}</div>
+                                <div class="text-xs text-slate-500">{{ $customer['email'] }}</div>
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                                {{ $customer['recency_days'] }} hari<br>
+                                <span class="text-xs text-slate-400">({{ $customer['last_order_date'] }})</span>
+                            </td>
+                            <td class="py-3 px-6 text-center font-medium">{{ $customer['frequency'] }}x</td>
+                            <td class="py-3 px-6 text-center">Rp {{ number_format($customer['monetary'], 0, ',', '.') }}</td>
+                            <td class="py-3 px-6 text-center">
+                                <div class="flex items-center justify-center gap-1 font-bold">
+                                    <span class="text-blue-600">{{ $customer['r_score'] }}</span>-<!--
+                                    --><span class="text-emerald-600">{{ $customer['f_score'] }}</span>-<!--
+                                    --><span class="text-amber-600">{{ $customer['m_score'] }}</span>
+                                </div>
+                                <div class="text-[10px] text-slate-400 mt-0.5">Total: {{ $customer['r_score'] + $customer['f_score'] + $customer['m_score'] }}</div>
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                                <span class="px-3 py-1 rounded-full text-xs font-bold {{ $segmentColor }}">
+                                    {{ $customer['segment'] }}
+                                </span>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="py-8 text-center text-slate-500">Belum ada data pelanggan yang menyelesaikan pesanan.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 <div class="space-y-8">
     <!-- Left Col (Main content) -->
     <div class="space-y-8">
-        <!-- Quick Actions Banner -->
-        <div class="surface-card p-10 bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 border-none relative overflow-hidden shadow-2xl">
-            <!-- Animated Mesh Background -->
-            <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-500 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-pulse"></div>
-            <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-purple-500 rounded-full mix-blend-screen filter blur-[100px] opacity-40 animate-pulse" style="animation-delay: 2s;"></div>
-            
-            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                <div class="text-white">
-                    @php
-                        $hour = \Carbon\Carbon::now('Asia/Jakarta')->format('H');
-                        $greeting = 'Selamat Malam';
-                        if ($hour >= 5 && $hour < 11) $greeting = 'Selamat Pagi';
-                        elseif ($hour >= 11 && $hour < 15) $greeting = 'Selamat Siang';
-                        elseif ($hour >= 15 && $hour < 18) $greeting = 'Selamat Sore';
-                    @endphp
-                    <h3 class="text-3xl font-extrabold mb-3 tracking-tight">{{ $greeting }}, Admin! 👋</h3>
-                    <p class="text-blue-100/80 text-base max-w-xl leading-relaxed">
-                        Selamat datang di Command Center. Kelola seluruh aset digital Elcoding dari satu tempat dengan mudah dan cepat.
-                    </p>
-                </div>
-                <div class="flex gap-4 shrink-0">
-                    <a href="/admin/artikel/create" class="px-6 py-3 bg-white/10 text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 hover:scale-105 transition-all backdrop-blur-md shadow-lg flex items-center gap-2">
-                        <i class="fas fa-pen-nib"></i> Tulis Artikel
-                    </a>
-                </div>
-            </div>
-        </div>
+
 
         <!-- Bottom Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">

@@ -73,10 +73,6 @@ Route::get('/program-kursus', function () {
     return view('program-kursus', compact('programs'));
 });
 
-Route::get('/bootcamp-intensif', function () {
-    return view('bootcamp-intensif');
-});
-
 Route::get('/pendaftaran-bootcamp', function () {
     return view('pendaftaran-bootcamp');
 });
@@ -88,14 +84,6 @@ Route::get('/status-pembayaran-bootcamp', function () {
 Route::get('/event-webinar', function () {
     \Artesaos\SEOTools\Facades\SEOTools::setTitle('Event & Webinar');
     return view('event-webinar');
-});
-
-Route::get('/webinar-tech', function () {
-    return view('webinar-tech');
-});
-
-Route::get('/workshop-online', function () {
-    return view('workshop-online');
 });
 
 Route::get('/pendaftaran-workshop', function () {
@@ -130,41 +118,8 @@ Route::post('/daftar-event', [\App\Http\Controllers\EventCheckoutController::cla
 Route::get('/event-webinar/payment/success', [\App\Http\Controllers\EventCheckoutController::class, 'paymentSuccess']);
 Route::post('/xendit/event/callback', [\App\Http\Controllers\EventCheckoutController::class, 'callback']);
 
-Route::post('/pendaftaran-bootcamp', function (\Illuminate\Http\Request $request) {
-    $request->validate([
-        'nama' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'whatsapp' => 'required|string|max:20',
-    ]);
-
-    \App\Models\ActivityLog::add(
-        'Pendaftaran Bootcamp',
-        'Peserta Baru',
-        "Pendaftaran bootcamp dari {$request->nama} ({$request->email} / {$request->whatsapp}).",
-        'sky',
-        'fa-user-check'
-    );
-
-    return redirect('/status-pembayaran-bootcamp');
-});
-
-Route::post('/pendaftaran-workshop', function (\Illuminate\Http\Request $request) {
-    $request->validate([
-        'nama' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'whatsapp' => 'required|string|max:20',
-    ]);
-
-    \App\Models\ActivityLog::add(
-        'Pendaftaran Workshop',
-        'Peserta Baru',
-        "Pendaftaran workshop dari {$request->nama} ({$request->email} / {$request->whatsapp}).",
-        'sky',
-        'fa-user-check'
-    );
-
-    return redirect('/pembayaran-berhasil');
-});
+Route::post('/pendaftaran-bootcamp', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
+Route::post('/pendaftaran-workshop', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
 
 Route::get('/silabus', function () {
     return view('silabus');
@@ -218,10 +173,10 @@ Route::get('/artikel/{id}', function ($id) {
 Route::middleware(['auth', 'verified'])->group(function () {
     
     // 1. Route Beranda / Dashboard
-    Route::redirect('/dashboard', '/admin/mitra')->name('dashboard');
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('admin')->group(function () {
-        Route::redirect('/', '/admin/mitra');
+        Route::redirect('/', '/dashboard');
         Route::get('/aktivitas', [AdminController::class, 'aktivitas']);
         
         // Layanan CRUD
@@ -247,6 +202,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/program-kursus/{id}/edit', [AdminController::class, 'editProgram']);
         Route::put('/program-kursus/{id}', [AdminController::class, 'updateProgram']);
         Route::delete('/program-kursus/{id}', [AdminController::class, 'destroyProgram']);
+
+        // Event & Webinar CRUD
+        Route::get('/event', [\App\Http\Controllers\Admin\EventController::class, 'index']);
+        Route::get('/event/create', [\App\Http\Controllers\Admin\EventController::class, 'create']);
+        Route::post('/event', [\App\Http\Controllers\Admin\EventController::class, 'store']);
+        Route::get('/event/{id}/edit', [\App\Http\Controllers\Admin\EventController::class, 'edit']);
+        Route::put('/event/{id}', [\App\Http\Controllers\Admin\EventController::class, 'update']);
+        Route::delete('/event/{id}', [\App\Http\Controllers\Admin\EventController::class, 'destroy']);
 
         // Portofolio CRUD
         Route::get('/portofolio', [AdminController::class, 'portofolio']);

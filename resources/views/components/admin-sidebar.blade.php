@@ -9,7 +9,13 @@
 
     <!-- Navigation -->
     <nav class="flex-1 overflow-y-auto py-6 space-y-1">
-        <p class="px-8 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4 mt-2">Manajemen Konten</p>
+        <p class="px-8 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4 mt-2">Menu Utama</p>
+        
+        <a href="/dashboard" class="sidebar-item flex items-center gap-4 font-medium {{ request()->is('dashboard') ? 'active' : '' }}">
+            <i class="fas fa-chart-pie w-6 text-center text-lg"></i> <span>Dashboard (RFM)</span>
+        </a>
+        
+        <p class="px-8 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4 mt-8">Manajemen Konten</p>
         
         <a href="/admin/layanan" class="sidebar-item flex items-center gap-4 font-medium {{ request()->is('admin/layanan*') ? 'active' : '' }}">
             <i class="fas fa-server w-6 text-center text-lg"></i> <span>Layanan Utama</span>
@@ -21,6 +27,10 @@
         
         <a href="/admin/program-kursus" class="sidebar-item flex items-center gap-4 font-medium {{ request()->is('admin/program-kursus*') ? 'active' : '' }}">
             <i class="fas fa-graduation-cap w-6 text-center text-lg"></i> <span>Program Kursus</span>
+        </a>
+
+        <a href="/admin/event" class="sidebar-item flex items-center gap-4 font-medium {{ request()->is('admin/event*') ? 'active' : '' }}">
+            <i class="fas fa-calendar-alt w-6 text-center text-lg"></i> <span>Event & Webinar</span>
         </a>
 
         <a href="/admin/kategori-portofolio" class="sidebar-item flex items-center gap-4 font-medium {{ request()->is('admin/kategori-portofolio*') ? 'active' : '' }}">

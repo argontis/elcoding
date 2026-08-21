@@ -18,10 +18,13 @@ class EventCheckoutController extends Controller
             'nama' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'whatsapp' => 'required|string|max:20',
+            'amount' => 'nullable|numeric',
+            'event_name' => 'nullable|string'
         ]);
 
         $externalId = 'EVT-' . strtoupper(Str::random(8)) . '-' . time();
-        $amount = 50000; // Harga default event saat ini
+        $amount = $validated['amount'] ?? 50000;
+        $eventName = $validated['event_name'] ?? 'Event & Webinar';
 
         $order = EventOrder::create([
             'external_id' => $externalId,

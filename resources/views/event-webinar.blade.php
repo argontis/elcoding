@@ -273,89 +273,273 @@
     <div class="events-container">
         
         <!-- Filters -->
-        <div class="filter-bar">
-            <a href="{{ url('/event-webinar') }}" class="filter-btn active" style="text-decoration: none;">Semua Event</a>
-            <a href="{{ url('/webinar-tech') }}" class="filter-btn" style="text-decoration: none;">Webinar Tech</a>
-            <a href="{{ url('/workshop-online') }}" class="filter-btn" style="text-decoration: none;">Workshop Online</a>
-            <a href="{{ url('/bootcamp-intensif') }}" class="filter-btn" style="text-decoration: none;">Bootcamp Intensif</a>
+        <div class="filter-bar" id="dynamicFilterBar">
+            <button class="filter-btn active" data-filter="all">Semua Event</button>
+            <!-- Button kategori lainnya akan dibuat secara otomatis oleh Javascript -->
         </div>
 
         <!-- Grid -->
-        <div class="events-grid">
+        <div class="events-grid" id="eventsGrid">
             
-            <!-- Card 1 -->
-            <div class="event-card">
+            <!-- Bootcamp 1 -->
+            <div class="event-card" data-category="bootcamp" data-category-label="Bootcamp Intensif">
                 <div class="event-img-wrapper bg-blue">
                     <div class="event-badge badge-recommended"><i class="fas fa-star"></i> RECOMMENDED</div>
-                    <!-- Menggunakan gambar placeholder yang relevan atau asset statis -->
                     <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="Bootcamp" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
                 </div>
                 <div class="event-body">
                     <div class="event-meta">
-                        <span><i class="far fa-calendar-alt"></i> Mulai 25 Agt</span>
+                        <span><i class="far fa-calendar-alt"></i> 12 Minggu Pembelajaran</span>
                     </div>
                     <h2 class="event-title">Bootcamp Intensif Full Stack Web Dev</h2>
                     <div class="event-price-section">
                         <span class="event-price-label">INVESTASI</span>
                         <div class="event-price">
-                            Rp 2.500.000 <span class="event-price-strike">Rp 3.500.000</span>
+                            Rp 2.500.000 <span class="event-price-strike">Rp 5.600.000</span>
                         </div>
                     </div>
                 </div>
                 <div class="event-footer">
-                    <a href="{{ url('/silabus?type=fullstack') }}" class="btn-event btn-primary">Pelajari Silabus <i class="fas fa-arrow-right"></i></a>
+                    <a href="{{ url('/silabus?type=fullstack') }}" class="btn-event btn-primary">Daftar Bootcamp <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
-            <!-- Card 2 -->
-            <div class="event-card">
+            <!-- Bootcamp 2 -->
+            <div class="event-card" data-category="bootcamp" data-category-label="Bootcamp Intensif">
                 <div class="event-img-wrapper bg-red">
                     <div class="event-badge badge-terlaris"><i class="fas fa-fire"></i> TERLARIS</div>
+                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="Flutter" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
+                </div>
+                <div class="event-body">
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar-alt"></i> 10 Minggu Pembelajaran</span>
+                    </div>
+                    <h2 class="event-title">Mobile App Development - Flutter</h2>
+                    <div class="event-price-section">
+                        <span class="event-price-label">INVESTASI</span>
+                        <div class="event-price">
+                            Rp 2.250.000 <span class="event-price-strike">Rp 4.500.000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-footer">
+                    <a href="{{ url('/silabus?type=fullstack') }}" class="btn-event btn-primary">Daftar Bootcamp <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Bootcamp 3 -->
+            <div class="event-card" data-category="bootcamp" data-category-label="Bootcamp Intensif">
+                <div class="event-img-wrapper bg-orange">
+                    <div class="event-badge badge-upcoming"><i class="fas fa-bolt"></i> UPCOMING</div>
                     <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="UI/UX" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
                 </div>
                 <div class="event-body">
                     <div class="event-meta">
-                        <span><i class="fas fa-users"></i> Batch 15 Terbuka</span>
+                        <span><i class="far fa-calendar-alt"></i> 8 Minggu Pembelajaran</span>
                     </div>
-                    <h2 class="event-title">Mastering Skill UI/UX Design</h2>
+                    <h2 class="event-title">UI/UX Design & Product Strategy</h2>
                     <div class="event-price-section">
                         <span class="event-price-label">INVESTASI</span>
                         <div class="event-price">
-                            Rp 1.800.000
+                            Rp 1.900.000 <span class="event-price-strike">Rp 3.800.000</span>
                         </div>
                     </div>
                 </div>
                 <div class="event-footer">
-                    <a href="{{ url('/silabus?type=ui-ux') }}" class="btn-event btn-primary">Pelajari Silabus <i class="fas fa-arrow-right"></i></a>
+                    <a href="{{ url('/silabus?type=ui-ux') }}" class="btn-event btn-primary">Daftar Bootcamp <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
-            <!-- Card 3 -->
-            <div class="event-card">
-                <div class="event-img-wrapper bg-orange">
-                    <div class="event-badge badge-upcoming"><i class="fas fa-bolt"></i> UPCOMING EVENT</div>
-                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="Webinar" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
+            <!-- Webinar 1 -->
+            <div class="event-card" data-category="webinar" data-category-label="Webinar Tech">
+                <div class="event-img-wrapper bg-blue">
+                    <div class="event-badge badge-upcoming"><i class="fas fa-video"></i> LIVE WEBINAR</div>
+                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="AI" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
                 </div>
                 <div class="event-body">
                     <div class="event-meta">
-                        <span><i class="fas fa-video"></i> Live Zoom</span>
-                        <span class="date">12 Okt, 19:00 WIB</span>
+                        <span><i class="far fa-calendar-alt"></i> 28 Aug 2026</span>
+                        <span class="date">19:30 WIB</span>
                     </div>
-                    <h2 class="event-title">Webinar: Modern Web Architecture 2026</h2>
+                    <h2 class="event-title">AI & Machine Learning Essentials</h2>
                     <div class="event-price-section">
                         <span class="event-price-label">TIKET MASUK</span>
-                        <div class="event-price-free">
-                            Gratis / Free
+                        <div class="event-price-free">Gratis / Free</div>
+                    </div>
+                </div>
+                <div class="event-footer">
+                    <a href="{{ url('/silabus?type=webinar') }}" class="btn-event btn-primary">Daftar Webinar <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Webinar 2 -->
+            <div class="event-card" data-category="webinar" data-category-label="Webinar Tech">
+                <div class="event-img-wrapper bg-red">
+                    <div class="event-badge badge-upcoming"><i class="fas fa-cloud"></i> UPCOMING</div>
+                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="Cloud" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
+                </div>
+                <div class="event-body">
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar-alt"></i> 05 Sep 2026</span>
+                        <span class="date">19:30 WIB</span>
+                    </div>
+                    <h2 class="event-title">Modern Cloud & Microservices</h2>
+                    <div class="event-price-section">
+                        <span class="event-price-label">TIKET MASUK</span>
+                        <div class="event-price-free">Gratis / Free</div>
+                    </div>
+                </div>
+                <div class="event-footer">
+                    <a href="{{ url('/silabus?type=webinar') }}" class="btn-event btn-primary">Daftar Webinar <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Webinar 3 -->
+            <div class="event-card" data-category="webinar" data-category-label="Webinar Tech">
+                <div class="event-img-wrapper bg-orange">
+                    <div class="event-badge badge-recommended"><i class="fas fa-shield-alt"></i> SPECIAL SESSION</div>
+                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="Security" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
+                </div>
+                <div class="event-body">
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar-alt"></i> 12 Sep 2026</span>
+                        <span class="date">19:30 WIB</span>
+                    </div>
+                    <h2 class="event-title">Cybersecurity Fundamentals</h2>
+                    <div class="event-price-section">
+                        <span class="event-price-label">TIKET MASUK</span>
+                        <div class="event-price-free">Gratis / Free</div>
+                    </div>
+                </div>
+                <div class="event-footer">
+                    <a href="{{ url('/silabus?type=webinar') }}" class="btn-event btn-primary">Daftar Webinar <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Workshop 1 -->
+            <div class="event-card" data-category="workshop" data-category-label="Workshop Online">
+                <div class="event-img-wrapper bg-blue">
+                    <div class="event-badge badge-terlaris"><i class="fas fa-tools"></i> HANDS-ON</div>
+                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="Next.js" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
+                </div>
+                <div class="event-body">
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar-alt"></i> 2 Hari Intensif</span>
+                    </div>
+                    <h2 class="event-title">Web App Production-Ready dgn Next.js 15 & Prisma</h2>
+                    <div class="event-price-section">
+                        <span class="event-price-label">INVESTASI</span>
+                        <div class="event-price">
+                            Rp 199.000 <span class="event-price-strike">Rp 500.000</span>
                         </div>
                     </div>
                 </div>
                 <div class="event-footer">
-                    <a href="{{ url('/silabus?type=webinar') }}" class="btn-event btn-primary">Pelajari Silabus <i class="fas fa-arrow-right"></i></a>
+                    <a href="{{ url('/silabus?type=workshop') }}" class="btn-event btn-primary">Daftar Workshop <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
 
+            <!-- Workshop 2 -->
+            <div class="event-card" data-category="workshop" data-category-label="Workshop Online">
+                <div class="event-img-wrapper bg-red">
+                    <div class="event-badge badge-recommended"><i class="fas fa-paint-brush"></i> DESIGN SPRINT</div>
+                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="Figma" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
+                </div>
+                <div class="event-body">
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar-alt"></i> 1 Hari Full (Sabtu)</span>
+                    </div>
+                    <h2 class="event-title">Membuat Scalable Design System di Figma</h2>
+                    <div class="event-price-section">
+                        <span class="event-price-label">INVESTASI</span>
+                        <div class="event-price">
+                            Rp 149.000 <span class="event-price-strike">Rp 450.000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-footer">
+                    <a href="{{ url('/silabus?type=workshop') }}" class="btn-event btn-primary">Daftar Workshop <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Workshop 3 -->
+            <div class="event-card" data-category="workshop" data-category-label="Workshop Online">
+                <div class="event-img-wrapper bg-orange">
+                    <div class="event-badge badge-upcoming"><i class="fas fa-rocket"></i> CRASH COURSE</div>
+                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="DevOps" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
+                </div>
+                <div class="event-body">
+                    <div class="event-meta">
+                        <span><i class="far fa-calendar-alt"></i> 2 Hari (Sabtu-Minggu)</span>
+                    </div>
+                    <h2 class="event-title">Automasi Deployment App Menggunakan Docker</h2>
+                    <div class="event-price-section">
+                        <span class="event-price-label">INVESTASI</span>
+                        <div class="event-price">
+                            Rp 249.000 <span class="event-price-strike">Rp 550.000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-footer">
+                    <a href="{{ url('/silabus?type=workshop') }}" class="btn-event btn-primary">Daftar Workshop <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterBar = document.getElementById('dynamicFilterBar');
+    const eventCards = document.querySelectorAll('.event-card');
+    
+    // 1. Ekstrak kategori unik dari class card
+    const categories = new Map();
+    eventCards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        let label = card.getAttribute('data-category-label');
+        
+        if (cat && !categories.has(cat)) {
+            // Jika tidak ada data-category-label, buat default label yang rapi (Title Case)
+            if (!label) {
+                label = cat.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            }
+            categories.set(cat, label);
+        }
+    });
+
+    // 2. Buat tombol filter secara dinamis
+    categories.forEach((label, cat) => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.setAttribute('data-filter', cat);
+        btn.textContent = label;
+        filterBar.appendChild(btn);
+    });
+
+    // 3. Setup event listener untuk tombol filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Hapus kelas active dari semua tombol
+            filterBtns.forEach(b => b.classList.remove('active'));
+            // Tambahkan kelas active ke tombol yang diklik
+            btn.classList.add('active');
+
+            const filterValue = btn.getAttribute('data-filter');
+
+            eventCards.forEach(card => {
+                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+});
+</script>
+@endpush
 
 </x-layout>

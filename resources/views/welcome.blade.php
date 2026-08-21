@@ -77,6 +77,8 @@
             margin-bottom: 24px;
             color: #ffffff;
             letter-spacing: -0.5px;
+            -webkit-text-stroke: 2px rgba(0, 0, 0, 0.7);
+            text-shadow: 3px 5px 12px rgba(0, 0, 0, 0.8);
         }
 
         .kai-hero-subtitle {
@@ -915,7 +917,7 @@
             content: "";
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(37, 99, 235, 0.85), rgba(37, 99, 235, 0.95)) !important;
+            background: linear-gradient(to bottom, rgba(32, 104, 155, 0.85), rgba(32, 104, 155, 0.95)) !important;
             z-index: 0;
         }
         .elementor-element-35b5f33 > .e-con-inner {
@@ -1162,7 +1164,7 @@
     .statistics-cta-section { 
         padding: 40px 20px; 
         background-color: #20689b; 
-        background-image: linear-gradient(to bottom, rgba(37, 99, 235, 0.85), rgba(37, 99, 235, 0.95)), url('{{ asset("gambar/aset/ilustrasi-belajar.jpg") }}');
+        background-image: linear-gradient(to bottom, rgba(32, 104, 155, 0.85), rgba(32, 104, 155, 0.95)), url('{{ asset("gambar/aset/ilustrasi-belajar.jpg") }}');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;

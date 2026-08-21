@@ -1886,6 +1886,7 @@
         }
     </style>
 
+    @stack('scripts')
 </body>
 
 </html>

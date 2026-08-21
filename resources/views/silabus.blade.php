@@ -7,6 +7,7 @@ $syllabuses = [
         'title' => 'Silabus Lengkap: Full Stack Web Development',
         'subtitle' => 'Kurikulum berbasis industri yang dirancang untuk membekali Anda dengan keterampilan end-to-end, dari merancang antarmuka hingga mengelola arsitektur server yang skalabel.',
         'pills' => ['12 Minggu Pembelajaran', 'Pemula ke Mahir', '5 Real-world Projects', 'Sertifikat Resmi'],
+        'register_url' => url('/pendaftaran-bootcamp?program=bootcamp-web-dev'),
         'modules' => [
             ['title' => 'Frontend Foundations', 'meta' => 'Minggu 1-2 • Membangun fondasi solid antarmuka web modern.', 'topics' => [
                 ['name' => 'HTML5 & Semantik Web', 'points' => ['Struktur dokumen HTML', 'Elemen form tingkat lanjut', 'Aksesibilitas dasar untuk web']],
@@ -39,6 +40,7 @@ $syllabuses = [
         'title' => 'Silabus Lengkap: UI/UX Design',
         'subtitle' => 'Pelajari cara merancang antarmuka pengguna yang intuitif dan pengalaman digital yang memukau dengan standar industri terkini.',
         'pills' => ['8 Minggu Pembelajaran', 'Figma Mastery', 'Design Portfolio', 'Sertifikat Resmi'],
+        'register_url' => url('/pendaftaran-bootcamp?program=bootcamp-ui-ux'),
         'modules' => [
             ['title' => 'Design Fundamentals & UX Research', 'meta' => 'Minggu 1-3 • Dasar desain dan penelitian pengguna.', 'topics' => [
                 ['name' => 'Pengenalan UI/UX', 'points' => ['Perbedaan mendasar UI dan UX', 'Proses design thinking', 'Membangun empati pengguna']],
@@ -63,6 +65,7 @@ $syllabuses = [
         'title' => 'Materi Webinar: Modern Web Architecture 2026',
         'subtitle' => 'Kupas tuntas tren arsitektur web modern, microservices, dan edge computing untuk membangun aplikasi web berkinerja tinggi.',
         'pills' => ['Live Zoom', 'Tanya Jawab', 'E-Certificate', 'Recording Tersedia'],
+        'register_url' => url('/daftar-event?webinar=cloud-backend'),
         'modules' => [
             ['title' => 'Sesi 1: Tren Arsitektur 2026', 'meta' => '19:00 - 19:45 WIB • Pengenalan konsep dasar.', 'topics' => [
                 ['name' => 'Monolith vs Microservices', 'points' => ['Kelebihan dan kelemahan Monolith', 'Kapan saat yang tepat beralih ke Microservices', 'Tantangan dalam implementasi Microservices']],
@@ -71,6 +74,24 @@ $syllabuses = [
             ['title' => 'Sesi 2: Praktik Terbaik & QnA', 'meta' => '19:45 - 20:30 WIB • Implementasi nyata.', 'topics' => [
                 ['name' => 'Studi Kasus Arsitektur Skalabel', 'points' => ['Membedah arsitektur aplikasi skala besar', 'Best practices dan pattern di industri', 'Strategi optimasi database dan caching']],
                 ['name' => 'Tanya Jawab (QnA) Interaktif', 'points' => ['Sesi tanya jawab terbuka dengan pemateri', 'Konsultasi masalah teknis yang dihadapi peserta', 'Networking dan diskusi sesama developer']],
+            ]],
+        ]
+    ],
+    'workshop' => [
+        'breadcrumb' => 'Workshop: Next.js & Prisma',
+        'badge' => 'Hands-on Workshop',
+        'title' => 'Silabus Workshop: Web App Production-Ready dgn Next.js 15 & Prisma',
+        'subtitle' => 'Workshop intensif selama 2 hari untuk membangun aplikasi web berskala produksi menggunakan framework modern Next.js 15 dan Prisma ORM.',
+        'pills' => ['2 Hari Intensif', 'Live Coding', 'E-Certificate', 'Source Code & Repo'],
+        'register_url' => url('/pendaftaran-workshop?workshop=nextjs'),
+        'modules' => [
+            ['title' => 'Hari 1: Fundamental Next.js & Database', 'meta' => 'Sabtu, 19:00 WIB • Membangun arsitektur dasar.', 'topics' => [
+                ['name' => 'Next.js 15 App Router', 'points' => ['Pengenalan App Router', 'Server Components vs Client Components', 'Data Fetching strategies']],
+                ['name' => 'Prisma ORM & PostgreSQL', 'points' => ['Setup Prisma schema', 'Migrations', 'CRUD Operations dalam Next.js API Routes']],
+            ]],
+            ['title' => 'Hari 2: Authentication & Deployment', 'meta' => 'Minggu, 19:00 WIB • Autentikasi dan rilis ke publik.', 'topics' => [
+                ['name' => 'NextAuth.js Integration', 'points' => ['Implementasi Social Login', 'Manajemen Session', 'Proteksi Rute Khusus']],
+                ['name' => 'Deployment to Vercel', 'points' => ['Konfigurasi Vercel', 'Environment Variables', 'CI/CD Workflow']],
             ]],
         ]
     ]
@@ -667,10 +688,10 @@ $data = $syllabuses[$type] ?? $syllabuses['fullstack'];
                     <p class="cta-header-desc">
                         Dapatkan bimbingan intensif dari mentor praktisi industri dan bangun portfolio nyata Anda sekarang.
                     </p>
-                    <a href="{{ url('/daftar-event') }}" class="btn-register-primary">
-                        <i class="fas fa-user-plus"></i> Daftar Kelas Sekarang
+                    <a href="{!! $data['register_url'] ?? url('/daftar-event') !!}" class="btn-register-primary">
+                        <i class="fas fa-user-plus"></i> Daftar Sekarang
                     </a>
-                    <a href="https://wa.me/6285156553183?text=Halo%20Admin%20Elcoding,%20saya%20ingin%20tanya%20mengenai%20Silabus%20Bootcamp%20Full%20Stack%20Web%20Dev" target="_blank" class="btn-whatsapp-secondary">
+                    <a href="https://wa.me/6285156553183?text=Halo%20Admin%20Elcoding,%20saya%20ingin%20tanya%20mengenai%20Silabus" target="_blank" class="btn-whatsapp-secondary">
                         <i class="fab fa-whatsapp"></i> Konsultasi via WhatsApp
                     </a>
                 </div>

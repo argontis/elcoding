@@ -643,14 +643,15 @@
     <div class="content-container">
 
         <!-- Left Column: Webinar Summary -->
-        <div class="summary-card">
-            <div class="summary-banner-wrapper">
-                <img src="{{ $selectedWebinar['banner'] }}" alt="{{ $selectedWebinar['title'] }}" class="summary-banner-img">
-                <div class="badges-overlay">
-                    <span class="badge-item badge-live">LIVE WEBINAR</span>
-                    <span class="badge-item badge-gratis">GRATIS</span>
+        <div class="left-column">
+            <div class="section-card" style="background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; padding: 28px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);">
+                <div class="summary-banner-wrapper" style="border-radius: 12px; margin-bottom: 24px; overflow: hidden; position: relative;">
+                    <img src="{{ $selectedWebinar['banner'] }}" alt="{{ $selectedWebinar['title'] }}" class="summary-banner-img" style="width: 100%; height: auto;">
+                    <div class="badges-overlay">
+                        <span class="badge-item badge-live">LIVE WEBINAR</span>
+                        <span class="badge-item badge-gratis">GRATIS</span>
+                    </div>
                 </div>
-            </div>
 
             <div class="summary-body">
                 <h2 class="event-title-summary">{{ $selectedWebinar['title'] }}</h2>
@@ -710,112 +711,48 @@
                         </li>
                     </ul>
                 </div>
+                </div>
             </div>
         </div>
 
         <!-- Right Column: Registration Form -->
-        <div class="form-card">
-            <div class="form-card-header">
-                <div class="accent-bar"></div>
-                <h2 class="form-card-title">Data Pendaftar</h2>
+        <div class="right-column">
+            <div class="summary-card" style="padding: 30px; background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; position: sticky; top: 100px;">
+                <span class="summary-badge-tag" style="background: #e0f2fe; color: #0284c7; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 12px;">WEBINAR</span>
+                <h2 class="summary-workshop-title" style="margin-bottom: 10px; font-size: 20px; font-weight: 800; color: #1e293b;">{{ $selectedWebinar['title'] }}</h2>
+                
+                <div style="font-size: 32px; font-weight: 800; color: #1c6296; margin-bottom: 5px;">GRATIS</div>
+                <div style="font-size: 14px; color: #6b7280; margin-bottom: 20px;">Daftar sekarang untuk mengamankan slot Anda</div>
+
+                <form action="{{ url('/daftar-event') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="event_name" value="{{ $selectedWebinar['title'] }}">
+                    <input type="hidden" name="amount" value="0">
+
+                    <div class="form-group" style="margin-bottom: 18px;">
+                        <label class="form-label" style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;" for="nama">Nama Lengkap</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan nama Anda" required value="{{ old('nama', auth()->user()->name ?? '') }}">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 18px;">
+                        <label class="form-label" style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;" for="email">Alamat Email</label>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="contoh@email.com" required value="{{ old('email', auth()->user()->email ?? '') }}">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 18px;">
+                        <label class="form-label" style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;" for="whatsapp">Nomor WhatsApp / HP</label>
+                        <input type="tel" name="whatsapp" id="whatsapp" class="form-control" placeholder="08xxxxxxxxxx" required value="{{ old('whatsapp') }}">
+                    </div>
+
+                    <button type="submit" class="btn-submit-pay" style="width: 100%; margin-top: 10px; background: #1c6296; color: white; padding: 14px; border-radius: 10px; font-weight: bold; border: none; cursor: pointer;">
+                        Proses Pendaftaran <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="security-badge" style="margin-top: 20px; font-size: 12px; color: #64748b; text-align: center;">
+                    <i class="fas fa-shield-alt text-green-500"></i> Pendaftaran otomatis & E-tiket langsung dikirim
+                </div>
             </div>
-
-            <form action="{{ url('/daftar-event') }}" method="POST">
-                @csrf
-                <input type="hidden" name="event_name" value="{{ $selectedWebinar['title'] }}">
-
-                <div class="form-group">
-                    <label class="form-label" for="nama">Nama Lengkap <span class="req">*</span></label>
-                    <div class="input-wrapper">
-                        <span class="input-icon"><i class="far fa-user"></i></span>
-                        <input type="text" id="nama" name="nama" class="form-control" placeholder="Masukkan nama sesuai KTP untuk sertifikat" required>
-                    </div>
-                </div>
-
-                <div class="grid-2col">
-                    <div class="form-group">
-                        <label class="form-label" for="email">Email Aktif <span class="req">*</span></label>
-                        <div class="input-wrapper">
-                            <span class="input-icon"><i class="far fa-envelope"></i></span>
-                            <input type="email" id="email" name="email" class="form-control" placeholder="contoh@email.com" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="whatsapp">No. WhatsApp <span class="req">*</span></label>
-                        <div class="input-wrapper">
-                            <span class="input-icon"><i class="fas fa-phone-alt"></i></span>
-                            <input type="tel" id="whatsapp" name="whatsapp" class="form-control" placeholder="08123456789" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid-2col">
-                    <div class="form-group">
-                        <label class="form-label" for="profesi">Profesi <span class="req">*</span></label>
-                        <div class="input-wrapper">
-                            <span class="input-icon"><i class="fas fa-briefcase"></i></span>
-                            <select id="profesi" name="profesi" class="form-control" required>
-                                <option value="" disabled selected>Pilih Profesi</option>
-                                <option value="Mahasiswa / Pelajar">Mahasiswa / Pelajar</option>
-                                <option value="Software Engineer">Software Engineer</option>
-                                <option value="Data Scientist / AI Engineer">Data Scientist / AI Engineer</option>
-                                <option value="UI/UX Designer">UI/UX Designer</option>
-                                <option value="Professional">Professional</option>
-                                <option value="Lainnya">Lainnya</option>
-                            </select>
-                            <span class="select-arrow"><i class="fas fa-chevron-down"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="instansi">Instansi / Perusahaan</label>
-                        <div class="input-wrapper">
-                            <span class="input-icon"><i class="far fa-building"></i></span>
-                            <input type="text" id="instansi" name="instansi" class="form-control" placeholder="Asal kampus/kantor (opsional)">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Info Source Radio -->
-                <div class="form-group">
-                    <div class="radio-group-title">Tahu info webinar ini dari mana?</div>
-                    <div class="radio-grid">
-                        <label class="radio-label-box">
-                            <input type="radio" name="source" value="Instagram" checked>
-                            <span>Instagram</span>
-                        </label>
-
-                        <label class="radio-label-box">
-                            <input type="radio" name="source" value="LinkedIn">
-                            <span>LinkedIn</span>
-                        </label>
-
-                        <label class="radio-label-box">
-                            <input type="radio" name="source" value="Teman/Grup WA">
-                            <span>Teman/Grup WA</span>
-                        </label>
-
-                        <label class="radio-label-box">
-                            <input type="radio" name="source" value="Lainnya">
-                            <span>Lainnya</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Agreement Box -->
-                <div class="agreement-box">
-                    <input type="checkbox" id="agree" name="agree" required checked>
-                    <label for="agree" class="agreement-text">
-                        Saya menyetujui <a href="#" onclick="openFooterModal('tncModal', event)">Syarat & Ketentuan</a> serta <a href="#" onclick="openFooterModal('privacyModal', event)">Kebijakan Privasi</a> yang berlaku. Saya bersedia menerima email informasi terkait acara ini.
-                    </label>
-                </div>
-
-                <!-- Submit Button -->
-                <button type="submit" class="btn-submit-form">
-                    Daftar Sekarang (Gratis) <i class="fas fa-arrow-right"></i>
-                </button>
-            </form>
         </div>
 
     </div>

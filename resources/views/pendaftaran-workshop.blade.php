@@ -549,181 +549,75 @@
 
 <div class="pendaftaran-workshop-page">
 
-    <!-- Sub-header Back Bar -->
-    <div class="sub-header-bar">
-        <div class="sub-header-container">
-            <a href="{{ url('/workshop-online') }}" class="back-link">
-                <i class="fas fa-arrow-left"></i> Kembali ke Workshop Online
-            </a>
+
+
+    <!-- Registration Form & Summary Grid -->
+    <div class="checkout-grid">
+        <!-- Left Column: Workshop Details -->
+        <div class="left-column">
+            <div class="section-card">
+                <h2 class="section-title" style="margin-bottom: 20px;">Deskripsi Workshop</h2>
+                <p style="color: #4b5563; line-height: 1.8; font-size: 16px;">
+                    Ikuti sesi workshop praktis dan interaktif ini untuk meningkatkan skill Anda dalam waktu singkat. Anda akan mendapatkan hands-on experience langsung dari praktisi industri dengan panduan langkah demi langkah.
+                </p>
+                
+                <h3 style="font-size: 18px; font-weight: 700; color: #1e293b; margin: 30px 0 15px;">Materi & Fasilitas</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    @foreach($selectedWorkshop['highlights'] as $highlight)
+                    <li style="font-size: 15px; color: #374151; padding: 10px 0; border-bottom: 1px dashed #e5e7eb; display: flex; align-items: center; gap: 12px;">
+                        <i class="fas fa-check-circle" style="color: #10b981; font-size: 18px;"></i>
+                        <span>{{ $highlight }}</span>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Column: Checkout Form -->
+        <div class="right-column">
+            <div class="summary-card" style="padding: 30px;">
+                <span class="summary-badge-tag" style="background: #fef3c7; color: #d97706; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 12px;">{{ $selectedWorkshop['tag'] }}</span>
+                <h2 class="summary-workshop-title" style="margin-bottom: 10px;">{{ $selectedWorkshop['title'] }}</h2>
+                <div class="summary-schedule-info" style="font-size: 13px; color: #64748b; margin-bottom: 18px;">
+                    <i class="far fa-calendar-alt"></i> {{ $selectedWorkshop['schedule'] }}
+                </div>
+                
+                <div style="font-size: 32px; font-weight: 800; color: #1c6296; margin-bottom: 5px;">{{ $selectedWorkshop['total'] }}</div>
+                <div style="font-size: 14px; color: #6b7280; margin-bottom: 20px;">Pembayaran Aman via Xendit Payment Gateway</div>
+
+                <form action="{{ url('/pendaftaran-workshop') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="event_name" value="{{ $selectedWorkshop['title'] }}">
+                    <input type="hidden" name="amount" value="{{ str_replace(['Rp ', '.'], '', $selectedWorkshop['total']) }}">
+
+                    <div class="form-group" style="margin-bottom: 18px;">
+                        <label class="form-label" style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;" for="nama">Nama Lengkap</label>
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan nama Anda" required value="{{ old('nama', auth()->user()->name ?? '') }}">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 18px;">
+                        <label class="form-label" style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;" for="email">Alamat Email</label>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="contoh@email.com" required value="{{ old('email', auth()->user()->email ?? '') }}">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 18px;">
+                        <label class="form-label" style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;" for="whatsapp">Nomor WhatsApp / HP</label>
+                        <input type="tel" name="whatsapp" id="whatsapp" class="form-control" placeholder="08xxxxxxxxxx" required value="{{ old('whatsapp') }}">
+                    </div>
+
+                    <button type="submit" class="btn-submit-pay" style="width: 100%; margin-top: 10px;">
+                        <i class="fas fa-credit-card"></i> Bayar Sekarang
+                    </button>
+                </form>
+
+                <div class="security-badge" style="margin-top: 20px;">
+                    <i class="fas fa-shield-alt text-green-500"></i> Terenkripsi & Pembayaran Instan via Xendit
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Main Registration Form Grid -->
-    <form action="{{ url('/pendaftaran-workshop') }}" method="POST">
-        @csrf
-        <input type="hidden" name="workshop" value="{{ $workshopKey }}">
 
-        <div class="checkout-grid">
-
-            <!-- Left Column: Form Sections -->
-            <div class="left-column">
-
-                <!-- Section 1: Data Diri Peserta -->
-                <div class="section-card">
-                    <div class="section-header">
-                        <span class="section-icon"><i class="far fa-user"></i></span>
-                        <h2 class="section-title">Data Diri Peserta</h2>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="nama">Nama Lengkap</label>
-                        <input type="text" id="nama" name="nama" class="form-control" placeholder="Nama lengkap untuk e-sertifikat" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="whatsapp">Nomor WhatsApp Aktif</label>
-                        <div class="input-group-wa">
-                            <span class="prefix-wa">+62</span>
-                            <input type="tel" id="whatsapp" name="whatsapp" class="form-control" placeholder="812 3456 7890" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="email">Alamat Email Aktif</label>
-                        <input type="email" id="email" name="email" class="form-control" placeholder="nama@email.com" required>
-                        <div class="form-hint">
-                            <i class="fas fa-info-circle"></i> Akses Zoom dan source code dikirim ke email ini
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section 2: Opsi Tambahan -->
-                <div class="section-card">
-                    <div class="section-header">
-                        <span class="section-icon"><i class="fas fa-plus-circle"></i></span>
-                        <h2 class="section-title">Opsi Tambahan</h2>
-                    </div>
-
-                    <div class="options-list">
-                        <div class="option-box">
-                            <div class="option-left">
-                                <span class="option-checkbox-indicator"><i class="fas fa-check"></i></span>
-                                <span class="option-title-text">Akses Rekaman Video Workshop Selamanya</span>
-                            </div>
-                            <span class="option-badge-free">GRATIS (TERMASUK)</span>
-                        </div>
-
-                        <div class="option-box">
-                            <div class="option-left">
-                                <span class="option-checkbox-indicator"><i class="fas fa-check"></i></span>
-                                <span class="option-title-text">Starter Kit & Source Code Project Full Repo</span>
-                            </div>
-                            <span class="option-badge-free">GRATIS (TERMASUK)</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section 3: Metode Pembayaran -->
-                <div class="section-card">
-                    <div class="section-header">
-                        <span class="section-icon"><i class="far fa-credit-card"></i></span>
-                        <h2 class="section-title">Metode Pembayaran</h2>
-                    </div>
-
-                    <div class="payment-grid">
-                        <!-- Option 1: QRIS -->
-                        <div class="payment-card-box selected" id="payBox1" onclick="selectWorkshopPayment(1, 'QRIS')">
-                            <input type="radio" name="payment_method" value="QRIS" checked style="display: none;">
-                            <div class="payment-top-row">
-                                <span class="payment-badge-tag">QRIS</span>
-                                <span class="payment-recommend-tag">RECOMMENDED</span>
-                                <div class="radio-circle-custom"></div>
-                            </div>
-                            <div class="payment-title">QRIS / E-Wallet</div>
-                            <div class="payment-subtext">GoPay, OVO, Dana, ShopeePay</div>
-                        </div>
-
-                        <!-- Option 2: BCA -->
-                        <div class="payment-card-box" id="payBox2" onclick="selectWorkshopPayment(2, 'BCA VA')">
-                            <input type="radio" name="payment_method" value="BCA VA" style="display: none;">
-                            <div class="payment-top-row">
-                                <span class="payment-badge-tag">BCA</span>
-                                <div class="radio-circle-custom"></div>
-                            </div>
-                            <div class="payment-title">BCA Virtual Account</div>
-                            <div class="payment-subtext">Verifikasi otomatis</div>
-                        </div>
-                    </div>
-
-                    <div class="promo-section">
-                        <label class="form-label" for="promo">Kode Promo / Kupon</label>
-                        <div class="promo-input-wrapper">
-                            <input type="text" id="promo" name="promo_code" class="form-control" placeholder="Masukkan kode">
-                            <button type="button" class="btn-apply-promo" onclick="applyPromo()">Terapkan</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Right Column: Order Summary Card -->
-            <div class="right-column">
-                <div class="summary-card">
-                    <div class="summary-header">
-                        <span class="summary-badge-tag">{{ $selectedWorkshop['tag'] }}</span>
-                        <h2 class="summary-workshop-title">{{ $selectedWorkshop['title'] }}</h2>
-                        <div class="summary-schedule-info">
-                            <i class="far fa-calendar-alt"></i> {{ $selectedWorkshop['schedule'] }}
-                        </div>
-
-                        <img src="{{ $selectedWorkshop['banner'] }}" alt="{{ $selectedWorkshop['title'] }}" class="summary-img-banner">
-
-                        <ul class="summary-highlights">
-                            @foreach($selectedWorkshop['highlights'] as $highlight)
-                            <li class="summary-highlight-item">
-                                <span class="check-icon"><i class="fas fa-check-circle"></i></span>
-                                <span>{{ $highlight }}</span>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-
-                    <div class="summary-body">
-                        <div class="price-row">
-                            <span>Harga Normal</span>
-                            <span class="price-strike">{{ $selectedWorkshop['normal_price'] }}</span>
-                        </div>
-
-                        <div class="price-row discount">
-                            <span>Diskon Spesial</span>
-                            <span>{{ $selectedWorkshop['discount'] }}</span>
-                        </div>
-
-                        <div class="price-row free">
-                            <span>Biaya Layanan</span>
-                            <span>Gratis</span>
-                        </div>
-
-                        <div class="divider-line"></div>
-
-                        <div class="total-row">
-                            <span class="total-label">Total Pembayaran</span>
-                            <span class="total-amount">{{ $selectedWorkshop['total'] }}</span>
-                        </div>
-
-                        <button type="submit" class="btn-submit-pay">
-                            Bayar & Amankan Kursi Workshop <i class="fas fa-arrow-right"></i>
-                        </button>
-
-                        <div class="security-badge">
-                            <i class="fas fa-lock"></i> Pembayaran instan & terverifikasi otomatis. E-tiket langsung aktif.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </form>
 
 </div>
 

@@ -1,4 +1,85 @@
-<x-layout title="Silabus Lengkap: Full Stack Web Development">
+@php
+$type = request('type', 'fullstack');
+$syllabuses = [
+    'fullstack' => [
+        'breadcrumb' => 'Full Stack Web Dev',
+        'badge' => 'Bootcamp Intensif',
+        'title' => 'Silabus Lengkap: Full Stack Web Development',
+        'subtitle' => 'Kurikulum berbasis industri yang dirancang untuk membekali Anda dengan keterampilan end-to-end, dari merancang antarmuka hingga mengelola arsitektur server yang skalabel.',
+        'pills' => ['12 Minggu Pembelajaran', 'Pemula ke Mahir', '5 Real-world Projects', 'Sertifikat Resmi'],
+        'modules' => [
+            ['title' => 'Frontend Foundations', 'meta' => 'Minggu 1-2 • Membangun fondasi solid antarmuka web modern.', 'topics' => [
+                ['name' => 'HTML5 & Semantik Web', 'points' => ['Struktur dokumen HTML', 'Elemen form tingkat lanjut', 'Aksesibilitas dasar untuk web']],
+                ['name' => 'CSS3 & Layout Modern', 'points' => ['Implementasi Flexbox', 'Sistem CSS Grid', 'Transisi & Animasi CSS', 'Prinsip desain responsif']],
+                ['name' => 'Pengenalan Version Control', 'points' => ['Instalasi dan perintah dasar Git', 'Manajemen alur kerja GitHub', 'Kolaborasi tim']],
+            ]],
+            ['title' => 'JavaScript & React Ecosystem', 'meta' => 'Minggu 3-5 • Interaktivitas dinamis dan arsitektur komponen.', 'topics' => [
+                ['name' => 'JavaScript ES6+ Core', 'points' => ['Konsep Variables (let, const)', 'Fungsi Arrow dan Closure', 'Promises & Async/Await', 'ES Modules']],
+                ['name' => 'React.js Essentials', 'points' => ['Pengenalan JSX & Virtual DOM', 'Component Lifecycle', 'Penggunaan Custom Hooks', 'SPA Routing dengan React Router']],
+                ['name' => 'State Management & Data Fetching', 'points' => ['Integrasi REST API (Axios/Fetch)', 'Penggunaan Context API', 'Global State dengan Redux Toolkit']],
+            ]],
+            ['title' => 'Backend & Database Architectures', 'meta' => 'Minggu 6-8 • Membangun API handal dan manajemen data terstruktur.', 'topics' => [
+                ['name' => 'RESTful API Development', 'points' => ['Node.js / Express & Laravel Controllers', 'Middleware', 'Autentikasi JWT/Sanctum']],
+                ['name' => 'Relational & Non-relational Database', 'points' => ['Perancangan skema database MySQL/PostgreSQL', 'Query Optimization', 'ORM Eloquent']],
+                ['name' => 'Security & Caching', 'points' => ['Rate limiting', 'Sanitasi input & enkripsi password', 'Manajemen cache Redis']],
+            ]],
+            ['title' => 'Deployment & Cloud Native', 'meta' => 'Minggu 9-10 • Membawa aplikasi ke lingkungan produksi.', 'topics' => [
+                ['name' => 'Containerization dengan Docker', 'points' => ['Pembuatan Dockerfile', 'Docker Compose', 'Enkapsulasi lingkungan aplikasi']],
+                ['name' => 'CI/CD & Cloud Hosting', 'points' => ['Otomatisasi deployment via GitHub Actions', 'VPS / Vercel', 'SSL & Web Server Nginx']],
+            ]],
+            ['title' => 'Capstone Project & Karir', 'meta' => 'Minggu 11-12 • Pembuktian keahlian dan persiapan industri.', 'topics' => [
+                ['name' => 'Real-world Capstone Project', 'points' => ['Desain sistem keseluruhan', 'Pembuatan sistem database', 'Live deployment ke production']],
+                ['name' => 'Career Preparation & Mentorship', 'points' => ['Review Resume & Portofolio GitHub', 'Simulasi Technical Interview', 'Rekomendasi kerja & networking']],
+            ]],
+        ]
+    ],
+    'ui-ux' => [
+        'breadcrumb' => 'Mastering UI/UX Design',
+        'badge' => 'Terlaris',
+        'title' => 'Silabus Lengkap: UI/UX Design',
+        'subtitle' => 'Pelajari cara merancang antarmuka pengguna yang intuitif dan pengalaman digital yang memukau dengan standar industri terkini.',
+        'pills' => ['8 Minggu Pembelajaran', 'Figma Mastery', 'Design Portfolio', 'Sertifikat Resmi'],
+        'modules' => [
+            ['title' => 'Design Fundamentals & UX Research', 'meta' => 'Minggu 1-3 • Dasar desain dan penelitian pengguna.', 'topics' => [
+                ['name' => 'Pengenalan UI/UX', 'points' => ['Perbedaan mendasar UI dan UX', 'Proses design thinking', 'Membangun empati pengguna']],
+                ['name' => 'User Research & Personas', 'points' => ['Metode riset pengguna kuantitatif & kualitatif', 'Pembuatan user persona', 'Customer journey mapping']],
+                ['name' => 'Wireframing & IA', 'points' => ['Merancang Information Architecture (IA)', 'Pembuatan User Flow', 'Wireframe tingkat rendah (Low-Fidelity)']],
+            ]],
+            ['title' => 'UI Design & Prototyping', 'meta' => 'Minggu 4-6 • Merancang antarmuka visual.', 'topics' => [
+                ['name' => 'Figma Essentials', 'points' => ['Penguasaan antarmuka & tools Figma', 'Sistem Auto Layout', 'Components & Variants']],
+                ['name' => 'Visual Design Principles', 'points' => ['Sistem tipografi digital', 'Teori warna untuk UI', 'Whitespace & hierarki visual yang baik']],
+                ['name' => 'High-Fidelity Prototyping', 'points' => ['Desain visual High-Fidelity', 'Membuat prototype interaktif', 'Micro-interactions & animasi transisi']],
+            ]],
+            ['title' => 'Design System & Portfolio', 'meta' => 'Minggu 7-8 • Standarisasi dan portofolio akhir.', 'topics' => [
+                ['name' => 'Membangun Design System', 'points' => ['Pembuatan dan pengelolaan UI Kit', 'Penggunaan design tokens', 'Penyusunan dokumentasi desain']],
+                ['name' => 'Usability Testing', 'points' => ['Metode pengujian prototipe', 'Observasi pengguna nyata', 'Melakukan iterasi desain berdasarkan feedback']],
+                ['name' => 'Final Project & Portfolio', 'points' => ['Menyelesaikan studi kasus akhir end-to-end', 'Menyusun dokumentasi studi kasus (Case Study)', 'Mempersiapkan portofolio untuk melamar kerja']],
+            ]],
+        ]
+    ],
+    'webinar' => [
+        'breadcrumb' => 'Webinar: Modern Web Architecture',
+        'badge' => 'Upcoming Event',
+        'title' => 'Materi Webinar: Modern Web Architecture 2026',
+        'subtitle' => 'Kupas tuntas tren arsitektur web modern, microservices, dan edge computing untuk membangun aplikasi web berkinerja tinggi.',
+        'pills' => ['Live Zoom', 'Tanya Jawab', 'E-Certificate', 'Recording Tersedia'],
+        'modules' => [
+            ['title' => 'Sesi 1: Tren Arsitektur 2026', 'meta' => '19:00 - 19:45 WIB • Pengenalan konsep dasar.', 'topics' => [
+                ['name' => 'Monolith vs Microservices', 'points' => ['Kelebihan dan kelemahan Monolith', 'Kapan saat yang tepat beralih ke Microservices', 'Tantangan dalam implementasi Microservices']],
+                ['name' => 'Serverless & Edge Computing', 'points' => ['Pengenalan konsep Serverless computing', 'Edge functions (Vercel/Cloudflare)', 'Mengurangi latensi dan beban server secara signifikan']],
+            ]],
+            ['title' => 'Sesi 2: Praktik Terbaik & QnA', 'meta' => '19:45 - 20:30 WIB • Implementasi nyata.', 'topics' => [
+                ['name' => 'Studi Kasus Arsitektur Skalabel', 'points' => ['Membedah arsitektur aplikasi skala besar', 'Best practices dan pattern di industri', 'Strategi optimasi database dan caching']],
+                ['name' => 'Tanya Jawab (QnA) Interaktif', 'points' => ['Sesi tanya jawab terbuka dengan pemateri', 'Konsultasi masalah teknis yang dihadapi peserta', 'Networking dan diskusi sesama developer']],
+            ]],
+        ]
+    ]
+];
+
+$data = $syllabuses[$type] ?? $syllabuses['fullstack'];
+@endphp
+
+<x-layout title="Silabus - Elcoding Academy">
     @push('styles')
     <style>
         /* Silabus Custom Styling */
@@ -28,7 +109,6 @@
             z-index: 2;
         }
 
-        /* Breadcrumbs */
         .silabus-breadcrumbs {
             font-size: 14px;
             color: rgba(255, 255, 255, 0.7);
@@ -59,69 +139,55 @@
             font-weight: 600;
         }
 
-        /* Hero Pill Badge */
-        .silabus-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(139, 92, 246, 0.3);
-            border: 1px solid rgba(167, 139, 250, 0.5);
-            color: #e9d5ff;
-            padding: 6px 16px;
+        .silabus-hero-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(2, 132, 199, 0.2);
+            color: #7dd3fc;
             border-radius: 50px;
             font-size: 13px;
             font-weight: 700;
-            margin-bottom: 20px;
-            backdrop-filter: blur(8px);
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 1px solid rgba(2, 132, 199, 0.3);
         }
 
         .silabus-hero-title {
-            font-size: 38px;
+            font-size: 42px;
             font-weight: 800;
             color: #ffffff;
-            margin: 0 0 16px;
+            margin: 0 0 20px;
             line-height: 1.2;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.5px;
         }
 
         .silabus-hero-subtitle {
-            font-size: 17px;
-            color: rgba(255, 255, 255, 0.85);
-            max-width: 820px;
+            font-size: 18px;
+            color: #e2e8f0;
+            margin: 0 0 32px;
             line-height: 1.6;
-            margin-bottom: 32px;
+            max-width: 600px;
+            opacity: 0.9;
         }
 
-        /* Stat Pills */
-        .silabus-pills {
+        .silabus-features {
             display: flex;
             flex-wrap: wrap;
-            gap: 14px;
+            gap: 12px;
         }
 
-        .silabus-pill-item {
+        .feature-pill {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            color: #f8fafc;
             display: flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #ffffff;
+            gap: 8px;
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .silabus-pill-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .silabus-pill-item i {
-            color: #38bdf8;
-            font-size: 16px;
         }
 
         /* Main Container */
@@ -140,8 +206,8 @@
             align-items: start;
         }
 
-        /* Left Content: Detail Kurikulum */
-        .silabus-main-card {
+        /* Accordion Styling */
+        .silabus-main {
             background: #ffffff;
             border-radius: 24px;
             padding: 36px;
@@ -149,7 +215,7 @@
             border: 1px solid #e2e8f0;
         }
 
-        .silabus-header-bar {
+        .silabus-header-section {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -158,14 +224,14 @@
             border-bottom: 2px solid #f1f5f9;
         }
 
-        .silabus-section-heading {
+        .silabus-main-title {
             font-size: 24px;
             font-weight: 800;
             color: #0f172a;
             margin: 0;
         }
 
-        .silabus-badge-count {
+        .module-count-badge {
             background: #f1f5f9;
             color: #475569;
             font-size: 13px;
@@ -175,24 +241,23 @@
             border: 1px solid #cbd5e1;
         }
 
-        /* Accordion Styling */
-        .accordion-list {
+        .accordion-container {
             display: flex;
             flex-direction: column;
             gap: 20px;
         }
 
         .accordion-item {
-            border: 1px solid #e2e8f0;
+            border: none;
             border-radius: 16px;
             overflow: hidden;
             background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .accordion-item.active {
-            border-color: #38bdf8;
-            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.08);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
         }
 
         .accordion-header {
@@ -222,19 +287,14 @@
             width: 48px;
             height: 48px;
             border-radius: 12px;
-            background: #e0f2fe;
-            color: #0284c7;
+            background: #f1f5f9;
+            color: #475569;
             font-size: 16px;
             font-weight: 800;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-        }
-
-        .accordion-item.active .module-avatar {
-            background: #0284c7;
-            color: #ffffff;
         }
 
         .module-info {
@@ -260,62 +320,59 @@
         .accordion-icon {
             width: 32px;
             height: 32px;
-            border-radius: 50%;
-            background: #f1f5f9;
+            background: transparent;
             color: #64748b;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 14px;
-            transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+            transition: transform 0.3s ease, color 0.3s ease;
             flex-shrink: 0;
         }
 
         .accordion-item.active .accordion-icon {
             transform: rotate(180deg);
-            background: #e0f2fe;
-            color: #0284c7;
+            color: #0f172a;
         }
 
         .accordion-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: #fafafa;
-        }
-
-        .accordion-item.active .accordion-content {
-            border-top: 1px solid #f1f5f9;
         }
 
         .sub-topics-list {
-            padding: 20px 24px 24px;
+            padding: 10px 24px 24px 90px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 24px;
         }
 
         .sub-topic-item {
             display: flex;
             align-items: flex-start;
             gap: 14px;
-            background: #ffffff;
-            padding: 16px 20px;
-            border-radius: 12px;
-            border: 1px solid #f1f5f9;
+            position: relative;
+        }
+
+        .sub-topic-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 26px;
+            bottom: -20px;
+            width: 2px;
+            background: #e2e8f0;
         }
 
         .sub-topic-icon {
             width: 24px;
             height: 24px;
-            border-radius: 50%;
-            background: #dcfce7;
-            color: #16a34a;
+            color: #0284c7;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
-            margin-top: 2px;
+            font-size: 18px;
             flex-shrink: 0;
         }
 
@@ -323,20 +380,27 @@
             font-size: 15px;
             font-weight: 700;
             color: #1e293b;
-            margin: 0 0 4px;
+            margin: 0 0 6px;
         }
 
-        .sub-topic-desc {
-            font-size: 13px;
+        .sub-topic-points {
+            list-style-type: disc;
+            list-style-position: outside;
+            margin: 4px 0 0 0;
+            padding-left: 20px;
             color: #64748b;
-            margin: 0;
-            line-height: 1.5;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .sub-topic-points li {
+            margin-bottom: 4px;
+            padding-left: 4px;
         }
 
-        /* Right Sidebar Component */
+        /* Sidebar */
         .silabus-sidebar {
             display: flex;
-            flex-direction: flex-start;
             flex-direction: column;
             gap: 24px;
             position: sticky;
@@ -470,7 +534,6 @@
             transform: translateY(-2px);
         }
 
-        /* Responsive Breakpoints */
         @media (max-width: 1024px) {
             .silabus-layout-grid {
                 grid-template-columns: 1fr;
@@ -490,7 +553,7 @@
             .silabus-hero-subtitle {
                 font-size: 15px;
             }
-            .silabus-main-card {
+            .silabus-main {
                 padding: 24px 16px;
             }
             .accordion-header {
@@ -509,42 +572,26 @@
     <!-- Hero Section -->
     <div class="silabus-hero">
         <div class="silabus-hero-inner">
-            <!-- Breadcrumbs -->
             <nav class="silabus-breadcrumbs" aria-label="Breadcrumb">
                 <a href="{{ url('/') }}">Home</a>
                 <span class="separator">></span>
-                <a href="{{ url('/program-kursus') }}">Program Kursus</a>
+                <a href="{{ url('/event-webinar') }}">Event & Webinar</a>
                 <span class="separator">></span>
-                <a href="{{ url('/program-kursus') }}">Full Stack Web Dev</a>
+                <a href="{{ url('/event-webinar') }}">{{ $data['breadcrumb'] }}</a>
                 <span class="separator">></span>
                 <span class="active" aria-current="page">Silabus</span>
             </nav>
 
-            <!-- Hero Badge -->
-            <div class="silabus-badge">
-                <i class="fas fa-bolt text-yellow-400"></i> Bootcamp Intensif
-            </div>
-
-            <!-- Title & Subtitle -->
-            <h1 class="silabus-hero-title">Silabus Lengkap: Full Stack Web Development</h1>
-            <p class="silabus-hero-subtitle">
-                Kurikulum berbasis industri yang dirancang untuk membekali Anda dengan keterampilan end-to-end, dari merancang antarmuka hingga mengelola arsitektur server yang skalabel.
-            </p>
-
-            <!-- Stat Pills -->
-            <div class="silabus-pills">
-                <div class="silabus-pill-item">
-                    <i class="far fa-clock"></i> 12 Minggu Pembelajaran
+            <div class="silabus-hero-badge">{{ $data['badge'] }}</div>
+            <h1 class="silabus-hero-title">{{ $data['title'] }}</h1>
+            <p class="silabus-hero-subtitle">{{ $data['subtitle'] }}</p>
+            
+            <div class="silabus-features">
+                @foreach($data['pills'] as $pill)
+                <div class="feature-pill">
+                    <i class="fas fa-check-circle" style="color: #38bdf8;"></i> {{ $pill }}
                 </div>
-                <div class="silabus-pill-item">
-                    <i class="fas fa-bullseye"></i> Pemula ke Mahir
-                </div>
-                <div class="silabus-pill-item">
-                    <i class="fas fa-code"></i> 5 Real-world Projects
-                </div>
-                <div class="silabus-pill-item">
-                    <i class="fas fa-award"></i> Sertifikat Resmi
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -552,24 +599,23 @@
     <!-- Main Content Container -->
     <div class="silabus-body-container">
         <div class="silabus-layout-grid">
-
-            <!-- Left Main Column: Detail Kurikulum -->
-            <div class="silabus-main-card">
-                <div class="silabus-header-bar">
-                    <h2 class="silabus-section-heading">Detail Kurikulum</h2>
-                    <span class="silabus-badge-count">5 Modul Utama</span>
+            
+            <!-- Main Content: Accordion Modules -->
+            <div class="silabus-main">
+                <div class="silabus-header-section">
+                    <h2 class="silabus-main-title">Detail Kurikulum</h2>
+                    <span class="module-count-badge">{{ count($data['modules']) }} Modul Utama</span>
                 </div>
 
-                <div class="accordion-list" id="curriculumAccordion">
-                    
-                    <!-- Modul 1 -->
-                    <div class="accordion-item active" id="module-1">
-                        <button class="accordion-header" onclick="toggleAccordion('module-1')">
+                <div class="accordion-container">
+                    @foreach($data['modules'] as $index => $module)
+                    <div class="accordion-item {{ $index === 0 ? 'active' : '' }}" id="module-{{ $index + 1 }}">
+                        <button class="accordion-header" onclick="toggleAccordion('module-{{ $index + 1 }}')">
                             <div class="accordion-header-left">
-                                <div class="module-avatar">M1</div>
+                                <div class="module-avatar">M{{ $index + 1 }}</div>
                                 <div class="module-info">
-                                    <h3 class="module-title">Frontend Foundations</h3>
-                                    <p class="module-meta">Minggu 1-2 • Membangun fondasi solid antarmuka web modern.</p>
+                                    <h3 class="module-title">{{ $module['title'] }}</h3>
+                                    <p class="module-meta">{{ $module['meta'] }}</p>
                                 </div>
                             </div>
                             <div class="accordion-icon">
@@ -578,181 +624,23 @@
                         </button>
                         <div class="accordion-content">
                             <div class="sub-topics-list">
+                                @foreach($module['topics'] as $topic)
                                 <div class="sub-topic-item">
-                                    <div class="sub-topic-icon"><i class="fas fa-check"></i></div>
+                                    <div class="sub-topic-icon"><i class="far fa-check-circle"></i></div>
                                     <div>
-                                        <h4 class="sub-topic-title">HTML5 & Semantik Web</h4>
-                                        <p class="sub-topic-desc">Struktur dokumen, form, dan aksesibilitas dasar.</p>
+                                        <h4 class="sub-topic-title">{{ $topic['name'] }}</h4>
+                                        <ul class="sub-topic-points" style="list-style-type: disc !important; list-style-position: inside !important; margin-top: 4px; padding-left: 8px; color: #64748b; font-size: 13px; line-height: 1.6;">
+                                            @foreach($topic['points'] as $point)
+                                            <li style="margin-bottom: 6px; display: list-item;">{{ $point }}</li>
+                                            @endforeach
+                                        </ul>
                                     </div>
                                 </div>
-                                <div class="sub-topic-item">
-                                    <div class="sub-topic-icon"><i class="fas fa-check"></i></div>
-                                    <div>
-                                        <h4 class="sub-topic-title">CSS3 & Layout Modern</h4>
-                                        <p class="sub-topic-desc">Flexbox, CSS Grid, animasi, dan prinsip desain responsif.</p>
-                                    </div>
-                                </div>
-                                <div class="sub-topic-item">
-                                    <div class="sub-topic-icon"><i class="fas fa-check"></i></div>
-                                    <div>
-                                        <h4 class="sub-topic-title">Pengenalan Version Control</h4>
-                                        <p class="sub-topic-desc">Dasar-dasar Git, alur kerja GitHub, dan kolaborasi tim.</p>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
-
-                    <!-- Modul 2 -->
-                    <div class="accordion-item" id="module-2">
-                        <button class="accordion-header" onclick="toggleAccordion('module-2')">
-                            <div class="accordion-header-left">
-                                <div class="module-avatar">M2</div>
-                                <div class="module-info">
-                                    <h3 class="module-title">JavaScript & React Ecosystem</h3>
-                                    <p class="module-meta">Minggu 3-5 • Interaktivitas dinamis dan arsitektur komponen.</p>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="sub-topics-list">
-                                <div class="sub-topic-item">
-                                    <div class="sub-topic-icon"><i class="fas fa-check"></i></div>
-                                    <div>
-                                        <h4 class="sub-topic-title">JavaScript ES6+ Core</h4>
-                                        <p class="sub-topic-desc">Variables, Closure, Promises, Async/Await, dan ES Modules.</p>
-                                    </div>
-                                </div>
-                                <div class="sub-topic-item">
-                                    <div class="sub-topic-icon"><i class="fas fa-check"></i></div>
-                                    <div>
-                                        <h4 class="sub-topic-title">React.js Essentials</h4>
-                                        <p class="sub-topic-desc">Component Lifecycle, Custom Hooks, JSX, Virtual DOM, dan SPA Routing.</p>
-                                    </div>
-                                </div>
-                                <div class="sub-topic-item">
-                                    <div class="sub-topic-icon"><i class="fas fa-check"></i></div>
-                                    <div>
-                                        <h4 class="sub-topic-title">State Management & Data Fetching</h4>
-                                        <p class="sub-topic-desc">Integration REST API dengan Axios/Fetch, Context API & Redux Toolkit.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modul 3 -->
-                    <div class="accordion-item" id="module-3">
-                        <button class="accordion-header" onclick="toggleAccordion('module-3')">
-                            <div class="accordion-header-left">
-                                <div class="module-avatar">M3</div>
-                                <div class="module-info">
-                                    <h3 class="module-title">Backend & Database Architectures</h3>
-                                    <p class="module-meta">Minggu 6-8 • Membangun API handal dan manajemen data terstruktur.</p>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="sub-topics-list">
-                                <div class="sub-topic-item">
-                                    <div class="sub-topic-icon"><i class="fas fa-check"></i></div>
-                                    <div>
-                                        <h4 class="sub-topic-title">RESTful API Development</h4>
-                                        <p class="sub-topic-desc">Node.js / Express & Laravel Controllers, Middleware, serta Autentikasi JWT/Sanctum.</p>
-                                    </div>
-                                </div>
-                                <div class="sub-topic-item">
-                                    <div class="sub-topic-icon"><i class="fas fa-check"></i></div>
-                                    <div>
-                                        <h4 class="sub-topic-title">Relational & Non-relational Database</h4>
-                                        <p class="sub-topic-desc">Perancangan skema database MySQL/PostgreSQL, Query Optimization & ORM Eloquent.</p>
-                                    </div>
-                                </div>
-                                <div class="sub-topic-item">
-                                    <div class="sub-topic-icon"><i class="fas fa-check"></i></div>
-                                    <div>
-                                        <h4 class="sub-topic-title">Security & Caching</h4>
-                                        <p class="sub-topic-desc">Rate limiting, sanitasi input, enkripsi password, dan manajemen cache Redis.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modul 4 -->
-                    <div class="accordion-item" id="module-4">
-                        <button class="accordion-header" onclick="toggleAccordion('module-4')">
-                            <div class="accordion-header-left">
-                                <div class="module-avatar">M4</div>
-                                <div class="module-info">
-                                    <h3 class="module-title">Deployment & Cloud Native</h3>
-                                    <p class="module-meta">Minggu 9-10 • Membawa aplikasi ke lingkungan produksi.</p>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="sub-topics-list">
-                                <div class="sub-topic-item">
-                                    <div class="sub-topic-icon"><i class="fas fa-check"></i></div>
-                                    <div>
-                                        <h4 class="sub-topic-title">Containerization dengan Docker</h4>
-                                        <p class="sub-topic-desc">Pembuatan Dockerfile, Docker Compose, dan enkapsulasi lingkungan aplikasi.</p>
-                                    </div>
-                                </div>
-                                <div class="sub-topic-item">
-                                    <div class="sub-topic-icon"><i class="fas fa-check"></i></div>
-                                    <div>
-                                        <h4 class="sub-topic-title">CI/CD & Cloud Hosting</h4>
-                                        <p class="sub-topic-desc">Otomatisasi deployment via GitHub Actions, VPS / Vercel, SSL, dan Web Server Nginx.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modul 5 -->
-                    <div class="accordion-item" id="module-5">
-                        <button class="accordion-header" onclick="toggleAccordion('module-5')">
-                            <div class="accordion-header-left">
-                                <div class="module-avatar">M5</div>
-                                <div class="module-info">
-                                    <h3 class="module-title">Capstone Project & Karir</h3>
-                                    <p class="module-meta">Minggu 11-12 • Pembuktian keahlian dan persiapan industri.</p>
-                                </div>
-                            </div>
-                            <div class="accordion-icon">
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                        </button>
-                        <div class="accordion-content">
-                            <div class="sub-topics-list">
-                                <div class="sub-topic-item">
-                                    <div class="sub-topic-icon"><i class="fas fa-check"></i></div>
-                                    <div>
-                                        <h4 class="sub-topic-title">Real-world Capstone Project</h4>
-                                        <p class="sub-topic-desc">Membangun proyek Full Stack nyata dari tahap desain, sistem database, hingga live deployment.</p>
-                                    </div>
-                                </div>
-                                <div class="sub-topic-item">
-                                    <div class="sub-topic-icon"><i class="fas fa-check"></i></div>
-                                    <div>
-                                        <h4 class="sub-topic-title">Career Preparation & Mentorship</h4>
-                                        <p class="sub-topic-desc">Review Resume & Portofolio GitHub, Simulasi Technical Interview, dan rekomendasi kerja.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    @endforeach
                 </div>
             </div>
 
@@ -779,7 +667,7 @@
                     <p class="cta-header-desc">
                         Dapatkan bimbingan intensif dari mentor praktisi industri dan bangun portfolio nyata Anda sekarang.
                     </p>
-                    <a href="{{ url('/program-kursus') }}" class="btn-register-primary">
+                    <a href="{{ url('/daftar-event') }}" class="btn-register-primary">
                         <i class="fas fa-user-plus"></i> Daftar Kelas Sekarang
                     </a>
                     <a href="https://wa.me/6285156553183?text=Halo%20Admin%20Elcoding,%20saya%20ingin%20tanya%20mengenai%20Silabus%20Bootcamp%20Full%20Stack%20Web%20Dev" target="_blank" class="btn-whatsapp-secondary">

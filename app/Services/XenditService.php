@@ -92,4 +92,28 @@ class XenditService
             'invoice_url' => $result->getInvoiceUrl(),
         ];
     }
+    public function createEventInvoice(\App\Models\EventOrder $order): array
+    {
+        $request = new CreateInvoiceRequest([
+            'external_id' => $order->external_id,
+            'amount' => $order->amount,
+            'description' => "Pendaftaran Event & Webinar Elcoding",
+            'currency' => 'IDR',
+            'invoice_duration' => 86400, // 24 jam
+            'customer' => [
+                'given_names' => $order->user_name,
+                'email' => $order->user_email,
+                'mobile_number' => $order->user_phone,
+            ],
+            'success_redirect_url' => url('/event-webinar/payment/success?order_id=' . $order->external_id),
+            'failure_redirect_url' => url('/event-webinar'),
+        ]);
+
+        $result = $this->invoiceApi->createInvoice($request);
+
+        return [
+            'invoice_id' => $result->getId(),
+            'invoice_url' => $result->getInvoiceUrl(),
+        ];
+    }
 }

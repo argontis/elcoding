@@ -16,9 +16,27 @@ Route::get('/clear-cache-all', function () {
 
 Route::post('/chat-gemini', [ChatController::class, 'askGemini']);
 // ==========================================
+// ROUTE SEO
+// ==========================================
+Route::get('/sitemap.xml', function () {
+    $layanans = \App\Models\Layanan::all();
+    $programs = \App\Models\ProgramKursus::all();
+    $portofolios = \App\Models\Portofolio::all();
+    $artikels = \App\Models\Artikel::where('status', 'Published')->get();
+
+    return response()->view('sitemap', [
+        'layanans' => $layanans,
+        'programs' => $programs,
+        'portofolios' => $portofolios,
+        'artikels' => $artikels,
+    ])->header('Content-Type', 'text/xml');
+});
+
+// ==========================================
 // ROUTE PUBLIC (LANDING PAGE - BLADE)
 // ==========================================
 Route::get('/', function () {
+    \Artesaos\SEOTools\Facades\SEOTools::setTitle('Pelatihan Coding & Bootcamp IT Terbaik');
     $mitras = \App\Models\Mitra::oldest()->get();
     $programs = \App\Models\ProgramKursus::oldest()->take(3)->get();
     $portofolios = \App\Models\Portofolio::oldest()->take(3)->get();
@@ -27,11 +45,14 @@ Route::get('/', function () {
 });
 
 Route::get('/layanan', function () {
+    \Artesaos\SEOTools\Facades\SEOTools::setTitle('Layanan Kami');
     $layanans = \App\Models\Layanan::latest()->get();
     return view('layanan', compact('layanans')); 
 });
 Route::get('/layanan/detail/{slug}', function ($slug) {
     $layanan = \App\Models\Layanan::where('slug', $slug)->firstOrFail();
+    \Artesaos\SEOTools\Facades\SEOTools::setTitle($layanan->name);
+    \Artesaos\SEOTools\Facades\SEOTools::setDescription(strip_tags(substr($layanan->description, 0, 160)));
     return view('detail-layanan', compact('layanan')); 
 });
 
@@ -41,11 +62,13 @@ Route::post('/xendit/layanan/callback', [\App\Http\Controllers\CheckoutLayananCo
 
 
 Route::get('/tentang-kami', function () {
+    \Artesaos\SEOTools\Facades\SEOTools::setTitle('Tentang Kami');
     $mitras = \App\Models\Mitra::oldest()->get();
     return view('tentang-kami', compact('mitras'));
 });
 
 Route::get('/program-kursus', function () {
+    \Artesaos\SEOTools\Facades\SEOTools::setTitle('Daftar Pelatihan Coding dan Kursus IT Lengkap');
     $programs = \App\Models\ProgramKursus::oldest()->paginate(9);
     return view('program-kursus', compact('programs'));
 });
@@ -63,6 +86,7 @@ Route::get('/status-pembayaran-bootcamp', function () {
 });
 
 Route::get('/event-webinar', function () {
+    \Artesaos\SEOTools\Facades\SEOTools::setTitle('Event & Webinar');
     return view('event-webinar');
 });
 
@@ -102,23 +126,9 @@ Route::get('/daftar-event-berhasil', function () {
     return view('daftar-event-berhasil');
 });
 
-Route::post('/daftar-event', function (\Illuminate\Http\Request $request) {
-    $request->validate([
-        'nama' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'whatsapp' => 'required|string|max:20',
-    ]);
-
-    \App\Models\ActivityLog::add(
-        'Pendaftaran Event',
-        'Peserta Baru',
-        "Pendaftaran event dari {$request->nama} ({$request->email} / {$request->whatsapp}).",
-        'sky',
-        'fa-user-check'
-    );
-
-    return redirect('/daftar-event-berhasil');
-});
+Route::post('/daftar-event', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
+Route::get('/event-webinar/payment/success', [\App\Http\Controllers\EventCheckoutController::class, 'paymentSuccess']);
+Route::post('/xendit/event/callback', [\App\Http\Controllers\EventCheckoutController::class, 'callback']);
 
 Route::post('/pendaftaran-bootcamp', function (\Illuminate\Http\Request $request) {
     $request->validate([
@@ -171,26 +181,32 @@ Route::get('/payment/success', [ProgramKursusController::class, 'paymentSuccess'
 Route::post('/xendit/callback', [ProgramKursusController::class, 'callback']);
 
 Route::get('/portofolio', function () {
+    \Artesaos\SEOTools\Facades\SEOTools::setTitle('Portofolio Kami');
     $portofolios = \App\Models\Portofolio::latest()->paginate(9);
     return view('portofolio', compact('portofolios'));
 });
 
 Route::get('/portofolio/{id}', function ($id) {
     $portofolio = \App\Models\Portofolio::findOrFail($id);
+    \Artesaos\SEOTools\Facades\SEOTools::setTitle($portofolio->title);
     return view('portofolio-detail', compact('portofolio'));
 });
 
 Route::get('/artikel', function () {
+    \Artesaos\SEOTools\Facades\SEOTools::setTitle('Artikel & Blog');
     $artikels = \App\Models\Artikel::where('status', 'Published')->latest()->paginate(9);
     return view('artikel', compact('artikels'));
 });
 
 Route::get('/kontak', function () {
+    \Artesaos\SEOTools\Facades\SEOTools::setTitle('Hubungi Kami');
     return view('kontak');
 });
 
 Route::get('/artikel/{id}', function ($id) {
     $artikel = \App\Models\Artikel::findOrFail($id);
+    \Artesaos\SEOTools\Facades\SEOTools::setTitle($artikel->title);
+    \Artesaos\SEOTools\Facades\SEOTools::setDescription(strip_tags(substr($artikel->content, 0, 160)));
     return view('artikel-detail', compact('artikel'));
 });
 

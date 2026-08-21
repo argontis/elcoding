@@ -4,34 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Mencegah Browser Caching (Mengatasi isu CSS tidak terupdate) -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <!-- CSRF Token wajib ada agar script bisa POST ke Laravel -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ isset($title) ? $title . ' | Elcoding' : 'Elcoding - Software House & IT Training Center' }}</title>
-    <meta name="description"
-        content="{{ $description ?? 'Elcoding adalah Software House profesional dan Lembaga Kursus Pelatihan IT terpadu. Menyediakan jasa pembuatan aplikasi, website, dan program bootcamp IT terlengkap.' }}" />
-    <meta name="keywords"
-        content="Software House Tegal, Jasa Pembuatan Website, Jasa Aplikasi, Kursus Coding, Pelatihan IT, Bootcamp IT, Elcoding">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="{{ url()->current() }}">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title"
-        content="{{ isset($title) ? $title . ' | Elcoding' : 'Elcoding - Software House & IT Training Center' }}">
-    <meta property="og:description"
-        content="{{ $description ?? 'Software House profesional dan Lembaga Kursus Pelatihan IT terpadu. Menyediakan jasa pembuatan aplikasi, website, dan program bootcamp IT terlengkap.' }}">
-    <meta property="og:image" content="{{ $ogImage ?? asset('gambar/aset/logo-elcoding.png') }}">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="{{ url()->current() }}">
-    <meta name="twitter:title"
-        content="{{ isset($title) ? $title . ' | Elcoding' : 'Elcoding - Software House & IT Training Center' }}">
-    <meta name="twitter:description"
-        content="{{ $description ?? 'Software House profesional dan Lembaga Kursus Pelatihan IT terpadu. Menyediakan jasa pembuatan aplikasi, website, dan program bootcamp IT terlengkap.' }}">
-    <meta name="twitter:image" content="{{ $ogImage ?? asset('gambar/aset/logo-elcoding.png') }}">
+    {!! SEO::generate() !!}
 
     <link rel="icon" href="{{ asset('gambar/aset/logo-elcoding.svg?v=2') }}" type="image/svg+xml">
 
@@ -385,7 +367,7 @@
 
 
     <!-- ================= NAVBAR BARU (Desain Websekolah) ================= -->
-    <header class="custom-header">
+    <header class="custom-header {{ request()->is('/') ? 'transparent-header' : '' }}" id="main-header">
         <div class="header-container">
             <!-- 1. BAGIAN KIRI: Logo -->
             <div class="header-logo">
@@ -447,6 +429,37 @@
             z-index: 9999;
             box-shadow: 0 2px 10px rgba(0,0,0,0.02);
             font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        /* Transparent Header Overrides (Welcome Page) */
+        .custom-header.transparent-header:not(.scrolled) {
+            background: transparent;
+            border-bottom: none;
+            box-shadow: none;
+        }
+        .custom-header.transparent-header:not(.scrolled) .header-logo span,
+        .custom-header.transparent-header:not(.scrolled) .nav-link,
+        .custom-header.transparent-header:not(.scrolled) .mobile-toggle {
+            color: #ffffff !important;
+        }
+        .custom-header.transparent-header:not(.scrolled) .nav-link:hover,
+        .custom-header.transparent-header:not(.scrolled) .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15) !important;
+            color: #ffffff !important;
+        }
+        .custom-header.transparent-header:not(.scrolled) .header-logo img {
+            filter: brightness(0) invert(1);
+        }
+        .custom-header.transparent-header:not(.scrolled) .btn-solid {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .custom-header.transparent-header.scrolled {
+            background: #ffffff;
+            border-bottom: 1px solid #f1f5f9;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
         .header-container {
             max-width: 1200px;
@@ -634,6 +647,16 @@
     <!-- Script Navbar Baru -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const mainHeader = document.getElementById('main-header');
+            if (mainHeader && mainHeader.classList.contains('transparent-header')) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        mainHeader.classList.add('scrolled');
+                    } else {
+                        mainHeader.classList.remove('scrolled');
+                    }
+                });
+            }
             const mobileToggle = document.getElementById('mobile-toggle');
             const headerNav = document.getElementById('header-nav');
             const dropdownBtn = document.getElementById('dropdownBtn');

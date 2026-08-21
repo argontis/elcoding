@@ -17,135 +17,615 @@
     
     <!-- Hero Section -->
     <style>
-        .elementor-element-22c61dc {
-            padding-top: 0 !important; /* Reduce gap to header */
-            margin-top: -80px !important;
-            padding-left: 20px !important;
-            padding-right: 20px !important;
-            padding-bottom: 100px !important;
-        }
-        .elementor-element-22c61dc > .e-con-inner {
-            max-width: 1200px !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-            width: 100% !important;
-            align-items: center;
+        .kai-hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            margin-top: -80px; /* Adjust based on navbar height to reach the top */
             display: flex;
-            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 80px;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow: hidden;
         }
-        @media (min-width: 1025px) {
-            .elementor-element-8110f2a { width: 45% !important; display: flex; justify-content: center; }
-            .elementor-element-b83b4d6 { width: 55% !important; padding-left: 30px; display: flex; flex-direction: column; justify-content: center; }
+
+        /* Background Slider Container */
+        .kai-hero-bg-slider {
+            position: absolute;
+            top: 0; left: 0;
+            width: 400%; /* 4 slides = 400% */
+            height: 100%;
+            display: flex;
+            z-index: 0;
+            transition: transform 0.8s ease-in-out;
         }
-        @media (max-width: 1024px) {
-            .elementor-element-22c61dc {
-                margin-top: 0 !important;
-                padding-top: 20px !important;
-                padding-bottom: 60px !important;
-                min-height: fit-content !important;
-                height: auto !important;
-                overflow: visible !important;
+
+        .kai-hero-slide {
+            width: 25%; /* 100% / 4 */
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .kai-hero-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%),
+                        linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%);
+            z-index: 1;
+        }
+
+        .kai-hero-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .kai-hero-content {
+            max-width: 650px;
+        }
+
+        .kai-hero-title {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .kai-hero-subtitle {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #e2e8f0;
+            font-weight: 400;
+        }
+
+        .kai-hero-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            transition: gap 0.3s ease;
+        }
+
+        .kai-hero-link:hover {
+            gap: 16px;
+            color: #cbd5e1;
+        }
+
+        /* Slider indicators */
+        .kai-slider-indicators {
+            display: flex;
+            gap: 16px;
+            margin-top: 60px;
+        }
+
+        .kai-indicator {
+            width: 48px;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .kai-indicator.active {
+            background-color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .kai-hero-title {
+                font-size: 36px;
             }
-            .elementor-element-22c61dc > .e-con-inner {
-                flex-direction: column-reverse;
-                text-align: center;
-                gap: 30px;
+            .kai-hero-subtitle {
+                font-size: 16px;
             }
-            .elementor-element-8110f2a { width: 100% !important; display: flex; justify-content: center; }
-            .elementor-element-b83b4d6 { width: 100% !important; padding-left: 0 !important; display: flex; flex-direction: column; align-items: center; }
-            .elementor-element-af1e2b3 p { font-size: 14px !important; margin-bottom: 5px !important; color: #20689b !important; font-weight: 600; }
-            .elementor-element-728fa4a .elementor-heading-title { font-size: 28px !important; line-height: 1.3 !important; margin-bottom: 15px !important; }
-            .elementor-element-3d35e7c p { font-size: 14px !important; line-height: 1.6 !important; margin-bottom: 25px !important; padding: 0 10px; }
-            .hero-buttons-container { justify-content: center; width: 100%; }
-            .elementor-element-88aaeff img { max-width: 80% !important; height: auto !important; }
+            .kai-hero {
+                padding-bottom: 60px;
+            }
         }
     </style>
-    <div class="elementor-element elementor-element-22c61dc e-flex e-con-boxed e-con e-parent" data-id="22c61dc" data-element_type="container" data-e-type="container">
-        <div class="e-con-inner">
-            <div class="elementor-element elementor-element-8110f2a e-con-full e-flex e-con e-child" data-id="8110f2a" data-element_type="container" data-e-type="container">
-                <div class="elementor-element elementor-element-88aaeff elementor-widget elementor-widget-image" data-id="88aaeff" data-element_type="widget" data-e-type="widget" data-widget_type="image.default" style="width: 100%;">
-                    <img fetchpriority="high" decoding="async" src="{{ asset('assets/wp-content/uploads/2023/01/ikon-1.svg') }}" class="attachment-medium_large size-medium_large" alt="Elcoding Academy Hero" style="width: 100%; height: auto; max-width: 600px;" />
-                </div>
-            </div>
-            <div class="elementor-element elementor-element-b83b4d6 e-con-full e-flex e-con e-child" data-id="b83b4d6" data-element_type="container" data-e-type="container">
-                <div class="elementor-element elementor-element-af1e2b3 elementor-widget elementor-widget-heading" data-id="af1e2b3" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-                    <p class="elementor-heading-title elementor-size-default">Solusi Digital Lengkap untuk Bisnis & Karir Anda</p>
-                </div>
-                <div class="elementor-element elementor-element-728fa4a elementor-widget elementor-widget-heading" data-id="728fa4a" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-                    <h1 class="elementor-heading-title elementor-size-default">Software House Profesional & Pusat Pelatihan IT Terbaik</h1>
-                </div>
-                <div class="elementor-element elementor-element-3d35e7c elementor-widget elementor-widget-text-editor" data-id="3d35e7c" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-                    <p>Elcoding adalah mitra terpercaya Anda, menyediakan jasa pembuatan website & aplikasi (Software House) untuk digitalisasi bisnis, sekaligus menyelenggarakan program kursus IT intensif berbasis praktik untuk mencetak talenta digital berdaya saing tinggi.</p>
-                </div>
-                <style>
-                    .hero-buttons-container {
-                        display: flex;
-                        gap: 15px;
-                        flex-wrap: wrap;
-                        margin-top: 20px;
-                    }
-                    .elementor-element-c29eb8e .elementor-button, .btn-software-house {
-                        background-color: #20689b !important; /* ungu tua */
-                        border: 2px solid #20689b !important;
-                        color: #ffffff !important;
-                        padding: 12px 25px !important;
-                        border-radius: 8px !important;
-                        font-weight: 600 !important;
-                    }
-                    .elementor-element-c29eb8e .elementor-button:hover, .btn-software-house:hover {
-                        background-color: #20689b !important;
-                        border-color: #20689b !important;
-                        opacity: 0.9;
-                    }
-                </style>
-                <div class="hero-buttons-container">
-                    <div class="elementor-element elementor-element-c29eb8e elementor-align-justify elementor-widget elementor-widget-button" data-id="c29eb8e" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
-                        <a class="elementor-button elementor-button-link elementor-size-sm btn-software-house" href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20jasa%20pembuatan%20aplikasi/website%20dan%20ingin%20berkonsultasi." target="_blank">
-                            <span class="elementor-button-content-wrapper">
-                                <span class="elementor-button-icon"><i aria-hidden="true" class="fas fa-code"></i></span>
-                                <span class="elementor-button-text">Buat Aplikasi</span>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="elementor-element elementor-element-c29eb8e elementor-align-justify elementor-widget elementor-widget-button" data-id="c29eb8e-2" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
-                        <a class="elementor-button elementor-button-link elementor-size-sm btn-software-house" href="/program-kursus">
-                            <span class="elementor-button-content-wrapper">
-                                <span class="elementor-button-icon"><i aria-hidden="true" class="fas fa-graduation-cap"></i></span>
-                                <span class="elementor-button-text">Ikut Kursus</span>
-                            </span>
-                        </a>
-                    </div>
+
+    <section class="kai-hero">
+        <div class="kai-hero-bg-slider" id="kaiBgSlider">
+            <!-- Slide 1: Changed to modern tech/coding setup -->
+            <div class="kai-hero-slide" style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop');"></div>
+            <!-- Slide 2: Modern Bootcamp Coding -->
+            <div class="kai-hero-slide" style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop');"></div>
+            <!-- Slide 3: Mentoring/Teaching -->
+            <div class="kai-hero-slide" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop');"></div>
+            <!-- Slide 4: Glowing Code/Tech Environment -->
+            <div class="kai-hero-slide" style="background-image: url('https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop');"></div>
+        </div>
+        
+        <div class="kai-hero-overlay"></div>
+        
+        <div class="kai-hero-container">
+            <div class="kai-hero-content">
+                <h1 class="kai-hero-title">Bangun Produk Digital,<br>Tingkatkan Skill IT</h1>
+                <p class="kai-hero-subtitle">
+                    Temukan berbagai layanan pembuatan aplikasi dan program pelatihan IT terbaik yang menjadi bagian dari perjalanan kesuksesan bisnis Anda bersama Elcoding.
+                </p>
+                <a href="/tentang-kami" class="kai-hero-link">
+                    Lebih Lanjut Tentang Kami <i class="fas fa-arrow-right"></i>
+                </a>
+                
+                <div class="kai-slider-indicators" id="kaiSliderIndicators">
+                    <div class="kai-indicator active" onclick="goToSlide(0)"></div>
+                    <div class="kai-indicator" onclick="goToSlide(1)"></div>
+                    <div class="kai-indicator" onclick="goToSlide(2)"></div>
+                    <div class="kai-indicator" onclick="goToSlide(3)"></div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <x-mitra />
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 4;
+        const slider = document.getElementById('kaiBgSlider');
+        const indicators = document.getElementById('kaiSliderIndicators').children;
+        let slideInterval;
 
+        function goToSlide(index) {
+            currentSlide = index;
+            // Move slider container smoothly
+            slider.style.transform = `translateX(-${currentSlide * 25}%)`;
+            
+            // Update indicator states
+            for(let i = 0; i < indicators.length; i++) {
+                indicators[i].classList.remove('active');
+            }
+            indicators[currentSlide].classList.add('active');
+            
+            // Reset interval so it doesn't auto-slide immediately after manual click
+            resetInterval();
+        }
+
+        function nextSlide() {
+            let next = (currentSlide + 1) % totalSlides;
+            goToSlide(next);
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000); // Auto-slide every 5 seconds
+        }
+
+        // Initialize auto slide
+        document.addEventListener('DOMContentLoaded', function() {
+            resetInterval();
+        });
+    </script>
+
+    <!-- Tentang Elcoding Section -->
+    <style>
+        .tentang-section {
+            padding: 80px 20px;
+            background-color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .tentang-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+        .tentang-left {
+            flex: 1;
+            max-width: 500px;
+        }
+        .tentang-subtitle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #3b82f6; /* blue-500 */
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .tentang-subtitle::before {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 1px;
+            background-color: #93c5fd; /* blue-300 */
+        }
+        .tentang-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.3;
+            margin-bottom: 30px;
+        }
+        .tentang-code-block {
+            background-color: #f8fafc;
+            border: 1px solid #f1f5f9;
+            border-radius: 12px;
+            padding: 24px;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.6;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+        .tentang-right {
+            flex: 1.2;
+            display: flex;
+            gap: 20px;
+            justify-content: flex-end;
+        }
+        .tentang-card {
+            background-color: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-radius: 16px;
+            padding: 30px 20px;
+            width: 190px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        .tentang-card:hover {
+            transform: translateY(-5px);
+        }
+        .tentang-card.glow-card {
+            background: radial-gradient(circle at bottom right, #ffedd5 0%, #ffffff 70%);
+            border: 1px solid #ffedd5;
+        }
+        .tentang-card-icon {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .icon-blue { color: #3b82f6; }
+        .icon-orange { color: #f97316; }
+        .tentang-card-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            word-break: break-word;
+        }
+        .tentang-card-label {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 1024px) {
+            .tentang-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+            .tentang-left, .tentang-right {
+                flex: none;
+                width: 100%;
+                max-width: 100%;
+                justify-content: center;
+            }
+        }
+        @media (max-width: 768px) {
+            .tentang-title { font-size: 26px; }
+            .tentang-right {
+                flex-wrap: wrap;
+            }
+            .tentang-card {
+                width: calc(50% - 10px);
+                padding: 24px 16px;
+            }
+            .tentang-card-value { font-size: 28px; }
+        }
+        @media (max-width: 480px) {
+            .tentang-card {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <section class="tentang-section">
+        <div class="tentang-container">
+            <div class="tentang-left">
+                <div class="tentang-subtitle">TENTANG ELCODING</div>
+                <h2 class="tentang-title">Mencetak ribuan developer siap kerja dan mentransformasi puluhan infrastruktur digital enterprise.</h2>
+                <div class="tentang-code-block">
+                    &gt; sys.initialize({<br>
+                    &nbsp;&nbsp;mode: 'production',<br>
+                    &nbsp;&nbsp;target: 'excellence'<br>
+                    });
+                </div>
+            </div>
+            <div class="tentang-right" id="tentangCounterSection">
+                <div class="tentang-card">
+                    <div class="tentang-card-icon icon-blue"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="tentang-card-value counter-value" data-prefix="&gt;" data-suffix="+" data-target="1500">&gt;0+</div>
+                    <div class="tentang-card-label">Alumni Sukses Bekerja</div>
+                </div>
+                <div class="tentang-card">
+                    <div class="tentang-card-icon icon-blue"><i class="fas fa-check-circle"></i></div>
+                    <div class="tentang-card-value counter-value" data-prefix="&gt;" data-suffix="%" data-target="96">&gt;0%</div>
+                    <div class="tentang-card-label">Tingkat Kelulusan</div>
+                </div>
+                <div class="tentang-card glow-card">
+                    <div class="tentang-card-icon icon-orange"><i class="fas fa-rocket"></i></div>
+                    <div class="tentang-card-value counter-value" data-prefix="&gt;" data-suffix="+" data-target="120">&gt;0+</div>
+                    <div class="tentang-card-label">Proyek Enterprise</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const counters = document.querySelectorAll('.counter-value');
+            const section = document.getElementById('tentangCounterSection');
+            let started = false;
+
+            const observer = new IntersectionObserver((entries) => {
+                if(entries[0].isIntersecting && !started) {
+                    started = true;
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        const prefix = counter.getAttribute('data-prefix') || '';
+                        const suffix = counter.getAttribute('data-suffix') || '';
+                        const duration = 4000; // 4 seconds animation
+                        const increment = target / (duration / 16); 
+                        let current = 0;
+                        
+                        const updateCounter = () => {
+                            current += increment;
+                            if (current < target) {
+                                // Format with dot for thousands
+                                let displayVal = Math.ceil(current).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                                counter.innerText = prefix + displayVal + suffix;
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                let displayVal = target.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                                counter.innerText = prefix + displayVal + suffix;
+                            }
+                        };
+                        updateCounter();
+                    });
+                }
+            }, { threshold: 0.5 });
+
+            if (section) {
+                observer.observe(section);
+            }
+        });
+    </script>
+
+    <!-- Home Video Section -->
+    <style>
+        .home-video-section {
+            padding: 0;
+            background-color: transparent;
+            position: relative;
+            width: 100%;
+            height: 250vh; /* Allow enough scroll space for the sticky effect */
+        }
+        .home-video-container {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 50%;
+            max-width: 800px; /* Starting size */
+            border-radius: 30px; /* Starting rounded corners */
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            background: #000;
+            aspect-ratio: 16/9;
+            will-change: width, max-width, border-radius;
+            transition: width 0.3s ease-out, max-width 0.3s ease-out, border-radius 0.3s ease-out;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            z-index: 1;
+        }
+        
+        /* Thumbnail Overlay & Pulse Animation */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop');
+        }
+        .video-overlay-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.65); /* Dark tint */
+            z-index: 1;
+        }
+        
+        /* KAI.id Pill Play Button */
+        .play-btn-pill {
+            position: relative;
+            z-index: 2;
+            padding: 14px 32px;
+            background-color: rgba(255, 255, 255, 0.2); /* Pure white glass tint */
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+        .play-btn-pill i {
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        .play-btn-pill:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .home-video-title {
+                font-size: 26px;
+            }
+            .home-video-container {
+                padding: 60px 20px;
+            }
+            .video-wrapper {
+                border-radius: 12px;
+            }
+            .play-btn-pill {
+                padding: 10px 24px;
+                font-size: 14px;
+            }
+        }
+    </style>
+
+    <section class="home-video-section">
+        <div class="home-video-container">
+            <div class="video-wrapper">
+                
+                <!-- Overlay Cover yang bisa diklik -->
+                <div class="video-overlay" id="videoOverlay" onclick="playVideo()">
+                    <div class="video-overlay-bg"></div>
+                    <div class="play-btn-pill">
+                        <i class="fas fa-play"></i> Putar Video
+                    </div>
+                </div>
+
+                <!-- Ganti URL embed di bawah dengan ID Video YouTube Anda yang sebenarnya -->
+                <iframe id="videoIframe" src="" data-src="https://www.youtube.com/embed/zpOULjyy-n8?autoplay=1&rel=0&showinfo=0" title="Video Profil Elcoding" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function playVideo() {
+            var overlay = document.getElementById('videoOverlay');
+            var iframe = document.getElementById('videoIframe');
+            // Hide the pulsing overlay
+            overlay.style.display = 'none';
+            // Load and auto-play the video
+            iframe.src = iframe.getAttribute('data-src');
+        }
+
+        // Animasi Scroll-Zoom untuk Video Thumbnail
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoSection = document.querySelector('.home-video-section');
+            const videoWrapper = document.querySelector('.video-wrapper');
+            
+            if (videoSection && videoWrapper) {
+                window.addEventListener('scroll', () => {
+                    // Hanya terapkan animasi di layar non-mobile (Desktop/Tablet besar)
+                    if (window.innerWidth < 768) return;
+
+                    const rect = videoSection.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+                    
+                    // Sticky Scroll Logic:
+                    // Animasi dimulai saat ujung atas section menyentuh atas layar (rect.top <= 0)
+                    // dan selesai setelah di-scroll sejauh 1.5x tinggi layar (sisa tinggi dari 250vh)
+                    let progress = 0;
+                    if (rect.top <= 0) {
+                        progress = Math.abs(rect.top) / (windowHeight * 1.5);
+                    }
+                    progress = Math.max(0, Math.min(1, progress));
+                    
+                    // Hitung nilai dinamis: dari lebar 50% menjadi 100%
+                    const currentWidth = 50 + (50 * progress); 
+                    const currentBorderRadius = 30 - (30 * progress); 
+                    
+                    videoWrapper.style.width = `${currentWidth}%`;
+                    videoWrapper.style.borderRadius = `${currentBorderRadius}px`;
+                    
+                    if (progress === 1) {
+                        videoWrapper.style.maxWidth = '100%';
+                    } else {
+                        // Secara mulus tambah max-width dari 800px ke lebar layar penuh
+                        const currentMaxWidth = 800 + ((window.innerWidth - 800) * progress);
+                        videoWrapper.style.maxWidth = `${currentMaxWidth}px`;
+                    }
+                });
+            }
+        });
+    </script>
+
+    <x-mitra style="--mitra-margin-top: 40px;" />
 <!-- Layanan Utama Section -->
 <style>
     .services-section {
-        padding: 0 20px 60px;
+        padding: 40px 20px 60px;
         background-color: #ffffff;
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
     .services-container {
-        max-width: 1200px;
+        max-width: 1000px;
         margin: 0 auto;
     }
     .section-header {
         text-align: center;
-        margin-bottom: 60px;
+        margin-bottom: 40px;
     }
-    .section-title {
-        font-size: 36px;
+    .top-badge {
+        display: inline-block;
+        background-color: #fff7ed;
+        color: #f97316;
+        font-size: 11px;
         font-weight: 800;
-        color: #222222;
+        letter-spacing: 0.5px;
+        padding: 6px 16px;
+        border-radius: 50px;
         margin-bottom: 16px;
     }
+    .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 12px;
+    }
     .section-subtitle {
-        font-size: 16px;
-        color: #666666;
+        font-size: 15px;
+        color: #4b5563;
         max-width: 600px;
         margin: 0 auto;
         line-height: 1.6;
@@ -153,84 +633,163 @@
     .services-grid {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 24px;
     }
     @media (min-width: 768px) {
         .services-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 767px) {
-        .services-section { padding: 0 16px 48px; }
-        .section-title { font-size: 28px; }
-        .section-header { margin-bottom: 40px; }
-        .service-card { padding: 24px; }
-    }
     
     .service-card {
         background: #ffffff;
-        border: 1px solid transparent;
-        border-radius: 20px;
-        padding: 40px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #f3f4f6;
+        border-radius: 12px;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.2s ease;
     }
     .service-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.06);
-        border-color: rgba(109, 40, 217, 0.1);
+        border-color: #e5e7eb;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
     }
     
-    .service-icon {
-        font-size: 40px;
-        color: #000000;
+    .icon-box {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         margin-bottom: 24px;
     }
+    .icon-box.blue {
+        background-color: #eef2ff;
+        color: #1e3a8a;
+    }
+    .icon-box.orange {
+        background-color: #fff7ed;
+        color: #9a3412;
+    }
+    .icon-box i {
+        font-size: 20px;
+    }
+
     .service-card h3 {
-        font-size: 22px;
-        font-weight: 700;
-        color: #222222;
+        font-size: 17px;
+        font-weight: 600;
+        color: #374151;
         margin-bottom: 16px;
     }
     .service-card p {
-        font-size: 15px;
-        color: #666666;
+        font-size: 14px;
+        color: #4b5563;
         line-height: 1.6;
         margin-bottom: 24px;
+        flex-grow: 1;
     }
-    .service-link {
+    
+    .tech-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 32px;
+    }
+    .tech-badges span {
+        background-color: #f3f4f6;
+        color: #4b5563;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 4px;
+    }
+
+    .btn-solid-blue {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 8px;
-        color: #20689b;
-        font-weight: 600;
-        font-size: 15px;
+        background-color: #002e94;
+        color: white;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 10px 20px;
+        border-radius: 6px;
         text-decoration: none;
-        transition: gap 0.3s ease;
+        align-self: flex-start;
+        transition: background-color 0.2s;
     }
-    .service-link:hover {
-        gap: 12px;
+    .btn-solid-blue:hover {
+        background-color: #002277;
+        color: white;
+    }
+
+    .btn-outline-blue {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background-color: transparent;
+        color: #1e3a8a;
+        border: 1px solid #d1d5db;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 10px 20px;
+        border-radius: 6px;
         text-decoration: none;
+        align-self: flex-start;
+        transition: all 0.2s;
+    }
+    .btn-outline-blue:hover {
+        border-color: #1e3a8a;
+        background-color: #f8fafc;
+        color: #1e3a8a;
     }
 </style>
 
 <section class="services-section">
     <div class="services-container">
         <div class="section-header">
+            <span class="top-badge">SOLUSI DIGITAL TERINTEGRASI</span>
             <h2 class="section-title">Layanan Utama Kami</h2>
-            <p class="section-subtitle">Solusi digital komprehensif mulai dari pelatihan SDM hingga pengembangan sistem skala enterprise.</p>
+            <p class="section-subtitle">Mewujudkan ide Anda menjadi produk digital unggulan dan mencetak talenta IT berkualitas untuk masa depan.</p>
         </div>
         
         <div class="services-grid">
+            <!-- Software House -->
             <div class="service-card">
-                <i class="fas fa-code-branch service-icon"></i>
+                <div class="icon-box blue">
+                    <i class="fas fa-network-wired"></i>
+                </div>
                 <h3>Software House</h3>
-                <p>Jasa pembuatan aplikasi website, sistem informasi, dan mobile apps secara custom untuk kebutuhan digitalisasi bisnis instansi Anda.</p>
-                <a href="/kontak" class="service-link">Konsultasi Project <i class="fas fa-arrow-right"></i></a>
+                <p>Jasa pembuatan aplikasi website, sistem informasi, dan mobile apps secara custom. Solusi IT cerdas yang disesuaikan dengan kebutuhan bisnis Anda, didukung dengan arsitektur modern dan aman.</p>
+                
+                <div class="tech-badges">
+                    <span>React</span>
+                    <span>Next.js</span>
+                    <span>Flutter</span>
+                    <span>Node.js</span>
+                    <span>AWS Cloud</span>
+                </div>
+                
+                <a href="/kontak" class="btn-solid-blue">Konsultasi Project <i class="fas fa-arrow-right"></i></a>
             </div>
+            
+            <!-- Pelatihan & Kursus IT -->
             <div class="service-card">
-                <i class="fas fa-graduation-cap service-icon"></i>
+                <div class="icon-box orange">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
                 <h3>Pelatihan & Kursus IT</h3>
-                <p>Program bootcamp intensif bersertifikat. Dirancang untuk membangun fondasi karir di industri teknologi digital dengan kurikulum terstruktur.</p>
-                <a href="/program-kursus" class="service-link">Lihat Program <i class="fas fa-arrow-right"></i></a>
+                <p>Program bootcamp intensif bersertifikat. Dirancang khusus untuk membangun fondasi karir Anda di dunia teknologi dengan kurikulum berbasis praktik industri yang mutakhir.</p>
+                
+                <div class="tech-badges">
+                    <span>Fullstack Dev</span>
+                    <span>Mobile App</span>
+                    <span>AI Bootcamp</span>
+                    <span>Portfolio Mentoring</span>
+                </div>
+                
+                <a href="/program-kursus" class="btn-outline-blue">Lihat Program Kursus <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </div>

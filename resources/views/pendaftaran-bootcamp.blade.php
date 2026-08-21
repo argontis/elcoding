@@ -602,12 +602,12 @@
 
                     <div class="form-group" style="margin-bottom: 18px;">
                         <label class="form-label" style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;" for="nama">Nama Lengkap</label>
-                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan nama Anda" required value="{{ old('nama', auth()->user()->name ?? '') }}">
+                        <input type="text" name="nama" id="nama" class="form-control" placeholder="Masukkan nama Anda" required value="{{ old('nama') }}">
                     </div>
 
                     <div class="form-group" style="margin-bottom: 18px;">
                         <label class="form-label" style="display: block; font-size: 14px; font-weight: 600; color: #374151; margin-bottom: 6px;" for="email">Alamat Email</label>
-                        <input type="email" name="email" id="email" class="form-control" placeholder="contoh@email.com" required value="{{ old('email', auth()->user()->email ?? '') }}">
+                        <input type="email" name="email" id="email" class="form-control" placeholder="contoh@email.com" required value="{{ old('email') }}">
                     </div>
 
                     <div class="form-group" style="margin-bottom: 18px;">

@@ -543,13 +543,13 @@
 
                             <div class="form-group mb-4">
                                 <label class="input-group-label" for="nama">Nama Lengkap</label>
-                                <input type="text" name="nama" id="nama" class="custom-form-input" placeholder="Masukkan nama sesuai KTP/Ijazah" required value="{{ old('nama', auth()->user()->name ?? '') }}">
+                                <input type="text" name="nama" id="nama" class="custom-form-input" placeholder="Masukkan nama sesuai KTP/Ijazah" required value="{{ old('nama') }}">
                             </div>
 
                             <div class="form-row-2col">
                                 <div>
                                     <label class="input-group-label" for="email">Alamat Email</label>
-                                    <input type="email" name="email" id="email" class="custom-form-input" placeholder="email@contoh.com" required value="{{ old('email', auth()->user()->email ?? '') }}">
+                                    <input type="email" name="email" id="email" class="custom-form-input" placeholder="email@contoh.com" required value="{{ old('email') }}">
                                 </div>
                                 <div>
                                     <label class="input-group-label" for="whatsapp">Nomor WhatsApp</label>

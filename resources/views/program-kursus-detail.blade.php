@@ -221,12 +221,12 @@
                     @csrf
                     <div class="form-group">
                         <label class="form-label" for="user_name">Nama Lengkap</label>
-                        <input type="text" name="user_name" id="user_name" class="form-input" placeholder="Masukkan nama Anda" required value="{{ old('user_name', auth()->user()->name ?? '') }}">
+                        <input type="text" name="user_name" id="user_name" class="form-input" placeholder="Masukkan nama Anda" required value="{{ old('user_name') }}">
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="user_email">Alamat Email</label>
-                        <input type="email" name="user_email" id="user_email" class="form-input" placeholder="contoh@email.com" required value="{{ old('user_email', auth()->user()->email ?? '') }}">
+                        <input type="email" name="user_email" id="user_email" class="form-input" placeholder="contoh@email.com" required value="{{ old('user_email') }}">
                     </div>
 
                     <div class="form-group">

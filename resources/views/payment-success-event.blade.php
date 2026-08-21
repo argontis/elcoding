@@ -59,7 +59,7 @@
             border-radius: 30px;
             text-decoration: none !important;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 14px rgba(32, 104, 155, 0.4);
+            box-shadow: 0 4px 14px rgba(75, 107, 245, 0.4);
         }
         .btn-home:hover, .btn-home:focus, .btn-home:active, .btn-home:visited {
             background: #1a5682;

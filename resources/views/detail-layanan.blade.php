@@ -363,7 +363,7 @@
         }
         .form-input:focus {
             border-color: #4B6BF5;
-            box-shadow: 0 0 0 3px rgba(32, 104, 155, 0.15);
+            box-shadow: 0 0 0 3px rgba(75, 107, 245, 0.15);
         }
 
         /* Full Features Section */

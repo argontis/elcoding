@@ -52,9 +52,9 @@ class XenditService
             'currency' => 'IDR',
             'invoice_duration' => 86400, // 24 jam
             'customer' => [
-                'given_names' => $order->user_name,
-                'email' => $order->user_email,
-                'mobile_number' => $order->user_phone,
+                'given_names' => (string) $order->user_name,
+                'email' => (string) $order->user_email,
+                'mobile_number' => (string) $order->user_phone,
             ],
             'success_redirect_url' => url('/payment/success?order_id=' . $order->external_id),
             'failure_redirect_url' => url('/program-kursus/' . $program->id),
@@ -66,6 +66,8 @@ class XenditService
             'invoice_id' => $result->getId(),
             'invoice_url' => $result->getInvoiceUrl(),
         ];
+    }
+
     public function createLayananInvoice(LayananOrder $order): array
     {
         $layanan = $order->layanan;
@@ -77,9 +79,9 @@ class XenditService
             'currency' => 'IDR',
             'invoice_duration' => 86400, // 24 jam
             'customer' => [
-                'given_names' => $order->user_name,
-                'email' => $order->user_email,
-                'mobile_number' => $order->user_phone,
+                'given_names' => (string) $order->user_name,
+                'email' => (string) $order->user_email,
+                'mobile_number' => (string) $order->user_phone,
             ],
             'success_redirect_url' => url('/layanan/payment/success?order_id=' . $order->external_id),
             'failure_redirect_url' => url('/layanan/detail/' . $layanan->slug),
@@ -101,9 +103,9 @@ class XenditService
             'currency' => 'IDR',
             'invoice_duration' => 86400, // 24 jam
             'customer' => [
-                'given_names' => $order->user_name,
-                'email' => $order->user_email,
-                'mobile_number' => $order->user_phone,
+                'given_names' => (string) $order->user_name,
+                'email' => (string) $order->user_email,
+                'mobile_number' => (string) $order->user_phone,
             ],
             'success_redirect_url' => url('/event-webinar/payment/success?order_id=' . $order->external_id),
             'failure_redirect_url' => url('/event-webinar'),

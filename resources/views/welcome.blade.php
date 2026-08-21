@@ -836,7 +836,7 @@
     .why-us-card:hover {
         transform: translateY(-8px);
         box-shadow: 0 15px 40px rgba(0,0,0,0.06);
-        border-color: rgba(32, 104, 155, 0.1);
+        border-color: rgba(75, 107, 245, 0.1);
     }
     
     .why-us-icon {
@@ -917,7 +917,7 @@
             content: "";
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(32, 104, 155, 0.85), rgba(32, 104, 155, 0.95)) !important;
+            background: linear-gradient(to bottom, rgba(75, 107, 245, 0.85), rgba(75, 107, 245, 0.95)) !important;
             z-index: 0;
         }
         .elementor-element-35b5f33 > .e-con-inner {
@@ -1164,7 +1164,7 @@
     .statistics-cta-section { 
         padding: 40px 20px; 
         background-color: #4B6BF5; 
-        background-image: linear-gradient(to bottom, rgba(32, 104, 155, 0.85), rgba(32, 104, 155, 0.95)), url('{{ asset("gambar/aset/ilustrasi-belajar.jpg") }}');
+        background-image: linear-gradient(to bottom, rgba(75, 107, 245, 0.85), rgba(75, 107, 245, 0.95)), url('{{ asset("gambar/aset/ilustrasi-belajar.jpg") }}');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;

@@ -17,162 +17,195 @@
     
     <!-- Hero Section -->
     <style>
-        .hero-section {
+        .kai-hero {
             position: relative;
-            padding: 140px 20px 100px;
-            text-align: center;
-            background-color: #0f172a;
-            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('{{ asset("gambar/aset/ilustrasi-belajar.jpg") }}');
+            width: 100%;
+            height: 100vh;
+            min-height: 600px;
+            margin-top: -80px; /* Adjust based on navbar height to reach the top */
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 80px;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Background Slider Container */
+        .kai-hero-bg-slider {
+            position: absolute;
+            top: 0; left: 0;
+            width: 400%; /* 4 slides = 400% */
+            height: 100%;
+            display: flex;
+            z-index: 0;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        .kai-hero-slide {
+            width: 25%; /* 100% / 4 */
+            height: 100%;
             background-size: cover;
             background-position: center;
-            color: white;
-            margin-top: -80px; /* Adjust based on navbar height to reach the top */
         }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 8px 18px;
-            border-radius: 50px;
-            margin-bottom: 30px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #f97316; /* Orange color */
-            backdrop-filter: blur(4px);
+
+        .kai-hero-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%),
+                        linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%);
+            z-index: 1;
         }
-        .hero-badge i {
-            color: #d1d5db;
+
+        .kai-hero-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        .hero-title-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 24px;
-            max-width: 1000px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .hero-title-brace {
-            font-size: 100px;
-            font-weight: 300;
-            color: rgba(255, 255, 255, 0.15);
-            line-height: 1;
-            margin: 0 15px;
-            font-family: monospace;
-            user-select: none;
-        }
-        .hero-title {
-            font-size: 48px;
-            font-weight: 800;
-            line-height: 1.25;
-            color: #ffffff;
-            margin: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-        .hero-subtitle {
+
+        .kai-hero-content {
             max-width: 650px;
-            margin: 0 auto 40px;
-            font-size: 16px;
+        }
+
+        .kai-hero-title {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .kai-hero-subtitle {
+            font-size: 18px;
             line-height: 1.6;
-            color: #9ca3af;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin-bottom: 40px;
+            color: #e2e8f0;
+            font-weight: 400;
         }
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
+
+        .kai-hero-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            transition: gap 0.3s ease;
+        }
+
+        .kai-hero-link:hover {
             gap: 16px;
-            flex-wrap: wrap;
+            color: #cbd5e1;
         }
-        .btn-hero-primary {
-            background-color: #a5b4fc; /* light blue */
-            color: #1e3a8a;
-            font-weight: 600;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            padding: 14px 32px;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
+
+        /* Slider indicators */
+        .kai-slider-indicators {
+            display: flex;
+            gap: 16px;
+            margin-top: 60px;
         }
-        .btn-hero-primary:hover {
-            background-color: #c7d2fe;
-            transform: translateY(-2px);
-            color: #1e3a8a;
-            box-shadow: 0 10px 25px rgba(165, 180, 252, 0.2);
+
+        .kai-indicator {
+            width: 48px;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-        .btn-hero-secondary {
-            background-color: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            font-weight: 600;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            padding: 14px 32px;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 15px;
+
+        .kai-indicator.active {
+            background-color: #ffffff;
         }
-        .btn-hero-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-2px);
-            color: #ffffff;
-        }
-        
+
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 32px;
+            .kai-hero-title {
+                font-size: 36px;
             }
-            .hero-title-brace {
-                font-size: 60px;
-                margin: 0 8px;
+            .kai-hero-subtitle {
+                font-size: 16px;
             }
-            .hero-subtitle {
-                font-size: 15px;
-                padding: 0 15px;
-            }
-            .hero-section {
-                padding: 120px 15px 60px;
-            }
-            .btn-hero-primary, .btn-hero-secondary {
-                width: 100%;
-                max-width: 300px;
+            .kai-hero {
+                padding-bottom: 60px;
             }
         }
     </style>
 
-    <section class="hero-section">
-        <div class="hero-badge">
-            <i class="fas fa-laptop-code"></i> Akademi Coding & Transformasi Digital #1
+    <section class="kai-hero">
+        <div class="kai-hero-bg-slider" id="kaiBgSlider">
+            <!-- Slide 1: Changed to modern tech/coding setup -->
+            <div class="kai-hero-slide" style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop');"></div>
+            <!-- Slide 2: Modern Bootcamp Coding -->
+            <div class="kai-hero-slide" style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop');"></div>
+            <!-- Slide 3: Mentoring/Teaching -->
+            <div class="kai-hero-slide" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop');"></div>
+            <!-- Slide 4: Glowing Code/Tech Environment -->
+            <div class="kai-hero-slide" style="background-image: url('https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=2070&auto=format&fit=crop');"></div>
         </div>
         
-        <div class="hero-title-container">
-            <span class="hero-title-brace">{</span>
-            <h1 class="hero-title">Software House Profesional &<br>Pusat Pelatihan IT Terbaik</h1>
-            <span class="hero-title-brace">}</span>
-        </div>
+        <div class="kai-hero-overlay"></div>
         
-        <p class="hero-subtitle">
-            Elcoding adalah mitra terpercaya anda, menyediakan jasa pembuatan websit&aplikasi(Software House) untuk digitalisasi bisnis.
-        </p>
-        
-        <div class="hero-buttons">
-            <a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20tertarik%20dengan%20jasa%20pembuatan%20aplikasi/website%20dan%20ingin%20berkonsultasi." target="_blank" class="btn-hero-primary">
-                Buat Aplikasi
-            </a>
-            <a href="/program-kursus" class="btn-hero-secondary">
-                Daftar Kursus <i class="fas fa-arrow-right"></i>
-            </a>
+        <div class="kai-hero-container">
+            <div class="kai-hero-content">
+                <h1 class="kai-hero-title">Bangun Produk Digital,<br>Tingkatkan Skill IT</h1>
+                <p class="kai-hero-subtitle">
+                    Temukan berbagai layanan pembuatan aplikasi dan program pelatihan IT terbaik yang menjadi bagian dari perjalanan kesuksesan bisnis Anda bersama Elcoding.
+                </p>
+                <a href="/tentang-kami" class="kai-hero-link">
+                    Lebih Lanjut Tentang Kami <i class="fas fa-arrow-right"></i>
+                </a>
+                
+                <div class="kai-slider-indicators" id="kaiSliderIndicators">
+                    <div class="kai-indicator active" onclick="goToSlide(0)"></div>
+                    <div class="kai-indicator" onclick="goToSlide(1)"></div>
+                    <div class="kai-indicator" onclick="goToSlide(2)"></div>
+                    <div class="kai-indicator" onclick="goToSlide(3)"></div>
+                </div>
+            </div>
         </div>
     </section>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 4;
+        const slider = document.getElementById('kaiBgSlider');
+        const indicators = document.getElementById('kaiSliderIndicators').children;
+        let slideInterval;
+
+        function goToSlide(index) {
+            currentSlide = index;
+            // Move slider container smoothly
+            slider.style.transform = `translateX(-${currentSlide * 25}%)`;
+            
+            // Update indicator states
+            for(let i = 0; i < indicators.length; i++) {
+                indicators[i].classList.remove('active');
+            }
+            indicators[currentSlide].classList.add('active');
+            
+            // Reset interval so it doesn't auto-slide immediately after manual click
+            resetInterval();
+        }
+
+        function nextSlide() {
+            let next = (currentSlide + 1) % totalSlides;
+            goToSlide(next);
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000); // Auto-slide every 5 seconds
+        }
+
+        // Initialize auto slide
+        document.addEventListener('DOMContentLoaded', function() {
+            resetInterval();
+        });
+    </script>
 
     <!-- Tentang Elcoding Section -->
     <style>
@@ -316,27 +349,248 @@
                     });
                 </div>
             </div>
-            <div class="tentang-right">
+            <div class="tentang-right" id="tentangCounterSection">
                 <div class="tentang-card">
                     <div class="tentang-card-icon icon-blue"><i class="fas fa-graduation-cap"></i></div>
-                    <div class="tentang-card-value">&gt;1.500+</div>
+                    <div class="tentang-card-value counter-value" data-prefix="&gt;" data-suffix="+" data-target="1500">&gt;0+</div>
                     <div class="tentang-card-label">Alumni Sukses Bekerja</div>
                 </div>
                 <div class="tentang-card">
                     <div class="tentang-card-icon icon-blue"><i class="fas fa-check-circle"></i></div>
-                    <div class="tentang-card-value">&gt;96%</div>
+                    <div class="tentang-card-value counter-value" data-prefix="&gt;" data-suffix="%" data-target="96">&gt;0%</div>
                     <div class="tentang-card-label">Tingkat Kelulusan</div>
                 </div>
                 <div class="tentang-card glow-card">
                     <div class="tentang-card-icon icon-orange"><i class="fas fa-rocket"></i></div>
-                    <div class="tentang-card-value">&gt;120+</div>
+                    <div class="tentang-card-value counter-value" data-prefix="&gt;" data-suffix="+" data-target="120">&gt;0+</div>
                     <div class="tentang-card-label">Proyek Enterprise</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <x-mitra />
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const counters = document.querySelectorAll('.counter-value');
+            const section = document.getElementById('tentangCounterSection');
+            let started = false;
+
+            const observer = new IntersectionObserver((entries) => {
+                if(entries[0].isIntersecting && !started) {
+                    started = true;
+                    counters.forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        const prefix = counter.getAttribute('data-prefix') || '';
+                        const suffix = counter.getAttribute('data-suffix') || '';
+                        const duration = 4000; // 4 seconds animation
+                        const increment = target / (duration / 16); 
+                        let current = 0;
+                        
+                        const updateCounter = () => {
+                            current += increment;
+                            if (current < target) {
+                                // Format with dot for thousands
+                                let displayVal = Math.ceil(current).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                                counter.innerText = prefix + displayVal + suffix;
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                let displayVal = target.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                                counter.innerText = prefix + displayVal + suffix;
+                            }
+                        };
+                        updateCounter();
+                    });
+                }
+            }, { threshold: 0.5 });
+
+            if (section) {
+                observer.observe(section);
+            }
+        });
+    </script>
+
+    <!-- Home Video Section -->
+    <style>
+        .home-video-section {
+            padding: 0;
+            background-color: transparent;
+            position: relative;
+            width: 100%;
+            height: 250vh; /* Allow enough scroll space for the sticky effect */
+        }
+        .home-video-container {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 50%;
+            max-width: 800px; /* Starting size */
+            border-radius: 30px; /* Starting rounded corners */
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            background: #000;
+            aspect-ratio: 16/9;
+            will-change: width, max-width, border-radius;
+            transition: width 0.3s ease-out, max-width 0.3s ease-out, border-radius 0.3s ease-out;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            z-index: 1;
+        }
+        
+        /* Thumbnail Overlay & Pulse Animation */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop');
+        }
+        .video-overlay-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.65); /* Dark tint */
+            z-index: 1;
+        }
+        
+        /* KAI.id Pill Play Button */
+        .play-btn-pill {
+            position: relative;
+            z-index: 2;
+            padding: 14px 32px;
+            background-color: rgba(255, 255, 255, 0.2); /* Pure white glass tint */
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+        .play-btn-pill i {
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        .play-btn-pill:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .home-video-title {
+                font-size: 26px;
+            }
+            .home-video-container {
+                padding: 60px 20px;
+            }
+            .video-wrapper {
+                border-radius: 12px;
+            }
+            .play-btn-pill {
+                padding: 10px 24px;
+                font-size: 14px;
+            }
+        }
+    </style>
+
+    <section class="home-video-section">
+        <div class="home-video-container">
+            <div class="video-wrapper">
+                
+                <!-- Overlay Cover yang bisa diklik -->
+                <div class="video-overlay" id="videoOverlay" onclick="playVideo()">
+                    <div class="video-overlay-bg"></div>
+                    <div class="play-btn-pill">
+                        <i class="fas fa-play"></i> Putar Video
+                    </div>
+                </div>
+
+                <!-- Ganti URL embed di bawah dengan ID Video YouTube Anda yang sebenarnya -->
+                <iframe id="videoIframe" src="" data-src="https://www.youtube.com/embed/zpOULjyy-n8?autoplay=1&rel=0&showinfo=0" title="Video Profil Elcoding" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function playVideo() {
+            var overlay = document.getElementById('videoOverlay');
+            var iframe = document.getElementById('videoIframe');
+            // Hide the pulsing overlay
+            overlay.style.display = 'none';
+            // Load and auto-play the video
+            iframe.src = iframe.getAttribute('data-src');
+        }
+
+        // Animasi Scroll-Zoom untuk Video Thumbnail
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoSection = document.querySelector('.home-video-section');
+            const videoWrapper = document.querySelector('.video-wrapper');
+            
+            if (videoSection && videoWrapper) {
+                window.addEventListener('scroll', () => {
+                    // Hanya terapkan animasi di layar non-mobile (Desktop/Tablet besar)
+                    if (window.innerWidth < 768) return;
+
+                    const rect = videoSection.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+                    
+                    // Sticky Scroll Logic:
+                    // Animasi dimulai saat ujung atas section menyentuh atas layar (rect.top <= 0)
+                    // dan selesai setelah di-scroll sejauh 1.5x tinggi layar (sisa tinggi dari 250vh)
+                    let progress = 0;
+                    if (rect.top <= 0) {
+                        progress = Math.abs(rect.top) / (windowHeight * 1.5);
+                    }
+                    progress = Math.max(0, Math.min(1, progress));
+                    
+                    // Hitung nilai dinamis: dari lebar 50% menjadi 100%
+                    const currentWidth = 50 + (50 * progress); 
+                    const currentBorderRadius = 30 - (30 * progress); 
+                    
+                    videoWrapper.style.width = `${currentWidth}%`;
+                    videoWrapper.style.borderRadius = `${currentBorderRadius}px`;
+                    
+                    if (progress === 1) {
+                        videoWrapper.style.maxWidth = '100%';
+                    } else {
+                        // Secara mulus tambah max-width dari 800px ke lebar layar penuh
+                        const currentMaxWidth = 800 + ((window.innerWidth - 800) * progress);
+                        videoWrapper.style.maxWidth = `${currentMaxWidth}px`;
+                    }
+                });
+            }
+        });
+    </script>
+
+    <x-mitra style="--mitra-margin-top: 40px;" />
 <!-- Layanan Utama Section -->
 <style>
     .services-section {

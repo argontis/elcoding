@@ -367,7 +367,7 @@
 
 
     <!-- ================= NAVBAR BARU (Desain Websekolah) ================= -->
-    <header class="custom-header">
+    <header class="custom-header {{ request()->is('/') ? 'transparent-header' : '' }}" id="main-header">
         <div class="header-container">
             <!-- 1. BAGIAN KIRI: Logo -->
             <div class="header-logo">
@@ -429,6 +429,37 @@
             z-index: 9999;
             box-shadow: 0 2px 10px rgba(0,0,0,0.02);
             font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        /* Transparent Header Overrides (Welcome Page) */
+        .custom-header.transparent-header:not(.scrolled) {
+            background: transparent;
+            border-bottom: none;
+            box-shadow: none;
+        }
+        .custom-header.transparent-header:not(.scrolled) .header-logo span,
+        .custom-header.transparent-header:not(.scrolled) .nav-link,
+        .custom-header.transparent-header:not(.scrolled) .mobile-toggle {
+            color: #ffffff !important;
+        }
+        .custom-header.transparent-header:not(.scrolled) .nav-link:hover,
+        .custom-header.transparent-header:not(.scrolled) .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15) !important;
+            color: #ffffff !important;
+        }
+        .custom-header.transparent-header:not(.scrolled) .header-logo img {
+            filter: brightness(0) invert(1);
+        }
+        .custom-header.transparent-header:not(.scrolled) .btn-solid {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff !important;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .custom-header.transparent-header.scrolled {
+            background: #ffffff;
+            border-bottom: 1px solid #f1f5f9;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
         .header-container {
             max-width: 1200px;
@@ -616,6 +647,16 @@
     <!-- Script Navbar Baru -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const mainHeader = document.getElementById('main-header');
+            if (mainHeader && mainHeader.classList.contains('transparent-header')) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        mainHeader.classList.add('scrolled');
+                    } else {
+                        mainHeader.classList.remove('scrolled');
+                    }
+                });
+            }
             const mobileToggle = document.getElementById('mobile-toggle');
             const headerNav = document.getElementById('header-nav');
             const dropdownBtn = document.getElementById('dropdownBtn');

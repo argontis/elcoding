@@ -144,39 +144,64 @@
 
         /* Hero Section */
         .detail-hero {
-            background-color: #005a96;
+            background-image: url('{{ asset("gambar/aset/hero-title-banner.png") }}');
+            background-position: center center;
+            background-size: cover;
             color: #ffffff;
-            padding: 60px 0;
+            padding: 70px 0;
+            text-align: center;
+            position: relative;
+        }
+        .detail-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.2);
+            z-index: 1;
+        }
+        .detail-hero .container {
+            position: relative;
+            z-index: 2;
         }
         .breadcrumb {
             font-size: 14px;
-            margin-bottom: 20px;
-            color: #93c5fd;
+            margin-bottom: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
         }
         .breadcrumb a {
-            color: #93c5fd;
+            color: #ffffff;
             text-decoration: none;
-            transition: color 0.3s;
+            font-weight: 600;
+            transition: opacity 0.3s;
         }
         .breadcrumb a:hover {
-            color: #ffffff;
+            opacity: 0.8;
         }
         .breadcrumb i {
-            margin: 0 8px;
-            font-size: 12px;
+            margin: 0 4px;
+            font-size: 11px;
+            opacity: 0.8;
         }
         .detail-title {
-            font-size: 36px;
+            font-size: 40px;
             font-weight: 800;
-            margin: 0 0 15px;
+            margin: 0 0 12px;
             color: #ffffff !important;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
         .detail-subtitle {
-            font-size: 18px;
+            font-size: 17px;
             line-height: 1.6;
-            max-width: 800px;
-            margin: 0;
-            color: #e2e8f0;
+            max-width: 750px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         /* Content Grid */

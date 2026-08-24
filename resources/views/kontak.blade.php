@@ -89,7 +89,10 @@
                                 <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
                                 <div class="info-text">
                                     <strong>Telepon / WhatsApp</strong>
-                                    <span>{{ \App\Models\Setting::getValue('contact_phone', '+62 814-7665-2656') }}</span>
+                                    <span>
+                                        <a href="https://wa.me/6281476652656" target="_blank" style="color: inherit; text-decoration: none; font-weight: 600;">+62 814-7665-2656</a> &nbsp;|&nbsp; 
+                                        <a href="https://wa.me/6287762334232" target="_blank" style="color: inherit; text-decoration: none; font-weight: 600;">+62 877-6233-4232</a>
+                                    </span>
                                 </div>
                             </li>
                             <li>
@@ -302,7 +305,7 @@
     "@@type": "Organization",
     "contactPoint": {
       "@@type": "ContactPoint",
-      "telephone": "+6281476652656",
+      "telephone": "+6281476652656, +6287762334232",
       "contactType": "customer service",
       "areaServed": "ID",
       "availableLanguage": "Indonesian"

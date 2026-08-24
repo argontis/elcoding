@@ -179,9 +179,94 @@
         /* Header Konsultasi Button */
         .elementor-element-5ebed42 .elementor-button {
             background-color: #4B6BF5 !important;
+            transition: all 0.3s ease !important;
             color: #ffffff !important;
             font-size: 13px !important;
             font-weight: 600 !important;
+        }
+
+        /* Universal Filter Tabs Component Styling */
+        .filter-tabs-wrapper {
+            position: relative;
+            z-index: 10;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        .filter-tabs {
+            background: #ffffff;
+            padding: 8px 12px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            border: 1px solid #f1f5f9;
+        }
+
+        .tab-pill {
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4B5563;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .tab-pill:hover {
+            color: #20689b;
+            background: #f1f5f9;
+        }
+
+        .tab-pill.active,
+        .tab-pill.active-red {
+            background: #20689b;
+            color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(32, 104, 155, 0.25);
+        }
+
+        /* Hero Page Title Banner Styling */
+        .elementor-element-691d17c::before,
+        .elementor-element-691d17c > .elementor-motion-effects-container > .elementor-motion-effects-layer::before {
+            background-image: url("{{ asset('gambar/aset/hero-title-banner.png') }}") !important;
+            background-position: center center !important;
+            background-size: cover !important;
+        }
+
+        .elementor-element-691d17c {
+            padding-top: 5em !important;
+            padding-bottom: 5em !important;
+            position: relative;
+        }
+
+        .elementor-element-0b653e6 .elementor-heading-title {
+            color: #ffffff !important;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+            font-weight: 800 !important;
+        }
+
+        .elementor-element-89b3de6,
+        .elementor-element-89b3de6 p,
+        .elementor-element-89b3de6 span {
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+
+        .elementor-element-89b3de6 a {
+            color: #ffffff !important;
+            font-weight: 600 !important;
+        }
+
+        .elementor-element-89b3de6 a:hover {
+            opacity: 0.8 !important;
+        }
             text-transform: uppercase !important;
             padding: 12px 25px !important;
             border-radius: 50px !important;
@@ -768,8 +853,12 @@
                             </div>
                         </li>
                     @endif
-                    <li style="margin-top: 12px;"><i class="fab fa-whatsapp"></i> Admin :
-                        {{ \App\Models\Setting::getValue('contact_phone', '+62 814-7665-2656') }}</li>
+                    <li style="margin-top: 12px;"><i class="fab fa-whatsapp"></i> Admin 1:
+                        <a href="https://wa.me/6281476652656" target="_blank" style="color: inherit; text-decoration: none; font-weight: 600;">+62 814-7665-2656</a>
+                    </li>
+                    <li style="margin-top: 4px;"><i class="fab fa-whatsapp"></i> Admin 2:
+                        <a href="https://wa.me/6287762334232" target="_blank" style="color: inherit; text-decoration: none; font-weight: 600;">+62 877-6233-4232</a>
+                    </li>
                     <li><i class="fas fa-envelope"></i>
                         {{ \App\Models\Setting::getValue('contact_email', 'info@elcodingacademy.com') }}</li>
                 </ul>
@@ -1208,21 +1297,43 @@
     <script id="pro-elements-handlers-js"
         src="{{ asset('assets/wp-content/plugins/pro-elements/assets/js/elements-handlers.min.js') }}" defer></script>
 
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/6281476652656?text=Halo%20Admin%20Elcoding,%20saya%20ingin%20bertanya..."
-        class="floating-whatsapp" target="_blank" rel="noopener noreferrer" title="Chat WhatsApp Admin">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-    </a>
+    <!-- Floating WhatsApp Widget -->
+    <div class="floating-wa-container">
+        <div class="floating-wa-popup" id="waPopup">
+            <div class="wa-popup-header">
+                <strong>Konsultasi Via WhatsApp</strong>
+                <span class="wa-popup-subtitle">Pilih admin untuk konsultasi:</span>
+            </div>
+            <a href="https://wa.me/6281476652656?text=Halo%20Admin%201%20Elcoding,%20saya%20ingin%20berkonsultasi..." target="_blank" class="wa-admin-item">
+                <i class="fab fa-whatsapp"></i>
+                <div>
+                    <strong>Admin 1</strong>
+                    <span>0814-7665-2656</span>
+                </div>
+            </a>
+            <a href="https://wa.me/6287762334232?text=Halo%20Admin%202%20Elcoding,%20saya%20ingin%20berkonsultasi..." target="_blank" class="wa-admin-item">
+                <i class="fab fa-whatsapp"></i>
+                <div>
+                    <strong>Admin 2</strong>
+                    <span>0877-6233-4232</span>
+                </div>
+            </a>
+        </div>
+        <button type="button" class="floating-whatsapp" id="waBtn" title="Chat WhatsApp Admin" onclick="toggleWaPopup()">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        </button>
+    </div>
 
     <style>
-        .floating-whatsapp {
+        .floating-wa-container {
             position: fixed;
             bottom: 110px;
-            /* 30px (bottom chatbot) + 60px (tinggi chatbot) + 20px (jarak) */
             right: 30px;
-            /* Sejajar dengan chatbot */
+            z-index: 9999;
+        }
+
+        .floating-whatsapp {
             width: 60px;
-            /* Ukuran sama dengan chatbot */
             height: 60px;
             background-color: #25d366;
             border-radius: 50%;
@@ -1230,13 +1341,14 @@
             justify-content: center;
             align-items: center;
             box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
-            z-index: 9999;
-            text-decoration: none;
             transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            outline: none;
         }
 
         .floating-whatsapp:hover {
-            transform: scale(1.1) translateY(-5px);
+            transform: scale(1.1) translateY(-3px);
             box-shadow: 0 15px 35px rgba(37, 211, 102, 0.6);
         }
 
@@ -1245,22 +1357,112 @@
             height: 35px;
         }
 
-        /* Penyesuaian untuk layar HP/Mobile agar sejajar dengan chatbot mobile */
+        .floating-wa-popup {
+            display: none;
+            position: absolute;
+            bottom: 75px;
+            right: 0;
+            width: 250px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .floating-wa-popup.show {
+            display: flex;
+        }
+
+        .wa-popup-header {
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 8px;
+            margin-bottom: 2px;
+        }
+
+        .wa-popup-header strong {
+            display: block;
+            font-size: 14px;
+            color: #1e293b;
+        }
+
+        .wa-popup-subtitle {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .wa-admin-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: #f8fafc;
+            text-decoration: none;
+            color: #334155;
+            transition: all 0.2s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .wa-admin-item i {
+            font-size: 22px;
+            color: #25d366;
+        }
+
+        .wa-admin-item:hover {
+            background: #25d366;
+            color: #ffffff;
+            border-color: #25d366;
+        }
+
+        .wa-admin-item:hover i {
+            color: #ffffff;
+        }
+
+        .wa-admin-item strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .wa-admin-item span {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
         @media (max-width: 480px) {
-            .floating-whatsapp {
+            .floating-wa-container {
                 bottom: 85px;
-                /* 20px + 50px + 15px */
                 right: 20px;
+            }
+            .floating-whatsapp {
                 width: 50px;
                 height: 50px;
             }
-
             .floating-whatsapp img {
                 width: 30px;
                 height: 30px;
             }
         }
     </style>
+
+    <script>
+        function toggleWaPopup() {
+            const popup = document.getElementById('waPopup');
+            if (popup) {
+                popup.classList.toggle('show');
+            }
+        }
+
+        document.addEventListener('click', function(e) {
+            const container = document.querySelector('.floating-wa-container');
+            const popup = document.getElementById('waPopup');
+            if (container && popup && !container.contains(e.target)) {
+                popup.classList.remove('show');
+            }
+        });
+    </script>
 
     <!-- Chatbot Modal terhubung ke ChatController -->
     <div id="chatbot-modal" class="chatbot-modal">

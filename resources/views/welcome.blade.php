@@ -1773,7 +1773,7 @@ document.addEventListener("DOMContentLoaded", function() {
   "image": "{{ asset('gambar/aset/logo-elcoding.png') }}",
   "@@id": "{{ url('/') }}",
   "url": "{{ url('/') }}",
-  "telephone": "+6281476652656",
+  "telephone": "+6281476652656, +6287762334232",
   "address": {
     "@@type": "PostalAddress",
     "streetAddress": "CitraLand Tegal blok Belleza Plaza Lt.2",

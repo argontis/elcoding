@@ -73,6 +73,8 @@
     <section class="programs-section">
         <div class="programs-container">
             
+            <!-- Navigation Filter Tabs -->
+            <x-filter-bar active="program-kursus" />
             <div class="programs-grid">
                 
                 @forelse($programs as $program)

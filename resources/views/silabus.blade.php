@@ -691,7 +691,7 @@ $data = $syllabuses[$type] ?? $syllabuses['fullstack'];
                     <a href="{!! $data['register_url'] ?? url('/daftar-event') !!}" class="btn-register-primary">
                         <i class="fas fa-user-plus"></i> Daftar Sekarang
                     </a>
-                    <a href="https://wa.me/6285156553183?text=Halo%20Admin%20Elcoding,%20saya%20ingin%20tanya%20mengenai%20Silabus" target="_blank" class="btn-whatsapp-secondary">
+                    <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}?text=Halo%20Admin%20Elcoding,%20saya%20ingin%20tanya%20mengenai%20Silabus" target="_blank" class="btn-whatsapp-secondary">
                         <i class="fab fa-whatsapp"></i> Konsultasi via WhatsApp
                     </a>
                 </div>

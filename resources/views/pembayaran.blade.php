@@ -445,7 +445,7 @@
                 </p>
 
                 <div>
-                    <a href="https://wa.me/6285156553183?text=Halo%20Admin%20Elcoding,%20saya%20butuh%20bantuan%20pembayaran%20Order%20%23ELC-89210" target="_blank" class="whatsapp-help-link">
+                    <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}?text=Halo%20Admin%20Elcoding,%20saya%20butuh%20bantuan%20pembayaran%20Order%20%23ELC-89210" target="_blank" class="whatsapp-help-link">
                         <i class="fab fa-whatsapp text-lg"></i> Butuh bantuan? Hubungi Admin via WhatsApp
                     </a>
                 </div>

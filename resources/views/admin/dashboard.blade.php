@@ -26,7 +26,7 @@
         </div>
         <div class="flex gap-4 shrink-0">
             <a href="/admin/artikel/create" class="px-6 py-3 bg-white/10 text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 hover:scale-105 transition-all backdrop-blur-md shadow-lg flex items-center gap-2">
-                <i class="fas fa-pen-nib"></i> Tulis Artikel
+                <i class="fas fa-pen-nib"></i> Tulis Blog
             </a>
         </div>
     </div>
@@ -91,7 +91,7 @@
         <div class="absolute -right-4 -top-4 w-24 h-24 bg-amber-50 rounded-full scale-150 z-0"></div>
         <div class="relative z-10 flex justify-between items-start mb-4">
             <div>
-                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total Artikel</p>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total Blog</p>
                 <h3 class="text-3xl font-extrabold text-slate-800">{{ $stats['artikel'] }}</h3>
             </div>
             <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl shadow-inner">
@@ -99,7 +99,7 @@
             </div>
         </div>
         <div class="relative z-10 flex items-center gap-2 text-sm">
-            <span class="text-slate-500">Artikel & Berita</span>
+            <span class="text-slate-500">Blog</span>
         </div>
     </div>
 </div>

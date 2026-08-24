@@ -42,7 +42,7 @@
         </a>
         
         <a href="/admin/artikel" class="sidebar-item flex items-center gap-4 font-medium {{ request()->is('admin/artikel*') ? 'active' : '' }}">
-            <i class="fas fa-newspaper w-6 text-center text-lg"></i> <span>Blog & Artikel</span>
+            <i class="fas fa-newspaper w-6 text-center text-lg"></i> <span>Blog</span>
         </a>
         
         <p class="px-8 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4 mt-8">Sistem</p>

@@ -61,7 +61,7 @@
             position: relative;
             z-index: 2;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -75,17 +75,15 @@
             font-weight: 700;
             line-height: 1.2;
             margin-bottom: 24px;
-            color: #ffffff;
+            color: #ffffff !important;
             letter-spacing: -0.5px;
-            -webkit-text-stroke: 2px rgba(0, 0, 0, 0.7);
-            text-shadow: 3px 5px 12px rgba(0, 0, 0, 0.8);
         }
 
         .kai-hero-subtitle {
             font-size: 18px;
             line-height: 1.6;
             margin-bottom: 40px;
-            color: #e2e8f0;
+            color: #ffffff !important;
             font-weight: 400;
         }
 
@@ -93,7 +91,7 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            color: #ffffff;
+            color: #ffffff !important;
             font-weight: 700;
             font-size: 16px;
             text-decoration: none;
@@ -212,160 +210,137 @@
     <!-- Tentang Elcoding Section -->
     <style>
         .tentang-section {
-            padding: 80px 20px;
+            padding: 100px 20px;
             background-color: #ffffff;
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
         .tentang-container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
             display: flex;
-            align-items: center;
-            gap: 60px;
+            gap: 40px;
         }
-        .tentang-left {
-            flex: 1;
-            max-width: 500px;
+        .tentang-left-col {
+            flex: 0 0 200px;
         }
-        .tentang-subtitle {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #3b82f6; /* blue-500 */
-            font-size: 14px;
+        .tentang-label-text {
+            font-size: 11px;
             font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
+            color: #94a3b8;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
         }
-        .tentang-subtitle::before {
-            content: "";
-            display: block;
-            width: 40px;
-            height: 1px;
-            background-color: #93c5fd; /* blue-300 */
+        .tentang-right-col {
+            flex: 1;
         }
-        .tentang-title {
+        .tentang-heading {
             font-size: 32px;
-            font-weight: 800;
-            color: #0f172a;
-            line-height: 1.3;
-            margin-bottom: 30px;
-        }
-        .tentang-code-block {
-            background-color: #f8fafc;
-            border: 1px solid #f1f5f9;
-            border-radius: 12px;
-            padding: 24px;
-            font-family: 'Fira Code', 'Courier New', Courier, monospace;
-            font-size: 14px;
-            color: #475569;
-            line-height: 1.6;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
-        }
-        .tentang-right {
-            flex: 1.2;
-            display: flex;
-            gap: 20px;
-            justify-content: flex-end;
-        }
-        .tentang-card {
-            background-color: #ffffff;
-            border: 1px solid #f1f5f9;
-            border-radius: 16px;
-            padding: 30px 20px;
-            width: 190px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-        .tentang-card:hover {
-            transform: translateY(-5px);
-        }
-        .tentang-card.glow-card {
-            background: radial-gradient(circle at bottom right, #ffedd5 0%, #ffffff 70%);
-            border: 1px solid #ffedd5;
-        }
-        .tentang-card-icon {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        .icon-blue { color: #3b82f6; }
-        .icon-orange { color: #f97316; }
-        .tentang-card-value {
-            font-size: 36px;
-            font-weight: 800;
-            color: #0f172a;
-            line-height: 1.1;
-            margin-bottom: 12px;
-            word-break: break-word;
-        }
-        .tentang-card-label {
-            font-size: 14px;
-            color: #64748b;
+            font-weight: 400 !important;
+            color: #333333;
             line-height: 1.4;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+            margin-top: -8px;
+        }
+        .tentang-desc {
+            font-size: 15px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 800px;
+        }
+        .tentang-links {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        .tentang-link {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1e3a8a !important;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tentang-link .arrow {
+            color: #f97316;
+            font-weight: normal;
+        }
+        .tentang-divider {
+            height: 1px;
+            background-color: #cbd5e1;
+            margin-bottom: 50px;
+        }
+        .tentang-stats {
+            display: flex;
+            gap: 40px;
+            justify-content: flex-start;
+        }
+        .tentang-stat-item {
+            flex: 1;
+        }
+        .tentang-stat-value {
+            font-size: 48px;
             font-weight: 500;
+            color: #0f172a;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+        .tentang-stat-label {
+            font-size: 13px;
+            color: #64748b;
         }
         
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
             .tentang-container {
                 flex-direction: column;
-                gap: 40px;
+                gap: 20px;
             }
-            .tentang-left, .tentang-right {
+            .tentang-left-col {
                 flex: none;
-                width: 100%;
-                max-width: 100%;
-                justify-content: center;
             }
-        }
-        @media (max-width: 768px) {
-            .tentang-title { font-size: 26px; }
-            .tentang-right {
-                flex-wrap: wrap;
+            .tentang-stats {
+                flex-direction: column;
+                gap: 30px;
             }
-            .tentang-card {
-                width: calc(50% - 10px);
-                padding: 24px 16px;
+            .tentang-heading {
+                font-size: 24px;
             }
-            .tentang-card-value { font-size: 28px; }
-        }
-        @media (max-width: 480px) {
-            .tentang-card {
-                width: 100%;
+            .tentang-stat-value {
+                font-size: 40px;
             }
         }
     </style>
 
     <section class="tentang-section">
         <div class="tentang-container">
-            <div class="tentang-left">
-                <div class="tentang-subtitle">TENTANG ELCODING</div>
-                <h2 class="tentang-title">Mencetak ribuan developer siap kerja dan mentransformasi puluhan infrastruktur digital enterprise.</h2>
-                <div class="tentang-code-block">
-                    &gt; sys.initialize({<br>
-                    &nbsp;&nbsp;mode: 'production',<br>
-                    &nbsp;&nbsp;target: 'excellence'<br>
-                    });
-                </div>
+            <div class="tentang-left-col">
+                <div class="tentang-label-text">TENTANG KAMI</div>
             </div>
-            <div class="tentang-right" id="tentangCounterSection">
-                <div class="tentang-card">
-                    <div class="tentang-card-icon icon-blue"><i class="fas fa-graduation-cap"></i></div>
-                    <div class="tentang-card-value counter-value" data-prefix="&gt;" data-suffix="+" data-target="1500">&gt;0+</div>
-                    <div class="tentang-card-label">Alumni Sukses Bekerja</div>
+            <div class="tentang-right-col">
+                <h2 class="tentang-heading">Mencetak ribuan developer siap kerja dan mentransformasi puluhan infrastruktur digital enterprise.</h2>
+                <p class="tentang-desc">Dari generasi ke generasi, Elcoding terus menghubungkan talenta berbakat dengan industri, menciptakan inovasi dan membangun masa depan digital bagi setiap klien dan peserta didik.</p>
+                <div class="tentang-links">
+                    <a href="/program-kursus" class="tentang-link">Program Kursus <span class="arrow">&rarr;</span></a>
+                    <a href="/layanan" class="tentang-link">Layanan Kami <span class="arrow">&rarr;</span></a>
                 </div>
-                <div class="tentang-card">
-                    <div class="tentang-card-icon icon-blue"><i class="fas fa-check-circle"></i></div>
-                    <div class="tentang-card-value counter-value" data-prefix="&gt;" data-suffix="%" data-target="96">&gt;0%</div>
-                    <div class="tentang-card-label">Tingkat Kelulusan</div>
-                </div>
-                <div class="tentang-card glow-card">
-                    <div class="tentang-card-icon icon-orange"><i class="fas fa-rocket"></i></div>
-                    <div class="tentang-card-value counter-value" data-prefix="&gt;" data-suffix="+" data-target="120">&gt;0+</div>
-                    <div class="tentang-card-label">Proyek Enterprise</div>
+                
+                <div class="tentang-divider"></div>
+                
+                <div class="tentang-stats" id="tentangCounterSection">
+                    <div class="tentang-stat-item">
+                        <div class="tentang-stat-value counter-value" data-prefix="&gt;" data-suffix="+" data-target="1500">&gt;0+</div>
+                        <div class="tentang-stat-label">Alumni Sukses Bekerja</div>
+                    </div>
+                    <div class="tentang-stat-item">
+                        <div class="tentang-stat-value counter-value" data-prefix="" data-suffix="%" data-target="96">0%</div>
+                        <div class="tentang-stat-label">Tingkat Kelulusan</div>
+                    </div>
+                    <div class="tentang-stat-item">
+                        <div class="tentang-stat-value counter-value" data-prefix="&gt;" data-suffix="+" data-target="120">&gt;0+</div>
+                        <div class="tentang-stat-label">Proyek Enterprise</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -384,14 +359,13 @@
                         const target = +counter.getAttribute('data-target');
                         const prefix = counter.getAttribute('data-prefix') || '';
                         const suffix = counter.getAttribute('data-suffix') || '';
-                        const duration = 4000; // 4 seconds animation
+                        const duration = 2000;
                         const increment = target / (duration / 16); 
                         let current = 0;
                         
                         const updateCounter = () => {
                             current += increment;
                             if (current < target) {
-                                // Format with dot for thousands
                                 let displayVal = Math.ceil(current).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                                 counter.innerText = prefix + displayVal + suffix;
                                 requestAnimationFrame(updateCounter);
@@ -601,7 +575,7 @@
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
     .services-container {
-        max-width: 1000px;
+        max-width: 1200px;
         margin: 0 auto;
     }
     .section-header {
@@ -748,160 +722,378 @@
     }
 </style>
 
-<section class="services-section">
-    <div class="services-container">
-        <div class="section-header">
-            <span class="top-badge">SOLUSI DIGITAL TERINTEGRASI</span>
-            <h2 class="section-title">Layanan Utama Kami</h2>
-            <p class="section-subtitle">Mewujudkan ide Anda menjadi produk digital unggulan dan mencetak talenta IT berkualitas untuk masa depan.</p>
-        </div>
+    <style>
+        .services-section {
+            padding: 100px 20px;
+            background: #f8fafc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .services-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
         
-        <div class="services-grid">
-            <!-- Software House -->
-            <div class="service-card">
-                <div class="icon-box blue">
-                    <i class="fas fa-network-wired"></i>
-                </div>
-                <h3>Software House</h3>
-                <p>Jasa pembuatan aplikasi website, sistem informasi, dan mobile apps secara custom. Solusi IT cerdas yang disesuaikan dengan kebutuhan bisnis Anda, didukung dengan arsitektur modern dan aman.</p>
-                
-                <div class="tech-badges">
-                    <span>React</span>
-                    <span>Next.js</span>
-                    <span>Flutter</span>
-                    <span>Node.js</span>
-                    <span>AWS Cloud</span>
-                </div>
-                
-                <a href="/kontak" class="btn-solid-blue">Konsultasi Project <i class="fas fa-arrow-right"></i></a>
+        .bento-services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .bento-service-card {
+            border-radius: 32px;
+            padding: 60px 50px;
+            position: relative;
+            overflow: hidden;
+            color: #ffffff;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 450px;
+        }
+        
+        .bento-service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+        
+        .bento-blue {
+            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+        }
+        
+        .bento-orange {
+            background: linear-gradient(135deg, #EA580C 0%, #F97316 100%);
+        }
+        
+        /* Decorative massive icons */
+        .bento-bg-icon {
+            position: absolute;
+            right: -20px;
+            bottom: -30px;
+            font-size: 280px;
+            color: rgba(255,255,255,0.1);
+            z-index: 0;
+            transform: rotate(-15deg);
+            transition: transform 0.6s ease;
+        }
+        
+        .bento-service-card:hover .bento-bg-icon {
+            transform: rotate(0deg) scale(1.1);
+        }
+        
+        .bento-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .bento-icon-small {
+            width: 70px;
+            height: 70px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+        
+        .bento-service-card h3 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .bento-service-card p {
+            font-size: 16px;
+            line-height: 1.7;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 90%;
+        }
+        
+        .bento-btn {
+            display: inline-flex;
+            align-items: center;
+            background: #ffffff;
+            color: #1F2937;
+            font-weight: 700;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+        
+        .bento-blue .bento-btn { color: #1E40AF; }
+        .bento-orange .bento-btn { color: #EA580C; }
+        
+        .bento-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .bento-btn i {
+            margin-left: 10px;
+        }
+        
+        @media (max-width: 992px) {
+            .bento-services-grid { grid-template-columns: 1fr; }
+            .bento-service-card { padding: 40px; min-height: auto; }
+            .bento-bg-icon { font-size: 200px; right: -10px; bottom: -10px; }
+            .bento-service-card h3 { font-size: 28px; }
+        }
+    </style>
+
+    <section class="services-section">
+        <div class="services-container">
+            <div class="section-header" style="text-align: center; margin-bottom: 60px;">
+                <span class="top-badge" style="background: #eef2ff; color: #4B6BF5; padding: 8px 20px; border-radius: 50px; font-weight: 700; font-size: 14px; margin-bottom: 20px; display: inline-block;">SOLUSI DIGITAL TERINTEGRASI</span>
+                <h2 class="section-title" style="font-size: 42px; font-weight: 800; color: #1F2937; margin-bottom: 20px;">Layanan Utama Kami</h2>
+                <p class="section-subtitle" style="font-size: 18px; color: #6B7280; max-width: 700px; margin: 0 auto; line-height: 1.6;">Mewujudkan ide Anda menjadi produk digital unggulan dan mencetak talenta IT berkualitas untuk masa depan.</p>
             </div>
             
-            <!-- Pelatihan & Kursus IT -->
-            <div class="service-card">
-                <div class="icon-box orange">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <h3>Pelatihan & Kursus IT</h3>
-                <p>Program bootcamp intensif bersertifikat. Dirancang khusus untuk membangun fondasi karir Anda di dunia teknologi dengan kurikulum berbasis praktik industri yang mutakhir.</p>
-                
-                <div class="tech-badges">
-                    <span>Fullstack Dev</span>
-                    <span>Mobile App</span>
-                    <span>AI Bootcamp</span>
-                    <span>Portfolio Mentoring</span>
+            <div class="bento-services-grid">
+                <!-- Software House -->
+                <div class="bento-service-card bento-blue">
+                    <i class="fas fa-network-wired bento-bg-icon"></i>
+                    <div class="bento-content">
+                        <div class="bento-icon-small"><i class="fas fa-laptop-code"></i></div>
+                        <h3>Software House</h3>
+                        <p>Jasa pembuatan aplikasi website, sistem informasi, dan mobile apps secara custom. Solusi IT cerdas yang disesuaikan dengan kebutuhan bisnis Anda, didukung dengan arsitektur modern, UI/UX memukau, dan keamanan terjamin.</p>
+                    </div>
+                    <a href="{{ url('/kontak') }}" class="bento-btn">Konsultasi Project <i class="fas fa-arrow-right"></i></a>
                 </div>
                 
-                <a href="/program-kursus" class="btn-outline-blue">Lihat Program Kursus <i class="fas fa-arrow-right"></i></a>
+                <!-- Pelatihan & Kursus IT -->
+                <div class="bento-service-card bento-orange">
+                    <i class="fas fa-graduation-cap bento-bg-icon"></i>
+                    <div class="bento-content">
+                        <div class="bento-icon-small"><i class="fas fa-chalkboard-teacher"></i></div>
+                        <h3>Pelatihan & Kursus IT</h3>
+                        <p>Program bootcamp intensif bersertifikat. Dirancang khusus untuk membangun fondasi karir Anda di dunia teknologi dengan kurikulum berbasis praktik industri yang mutakhir. Bangun portofolio profesional Anda bersama ahlinya.</p>
+                    </div>
+                    <a href="{{ url('/program-kursus') }}" class="bento-btn">Lihat Program <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 <!-- Mengapa Memilih Kami Section -->
-<style>
-    .why-us-section {
-        padding: 60px 20px 80px;
-        background-color: #f8fafc;
-        font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    .why-us-container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    .why-us-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    @media (min-width: 768px) {
-        .why-us-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 1024px) {
-        .why-us-grid { grid-template-columns: repeat(4, 1fr); }
-    }
-    @media (max-width: 767px) {
-        .why-us-section { padding: 48px 16px 64px; }
-        .why-us-card { padding: 24px 20px; }
-    }
-    
-    .why-us-card {
-        background: #ffffff;
-        border: 1px solid #f0f0f0;
-        border-radius: 20px;
-        padding: 40px 30px;
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .why-us-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.06);
-        border-color: rgba(75, 107, 245, 0.1);
-    }
-    
-    .why-us-icon {
-        width: 70px;
-        height: 70px;
-        background: #eef6fc;
-        color: #4B6BF5;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 28px;
-        margin: 0 auto 24px auto;
-        transition: all 0.3s ease;
-    }
-    .why-us-card:hover .why-us-icon {
-        background: #4B6BF5;
-        color: #ffffff;
-    }
-    
-    .why-us-card h3 {
-        font-size: 18px;
-        font-weight: 700;
-        color: #222222;
-        margin-bottom: 12px;
-    }
-    .why-us-card p {
-        font-size: 14px;
-        color: #666666;
-        line-height: 1.6;
-        margin: 0;
-    }
-</style>
+<!-- Mengapa Memilih Kami Section -->
+<!-- Mengapa Memilih Kami Section -->
+    <style>
+        .elc-features-section {
+            padding: 100px 20px 120px;
+            background-color: #ffffff;
+            /* Subtle dotted pattern to fill empty space without being noisy */
+            background-image: radial-gradient(#e5e7eb 2px, transparent 2px);
+            background-size: 30px 30px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            position: relative;
+        }
 
-<section class="why-us-section">
-    <div class="why-us-container">
-        <div class="section-header">
-            <h2 class="section-title">Mengapa Memilih Kami?</h2>
-            <p class="section-subtitle">Lebih dari sekadar tempat kursus, Elcoding adalah Software House profesional yang menjembatani dunia pendidikan dan industri nyata. Temukan alasan mengapa ratusan siswa dan mitra bisnis mempercayakan solusi IT mereka kepada kami.</p>
-        </div>
+        .elc-features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
         
-        <div class="why-us-grid">
-            <div class="why-us-card">
-                <div class="why-us-icon"><i class="fas fa-chalkboard-teacher"></i></div>
-                <h3>Mentor Praktisi</h3>
-                <p>Belajar langsung dari praktisi profesional yang aktif di industri teknologi.</p>
+        .elc-features-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .elc-features-header h2 {
+            font-size: 42px;
+            font-weight: 800;
+            color: #1F2937; /* Dark Gray */
+            margin-bottom: 15px;
+        }
+        
+        .elc-features-header p {
+            font-size: 18px;
+            color: #6B7280;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .elc-features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .elc-feature-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 50px 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); /* Very soft shadow */
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-top: 6px solid #4B6BF5; /* Elcoding Brand Blue */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 280px;
+            z-index: 1;
+        }
+        
+        .elc-feature-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(75, 107, 245, 0.0), rgba(75, 107, 245, 0.04));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .elc-feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(75, 107, 245, 0.12);
+        }
+        
+        .elc-feature-card:hover::after {
+            opacity: 1;
+        }
+
+        .elc-icon-wrapper {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            background: rgba(75, 107, 245, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #4B6BF5;
+            margin-bottom: 30px;
+            transition: all 0.4s ease;
+        }
+        
+        .elc-feature-card:hover .elc-icon-wrapper {
+            background: #4B6BF5;
+            color: #ffffff;
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 30px rgba(75, 107, 245, 0.3);
+        }
+        
+        .elc-feature-card h3 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1F2937;
+        }
+        
+        .elc-feature-card p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #4B5563;
+            margin: 0;
+        }
+        
+        /* Giant watermark icon inside card */
+        .elc-watermark {
+            position: absolute;
+            right: -20px;
+            bottom: -30px;
+            font-size: 200px;
+            color: rgba(75, 107, 245, 0.03);
+            z-index: -1;
+            transition: all 0.6s ease;
+        }
+        
+        .elc-feature-card:hover .elc-watermark {
+            color: rgba(75, 107, 245, 0.06);
+            transform: scale(1.1) rotate(-10deg) translateX(-10px);
+        }
+        
+        /* Orange Variant */
+        .elc-feature-card.orange-card { border-top-color: #F59E0B; }
+        .elc-feature-card.orange-card .elc-icon-wrapper { color: #F59E0B; background: rgba(245, 158, 11, 0.1); }
+        .elc-feature-card.orange-card .elc-watermark { color: rgba(245, 158, 11, 0.03); }
+        
+        .elc-feature-card.orange-card:hover .elc-icon-wrapper {
+            background: #F59E0B;
+            color: #ffffff;
+            box-shadow: 0 15px 30px rgba(245, 158, 11, 0.3);
+        }
+        .elc-feature-card.orange-card:hover .elc-watermark { color: rgba(245, 158, 11, 0.06); }
+        .elc-feature-card.orange-card:hover { box-shadow: 0 25px 50px rgba(245, 158, 11, 0.12); }
+        .elc-feature-card.orange-card::after { background: linear-gradient(135deg, rgba(245, 158, 11, 0.0), rgba(245, 158, 11, 0.04)); }
+
+        @media (max-width: 1024px) {
+            .elc-features-header h2 { font-size: 36px; }
+            .elc-feature-card { padding: 40px 30px; }
+        }
+        
+        @media (max-width: 768px) {
+            .elc-features-grid { grid-template-columns: 1fr; }
+            .elc-features-section { padding: 80px 20px; }
+            .elc-features-header h2 { font-size: 30px; }
+        }
+    </style>
+
+    <section class="elc-features-section">
+        <div class="elc-features-container">
+            <div class="elc-features-header">
+                <h2>Mengapa Memilih Kami?</h2>
+                <p>Lebih dari sekadar tempat kursus, Elcoding adalah Software House profesional yang menjembatani dunia pendidikan dan industri nyata.</p>
             </div>
-            <div class="why-us-card">
-                <div class="why-us-icon"><i class="fas fa-laptop-code"></i></div>
-                <h3>Fokus Praktik & Proyek</h3>
-                <p>Kurikulum berbasis 80% praktik nyata untuk membangun portofolio aplikasi dan insting problem-solving.</p>
-            </div>
-            <div class="why-us-card">
-                <div class="why-us-icon"><i class="fas fa-building"></i></div>
-                <h3>Standar Software House</h3>
-                <p>Rasakan pengalaman bekerja dengan standar industri melalui ekosistem pengembangan perangkat lunak kami yang sesungguhnya.</p>
-            </div>
-            <div class="why-us-card">
-                <div class="why-us-icon"><i class="fas fa-briefcase"></i></div>
-                <h3>Penyaluran Kerja</h3>
-                <p>Akses ke jaringan mitra perusahaan kami untuk peluang karir nyata setelah Anda lulus.</p>
+            
+            <div class="elc-features-grid">
+                <!-- Card 1 (Blue) -->
+                <div class="elc-feature-card">
+                    <i class="fas fa-chalkboard-teacher elc-watermark"></i>
+                    <div class="elc-icon-wrapper">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>Mentor Praktisi Industri</h3>
+                    <p>Belajar langsung dari pakar yang aktif mengerjakan proyek skala enterprise. Dapatkan insight nyata yang tidak ada di buku teks.</p>
+                </div>
+                
+                <!-- Card 2 (Orange) -->
+                <div class="elc-feature-card orange-card">
+                    <i class="fas fa-laptop-code elc-watermark"></i>
+                    <div class="elc-icon-wrapper">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Fokus Praktik & Proyek</h3>
+                    <p>Tinggalkan teori membosankan. Kurikulum kami menuntut Anda mengerjakan studi kasus riil (80% praktik) untuk membangun portofolio solid.</p>
+                </div>
+                
+                <!-- Card 3 (Blue) -->
+                <div class="elc-feature-card">
+                    <i class="fas fa-building elc-watermark"></i>
+                    <div class="elc-icon-wrapper">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Standar Enterprise</h3>
+                    <p>Rasakan workflow dan toolset yang digunakan software house modern sungguhan, dari version control hingga agile methodology.</p>
+                </div>
+                
+                <!-- Card 4 (Orange) -->
+                <div class="elc-feature-card orange-card">
+                    <i class="fas fa-rocket elc-watermark"></i>
+                    <div class="elc-icon-wrapper">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Penyaluran Kerja</h3>
+                    <p>Akses prioritas ke jaringan mitra strategis kami. Kesempatan emas untuk percepatan karir Anda setelah lulus dari program inkubasi.</p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
     <style>
@@ -1011,7 +1203,7 @@
 
     <style>
         .programs-section { padding: 80px 20px; background-color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .programs-container { max-width: 1200px; margin: 0 auto; }
+        .programs-container { max-width: 1400px; margin: 0 auto; }
         .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
         .program-card {
             border-radius: 12px;
@@ -1093,52 +1285,6 @@
     </style>
     @endif
 
-    <!-- Testimonial Section -->
-    <section class="testimonial-section">
-        <div class="testimonial-container">
-            <div class="testimonial-header">
-                <h2 class="testimonial-title">Testimoni</h2>
-            </div>
-            
-            <div class="testimonial-grid">
-                <div class="testimonial-card" style="padding: 0; border: none; background: transparent; box-shadow: none;">
-                    <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-1.jpg') }}" alt="Testimoni Afif" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                </div>
-                <div class="testimonial-card" style="padding: 0; border: none; background: transparent; box-shadow: none;">
-                    <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-2.jpg') }}" alt="Testimoni Risqi" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                </div>
-                <div class="testimonial-card" style="padding: 0; border: none; background: transparent; box-shadow: none;">
-                    <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-3.jpg') }}" alt="Testimoni Josias" loading="lazy" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <style>
-    .testimonial-section { padding: 0 0 80px 0; background: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
-    .testimonial-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    .testimonial-header { text-align: center; margin-bottom: 50px; }
-    .testimonial-subtitle { display: inline-block; color: #4B6BF5; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
-    .testimonial-title { font-size: 38px; font-weight: 800; color: #1F2937; line-height: 1.2; margin: 0; }
-    .testimonial-grid { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: none; }
-    .testimonial-grid::-webkit-scrollbar { display: none; }
-    .testimonial-card { flex: 0 0 calc(33.333% - 20px); scroll-snap-align: start; display: flex; flex-direction: column; background: #fff; border: 1px solid #f0f0f0; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); user-select: none; }
-    .testimonial-text { font-size: 14px; color: #444; line-height: 1.6; margin-bottom: 15px; flex-grow: 1; }
-    .testimonial-rating { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-    .testimonial-rating .stars { color: #FFC107; font-size: 16px; letter-spacing: 2px; }
-    .testimonial-rating .rating-text { font-size: 13px; color: #666; font-weight: bold; }
-    .testimonial-author { display: flex; align-items: center; gap: 15px; }
-    .testimonial-author img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 1px solid #eee; }
-    .testimonial-author h4 { font-size: 15px; font-weight: 700; color: #1F2937; margin: 0 0 4px 0; }
-    .testimonial-author p { font-size: 13px; color: #666; margin: 0; }
-    @media (max-width: 992px) { .testimonial-card { flex: 0 0 calc(50% - 15px); } }
-    @media (max-width: 768px) { 
-        .testimonial-card { flex: 0 0 100%; padding: 20px; } 
-        .testimonial-title { font-size: 28px; } 
-        .testimonial-section { padding: 0 0 48px 0; }
-    }
-    </style>
-
     <!-- Combined Statistics & CTA Section -->
     <section class="statistics-cta-section">
         <div class="statistics-cta-container">
@@ -1172,7 +1318,7 @@
         font-family: 'Plus Jakarta Sans', sans-serif; 
         margin-bottom: 50px; 
     }
-    .statistics-cta-container { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+    .statistics-cta-container { max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
     
     .cta-content { text-align: center; max-width: 800px; margin-bottom: 30px; }
     .cta-title { font-size: 32px; font-weight: 800; margin-bottom: 15px; line-height: 1.3; }
@@ -1216,7 +1362,7 @@
 
     <style>
     .portfolio-section { padding: 80px 0 40px 0; background: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
-    .portfolio-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .portfolio-container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
     .portfolio-header { text-align: center; margin-bottom: 50px; }
     .portfolio-title { font-size: 38px; font-weight: 800; color: #1F2937; line-height: 1.2; margin: 0; }
     .portfolio-grid { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: none; }
@@ -1244,7 +1390,7 @@
     <section class="blog-section">
         <div class="blog-container">
             <div class="blog-header">
-                <h2 class="blog-title">Artikel</h2>
+                <h2 class="blog-title">Blog</h2>
             </div>
             
             <div class="blog-grid">
@@ -1260,8 +1406,8 @@
                     <div class="blog-content">
                         <h4><a href="#">{{ $artikel->title }}</a></h4>
                         <div class="blog-meta"><i class="fas fa-clock"></i> {{ $artikel->published_at ? \Carbon\Carbon::parse($artikel->published_at)->format('d M Y') : $artikel->created_at->format('d M Y') }}</div>
-                        <p>{{ Str::limit(strip_tags($artikel->content ?? 'Artikel informatif dari Elcoding membahas berbagai topik seputar teknologi, pemrograman, dan dunia digital...'), 120) }}</p>
-                        <a href="{{ url('/artikel/' . $artikel->id) }}" class="blog-btn">BACA ARTIKEL</a>
+                        <p>{{ Str::limit(strip_tags($artikel->content ?? 'Blog informatif dari Elcoding membahas berbagai topik seputar teknologi, pemrograman, dan dunia digital...'), 120) }}</p>
+                        <a href="{{ url('/artikel/' . $artikel->id) }}" class="blog-btn">BACA BLOG</a>
                     </div>
                 </div>
                 @endforeach
@@ -1271,7 +1417,7 @@
 
     <style>
     .blog-section { padding: 0 0 40px 0; background: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
-    .blog-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .blog-container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
     .blog-header { text-align: center; margin-bottom: 50px; }
     .blog-subtitle { display: inline-block; color: #4B6BF5; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
     .blog-title { font-size: 38px; font-weight: 800; color: #1F2937; line-height: 1.2; margin: 0; }
@@ -1297,6 +1443,248 @@
     }
     </style>
     @endif
+
+    <!-- Testimonial Section -->
+    <section class="testimonial-section">
+        <div class="testimonial-container">
+            <div class="ts-wrapper">
+                <div class="ts-track" id="tsTrack">
+                    <!-- Slide 1 -->
+                    <div class="ts-slide">
+                        <div class="ts-image-box">
+                            <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-1.jpg') }}" alt="Testimoni" class="ts-img">
+                        </div>
+                        <div class="ts-content-box">
+                            <h3 class="ts-quote">"Pengajar, waktu, dan fasilitas beda dari tempat kursus lain. Tempatnya sangat recommended."</h3>
+                            <p class="ts-desc">Karena pengajar, waktu, dan fasilitas beda dari tempat kursus lain. Perkembangan anak sangat positif saat kegiatan liburan putra sangat related dengan menambah ilmu design khususnya di Canva. Tempatnya sangat recommended.</p>
+                            <div class="ts-footer">
+                                <div class="ts-author">
+                                    <span class="ts-name">AFIF PUTRA</span>
+                                    <span class="ts-role">(SMA IT-MAGELANG) DESAIN & AI</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="ts-slide">
+                        <div class="ts-image-box">
+                            <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-2.jpg') }}" alt="Testimoni" class="ts-img">
+                        </div>
+                        <div class="ts-content-box">
+                            <h3 class="ts-quote">"Peningkatan nilai anak di sekolah menjadi naik serta anak bisa mengikuti pelajaran."</h3>
+                            <p class="ts-desc">Kami mempercayakan ELC ini sebagai kursus komputer supaya anak tidak tertinggal komputer, dan peningkatan nilai anak di sekolah menjadi naik serta anak bisa mengikuti pelajaran khususnya di skill Artificial Intellegent (AI) & Coding.</p>
+                            <div class="ts-footer">
+                                <div class="ts-author">
+                                    <span class="ts-name">Risqi Akbar</span>
+                                    <span class="ts-role">(SMK SLAWI) CODING FOR KIDS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="ts-slide">
+                        <div class="ts-image-box">
+                            <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-3.jpg') }}" alt="Testimoni" class="ts-img">
+                        </div>
+                        <div class="ts-content-box">
+                            <h3 class="ts-quote">"Pengajarnya baik dan pembelajarannya asyik, bisa belajar buat website dengan cepat dan seru."</h3>
+                            <p class="ts-desc">Pengajar nya baik dan pembelajarannya asyik, sehingga josias bisa belajar Coding for Kids "Fun With Code & Web" sehingga bisa belajar buat website dengan cepat dan seru apalagi buat pemula.</p>
+                            <div class="ts-footer">
+                                <div class="ts-author">
+                                    <span class="ts-name">JOSIAS</span>
+                                    <span class="ts-role">(SMP PIUS TEGAL) CODING FOR KIDS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ts-controls-overlay">
+                    <button class="ts-btn" onclick="prevTsSlide()"><i class="fas fa-arrow-left"></i></button>
+                    <button class="ts-btn" onclick="nextTsSlide()"><i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .testimonial-section {
+            padding: 60px 20px 100px;
+            background-color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .testimonial-container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .ts-wrapper {
+            background-color: #2b2e59;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+        }
+        .ts-track {
+            display: flex;
+            width: 100%;
+            transition: transform 0.5s ease;
+        }
+        .ts-slide {
+            flex: 0 0 100%;
+            display: flex;
+            padding: 40px;
+            gap: 50px;
+            box-sizing: border-box;
+        }
+        .ts-image-box {
+            flex: 0 0 280px;
+            aspect-ratio: 3 / 4;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .ts-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .ts-content-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px 0;
+            position: relative;
+        }
+        .ts-quote {
+            font-size: 32px;
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1.3;
+            margin-bottom: 24px;
+            margin-top: 0;
+        }
+        .ts-desc {
+            font-size: 16px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            max-width: 90%;
+        }
+        .ts-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .ts-author {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .ts-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .ts-role {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .ts-controls-overlay {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            gap: 16px;
+        }
+        .ts-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .ts-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
+        }
+        
+        @media (max-width: 992px) {
+            .ts-slide {
+                padding: 30px;
+                gap: 30px;
+            }
+            .ts-image-box {
+                flex: 0 0 240px;
+                height: auto;
+                aspect-ratio: 3 / 4;
+            }
+            .ts-quote {
+                font-size: 26px;
+            }
+        }
+        @media (max-width: 768px) {
+            .ts-slide {
+                flex-direction: column;
+                padding: 24px;
+                gap: 24px;
+            }
+            .ts-image-box {
+                flex: none;
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+                height: auto;
+                aspect-ratio: 3 / 4;
+            }
+            .ts-content-box {
+                padding: 0;
+                padding-bottom: 60px;
+            }
+            .ts-quote {
+                font-size: 22px;
+            }
+            .ts-desc {
+                max-width: 100%;
+            }
+            .ts-controls-overlay {
+                bottom: 24px;
+                right: 24px;
+            }
+        }
+    </style>
+
+    <script>
+        let currentTsIndex = 0;
+        const tsTrack = document.getElementById('tsTrack');
+        // Will evaluate at DOM load
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalTsSlides = document.querySelectorAll('.ts-slide').length;
+            
+            window.updateTsSlider = function() {
+                tsTrack.style.transform = `translateX(-${currentTsIndex * 100}%)`;
+            }
+
+            window.nextTsSlide = function() {
+                currentTsIndex = (currentTsIndex + 1) % totalTsSlides;
+                updateTsSlider();
+            }
+
+            window.prevTsSlide = function() {
+                currentTsIndex = (currentTsIndex - 1 + totalTsSlides) % totalTsSlides;
+                updateTsSlider();
+            }
+        });
+    </script>
+
+
 
 
     </div>

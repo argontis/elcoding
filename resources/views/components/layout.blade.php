@@ -203,7 +203,7 @@
 
         /* Mobile Header CSS */
         .elementor-element-178d229>.e-con-inner {
-            max-width: 1200px !important;
+            max-width: 1400px !important;
             margin: 0 auto !important;
             display: flex !important;
             justify-content: space-between !important;
@@ -400,7 +400,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url('/portofolio') }}" class="{{ request()->is('portofolio*') ? 'active' : '' }}">Portofolio</a></li>
-                            <li><a href="{{ url('/artikel') }}" class="{{ request()->is('artikel*') ? 'active' : '' }}">Artikel</a></li>
+                            <li><a href="{{ url('/artikel') }}" class="{{ request()->is('artikel*') ? 'active' : '' }}">Blog</a></li>
                             <li><a href="{{ url('/kontak') }}" class="{{ request()->is('kontak*') ? 'active' : '' }}">Kontak</a></li>
                         </ul>
                     </li>
@@ -462,7 +462,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
         .header-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
             height: 80px;
@@ -724,7 +724,7 @@
                     <li><a href="{{ url('/tentang-kami') }}">Tentang Kami</a></li>
                     <li><a href="{{ url('/program-kursus') }}">Program Kursus</a></li>
                     <li><a href="{{ url('/portofolio') }}">Portofolio</a></li>
-                    <li><a href="{{ url('/artikel') }}">Artikel</a></li>
+                    <li><a href="{{ url('/artikel') }}">Blog</a></li>
                     <li><a href="{{ url('/kontak') }}">Kontak</a></li>
                 </ul>
             </div>
@@ -800,7 +800,7 @@
         }
 
         .footer-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
             display: grid;

@@ -1,24 +1,24 @@
 @extends('admin.layout')
 
-@section('title', 'Kelola Artikel - Admin Elcoding')
-@section('header', 'Blog & Artikel')
+@section('title', 'Kelola Blog - Admin Elcoding')
+@section('header', 'Blog')
 
 @section('content')
 <div class="surface-card">
     <div class="p-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <h3 class="text-xl font-bold text-slate-800">Daftar Artikel</h3>
-            <p class="text-sm text-slate-500 mt-1">Tulis dan kelola artikel blog untuk kebutuhan SEO dan Edukasi.</p>
+            <h3 class="text-xl font-bold text-slate-800">Daftar Blog</h3>
+            <p class="text-sm text-slate-500 mt-1">Tulis dan kelola blog untuk kebutuhan SEO dan Edukasi.</p>
         </div>
         <a href="{{ url('admin/artikel/create') }}" class="btn-primary px-5 py-2.5 rounded-xl font-semibold flex items-center justify-center gap-2">
-            <i class="fas fa-pen-nib"></i> Tulis Artikel Baru
+            <i class="fas fa-pen-nib"></i> Tulis Blog Baru
         </a>
     </div>
     
     <form method="GET" action="{{ url('admin/artikel') }}" class="p-4 flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50/50 border-b border-slate-100">
         <div class="relative w-full sm:w-72">
             <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
-            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari judul artikel..." class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50" onchange="this.form.submit()">
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari judul blog..." class="w-full pl-10 pr-4 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50" onchange="this.form.submit()">
         </div>
         <div class="flex items-center gap-4 text-sm text-slate-500 font-medium">
             <div>
@@ -37,7 +37,7 @@
                 <tr>
                     <th class="px-6 py-4 w-16 text-center">No</th>
                     <th class="px-6 py-4 w-32">Thumbnail</th>
-                    <th class="px-6 py-4">Judul Artikel</th>
+                    <th class="px-6 py-4">Judul Blog</th>
                     <th class="px-6 py-4 w-40">Tanggal</th>
                     <th class="px-6 py-4 w-32">Status</th>
                     <th class="px-6 py-4 text-center w-32">Aksi</th>
@@ -81,7 +81,7 @@
                             <a href="{{ url('admin/artikel/'.$artikel->id.'/edit') }}" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-colors" title="Edit">
                                 <i class="fas fa-pen"></i>
                             </a>
-                            <form action="{{ url('admin/artikel/'.$artikel->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus artikel ini?');" class="m-0 p-0">
+                            <form action="{{ url('admin/artikel/'.$artikel->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus blog ini?');" class="m-0 p-0">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:bg-red-50 hover:text-red-500 transition-colors" title="Hapus">
@@ -93,7 +93,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="5" class="px-6 py-8 text-center text-slate-500">Belum ada data artikel.</td>
+                    <td colspan="5" class="px-6 py-8 text-center text-slate-500">Belum ada data blog.</td>
                 </tr>
                 @endforelse
             </tbody>

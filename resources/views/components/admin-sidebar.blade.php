@@ -2,7 +2,7 @@
     <!-- Logo Area -->
     <div class="h-24 flex flex-col justify-center px-8 border-b border-white/5 bg-slate-900/50">
         <div class="flex items-center gap-3">
-            <img src="{{ asset('gambar/aset/logo-elcoding.svg?v=2') }}" alt="Elcoding" class="h-8 object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
+            <img src="{{ asset('gambar/aset/logo-elcoding.svg?v=3') }}" alt="Elcoding" class="h-8 object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity">
             <span class="text-[10px] font-extrabold text-white bg-blue-600/80 px-2 py-1 rounded-md uppercase tracking-widest border border-blue-500/50 shadow-lg shadow-blue-500/20">ADMIN</span>
         </div>
     </div>

@@ -15,7 +15,7 @@
 
     {!! SEO::generate() !!}
 
-    <link rel="icon" href="{{ asset('gambar/aset/logo-elcoding.svg?v=2') }}" type="image/svg+xml">
+    <link rel="icon" href="{{ asset('gambar/aset/logo-elcoding.svg?v=3') }}" type="image/svg+xml">
 
     <!-- LCP Preload Stack -->
     @stack('preload')
@@ -457,7 +457,7 @@
             <!-- 1. BAGIAN KIRI: Logo -->
             <div class="header-logo">
                 <a href="{{ url('/') }}">
-                    <img src="{{ asset('gambar/aset/logo-elcoding.svg?v=2') }}" alt="Elcoding" style="height: 40px; width: auto;">
+                    <img src="{{ asset('gambar/aset/logo-elcoding.svg?v=3') }}" alt="Elcoding" style="height: 40px; width: auto;">
                 </a>
             </div>
 
@@ -788,7 +788,7 @@
         <div class="footer-container">
             <!-- Col 1 -->
             <div class="footer-col">
-                <img src="{{ asset('gambar/aset/logo-elcoding.svg?v=2') }}" alt="Elcoding Logo" class="footer-logo"
+                <img src="{{ asset('gambar/aset/logo-elcoding.svg?v=3') }}" alt="Elcoding Logo" class="footer-logo"
                     width="150" height="36" loading="lazy"
                     style="height: 36px; width: auto; object-fit: contain;">
                 <p class="footer-desc">Software House profesional penyedia jasa pembuatan aplikasi/website, sekaligus

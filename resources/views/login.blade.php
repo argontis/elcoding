@@ -61,7 +61,7 @@
         
         <!-- Logo -->
         <div class="text-center mb-10 animate-fade-in-down">
-            <img src="{{ asset('gambar/aset/logo-elcoding.svg?v=2') }}" alt="Elcoding Academy" class="h-10 mx-auto drop-shadow-sm">
+            <img src="{{ asset('gambar/aset/logo-elcoding.svg?v=3') }}" alt="Elcoding Academy" class="h-10 mx-auto drop-shadow-sm">
             <div class="mt-4 inline-flex items-center justify-center space-x-2 bg-white/60 backdrop-blur-md px-3 py-1 rounded-full border border-white shadow-sm">
                 <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
                 <span class="text-xs font-bold text-brand-700 uppercase tracking-widest">Portal Admin</span>

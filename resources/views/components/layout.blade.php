@@ -82,7 +82,7 @@
         href='{{ asset('assets/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css') }}'
         media="all" />
     <link rel='stylesheet' id='elementor-post-7138-css'
-        href='{{ asset('assets/wp-content/uploads/elementor/css/post-7138.css') }}' media="all" />
+        href='{{ asset('assets/wp-content/uploads/elementor/css/post-7138.css?v=3') }}' media="all" />
     <link rel='stylesheet' id='swiper-css'
         href='{{ asset('assets/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css') }}'
         media="all" />
@@ -93,11 +93,11 @@
         href='{{ asset('assets/wp-content/plugins/elementor/assets/css/widget-icon-box.min.css') }}'
         media="all" />
     <link rel='stylesheet' id='elementor-post-6296-css'
-        href='{{ asset('assets/wp-content/uploads/elementor/css/post-6296.css') }}' media="all" />
+        href='{{ asset('assets/wp-content/uploads/elementor/css/post-6296.css?v=3') }}' media="all" />
     <link rel='stylesheet' id='elementor-post-11887-css'
-        href='{{ asset('assets/wp-content/uploads/elementor/css/post-11887.css') }}' media="all" />
+        href='{{ asset('assets/wp-content/uploads/elementor/css/post-11887.css?v=3') }}' media="all" />
     <link rel='stylesheet' id='elementor-post-8310-css'
-        href='{{ asset('assets/wp-content/uploads/elementor/css/post-8310.css') }}' media="all" />
+        href='{{ asset('assets/wp-content/uploads/elementor/css/post-8310.css?v=3') }}' media="all" />
 
     <style>
         body {

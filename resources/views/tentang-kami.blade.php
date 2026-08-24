@@ -125,7 +125,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <link rel='stylesheet' id='widget-social-icons-css' href='../assets/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css' media='all' />
 <link rel='stylesheet' id='e-apple-webkit-css' href='../assets/wp-content/plugins/elementor/assets/css/conditionals/apple-webkit.min.css' media='all' />
 <link rel='stylesheet' id='elementor-icons-css' href='../assets/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css' media='all' />
-<link rel='stylesheet' id='elementor-post-7138-css' href='../assets/wp-content/uploads/elementor/css/post-7138.css' media='all' />
+<link rel='stylesheet' id='elementor-post-7138-css' href='../assets/wp-content/uploads/elementor/css/post-7138.css?v=3' media='all' />
 <link rel='stylesheet' id='widget-icon-box-css' href='../assets/wp-content/plugins/elementor/assets/css/widget-icon-box.min.css' media='all' />
 <link rel='stylesheet' id='widget-image-box-css' href='../assets/wp-content/plugins/elementor/assets/css/widget-image-box.min.css' media='all' />
 <link rel='stylesheet' id='swiper-css' href='../assets/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css' media='all' />
@@ -133,9 +133,9 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <link rel='stylesheet' id='widget-image-carousel-css' href='../assets/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css' media='all' />
 <link rel='stylesheet' id='widget-loop-common-css' href='../assets/wp-content/plugins/pro-elements/assets/css/widget-loop-common.min.css' media='all' />
 <link rel='stylesheet' id='widget-loop-carousel-css' href='../assets/wp-content/plugins/pro-elements/assets/css/widget-loop-carousel.min.css' media='all' />
-<link rel='stylesheet' id='elementor-post-6097.css?v=2' href='../css/post-6097.css?v=2' media='all' />
-<link rel='stylesheet' id='elementor-post-11887-css' href='../assets/wp-content/uploads/elementor/css/post-11887.css' media='all' />
-<link rel='stylesheet' id='elementor-post-8310-css' href='../assets/wp-content/uploads/elementor/css/post-8310.css' media='all' />
+<link rel='stylesheet' id='elementor-post-6097.css?v=2' href='../css/post-6097.css?v=3' media='all' />
+<link rel='stylesheet' id='elementor-post-11887-css' href='../assets/wp-content/uploads/elementor/css/post-11887.css?v=3' media='all' />
+<link rel='stylesheet' id='elementor-post-8310-css' href='../assets/wp-content/uploads/elementor/css/post-8310.css?v=3' media='all' />
 <style id="elementor-pro-custom-fonts-inline-css">
 @font-face {
 	font-family: 'Plus Jakarta Sans';

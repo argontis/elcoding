@@ -1,8 +1,8 @@
 <x-layout title="Portofolio - Elcoding Academy">
 
 @push('styles')
-    <link rel='stylesheet' id='elementor-post-10899-css' href='{{ asset("css/post-10899.css") }}' media='all' />
-    <link rel='stylesheet' id='elementor-post-11887-css' href='{{ asset("css/post-11887.css") }}' media='all' />
+    <link rel='stylesheet' id='elementor-post-10899-css' href='{{ asset("css/post-10899.css?v=3") }}' media='all' />
+    <link rel='stylesheet' id='elementor-post-11887-css' href='{{ asset("css/post-11887.css?v=3") }}' media='all' />
     <style>
         .custom-pagination {
             display: flex;

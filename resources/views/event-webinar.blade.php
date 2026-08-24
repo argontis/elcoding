@@ -4,7 +4,7 @@
 @endpush
 
 @push('styles')
-<link rel='stylesheet' id='elementor-post-11887-css' href='{{ asset("css/post-11887.css") }}' media='all' />
+<link rel='stylesheet' id='elementor-post-11887-css' href='{{ asset("css/post-11887.css?v=3") }}' media='all' />
 <style>
     /* Fix Hero Background Image */
     .elementor-element-691d17c::before {

@@ -34,40 +34,21 @@
             display: none;
         }
     </style>
-    <style>
-        /* Fix Hero Background Image */
-        .elementor-element-691d17c::before {
-            background-image: url('{{ asset("gambar/aset/Untitled-1.png") }}') !important;
-            background-position: center center !important;
-            background-size: cover !important;
-            content: "" !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            bottom: 0 !important;
-            z-index: 0 !important;
-        }
-        .elementor-element-691d17c > .e-con-inner {
-            position: relative;
-            z-index: 1;
-        }
-    </style>
-@endpush
-
-<!-- Hero Section -->
-<div class="elementor elementor-11887">
-    <div class="elementor-element elementor-element-691d17c hide-hero-if e-flex e-con-boxed e-con e-parent" data-id="691d17c" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-        <div class="e-con-inner">
-            <div class="elementor-element elementor-element-0b653e6 elementor-widget elementor-widget-heading" data-id="0b653e6" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-                <h1 class="elementor-heading-title elementor-size-default">Program Kursus</h1>
-            </div>
-            <div class="elementor-element elementor-element-89b3de6 elementor-align-center elementor-widget elementor-widget-breadcrumbs" data-id="89b3de6" data-element_type="widget" data-e-type="widget" data-widget_type="breadcrumbs.default">
-                <p id="breadcrumbs"><span><span><a href="{{ url('/') }}">Home</a></span> » <span class="breadcrumb_last" aria-current="page">Program Kursus</span></span></p>
-            </div>
+    @endpush
+    <!-- Hero Section -->
+    <section class="ve-page-hero" style="background-image:url('{{ asset('gambar/aset/Untitled-1.png') }}');">
+        <div class="ve-page-hero-overlay"></div>
+        <div class="container ve-page-hero-content">
+            <span class="ve-section-tag">Elcoding Academy</span>
+            <h1>Program <span>Kursus</span></h1>
+            <nav aria-label="breadcrumb">
+                <ol class="ve-breadcrumb">
+                    <li><a href="{{ url('/') }}">Home</a></li>
+                    <li class="active">Program Kursus</li>
+                </ol>
+            </nav>
         </div>
-    </div>
-</div>
+    </section>
 
     <!-- Programs Grid Section -->
     <section class="programs-section">
@@ -86,8 +67,20 @@
                 @endphp
                 <div class="program-card {{ $bgClass }}">
                     <div class="program-card-header" style="background-image: url('{{ $program->image_path ? asset(str_replace(' ', '%20', $program->image_path)) : asset('gambar/aset/ilustrasi-belajar.jpg') }}');">
+                        @php
+                            $badgeText = strtolower(trim($program->badge));
+                            $badgeClass = '';
+                            $badgeIcon = 'fa-star';
+                            if (str_contains($badgeText, 'terlaris')) { $badgeClass = 'badge-terlaris'; $badgeIcon = 'fa-fire'; }
+                            elseif (str_contains($badgeText, 'unggulan') || str_contains($badgeText, 'recommended')) { $badgeClass = 'badge-unggulan'; $badgeIcon = 'fa-thumbs-up'; }
+                            elseif (str_contains($badgeText, 'upcoming')) { $badgeClass = 'badge-upcoming'; $badgeIcon = 'fa-clock'; }
+                            elseif (str_contains($badgeText, 'special')) { $badgeClass = 'badge-special'; $badgeIcon = 'fa-gem'; }
+                            elseif (str_contains($badgeText, 'hands-on')) { $badgeClass = 'badge-handson'; $badgeIcon = 'fa-laptop-code'; }
+                            elseif (str_contains($badgeText, 'design')) { $badgeClass = 'badge-design'; $badgeIcon = 'fa-paint-brush'; }
+                            elseif (str_contains($badgeText, 'crash')) { $badgeClass = 'badge-crash'; $badgeIcon = 'fa-rocket'; }
+                        @endphp
                         @if($program->badge && $program->badge != 'Reguler')
-                        <div class="program-badge {{ strtolower($program->badge) == 'terlaris' ? 'terlaris' : '' }}"><i class="fas {{ strtolower($program->badge) == 'terlaris' ? 'fa-fire' : 'fa-star' }}"></i> {{ $program->badge }}</div>
+                        <div class="program-badge {{ $badgeClass }}"><i class="fas {{ $badgeIcon }}"></i> {{ $program->badge }}</div>
                         @endif
                     </div>
                     <div class="program-card-body">
@@ -195,10 +188,26 @@
             z-index: 2;
             text-transform: uppercase;
         }
-        .program-badge.terlaris {
+        .program-badge.badge-terlaris {
             background: #EF4444;
             box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
         }
+        .program-badge.badge-unggulan, .program-badge.badge-recommended {
+            background: #10B981;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+        .program-badge.badge-upcoming {
+            background: #F59E0B;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
+        .program-badge.badge-special {
+            background: #EC4899;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+        }
+        
+        .program-badge.badge-handson { background: #3B82F6; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
+        .program-badge.badge-design { background: #6366F1; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
+        .program-badge.badge-crash { background: #14B8A6; box-shadow: 0 4px 15px rgba(20, 184, 166, 0.4); }
         
         .program-header-info {
             text-align: center;

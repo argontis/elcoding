@@ -103,6 +103,7 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: clip;
+            background-color: #ffffff !important;
         }
 
         html {
@@ -233,45 +234,89 @@
             box-shadow: 0 4px 12px rgba(32, 104, 155, 0.25);
         }
 
-        /* Hero Page Title Banner Styling */
-        .elementor-element-691d17c::before,
-        .elementor-element-691d17c > .elementor-motion-effects-container > .elementor-motion-effects-layer::before {
-            background-image: url("{{ asset('gambar/aset/hero-title-banner.png') }}") !important;
-            background-position: center center !important;
-            background-size: cover !important;
-        }
-
-        .elementor-element-691d17c {
-            padding-top: 5em !important;
-            padding-bottom: 5em !important;
+        /* ============================================================
+           PAGE HERO (VaultEdge Style)
+           ============================================================ */
+        .ve-page-hero {
+            min-height: 380px;
+            background-size: cover;
+            background-position: center;
             position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 60px;
+            margin-top: 0; /* Changed from VaultEdge default to fit Elcoding */
         }
-
-        .elementor-element-0b653e6 .elementor-heading-title {
-            color: #ffffff !important;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
-            font-weight: 800 !important;
+        .ve-page-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(13,27,42,0.92) 0%, rgba(13,27,42,0.6) 100%);
         }
-
-        .elementor-element-89b3de6,
-        .elementor-element-89b3de6 p,
-        .elementor-element-89b3de6 span {
-            color: rgba(255, 255, 255, 0.9) !important;
+        .ve-page-hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-
-        .elementor-element-89b3de6 a {
-            color: #ffffff !important;
-            font-weight: 600 !important;
+        .ve-section-tag {
+            display: inline-block;
+            background: rgba(75, 107, 245, 0.1);
+            color: #4B6BF5;
+            border: 1px solid rgba(75, 107, 245, 0.25);
+            border-radius: 50px;
+            padding: 5px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 14px;
         }
-
-        .elementor-element-89b3de6 a:hover {
-            opacity: 0.8 !important;
+        .ve-page-hero-content h1 {
+            font-size: 46px;
+            font-weight: 900;
+            color: #fff;
+            margin: 10px 0 18px;
+            line-height: 1.15;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
-            text-transform: uppercase !important;
-            padding: 12px 25px !important;
-            border-radius: 50px !important;
-            border: none !important;
-            transition: all 0.3s ease !important;
+        .ve-page-hero-content h1 span {
+            color: #4B6BF5;
+        }
+        .ve-breadcrumb {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .ve-breadcrumb li {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .ve-breadcrumb li a {
+            color: #4B6BF5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .ve-breadcrumb li a:hover {
+            color: #fff;
+        }
+        .ve-breadcrumb li.active {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+        }
+        .ve-breadcrumb li:not(:last-child)::after {
+            content: '/';
+            margin-left: 10px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        @media (max-width: 767px) {
+            .ve-page-hero-content h1 {
+                font-size: 36px;
+            }
         }
 
         .elementor-element-5ebed42 .elementor-button:hover {
@@ -444,20 +489,134 @@
 
     <!-- JSON-LD Schema Stack -->
     @stack('schema')
+
+    <!-- Preloader CSS -->
+    <style>
+        .preloader {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .preloader.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .preloader.preloader-hidden {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none;
+        }
+        .preloader .lds-ellipsis {
+            display: inline-block;
+            position: relative;
+            width: 64px;
+            height: 64px;
+        }
+        .preloader .lds-ellipsis div {
+            position: absolute;
+            top: 27px;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #4B6BF5; /* Elcoding Blue */
+            animation-timing-function: cubic-bezier(0, 1, 1, 0);
+        }
+        .preloader .lds-ellipsis div:nth-child(1) {
+            left: 6px;
+            -webkit-animation: lds-ellipsis1 0.6s infinite;
+            animation: lds-ellipsis1 0.6s infinite;
+        }
+        .preloader .lds-ellipsis div:nth-child(2) {
+            left: 6px;
+            -webkit-animation: lds-ellipsis2 0.6s infinite;
+            animation: lds-ellipsis2 0.6s infinite;
+        }
+        .preloader .lds-ellipsis div:nth-child(3) {
+            left: 26px;
+            -webkit-animation: lds-ellipsis2 0.6s infinite;
+            animation: lds-ellipsis2 0.6s infinite;
+        }
+        .preloader .lds-ellipsis div:nth-child(4) {
+            left: 45px;
+            -webkit-animation: lds-ellipsis3 0.6s infinite;
+            animation: lds-ellipsis3 0.6s infinite;
+        }
+
+        @-webkit-keyframes lds-ellipsis1 {
+            0% { -webkit-transform: scale(0); transform: scale(0); }
+            100% { -webkit-transform: scale(1); transform: scale(1); }
+        }
+        @keyframes lds-ellipsis1 {
+            0% { -webkit-transform: scale(0); transform: scale(0); }
+            100% { -webkit-transform: scale(1); transform: scale(1); }
+        }
+        @-webkit-keyframes lds-ellipsis3 {
+            0% { -webkit-transform: scale(1); transform: scale(1); }
+            100% { -webkit-transform: scale(0); transform: scale(0); }
+        }
+        @keyframes lds-ellipsis3 {
+            0% { -webkit-transform: scale(1); transform: scale(1); }
+            100% { -webkit-transform: scale(0); transform: scale(0); }
+        }
+        @-webkit-keyframes lds-ellipsis2 {
+            0% { -webkit-transform: translate(0, 0); transform: translate(0, 0); }
+            100% { -webkit-transform: translate(19px, 0); transform: translate(19px, 0); }
+        }
+        @keyframes lds-ellipsis2 {
+            0% { -webkit-transform: translate(0, 0); transform: translate(0, 0); }
+            100% { -webkit-transform: translate(19px, 0); transform: translate(19px, 0); }
+        }
+    </style>
 </head>
 
 <body
     class="home wp-singular page-template page-template-elementor_header_footer page wp-embed-responsive wp-theme-hello-elementor wp-child-theme-hello-elementor-child hello-elementor-default elementor-default elementor-template-full-width elementor-page elementor-kit-7138 elementor-page-6296">
 
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    </div>
+    
+    <script>
+        var preloader = document.getElementById('preloader');
+        var pageLoaded = false;
+        
+        window.addEventListener('load', function() {
+            pageLoaded = true;
+            if(preloader) {
+                preloader.classList.add('preloader-hidden');
+                setTimeout(function(){
+                    preloader.style.display = 'none';
+                }, 500);
+            }
+        });
 
+        // Tampilkan loading hanya jika load lebih dari 250ms
+        setTimeout(function() {
+            if (!pageLoaded && preloader) {
+                preloader.classList.add('show');
+            }
+        }, 250);
+    </script>
 
     <!-- ================= NAVBAR BARU (Desain Websekolah) ================= -->
     <header class="custom-header {{ request()->is('/') ? 'transparent-header' : '' }}" id="main-header">
         <div class="header-container">
             <!-- 1. BAGIAN KIRI: Logo -->
             <div class="header-logo">
-                <a href="{{ url('/') }}">
-                    <img src="{{ asset('gambar/aset/logo-elcoding.svg?v=3') }}" alt="Elcoding" style="height: 40px; width: auto;">
+                <a href="{{ url('/') }}" style="text-decoration: none; display: flex; align-items: baseline;">
+                    <span class="header-logo-text" style="font-family: 'Georgia', serif; font-weight: 800; font-size: 28px; color: #1a202c; letter-spacing: -0.5px;">elcoding</span><span class="header-logo-dot" style="font-family: 'Georgia', serif; font-weight: 800; font-size: 28px; color: #4B6BF5;">.id</span>
                 </a>
             </div>
 
@@ -470,14 +629,14 @@
             <nav class="header-nav" id="header-nav">
                 <ul class="nav-list">
                     <li><a href="{{ url('/') }}" class="nav-link {{ request()->is('/') ? 'active' : '' }}">Beranda</a></li>
-                    <li><a href="{{ url('/layanan') }}" class="nav-link {{ request()->is('layanan') ? 'active' : '' }}">Layanan</a></li>
+                    <li><a href="{{ url('/tentang-kami') }}" class="nav-link {{ request()->is('tentang-kami') ? 'active' : '' }}">Tentang Kami</a></li>
                     <li><a href="{{ url('/program-kursus') }}" class="nav-link {{ request()->is('program-kursus*') || request()->is('bootcamp-intensif*') ? 'active' : '' }}">Program Kursus</a></li>
                     <li><a href="{{ url('/event-webinar') }}" class="nav-link {{ request()->is('event-webinar*') || request()->is('webinar-tech*') || request()->is('workshop-online*') ? 'active' : '' }}">Event & Webinar</a></li>
-                    <li><a href="{{ url('/tentang-kami') }}" class="nav-link {{ request()->is('tentang-kami') ? 'active' : '' }}">Tentang Kami</a></li>
+                    <li><a href="{{ url('/layanan') }}" class="nav-link {{ request()->is('layanan') ? 'active' : '' }}">Layanan</a></li>
                     
                     <!-- Dropdown "Lainnya" -->
                     @php
-                        $isLainnyaActive = request()->is('portofolio*') || request()->is('artikel*') || request()->is('kontak*');
+                        $isLainnyaActive = request()->is('portofolio*') || request()->is('blog*') || request()->is('kontak*');
                     @endphp
                     <li class="dropdown" id="navDropdown">
                         <a href="#" class="nav-link dropdown-toggle {{ $isLainnyaActive ? 'active' : '' }}" id="dropdownBtn">
@@ -485,7 +644,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ url('/portofolio') }}" class="{{ request()->is('portofolio*') ? 'active' : '' }}">Portofolio</a></li>
-                            <li><a href="{{ url('/artikel') }}" class="{{ request()->is('artikel*') ? 'active' : '' }}">Blog</a></li>
+                            <li><a href="{{ url('/blog') }}" class="{{ request()->is('blog*') ? 'active' : '' }}">Blog</a></li>
                             <li><a href="{{ url('/kontak') }}" class="{{ request()->is('kontak*') ? 'active' : '' }}">Kontak</a></li>
                         </ul>
                     </li>
@@ -493,13 +652,13 @@
 
                 <!-- 3. BAGIAN KANAN (Tampil di Mobile) -->
                 <div class="header-actions mobile-actions">
-                    <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}" class="btn-solid" target="_blank">Konsultasi</a>
+                    <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}" class="btn-solid-nav" target="_blank">Konsultasi</a>
                 </div>
             </nav>
 
             <!-- 3. BAGIAN KANAN (Tampil di Desktop) -->
             <div class="header-actions desktop-actions">
-                <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}" class="btn-solid" target="_blank">Konsultasi</a>
+                <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}" class="btn-solid-nav" target="_blank">Konsultasi</a>
             </div>
         </div>
     </header>
@@ -523,20 +682,21 @@
             border-bottom: none;
             box-shadow: none;
         }
-        .custom-header.transparent-header:not(.scrolled) .header-logo span,
+        .custom-header.transparent-header:not(.scrolled) .header-logo-text,
         .custom-header.transparent-header:not(.scrolled) .nav-link,
         .custom-header.transparent-header:not(.scrolled) .mobile-toggle {
             color: #ffffff !important;
         }
         .custom-header.transparent-header:not(.scrolled) .nav-link:hover,
         .custom-header.transparent-header:not(.scrolled) .nav-link.active {
-            background-color: rgba(255, 255, 255, 0.15) !important;
+            background-color: transparent !important;
             color: #ffffff !important;
         }
-        .custom-header.transparent-header:not(.scrolled) .header-logo img {
-            filter: brightness(0) invert(1);
+        .custom-header.transparent-header:not(.scrolled) .nav-link:hover::after,
+        .custom-header.transparent-header:not(.scrolled) .nav-link.active::after {
+            background-color: #ffffff !important;
         }
-        .custom-header.transparent-header:not(.scrolled) .btn-solid {
+        .custom-header.transparent-header:not(.scrolled) .btn-solid-nav {
             background: rgba(255, 255, 255, 0.2);
             color: #ffffff !important;
             border: 1px solid rgba(255, 255, 255, 0.5);
@@ -577,23 +737,57 @@
             list-style: none;
             margin: 0;
             padding: 0;
-            gap: 8px;
+            gap: 28px;
         }
         .nav-link {
-            color: #4B6BF5 !important;
-            font-size: 14px;
-            font-weight: 600;
+            color: #1a202c !important;
+            font-size: 15px;
+            font-weight: 700;
             text-decoration: none;
-            padding: 10px 18px;
-            border-radius: 8px;
+            padding: 5px 0;
+            border-radius: 0;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
+            position: relative;
         }
-        .nav-link:hover,
-        .nav-link.active {
+        .nav-link:hover {
             color: #4B6BF5 !important;
-            background-color: #eef6fc !important;
+            background-color: transparent !important;
+        }
+        .nav-link.active {
+            color: #1a202c !important;
+            background-color: transparent !important;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: transparent;
+            transition: background-color 0.3s ease;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            background-color: #4B6BF5;
+        }
+        
+        .btn-solid-nav {
+            background-color: #4B6BF5;
+            color: #ffffff !important;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .btn-solid-nav:hover {
+            background-color: #3154f3;
+            transform: translateY(-2px);
         }
         /* Dropdown Styles */
         .dropdown {
@@ -788,9 +982,11 @@
         <div class="footer-container">
             <!-- Col 1 -->
             <div class="footer-col">
-                <img src="{{ asset('gambar/aset/logo-elcoding.svg?v=3') }}" alt="Elcoding Logo" class="footer-logo"
-                    width="150" height="36" loading="lazy"
-                    style="height: 36px; width: auto; object-fit: contain;">
+                <div class="footer-logo" style="margin-bottom: 25px; display: flex; align-items: baseline;">
+                    <a href="{{ url('/') }}" style="text-decoration: none;">
+                        <span style="font-family: 'Georgia', serif; font-weight: 800; font-size: 36px; color: #ffffff; letter-spacing: -0.5px;">elcoding</span><span style="font-family: 'Georgia', serif; font-weight: 800; font-size: 36px; color: #4B6BF5;">.id</span>
+                    </a>
+                </div>
                 <p class="footer-desc">Software House profesional penyedia jasa pembuatan aplikasi/website, sekaligus
                     Lembaga Kursus dan Pelatihan IT terpadu berbasis praktik untuk mencetak talenta digital masa depan.
                 </p>
@@ -806,10 +1002,13 @@
             <div class="footer-col">
                 <h3 class="footer-heading">Quick Links</h3>
                 <ul class="footer-list">
+                    <li><a href="{{ url('/') }}">Beranda</a></li>
                     <li><a href="{{ url('/tentang-kami') }}">Tentang Kami</a></li>
+                    <li><a href="{{ url('/layanan') }}">Layanan</a></li>
                     <li><a href="{{ url('/program-kursus') }}">Program Kursus</a></li>
+                    <li><a href="{{ url('/event-webinar') }}">Event & Webinar</a></li>
                     <li><a href="{{ url('/portofolio') }}">Portofolio</a></li>
-                    <li><a href="{{ url('/artikel') }}">Blog</a></li>
+                    <li><a href="{{ url('/blog') }}">Blog</a></li>
                     <li><a href="{{ url('/kontak') }}">Kontak</a></li>
                 </ul>
             </div>
@@ -862,30 +1061,29 @@
                     <li><i class="fas fa-envelope"></i>
                         {{ \App\Models\Setting::getValue('contact_email', 'info@elcodingacademy.com') }}</li>
                 </ul>
-
-                <div class="footer-socials">
-                    <a href="{{ \App\Models\Setting::getValue('social_facebook', '#') }}"><i
-                            class="fab fa-facebook-f"></i></a>
-                    <a href="{{ \App\Models\Setting::getValue('social_instagram', '#') }}"><i
-                            class="fab fa-instagram"></i></a>
-                    <a href="{{ \App\Models\Setting::getValue('social_youtube', '#') }}"><i
-                            class="fab fa-youtube"></i></a>
-                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                </div>
-            </div>
-        </div>
+            </div> <!-- End Col 4 -->
+        </div> <!-- End Footer Container -->
 
         <div class="footer-bottom">
-            <p>Copyright &copy;2026 Elcoding. All Rights Reserved.</p>
+            <div class="footer-bottom-container">
+                <p>Copyright &copy;2026 All rights reserved</p>
+                <div class="footer-socials-bottom">
+                    <a href="{{ \App\Models\Setting::getValue('social_twitter', '#') }}"><i class="fab fa-twitter"></i></a>
+                    <a href="{{ \App\Models\Setting::getValue('social_facebook', '#') }}"><i class="fab fa-facebook-f"></i></a>
+                    <a href="{{ \App\Models\Setting::getValue('social_website', '#') }}"><i class="fas fa-globe"></i></a>
+                    <a href="{{ \App\Models\Setting::getValue('social_instagram', '#') }}"><i class="fab fa-instagram"></i></a>
+                    <a href="{{ \App\Models\Setting::getValue('social_youtube', '#') }}"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
         </div>
     </footer>
 
     <style>
         .custom-footer {
-            background-color: #ffffff;
-            padding-top: 60px;
+            background-color: #04091e;
+            padding-top: 100px;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            border-top: 1px solid #e5e7eb;
+            border-top: none;
         }
 
         .footer-container {
@@ -905,29 +1103,22 @@
         }
 
         .footer-desc {
-            color: #4B5563;
-            font-size: 14px;
-            line-height: 1.6;
+            color: #7b838a;
+            font-size: 15px;
+            line-height: 1.8;
             margin-bottom: 25px;
         }
 
         .footer-heading {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
-            color: #1F2937;
-            margin: 0 0 20px 0;
+            color: #ffffff;
+            margin: 0 0 30px 0;
             position: relative;
-            padding-bottom: 10px;
         }
 
         .footer-heading::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 40px;
-            height: 3px;
-            background-color: #4B6BF5;
+            display: none;
         }
 
         .footer-list {
@@ -937,13 +1128,13 @@
         }
 
         .footer-list li {
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #4B5563;
+            margin-bottom: 15px;
+            font-size: 15px;
+            color: #7b838a;
         }
 
         .footer-list li a {
-            color: #4B5563;
+            color: #7b838a;
             text-decoration: none;
             transition: color 0.3s ease;
         }
@@ -959,51 +1150,58 @@
         }
 
         .icon-list li i {
-            margin-top: 3px;
-            color: #6B7280;
+            margin-top: 4px;
+            color: #7b838a;
             font-size: 16px;
         }
 
         .contact-list li {
-            line-height: 1.5;
-        }
-
-        .footer-socials {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .footer-socials a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 35px;
-            height: 35px;
-            background-color: #E5E7EB;
-            color: #374151;
-            border-radius: 50%;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-socials a:hover {
-            background-color: #4B6BF5;
-            color: #fff;
+            line-height: 1.6;
         }
 
         .footer-bottom {
-            background-color: #4B6BF5;
-            color: #ffffff;
-            text-align: center;
-            padding: 20px;
-            margin-top: 60px;
-            font-size: 14px;
+            background-color: transparent;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px 20px;
+            margin-top: 80px;
+            font-size: 15px;
+        }
+
+        .footer-bottom-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .footer-bottom p {
             margin: 0;
-            color: #ffffff;
+            color: #7b838a;
+        }
+
+        .footer-socials-bottom {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-socials-bottom a {
+            color: #7b838a;
+            font-size: 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-socials-bottom a:hover {
+            color: #4B6BF5;
+        }
+
+        @media (max-width: 768px) {
+            .footer-bottom-container {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
         }
 
         @media (max-width: 1200px) {

@@ -596,9 +596,15 @@ $data = $syllabuses[$type] ?? $syllabuses['fullstack'];
             <nav class="silabus-breadcrumbs" aria-label="Breadcrumb">
                 <a href="{{ url('/') }}">Home</a>
                 <span class="separator">></span>
-                <a href="{{ url('/event-webinar') }}">Event & Webinar</a>
-                <span class="separator">></span>
-                <a href="{{ url('/event-webinar') }}">{{ $data['breadcrumb'] }}</a>
+                @if(isset($program))
+                    <a href="{{ url('/program-kursus') }}">Program Kursus</a>
+                    <span class="separator">></span>
+                    <a href="{{ url('/program-kursus/' . $program->id) }}">{{ $program->title }}</a>
+                @else
+                    <a href="{{ url('/event-webinar') }}">Event & Webinar</a>
+                    <span class="separator">></span>
+                    <a href="{{ url('/event-webinar') }}">{{ $data['breadcrumb'] }}</a>
+                @endif
                 <span class="separator">></span>
                 <span class="active" aria-current="page">Silabus</span>
             </nav>

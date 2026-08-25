@@ -41,10 +41,12 @@
                 <div class="features-list">
                     @foreach($layanan->features_main as $fm)
                     <div class="feature-item">
-                        <i class="{{ $fm['icon'] ?? 'fas fa-check-circle' }}"></i>
+                        <i class="{{ is_array($fm) && isset($fm['icon']) ? $fm['icon'] : 'fas fa-check-circle' }}"></i>
                         <div>
-                            <h4>{{ $fm['title'] ?? '' }}</h4>
-                            <p>{{ $fm['desc'] ?? '' }}</p>
+                            <h4>{{ is_array($fm) ? ($fm['title'] ?? '') : $fm }}</h4>
+                            @if(is_array($fm) && isset($fm['desc']))
+                            <p>{{ $fm['desc'] }}</p>
+                            @endif
                         </div>
                     </div>
                     @endforeach
@@ -55,7 +57,19 @@
             <!-- Bagian Kanan: Kartu Harga & CTA (Sticky) -->
             <div class="content-right">
                 <div class="pricing-card">
-                    <span class="card-badge">{{ $layanan->badge ?? 'Layanan' }}</span>
+                    @php
+                        $badgeText = strtolower(trim($layanan->badge ?? 'Layanan'));
+                        $badgeClass = 'badge-default';
+                        $badgeIcon = 'fa-star';
+                        if (str_contains($badgeText, 'terlaris')) { $badgeClass = 'badge-terlaris'; $badgeIcon = 'fa-fire'; }
+                        elseif (str_contains($badgeText, 'unggulan') || str_contains($badgeText, 'recommended')) { $badgeClass = 'badge-unggulan'; $badgeIcon = 'fa-thumbs-up'; }
+                        elseif (str_contains($badgeText, 'upcoming')) { $badgeClass = 'badge-upcoming'; $badgeIcon = 'fa-clock'; }
+                        elseif (str_contains($badgeText, 'special')) { $badgeClass = 'badge-special'; $badgeIcon = 'fa-gem'; }
+                            elseif (str_contains($badgeText, 'hands-on')) { $badgeClass = 'badge-handson'; $badgeIcon = 'fa-laptop-code'; }
+                            elseif (str_contains($badgeText, 'design')) { $badgeClass = 'badge-design'; $badgeIcon = 'fa-paint-brush'; }
+                            elseif (str_contains($badgeText, 'crash')) { $badgeClass = 'badge-crash'; $badgeIcon = 'fa-rocket'; }
+                    @endphp
+                    <span class="card-badge {{ $badgeClass }}"><i class="fas {{ $badgeIcon }}"></i> {{ $layanan->badge ?? 'Layanan' }}</span>
                     <h3 class="price-title">{{ $layanan->price_label ?? 'Mulai dari' }}</h3>
                     <div class="price-amount">{{ $layanan->price }} <span>{{ $layanan->price_period }}</span></div>
                     
@@ -123,10 +137,19 @@
             
             <div class="full-features-grid">
                 @foreach($layanan->features_full as $ff)
-                <div class="ff-card">
-                    <div class="ff-icon {{ $ff['color_class'] ?? 'icon-blue' }}"><i class="{{ $ff['icon'] ?? 'fas fa-bolt' }}"></i></div>
-                    <h4>{{ $ff['title'] ?? '' }}</h4>
-                    <p>{{ $ff['desc'] ?? '' }}</p>
+                @php
+                    $isIncluded = is_array($ff) ? ($ff['included'] ?? true) : true;
+                    $ffName = is_array($ff) ? ($ff['name'] ?? $ff['title'] ?? '') : $ff;
+                    $ffDesc = is_array($ff) ? ($ff['desc'] ?? '') : '';
+                    $ffIcon = is_array($ff) ? ($ff['icon'] ?? ($isIncluded ? 'fas fa-bolt' : 'fas fa-times')) : 'fas fa-bolt';
+                    $colorClass = $isIncluded ? (is_array($ff) ? ($ff['color_class'] ?? 'icon-blue') : 'icon-blue') : 'icon-gray';
+                @endphp
+                <div class="ff-card" style="{{ !$isIncluded ? 'opacity: 0.6;' : '' }}">
+                    <div class="ff-icon {{ $colorClass }}"><i class="{{ $ffIcon }}"></i></div>
+                    <h4 style="{{ !$isIncluded ? 'text-decoration: line-through; color: #94a3b8;' : '' }}">{{ $ffName }}</h4>
+                    @if($ffDesc)
+                    <p>{{ $ffDesc }}</p>
+                    @endif
                 </div>
                 @endforeach
             </div>
@@ -287,15 +310,26 @@
             text-align: center;
         }
         .card-badge {
-            display: inline-block;
-            background: #eef6fc;
-            color: #4B6BF5;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             font-size: 12px;
             font-weight: 700;
             padding: 6px 16px;
             border-radius: 50px;
             margin-bottom: 15px;
+            text-transform: uppercase;
         }
+        .card-badge.badge-default { background: #8B5CF6; color: #fff; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3); }
+        .card-badge.badge-terlaris { background: #EF4444; color: #fff; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
+        .card-badge.badge-unggulan { background: #10B981; color: #fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
+        .card-badge.badge-upcoming { background: #F59E0B; color: #fff; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3); }
+        .card-badge.badge-special { background: #EC4899; color: #fff; box-shadow: 0 4px 10px rgba(236, 72, 153, 0.3); }
+        
+        .card-badge.badge-handson { background: #3B82F6; color: #fff; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3); }
+        .card-badge.badge-design { background: #6366F1; color: #fff; box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3); }
+        .card-badge.badge-crash { background: #14B8A6; color: #fff; box-shadow: 0 4px 10px rgba(20, 184, 166, 0.3); }
+        
         .price-title {
             font-size: 14px;
             color: #64748b;
@@ -335,7 +369,7 @@
 
         .btn-order {
             display: block;
-            background: #005a96;
+            background: #4B6BF5;
             color: #ffffff !important;
             padding: 14px;
             border-radius: 8px;
@@ -345,8 +379,9 @@
             margin-bottom: 15px;
         }
         .btn-order:hover {
-            background: #004a7a;
+            background: #3b5be5;
             transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(75, 107, 245, 0.4);
         }
         .btn-download {
             display: block;
@@ -441,6 +476,7 @@
         .ff-icon.icon-cyan { background: #e0f2fe; color: #0284c7; }
         .ff-icon.icon-purple { background: #f3e8ff; color: #9333ea; }
         .ff-icon.icon-green { background: #dcfce7; color: #16a34a; }
+        .ff-icon.icon-gray { background: #f1f5f9; color: #94a3b8; }
         
         .ff-card h4 {
             font-size: 15px;

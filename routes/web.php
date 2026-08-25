@@ -157,10 +157,38 @@ Route::get('/portofolio/{id}', function ($id) {
     return view('portofolio-detail', compact('portofolio'));
 });
 
-Route::get('/artikel', function () {
-    setSeoMeta('Artikel & Blog');
-    $artikels = \App\Models\Artikel::where('status', 'Published')->latest()->paginate(9);
-    return view('artikel', compact('artikels'));
+Route::get('/blog', function () {
+    setSeoMeta('Blog');
+    $query = \App\Models\Artikel::where('status', 'Published');
+    
+    if (request('search')) {
+        $query->where('title', 'like', '%' . request('search') . '%');
+    }
+    
+    $artikels = $query->latest()->paginate(8);
+    
+    $recentPosts = \App\Models\Artikel::where('status', 'Published')->latest()->take(3)->get();
+    
+    $categories = \App\Models\Artikel::select('category', \Illuminate\Support\Facades\DB::raw('count(*) as count'))
+                    ->where('status', 'Published')
+                    ->groupBy('category')
+                    ->get();
+                    
+    return view('artikel', compact('artikels', 'recentPosts', 'categories'));
+});
+
+Route::get('/blog/{id}', function ($id) {
+    $artikel = \App\Models\Artikel::findOrFail($id);
+    setSeoMeta($artikel->title, $artikel->content);
+    
+    $recentPosts = \App\Models\Artikel::where('status', 'Published')->latest()->take(3)->get();
+    
+    $categories = \App\Models\Artikel::select('category', \Illuminate\Support\Facades\DB::raw('count(*) as count'))
+                    ->where('status', 'Published')
+                    ->groupBy('category')
+                    ->get();
+                    
+    return view('artikel-detail', compact('artikel', 'recentPosts', 'categories'));
 });
 
 Route::get('/kontak', function () {

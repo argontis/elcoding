@@ -7,40 +7,20 @@
 
     @push('styles')
     <link rel='stylesheet' id='elementor-post-11887-css' href='{{ asset("css/post-11887.css?v=3") }}' media='all' />
-    <style>
-        /* Fix Hero Background Image */
-        .elementor-element-691d17c::before {
-            background-image: url('{{ asset("gambar/aset/Untitled-1.png") }}') !important;
-            background-position: center center !important;
-            background-size: cover !important;
-            content: "" !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            bottom: 0 !important;
-            z-index: 0 !important;
-        }
-        .elementor-element-691d17c > .e-con-inner {
-            position: relative;
-            z-index: 1;
-        }
-    </style>
-    @endpush
-
     <!-- Hero Section -->
-    <div class="elementor elementor-11887">
-        <div class="elementor-element elementor-element-691d17c hide-hero-if e-flex e-con-boxed e-con e-parent" data-id="691d17c" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-            <div class="e-con-inner">
-                <div class="elementor-element elementor-element-0b653e6 elementor-widget elementor-widget-heading" data-id="0b653e6" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-                    <h1 class="elementor-heading-title elementor-size-default">Layanan</h1>
-                </div>
-                <div class="elementor-element elementor-element-89b3de6 elementor-align-center elementor-widget elementor-widget-breadcrumbs" data-id="89b3de6" data-element_type="widget" data-e-type="widget" data-widget_type="breadcrumbs.default">
-                    <p id="breadcrumbs"><span><span><a href="{{ url('/') }}">Home</a></span> » <span class="breadcrumb_last" aria-current="page">Layanan</span></span></p>
-                </div>
-            </div>
+    <section class="ve-page-hero" style="background-image:url('{{ asset('gambar/aset/Untitled-1.png') }}');">
+        <div class="ve-page-hero-overlay"></div>
+        <div class="container ve-page-hero-content">
+            <span class="ve-section-tag">Elcoding Academy</span>
+            <h1>Layanan <span>Kami</span></h1>
+            <nav aria-label="breadcrumb">
+                <ol class="ve-breadcrumb">
+                    <li><a href="{{ url('/') }}">Home</a></li>
+                    <li class="active">Layanan</li>
+                </ol>
+            </nav>
         </div>
-    </div>
+    </section>
 
     <!-- 2. GRID PRODUK & LAYANAN -->
     <section class="service-content">
@@ -49,20 +29,45 @@
                 
                 @forelse($layanans as $layanan)
                 <!-- Card -->
-                <div class="service-card {{ request()->is('layanan/detail/'.$layanan->slug) ? 'active-card' : '' }}">
-                    <div class="card-icon"><i class="{{ $layanan->icon }}"></i></div>
-                    <h3 class="card-title">{{ $layanan->title }}</h3>
-                    @if($layanan->badge)
-                        <span class="card-badge">{{ $layanan->badge }}</span>
-                    @endif
-                    <p class="card-desc">{{ $layanan->short_description }}</p>
-                    <div class="card-price-wrap">
-                        <span class="price-label">{{ $layanan->price_label }}</span>
-                        <div class="price-value-row">
-                            <span class="price-value">{{ $layanan->price }}</span> <span class="price-period">{{ $layanan->price_period }}</span>
+                @php
+                    $themes = ['theme-1', 'theme-2', 'theme-3'];
+                    $theme = $themes[$loop->index % 3];
+                    $bgClass = 'card-' . $theme;
+                    $btnClass = 'btn-' . $theme;
+                    $textClass = 'text-' . $theme;
+                @endphp
+                <div class="program-card {{ $bgClass }}" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
+                    <div class="program-card-header" style="background-image: url('{{ $layanan->image_path ? asset($layanan->image_path) : 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80' }}');">
+                        @php
+                            $badgeText = strtolower(trim($layanan->badge));
+                            $badgeClass = '';
+                            $badgeIcon = 'fa-star';
+                            if (str_contains($badgeText, 'terlaris')) { $badgeClass = 'badge-terlaris'; $badgeIcon = 'fa-fire'; }
+                            elseif (str_contains($badgeText, 'unggulan') || str_contains($badgeText, 'recommended')) { $badgeClass = 'badge-unggulan'; $badgeIcon = 'fa-thumbs-up'; }
+                            elseif (str_contains($badgeText, 'upcoming')) { $badgeClass = 'badge-upcoming'; $badgeIcon = 'fa-clock'; }
+                            elseif (str_contains($badgeText, 'special')) { $badgeClass = 'badge-special'; $badgeIcon = 'fa-gem'; }
+                            elseif (str_contains($badgeText, 'hands-on')) { $badgeClass = 'badge-handson'; $badgeIcon = 'fa-laptop-code'; }
+                            elseif (str_contains($badgeText, 'design')) { $badgeClass = 'badge-design'; $badgeIcon = 'fa-paint-brush'; }
+                            elseif (str_contains($badgeText, 'crash')) { $badgeClass = 'badge-crash'; $badgeIcon = 'fa-rocket'; }
+                        @endphp
+                        @if($layanan->badge)
+                        <div class="program-badge {{ $badgeClass }}"><i class="fas {{ $badgeIcon }}"></i> {{ $layanan->badge }}</div>
+                        @endif
+                    </div>
+                    <div class="program-card-body">
+                        <div class="program-header-info">
+                            <h2 class="program-title">{!! nl2br(e($layanan->title)) !!}</h2>
+                            <span class="start-from {{ $textClass }}">{{ $layanan->price_label ?? 'Mulai Dari' }}</span>
+                            <div class="price-value">{{ $layanan->price }} <span style="font-size: 14px; font-weight: normal; color: #64748b;">{{ $layanan->price_period }}</span></div>
+                        </div>
+                        
+                        <div class="program-features-content">
+                            <p style="color: #4B5563; font-size: 14px; line-height: 1.6; margin-top: 15px; text-align: center;">{{ $layanan->short_description }}</p>
                         </div>
                     </div>
-                    <a href="{{ url('/layanan/detail/'.$layanan->slug) }}" class="btn-detail"><i class="far fa-arrow-alt-circle-right"></i> Detail</a>
+                    <div class="program-card-footer">
+                        <a href="{{ url('/layanan/detail/'.$layanan->slug) }}" class="program-btn {{ $btnClass }}">Lihat Detail</a>
+                    </div>
                 </div>
                 @empty
                 <div class="col-span-3 text-center text-slate-500 py-10">Belum ada layanan tersedia.</div>
@@ -92,101 +97,120 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 25px;
         }
-        .service-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+        .program-card {
             border-radius: 12px;
-            padding: 30px;
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
+            transition: transform 0.3s ease;
+            position: relative;
         }
-        .service-card:hover {
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-            border-color: #4B6BF5;
+        .program-card.card-theme-1 { background-color: #FAF6F0; }
+        .program-card.card-theme-2 { background-color: #F4F7FE; }
+        .program-card.card-theme-3 { background-color: #F0FAFA; }
+        .program-card:hover { transform: translateY(-5px); }
+        
+        .program-card-header {
+            background-size: cover;
+            background-position: center;
+            height: 180px;
+            position: relative;
         }
-        .card-icon {
-            width: 45px;
-            height: 45px;
-            background-color: #4B6BF5;
-            color: white;
-            border-radius: 12px;
+        .program-badge {
+            position: absolute;
+            top: 15px; 
+            left: 0;
+            background: #8B5CF6;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 0 16px 16px 0;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            margin-bottom: 20px;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+            z-index: 2;
+            text-transform: uppercase;
         }
-        .card-title {
-            font-size: 18px;
+        .program-badge.badge-terlaris {
+            background: #EF4444;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+        }
+        .program-badge.badge-unggulan, .program-badge.badge-recommended {
+            background: #10B981;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+        .program-badge.badge-upcoming {
+            background: #F59E0B;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
+        .program-badge.badge-special {
+            background: #EC4899;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+        }
+        
+        .program-badge.badge-handson { background: #3B82F6; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
+        .program-badge.badge-design { background: #6366F1; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
+        .program-badge.badge-crash { background: #14B8A6; box-shadow: 0 4px 15px rgba(20, 184, 166, 0.4); }
+        
+        .program-header-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .program-title {
+            font-size: 18px !important;
             font-weight: 700;
-            color: #1e293b;
-            margin: 0 0 10px;
+            color: #4B5563;
+            margin: 0 0 8px 0;
             line-height: 1.4;
         }
-        .card-badge {
-            display: inline-block;
-            background: #f1f5f9;
-            color: #4B6BF5;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 50px;
-            align-self: flex-start;
-            margin-bottom: 20px;
-        }
-        .card-desc {
-            font-size: 13px;
-            color: #64748b;
-            line-height: 1.6;
-            margin: 0 0 20px;
-            flex-grow: 1;
-        }
-        .card-price-wrap {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #f1f5f9;
-        }
-        .price-label {
-            font-size: 12px;
-            color: #94a3b8;
+        .start-from {
+            font-size: 16px;
+            font-weight: 600;
+            display: block;
             margin-bottom: 5px;
         }
-        .price-value-row {
-            display: flex;
-            align-items: baseline;
-            gap: 5px;
-        }
+        .start-from.text-theme-1 { color: #D2A882; }
+        .start-from.text-theme-2 { color: #132252; }
+        .start-from.text-theme-3 { color: #1D667F; }
+        
         .price-value {
-            font-size: 18px;
+            font-size: 32px !important;
             font-weight: 800;
-            color: #4B6BF5;
+            color: #1F2937;
+            line-height: 1;
         }
-        .price-period {
-            font-size: 12px;
-            color: #94a3b8;
+
+        .program-card-body {
+            flex-grow: 1;
+            padding: 30px 20px 0 20px;
         }
-        .btn-detail {
+        
+        .program-card-footer {
+            padding: 30px 10px 0 10px;
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 8px;
-            background: white;
-            color: #4B6BF5;
-            border: 1px solid #e2e8f0;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 13px;
+        }
+        .program-btn {
+            display: inline-block;
+            text-align: center;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 12px 30px;
+            border-radius: 30px;
             text-decoration: none;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            border: none;
+            margin-bottom: 30px;
         }
-        .service-card:hover .btn-detail {
-            border-color: #cce0f5;
-            background-color: #f8fafc;
-        }
+        .program-btn.btn-theme-1 { background: #D2A882; color: #ffffff !important; }
+        .program-btn.btn-theme-1:hover { background: #b89270; transform: translateY(-2px); }
+        .program-btn.btn-theme-2 { background: #132252; color: #ffffff !important; }
+        .program-btn.btn-theme-2:hover { background: #0c1638; transform: translateY(-2px); }
+        .program-btn.btn-theme-3 { background: #1D667F; color: #ffffff !important; }
+        .program-btn.btn-theme-3:hover { background: #14495c; transform: translateY(-2px); }
 
 
         /* Responsif Mobile & Tablet */

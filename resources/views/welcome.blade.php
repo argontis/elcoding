@@ -11,6 +11,7 @@
         margin-bottom: 0 !important;
     }
 </style>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 @endpush
 
 <div data-elementor-type="wp-page" data-elementor-id="6296" class="elementor elementor-6296" data-elementor-post-type="page">
@@ -207,366 +208,90 @@
         });
     </script>
 
-    <!-- Tentang Elcoding Section -->
-    <style>
-        .tentang-section {
-            padding: 100px 20px;
-            background-color: #ffffff;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-        .tentang-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: flex;
-            gap: 40px;
-        }
-        .tentang-left-col {
-            flex: 0 0 200px;
-        }
-        .tentang-label-text {
-            font-size: 11px;
-            font-weight: 700;
-            color: #94a3b8;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-        .tentang-right-col {
-            flex: 1;
-        }
-        .tentang-heading {
-            font-size: 32px;
-            font-weight: 400 !important;
-            color: #333333;
-            line-height: 1.4;
-            margin-bottom: 24px;
-            letter-spacing: -0.5px;
-            margin-top: -8px;
-        }
-        .tentang-desc {
-            font-size: 15px;
-            color: #64748b;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            max-width: 800px;
-        }
-        .tentang-links {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-        .tentang-link {
-            font-size: 14px;
-            font-weight: 700;
-            color: #1e3a8a !important;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .tentang-link .arrow {
-            color: #f97316;
-            font-weight: normal;
-        }
-        .tentang-divider {
-            height: 1px;
-            background-color: #cbd5e1;
-            margin-bottom: 50px;
-        }
-        .tentang-stats {
-            display: flex;
-            gap: 40px;
-            justify-content: flex-start;
-        }
-        .tentang-stat-item {
-            flex: 1;
-        }
-        .tentang-stat-value {
-            font-size: 48px;
-            font-weight: 500;
-            color: #0f172a;
-            margin-bottom: 12px;
-            letter-spacing: -1px;
-        }
-        .tentang-stat-label {
-            font-size: 13px;
-            color: #64748b;
-        }
-        
-        @media (max-width: 768px) {
-            .tentang-container {
-                flex-direction: column;
-                gap: 20px;
-            }
-            .tentang-left-col {
-                flex: none;
-            }
-            .tentang-stats {
-                flex-direction: column;
-                gap: 30px;
-            }
-            .tentang-heading {
-                font-size: 24px;
-            }
-            .tentang-stat-value {
-                font-size: 40px;
-            }
-        }
-    </style>
-
-    <section class="tentang-section">
-        <div class="tentang-container">
-            <div class="tentang-left-col">
-                <div class="tentang-label-text">TENTANG KAMI</div>
-            </div>
-            <div class="tentang-right-col">
-                <h2 class="tentang-heading">Mencetak ribuan developer siap kerja dan mentransformasi puluhan infrastruktur digital enterprise.</h2>
-                <p class="tentang-desc">Dari generasi ke generasi, Elcoding terus menghubungkan talenta berbakat dengan industri, menciptakan inovasi dan membangun masa depan digital bagi setiap klien dan peserta didik.</p>
-                <div class="tentang-links">
-                    <a href="/program-kursus" class="tentang-link">Program Kursus <span class="arrow">&rarr;</span></a>
-                    <a href="/layanan" class="tentang-link">Layanan Kami <span class="arrow">&rarr;</span></a>
+    <!-- Mitra Section -->
+    <section class="clients-section">
+        <div class="clients-container">
+            <div class="clients-slider" id="clientsSlider">
+                @php $mitras = \App\Models\Mitra::latest()->get(); @endphp
+                @foreach($mitras as $mitra)
+                <div class="client-logo">
+                    <img src="{{ asset($mitra->logo_path ?? 'assets/wp-content/uploads/2026/02/Icon-Nutrition.webp') }}" alt="{{ $mitra->name }}">
                 </div>
-                
-                <div class="tentang-divider"></div>
-                
-                <div class="tentang-stats" id="tentangCounterSection">
-                    <div class="tentang-stat-item">
-                        <div class="tentang-stat-value counter-value" data-prefix="&gt;" data-suffix="+" data-target="1500">&gt;0+</div>
-                        <div class="tentang-stat-label">Alumni Sukses Bekerja</div>
-                    </div>
-                    <div class="tentang-stat-item">
-                        <div class="tentang-stat-value counter-value" data-prefix="" data-suffix="%" data-target="96">0%</div>
-                        <div class="tentang-stat-label">Tingkat Kelulusan</div>
-                    </div>
-                    <div class="tentang-stat-item">
-                        <div class="tentang-stat-value counter-value" data-prefix="&gt;" data-suffix="+" data-target="120">&gt;0+</div>
-                        <div class="tentang-stat-label">Proyek Enterprise</div>
-                    </div>
-                </div>
+                @endforeach
             </div>
+            <div class="clients-pagination" id="clientsPagination"></div>
         </div>
     </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const counters = document.querySelectorAll('.counter-value');
-            const section = document.getElementById('tentangCounterSection');
-            let started = false;
-
-            const observer = new IntersectionObserver((entries) => {
-                if(entries[0].isIntersecting && !started) {
-                    started = true;
-                    counters.forEach(counter => {
-                        const target = +counter.getAttribute('data-target');
-                        const prefix = counter.getAttribute('data-prefix') || '';
-                        const suffix = counter.getAttribute('data-suffix') || '';
-                        const duration = 2000;
-                        const increment = target / (duration / 16); 
-                        let current = 0;
-                        
-                        const updateCounter = () => {
-                            current += increment;
-                            if (current < target) {
-                                let displayVal = Math.ceil(current).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                                counter.innerText = prefix + displayVal + suffix;
-                                requestAnimationFrame(updateCounter);
-                            } else {
-                                let displayVal = target.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                                counter.innerText = prefix + displayVal + suffix;
-                            }
-                        };
-                        updateCounter();
-                    });
-                }
-            }, { threshold: 0.5 });
-
-            if (section) {
-                observer.observe(section);
-            }
-        });
-    </script>
-
-    <!-- Home Video Section -->
     <style>
-        .home-video-section {
-            padding: 0;
-            background-color: transparent;
-            position: relative;
-            width: 100%;
-            height: 250vh; /* Allow enough scroll space for the sticky effect */
-        }
-        .home-video-container {
-            position: sticky;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            z-index: 10;
-        }
-
-        .video-wrapper {
-            position: relative;
-            width: 50%;
-            max-width: 800px; /* Starting size */
-            border-radius: 30px; /* Starting rounded corners */
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            background: #000;
-            aspect-ratio: 16/9;
-            will-change: width, max-width, border-radius;
-            transition: width 0.3s ease-out, max-width 0.3s ease-out, border-radius 0.3s ease-out;
-        }
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-            z-index: 1;
-        }
-        
-        /* Thumbnail Overlay & Pulse Animation */
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            z-index: 5;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop');
-        }
-        .video-overlay-bg {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 23, 42, 0.65); /* Dark tint */
-            z-index: 1;
-        }
-        
-        /* KAI.id Pill Play Button */
-        .play-btn-pill {
-            position: relative;
-            z-index: 2;
-            padding: 14px 32px;
-            background-color: rgba(255, 255, 255, 0.2); /* Pure white glass tint */
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 700;
-            backdrop-filter: blur(4px);
-            transition: all 0.3s ease;
-        }
-        .play-btn-pill i {
-            margin-right: 10px;
-            font-size: 14px;
-        }
-        .play-btn-pill:hover {
-            background-color: rgba(255, 255, 255, 0.4);
-            transform: scale(1.05);
-        }
-        
-        @media (max-width: 768px) {
-            .home-video-title {
-                font-size: 26px;
-            }
-            .home-video-container {
-                padding: 60px 20px;
-            }
-            .video-wrapper {
-                border-radius: 12px;
-            }
-            .play-btn-pill {
-                padding: 10px 24px;
-                font-size: 14px;
-            }
-        }
+        .clients-section { padding: 60px 0 40px 0; background: #fff; }
+        .clients-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; overflow: hidden; position: relative; }
+        .clients-slider { display: flex; align-items: center; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-behavior: smooth; padding-bottom: 20px; }
+        .clients-slider::-webkit-scrollbar { display: none; }
+        .client-logo { flex: 0 0 20%; scroll-snap-align: start; display: flex; justify-content: center; align-items: center; padding: 0 10px; height: 150px; }
+        .client-logo img { width: 100%; height: 100%; max-height: 120px; object-fit: contain; filter: grayscale(100%); opacity: 0.6; transform: scale(1.2); transition: all 0.3s ease; }
+        .client-logo img:hover { filter: grayscale(0); opacity: 1; transform: scale(1.35); }
+        .clients-pagination { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+        .clients-dot { width: 10px; height: 10px; border-radius: 50%; background: #e2e8f0; cursor: pointer; transition: 0.3s; }
+        .clients-dot.active { background: #4B6BF5; transform: scale(1.2); }
+        @media (max-width: 992px) { .client-logo { flex: 0 0 33.333%; } }
+        @media (max-width: 768px) { .client-logo { flex: 0 0 50%; height: 100px; } .client-logo img { max-height: 80px; transform: scale(1.1); } }
     </style>
 
-    <section class="home-video-section">
-        <div class="home-video-container">
-            <div class="video-wrapper">
-                
-                <!-- Overlay Cover yang bisa diklik -->
-                <div class="video-overlay" id="videoOverlay" onclick="playVideo()">
-                    <div class="video-overlay-bg"></div>
-                    <div class="play-btn-pill">
-                        <i class="fas fa-play"></i> Putar Video
-                    </div>
-                </div>
-
-                <!-- Ganti URL embed di bawah dengan ID Video YouTube Anda yang sebenarnya -->
-                <iframe id="videoIframe" src="" data-src="https://www.youtube.com/embed/zpOULjyy-n8?autoplay=1&rel=0&showinfo=0" title="Video Profil Elcoding" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-    </section>
-
     <script>
-        function playVideo() {
-            var overlay = document.getElementById('videoOverlay');
-            var iframe = document.getElementById('videoIframe');
-            // Hide the pulsing overlay
-            overlay.style.display = 'none';
-            // Load and auto-play the video
-            iframe.src = iframe.getAttribute('data-src');
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.getElementById('clientsSlider');
+            const pagination = document.getElementById('clientsPagination');
+            const items = slider.querySelectorAll('.client-logo');
+            if(items.length === 0) return;
 
-        // Animasi Scroll-Zoom untuk Video Thumbnail
-        document.addEventListener('DOMContentLoaded', () => {
-            const videoSection = document.querySelector('.home-video-section');
-            const videoWrapper = document.querySelector('.video-wrapper');
+            let itemsPerView = 5;
+            if (window.innerWidth <= 768) itemsPerView = 2;
+            else if (window.innerWidth <= 992) itemsPerView = 3;
+
+            const totalDots = Math.ceil(items.length / itemsPerView);
             
-            if (videoSection && videoWrapper) {
-                window.addEventListener('scroll', () => {
-                    // Hanya terapkan animasi di layar non-mobile (Desktop/Tablet besar)
-                    if (window.innerWidth < 768) return;
-
-                    const rect = videoSection.getBoundingClientRect();
-                    const windowHeight = window.innerHeight;
-                    
-                    // Sticky Scroll Logic:
-                    // Animasi dimulai saat ujung atas section menyentuh atas layar (rect.top <= 0)
-                    // dan selesai setelah di-scroll sejauh 1.5x tinggi layar (sisa tinggi dari 250vh)
-                    let progress = 0;
-                    if (rect.top <= 0) {
-                        progress = Math.abs(rect.top) / (windowHeight * 1.5);
-                    }
-                    progress = Math.max(0, Math.min(1, progress));
-                    
-                    // Hitung nilai dinamis: dari lebar 50% menjadi 100%
-                    const currentWidth = 50 + (50 * progress); 
-                    const currentBorderRadius = 30 - (30 * progress); 
-                    
-                    videoWrapper.style.width = `${currentWidth}%`;
-                    videoWrapper.style.borderRadius = `${currentBorderRadius}px`;
-                    
-                    if (progress === 1) {
-                        videoWrapper.style.maxWidth = '100%';
-                    } else {
-                        // Secara mulus tambah max-width dari 800px ke lebar layar penuh
-                        const currentMaxWidth = 800 + ((window.innerWidth - 800) * progress);
-                        videoWrapper.style.maxWidth = `${currentMaxWidth}px`;
-                    }
+            for(let i=0; i<totalDots; i++) {
+                const dot = document.createElement('div');
+                dot.className = i === 0 ? 'clients-dot active' : 'clients-dot';
+                dot.addEventListener('click', () => {
+                    slider.scrollTo({ left: i * slider.clientWidth, behavior: 'smooth' });
                 });
+                pagination.appendChild(dot);
             }
+
+            slider.addEventListener('scroll', () => {
+                const scrollLeft = slider.scrollLeft;
+                const activeIndex = Math.round(scrollLeft / slider.clientWidth);
+                const dots = pagination.querySelectorAll('.clients-dot');
+                dots.forEach((d, idx) => {
+                    if (idx === activeIndex) d.classList.add('active');
+                    else d.classList.remove('active');
+                });
+            });
+            // Auto scroll logic
+            let currentClientSlide = 0;
+            let autoScrollInterval = setInterval(() => {
+                currentClientSlide = (currentClientSlide + 1) % totalDots;
+                slider.scrollTo({ left: currentClientSlide * slider.clientWidth, behavior: 'smooth' });
+            }, 3000);
+
+            // Pause on hover
+            slider.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
+            slider.addEventListener('mouseleave', () => {
+                autoScrollInterval = setInterval(() => {
+                    currentClientSlide = (currentClientSlide + 1) % totalDots;
+                    slider.scrollTo({ left: currentClientSlide * slider.clientWidth, behavior: 'smooth' });
+                }, 3000);
+            });
         });
     </script>
 
-    <x-mitra style="--mitra-margin-top: 40px;" />
+
+
+
+
+
 <!-- Layanan Utama Section -->
 <style>
     .services-section {
@@ -722,378 +447,194 @@
     }
 </style>
 
-    <style>
-        .services-section {
-            padding: 100px 20px;
-            background: #f8fafc;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+<!-- Mengapa Memilih Kami / Features Section (Finanza Style) -->
+<style>
+    .fin-feature-section { padding: 100px 20px; font-family: 'Plus Jakarta Sans', sans-serif; background: #ffffff; }
+    .fin-container { max-width: 1320px; margin: 0 auto; }
+    .fin-row { display: flex; flex-wrap: wrap; margin: -20px; align-items: center; }
+    .fin-col-6 { width: 50%; padding: 20px; box-sizing: border-box; }
+    
+    .fin-badge { display: inline-block; border: 1px solid #dee2e6; border-radius: 5px; color: #4B6BF5; font-weight: 600; padding: 5px 15px; margin-bottom: 20px; font-size: 14px; }
+    .fin-heading { font-size: 40px; font-weight: 700; margin-bottom: 24px; color: #000000 !important; line-height: 1.2; }
+    .fin-text { color: #6B7280; margin-bottom: 32px; line-height: 1.7; font-size: 16px; }
+    .fin-btn { display: inline-block; background: #4B6BF5; color: #ffffff !important; padding: 16px 32px; border-radius: 5px; text-decoration: none; font-weight: 600; transition: background 0.3s, color 0.3s; }
+    .fin-btn:hover { background: #3a56d4; color: #ffffff !important; }
 
-        .services-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .bento-services-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .bento-service-card {
-            border-radius: 32px;
-            padding: 60px 50px;
-            position: relative;
-            overflow: hidden;
-            color: #ffffff;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 450px;
-        }
-        
-        .bento-service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
-        }
-        
-        .bento-blue {
-            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
-        }
-        
-        .bento-orange {
-            background: linear-gradient(135deg, #EA580C 0%, #F97316 100%);
-        }
-        
-        /* Decorative massive icons */
-        .bento-bg-icon {
-            position: absolute;
-            right: -20px;
-            bottom: -30px;
-            font-size: 280px;
-            color: rgba(255,255,255,0.1);
-            z-index: 0;
-            transform: rotate(-15deg);
-            transition: transform 0.6s ease;
-        }
-        
-        .bento-service-card:hover .bento-bg-icon {
-            transform: rotate(0deg) scale(1.1);
-        }
-        
-        .bento-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .bento-icon-small {
-            width: 70px;
-            height: 70px;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            margin-bottom: 30px;
-        }
-        
-        .bento-service-card h3 {
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .bento-service-card p {
-            font-size: 16px;
-            line-height: 1.7;
-            opacity: 0.9;
-            margin-bottom: 40px;
-            max-width: 90%;
-        }
-        
-        .bento-btn {
-            display: inline-flex;
-            align-items: center;
-            background: #ffffff;
-            color: #1F2937;
-            font-weight: 700;
-            padding: 16px 32px;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            align-self: flex-start;
-        }
-        
-        .bento-blue .bento-btn { color: #1E40AF; }
-        .bento-orange .bento-btn { color: #EA580C; }
-        
-        .bento-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        .bento-btn i {
-            margin-left: 10px;
-        }
-        
-        @media (max-width: 992px) {
-            .bento-services-grid { grid-template-columns: 1fr; }
-            .bento-service-card { padding: 40px; min-height: auto; }
-            .bento-bg-icon { font-size: 200px; right: -10px; bottom: -10px; }
-            .bento-service-card h3 { font-size: 28px; }
-        }
-    </style>
+    .fin-features-grid { display: flex; gap: 24px; align-items: center; }
+    .fin-features-col { display: flex; flex-direction: column; gap: 24px; flex: 1; }
 
-    <section class="services-section">
-        <div class="services-container">
-            <div class="section-header" style="text-align: center; margin-bottom: 60px;">
-                <span class="top-badge" style="background: #eef2ff; color: #4B6BF5; padding: 8px 20px; border-radius: 50px; font-weight: 700; font-size: 14px; margin-bottom: 20px; display: inline-block;">SOLUSI DIGITAL TERINTEGRASI</span>
-                <h2 class="section-title" style="font-size: 42px; font-weight: 800; color: #1F2937; margin-bottom: 20px;">Layanan Utama Kami</h2>
-                <p class="section-subtitle" style="font-size: 18px; color: #6B7280; max-width: 700px; margin: 0 auto; line-height: 1.6;">Mewujudkan ide Anda menjadi produk digital unggulan dan mencetak talenta IT berkualitas untuk masa depan.</p>
+    .fin-feature-box { border: 1px solid #dee2e6; border-radius: 8px; padding: 40px 30px; background: #ffffff; transition: all 0.3s ease; height: auto; }
+    .fin-feature-box:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.08); transform: translateY(-5px); border-color: #4B6BF5; }
+    .fin-feature-box i.fa-3x { font-size: 48px; color: #4B6BF5; margin-bottom: 24px; display: block; }
+    .fin-feature-box h4 { font-size: 22px; font-weight: 700; margin-bottom: 16px; color: #1F2937; }
+    .fin-feature-box p { color: #6B7280; margin-bottom: 20px; font-size: 15px; line-height: 1.6; }
+    .fin-feature-link { color: #4B6BF5; text-decoration: none; font-weight: 600; font-size: 15px; display: inline-flex; align-items: center; transition: color 0.3s; }
+    .fin-feature-link i { margin-left: 8px; font-size: 12px; transition: transform 0.3s; color: inherit; display: inline; margin-bottom: 0; }
+    .fin-feature-link:hover { color: #1F2937; }
+    .fin-feature-link:hover i { transform: translateX(5px); }
+
+    @media (max-width: 992px) {
+        .fin-col-6 { width: 100%; }
+        .fin-features-col:nth-child(2) { margin-top: 0; }
+        .fin-features-grid { flex-direction: column; }
+    }
+</style>
+
+<section class="fin-feature-section">
+    <div class="fin-container">
+        <div class="fin-row">
+            <div class="fin-col-6" data-aos="fade-up" data-aos-delay="100">
+                <p class="fin-badge">Mengapa Memilih Kami!</p>
+                <h1 class="fin-heading">Beberapa Alasan Mengapa Anda Memilih Kami!</h1>
+                <p class="fin-text">Lebih dari sekadar tempat kursus, Elcoding adalah Software House profesional yang menjembatani dunia pendidikan dan industri nyata. Kami memastikan setiap klien dan peserta didik mendapatkan kualitas terbaik yang relevan dengan kebutuhan pasar saat ini.</p>
+                <a class="fin-btn" href="/tentang">Eksplorasi Lebih Lanjut</a>
             </div>
-            
-            <div class="bento-services-grid">
-                <!-- Software House -->
-                <div class="bento-service-card bento-blue">
-                    <i class="fas fa-network-wired bento-bg-icon"></i>
-                    <div class="bento-content">
-                        <div class="bento-icon-small"><i class="fas fa-laptop-code"></i></div>
-                        <h3>Software House</h3>
-                        <p>Jasa pembuatan aplikasi website, sistem informasi, dan mobile apps secara custom. Solusi IT cerdas yang disesuaikan dengan kebutuhan bisnis Anda, didukung dengan arsitektur modern, UI/UX memukau, dan keamanan terjamin.</p>
+            <div class="fin-col-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="fin-features-grid">
+                    <div class="fin-features-col">
+                        <div class="fin-feature-box" data-aos="fade" data-aos-delay="100">
+                            <i class="fa fa-user-tie fa-3x"></i>
+                            <h4>Mentor Praktisi</h4>
+                            <p>Belajar langsung dari pakar yang aktif mengerjakan proyek skala enterprise.</p>
+                        </div>
+                        <div class="fin-feature-box" data-aos="fade" data-aos-delay="300">
+                            <i class="fa fa-laptop-code fa-3x"></i>
+                            <h4>Fokus Praktik</h4>
+                            <p>Kurikulum kami menuntut Anda mengerjakan studi kasus riil (80% praktik).</p>
+                        </div>
                     </div>
-                    <a href="{{ url('/kontak') }}" class="bento-btn">Konsultasi Project <i class="fas fa-arrow-right"></i></a>
-                </div>
-                
-                <!-- Pelatihan & Kursus IT -->
-                <div class="bento-service-card bento-orange">
-                    <i class="fas fa-graduation-cap bento-bg-icon"></i>
-                    <div class="bento-content">
-                        <div class="bento-icon-small"><i class="fas fa-chalkboard-teacher"></i></div>
-                        <h3>Pelatihan & Kursus IT</h3>
-                        <p>Program bootcamp intensif bersertifikat. Dirancang khusus untuk membangun fondasi karir Anda di dunia teknologi dengan kurikulum berbasis praktik industri yang mutakhir. Bangun portofolio profesional Anda bersama ahlinya.</p>
+                    <div class="fin-features-col">
+                        <div class="fin-feature-box" data-aos="fade" data-aos-delay="500">
+                            <i class="fa fa-building fa-3x"></i>
+                            <h4>Standar Enterprise</h4>
+                            <p>Rasakan workflow dan toolset yang digunakan software house modern sungguhan.</p>
+                        </div>
                     </div>
-                    <a href="{{ url('/program-kursus') }}" class="bento-btn">Lihat Program <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-<!-- Mengapa Memilih Kami Section -->
-<!-- Mengapa Memilih Kami Section -->
-<!-- Mengapa Memilih Kami Section -->
-    <style>
-        .elc-features-section {
-            padding: 100px 20px 120px;
-            background-color: #ffffff;
-            /* Subtle dotted pattern to fill empty space without being noisy */
-            background-image: radial-gradient(#e5e7eb 2px, transparent 2px);
-            background-size: 30px 30px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            position: relative;
-        }
+<!-- Layanan Utama / Services Section (Finanza Style) -->
+<style>
+    .fin-service-section { padding: 100px 20px; font-family: 'Plus Jakarta Sans', sans-serif; background: #ffffff; }
+    .fin-center-header { text-align: center; max-width: 600px; margin: 0 auto 60px; }
+    
+    .fin-service-layout { display: flex; gap: 40px; }
+    .fin-service-nav { flex: 0 0 350px; display: flex; flex-direction: column; gap: 24px; }
+    
+    .fin-service-tab { background: transparent; border: 1px solid #dee2e6; padding: 24px; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 16px; transition: all 0.5s; text-align: left; width: 100%; color: #555555; }
+    .fin-service-tab:hover { color: #355EFC; }
+    .fin-service-tab:hover h5 { color: #355EFC; }
+    .fin-service-tab.active { background: #355EFC !important; color: #ffffff !important; border-color: #355EFC !important; }
+    .fin-service-tab.active h5 { color: #ffffff !important; }
+    .fin-service-tab.active i { color: #ffffff !important; }
+    .fin-service-tab i { color: #355EFC; font-size: 24px; transition: color 0.5s; width: 30px; text-align: center; }
+    .fin-service-tab h5 { margin: 0; font-size: 18px; font-weight: 700; color: #555555; transition: color 0.5s; }
 
-        .elc-features-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .elc-features-header {
-            text-align: center;
-            margin-bottom: 70px;
-        }
-        
-        .elc-features-header h2 {
-            font-size: 42px;
-            font-weight: 800;
-            color: #1F2937; /* Dark Gray */
-            margin-bottom: 15px;
-        }
-        
-        .elc-features-header p {
-            font-size: 18px;
-            color: #6B7280;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
+    .fin-service-content-wrapper { flex: 1; }
+    .fin-service-pane { display: none; gap: 40px; animation: fadeInPane 0.5s ease forwards; }
+    .fin-service-pane.active { display: flex; }
+    @keyframes fadeInPane { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .elc-features-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-        }
-        
-        .elc-feature-card {
-            background: #ffffff;
-            border-radius: 24px;
-            padding: 50px 40px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04); /* Very soft shadow */
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-top: 6px solid #4B6BF5; /* Elcoding Brand Blue */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 280px;
-            z-index: 1;
-        }
-        
-        .elc-feature-card::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, rgba(75, 107, 245, 0.0), rgba(75, 107, 245, 0.04));
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
-        .elc-feature-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 25px 50px rgba(75, 107, 245, 0.12);
-        }
-        
-        .elc-feature-card:hover::after {
-            opacity: 1;
-        }
+    .fin-service-img-col { flex: 1; position: relative; min-height: 400px; }
+    .fin-service-img-col img { position: absolute; width: 100%; height: 100%; object-fit: cover; border-radius: 10px; box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
 
-        .elc-icon-wrapper {
-            position: relative;
-            width: 70px;
-            height: 70px;
-            border-radius: 20px;
-            background: rgba(75, 107, 245, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            color: #4B6BF5;
-            margin-bottom: 30px;
-            transition: all 0.4s ease;
-        }
-        
-        .elc-feature-card:hover .elc-icon-wrapper {
-            background: #4B6BF5;
-            color: #ffffff;
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 15px 30px rgba(75, 107, 245, 0.3);
-        }
-        
-        .elc-feature-card h3 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #1F2937;
-        }
-        
-        .elc-feature-card p {
-            font-size: 16px;
-            line-height: 1.7;
-            color: #4B5563;
-            margin: 0;
-        }
-        
-        /* Giant watermark icon inside card */
-        .elc-watermark {
-            position: absolute;
-            right: -20px;
-            bottom: -30px;
-            font-size: 200px;
-            color: rgba(75, 107, 245, 0.03);
-            z-index: -1;
-            transition: all 0.6s ease;
-        }
-        
-        .elc-feature-card:hover .elc-watermark {
-            color: rgba(75, 107, 245, 0.06);
-            transform: scale(1.1) rotate(-10deg) translateX(-10px);
-        }
-        
-        /* Orange Variant */
-        .elc-feature-card.orange-card { border-top-color: #F59E0B; }
-        .elc-feature-card.orange-card .elc-icon-wrapper { color: #F59E0B; background: rgba(245, 158, 11, 0.1); }
-        .elc-feature-card.orange-card .elc-watermark { color: rgba(245, 158, 11, 0.03); }
-        
-        .elc-feature-card.orange-card:hover .elc-icon-wrapper {
-            background: #F59E0B;
-            color: #ffffff;
-            box-shadow: 0 15px 30px rgba(245, 158, 11, 0.3);
-        }
-        .elc-feature-card.orange-card:hover .elc-watermark { color: rgba(245, 158, 11, 0.06); }
-        .elc-feature-card.orange-card:hover { box-shadow: 0 25px 50px rgba(245, 158, 11, 0.12); }
-        .elc-feature-card.orange-card::after { background: linear-gradient(135deg, rgba(245, 158, 11, 0.0), rgba(245, 158, 11, 0.04)); }
+    .fin-service-text-col { flex: 1; padding: 10px 0; display: flex; flex-direction: column; justify-content: center; }
+    .fin-service-text-col h3 { font-size: 28px; font-weight: 700; margin-bottom: 24px; color: #1F2937; line-height: 1.3; }
+    .fin-service-text-col p.desc { color: #6B7280; margin-bottom: 30px; line-height: 1.7; font-size: 16px; }
+    .fin-service-check { display: flex; align-items: center; gap: 12px; color: #4B5563; margin-bottom: 16px; font-weight: 600; font-size: 15px; }
+    .fin-service-check i { color: #4B6BF5; font-size: 16px; }
+    
+    .fin-service-readmore { margin-top: 30px; display: inline-block; background: #4B6BF5; color: #ffffff !important; padding: 16px 32px; border-radius: 5px; text-decoration: none; font-weight: 600; transition: background 0.3s, color 0.3s; align-self: flex-start; }
+    .fin-service-readmore:hover { background: #3a56d4; color: #ffffff !important; }
 
-        @media (max-width: 1024px) {
-            .elc-features-header h2 { font-size: 36px; }
-            .elc-feature-card { padding: 40px 30px; }
-        }
-        
-        @media (max-width: 768px) {
-            .elc-features-grid { grid-template-columns: 1fr; }
-            .elc-features-section { padding: 80px 20px; }
-            .elc-features-header h2 { font-size: 30px; }
-        }
-    </style>
+    @media (max-width: 992px) {
+        .fin-service-layout { flex-direction: column; }
+        .fin-service-nav { flex: none; flex-direction: row; overflow-x: auto; padding-bottom: 10px; gap: 15px; }
+        .fin-service-tab { flex: 0 0 280px; padding: 20px; }
+        .fin-service-pane { flex-direction: column; gap: 30px; }
+        .fin-service-img-col { min-height: 300px; position: static; }
+        .fin-service-img-col img { position: static; height: 300px; }
+    }
+</style>
 
-    <section class="elc-features-section">
-        <div class="elc-features-container">
-            <div class="elc-features-header">
-                <h2>Mengapa Memilih Kami?</h2>
-                <p>Lebih dari sekadar tempat kursus, Elcoding adalah Software House profesional yang menjembatani dunia pendidikan dan industri nyata.</p>
+<section class="fin-service-section">
+    <div class="fin-container">
+        <div class="fin-center-header" data-aos="fade-up" data-aos-delay="100">
+            <p class="fin-badge">Layanan Utama</p>
+            <h1 class="fin-heading" style="font-size: 40px; margin-bottom: 0;">Solusi Layanan Digital Cerdas Untuk Anda</h1>
+        </div>
+        
+        <div class="fin-service-layout" data-aos="fade-up" data-aos-delay="300">
+            <div class="fin-service-nav">
+                <button class="fin-service-tab active" data-target="service-tab-1">
+                    <i class="fa fa-laptop-code"></i>
+                    <h5>Software House</h5>
+                </button>
+                <button class="fin-service-tab" data-target="service-tab-2">
+                    <i class="fa fa-chalkboard-teacher"></i>
+                    <h5>Pelatihan & Kursus IT</h5>
+                </button>
             </div>
             
-            <div class="elc-features-grid">
-                <!-- Card 1 (Blue) -->
-                <div class="elc-feature-card">
-                    <i class="fas fa-chalkboard-teacher elc-watermark"></i>
-                    <div class="elc-icon-wrapper">
-                        <i class="fas fa-chalkboard-teacher"></i>
+            <div class="fin-service-content-wrapper">
+                <!-- Tab 1 Content -->
+                <div class="fin-service-pane active" id="service-tab-1">
+                    <div class="fin-service-img-col">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Software House">
                     </div>
-                    <h3>Mentor Praktisi Industri</h3>
-                    <p>Belajar langsung dari pakar yang aktif mengerjakan proyek skala enterprise. Dapatkan insight nyata yang tidak ada di buku teks.</p>
+                    <div class="fin-service-text-col">
+                        <h3>Pengalaman Membangun Infrastruktur Digital Modern</h3>
+                        <p class="desc">Jasa pembuatan aplikasi website, sistem informasi, dan mobile apps secara custom. Solusi IT cerdas yang disesuaikan dengan kebutuhan bisnis Anda, didukung dengan arsitektur modern dan keamanan terjamin.</p>
+                        <div class="fin-service-check"><i class="fa fa-check"></i> Custom Web & Mobile Apps</div>
+                        <div class="fin-service-check"><i class="fa fa-check"></i> Sistem Informasi Skala Enterprise</div>
+                        <div class="fin-service-check"><i class="fa fa-check"></i> UI/UX Design Memukau</div>
+                        <a href="/layanan" class="fin-service-readmore">Konsultasi Project</a>
+                    </div>
                 </div>
                 
-                <!-- Card 2 (Orange) -->
-                <div class="elc-feature-card orange-card">
-                    <i class="fas fa-laptop-code elc-watermark"></i>
-                    <div class="elc-icon-wrapper">
-                        <i class="fas fa-laptop-code"></i>
+                <!-- Tab 2 Content -->
+                <div class="fin-service-pane" id="service-tab-2">
+                    <div class="fin-service-img-col">
+                        <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80" alt="Pelatihan IT">
                     </div>
-                    <h3>Fokus Praktik & Proyek</h3>
-                    <p>Tinggalkan teori membosankan. Kurikulum kami menuntut Anda mengerjakan studi kasus riil (80% praktik) untuk membangun portofolio solid.</p>
-                </div>
-                
-                <!-- Card 3 (Blue) -->
-                <div class="elc-feature-card">
-                    <i class="fas fa-building elc-watermark"></i>
-                    <div class="elc-icon-wrapper">
-                        <i class="fas fa-building"></i>
+                    <div class="fin-service-text-col">
+                        <h3>Mencetak Talenta Digital Berkualitas Tinggi</h3>
+                        <p class="desc">Program bootcamp intensif bersertifikat. Dirancang khusus untuk membangun fondasi karir Anda di dunia teknologi dengan kurikulum berbasis praktik industri yang mutakhir. Bangun portofolio profesional Anda bersama ahlinya.</p>
+                        <div class="fin-service-check"><i class="fa fa-check"></i> Kurikulum Berbasis Praktik Industri</div>
+                        <div class="fin-service-check"><i class="fa fa-check"></i> Mentor Praktisi Profesional</div>
+                        <div class="fin-service-check"><i class="fa fa-check"></i> Sertifikasi & Penyaluran Kerja</div>
+                        <a href="/program-kursus" class="fin-service-readmore">Lihat Program</a>
                     </div>
-                    <h3>Standar Enterprise</h3>
-                    <p>Rasakan workflow dan toolset yang digunakan software house modern sungguhan, dari version control hingga agile methodology.</p>
-                </div>
-                
-                <!-- Card 4 (Orange) -->
-                <div class="elc-feature-card orange-card">
-                    <i class="fas fa-rocket elc-watermark"></i>
-                    <div class="elc-icon-wrapper">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>Penyaluran Kerja</h3>
-                    <p>Akses prioritas ke jaringan mitra strategis kami. Kesempatan emas untuk percepatan karir Anda setelah lulus dari program inkubasi.</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.fin-service-tab');
+        const panes = document.querySelectorAll('.fin-service-pane');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all
+                tabs.forEach(t => t.classList.remove('active'));
+                panes.forEach(p => p.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Show corresponding pane
+                const targetId = tab.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    });
+</script>
 
 
     <style>
@@ -1164,7 +705,7 @@
                     $btnClass = 'btn-' . $theme;
                     $textClass = 'text-' . $theme;
                 @endphp
-                <div class="program-card {{ $bgClass }}">
+                <div class="program-card {{ $bgClass }}" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
                     <div class="program-card-header" style="background-image: url('{{ $program->image_path ? asset(str_replace(' ', '%20', $program->image_path)) : asset('gambar/aset/ilustrasi-belajar.jpg') }}');">
                         @if($program->badge && $program->badge != 'Reguler')
                         <div class="program-badge {{ strtolower($program->badge) == 'terlaris' ? 'terlaris' : '' }}"><i class="fas {{ strtolower($program->badge) == 'terlaris' ? 'fa-fire' : 'fa-star' }}"></i> {{ $program->badge }}</div>
@@ -1202,9 +743,9 @@
     </section>
 
     <style>
-        .programs-section { padding: 80px 20px; background-color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; }
-        .programs-container { max-width: 1400px; margin: 0 auto; }
-        .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .programs-section { padding: 80px 20px; background-color: #ffffff; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .programs-container { max-width: 1200px; margin: 0 auto; }
+        .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .program-card {
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
@@ -1287,12 +828,12 @@
 
     <!-- Combined Statistics & CTA Section -->
     <section class="statistics-cta-section">
-        <div class="statistics-cta-container">
+        <div class="statistics-cta-container" data-aos="fade-up">
             <!-- Top: CTA -->
             <div class="cta-content">
                 <h2 class="cta-title">Siap Memulai Proyek atau Karir Anda?</h2>
                 <p class="cta-text">Berikan solusi digital terbaik untuk bisnis Anda, atau pelajari skill coding untuk meraih karir impian. Mari bergabung dan bertumbuh bersama Elcoding.</p>
-                <div class="elementor-element elementor-element-3205b82 elementor-align-center elementor-widget elementor-widget-button" data-id="3205b82" data-element_type="widget" data-widget_type="button.default">
+                <div class="elementor-element elementor-element-3205b82 elementor-align-center elementor-widget elementor-widget-button" data-id="3205b82" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
                     <a class="elementor-button elementor-button-link elementor-size-md" href="/program-kursus">
                         <span class="elementor-button-content-wrapper">
                             <span class="elementor-button-icon">
@@ -1332,57 +873,101 @@
     </style>
     @if(isset($portofolios) && $portofolios->count() > 0)
     <!-- Gallery Section -->
-    <section class="portfolio-section" id="Portofolio">
-        <div class="portfolio-container">
-            <div class="portfolio-header">
-                <h2 class="portfolio-title">Portofolio</h2>
-            </div>
-            
-            <div class="portfolio-grid">
-                @php $kategoriColors = \App\Models\KategoriPortofolio::pluck('color', 'name')->toArray(); @endphp
-                @foreach($portofolios as $portofolio)
-                <div class="portfolio-card" draggable="false">
-                    <img src="{{ asset($portofolio->image_path ?? 'assets/wp-content/uploads/2026/02/Garap-Edu.webp') }}" class="portfolio-img" alt="{{ $portofolio->title }}" loading="lazy">
-                    <div class="portfolio-info">
-                        <h4>{{ $portofolio->title }}</h4>
-                        @php $catColor = $kategoriColors[$portofolio->category] ?? '#4B6BF5'; @endphp
-                        <div style="margin-bottom: 15px;"><span class="portfolio-category-badge" style="background-color: {{ $catColor }}; color: #ffffff; box-shadow: 0 4px 10px {{ $catColor }}40;">{{ $portofolio->category }}</span></div>
-                        <div class="porto-card-actions">
-                            <a href="{{ url('/portofolio/' . $portofolio->id) }}" class="porto-btn porto-btn-detail"><i class="fas fa-info-circle"></i> Detail</a>
-                            @if($portofolio->url)
-                                <a href="{{ $portofolio->url }}" target="_blank" rel="noopener noreferrer" class="porto-btn porto-btn-url"><i class="fas fa-external-link-alt"></i> Web</a>
-                            @endif
-                        </div>
-                    </div>
+    <section class="presento-portfolio-section" id="Portofolio">
+        <div class="presento-portfolio-header">
+            <h2>Portofolio</h2>
+        </div>
+        
+        @php
+            $portfolioCategories = $portofolios->pluck('category')->unique();
+        @endphp
+        
+        <ul class="presento-portfolio-filter">
+            <li class="filter-active" data-filter="all">All</li>
+            @foreach($portfolioCategories as $cat)
+                @if($cat)
+                    <li data-filter="{{ Str::slug($cat) }}">{{ $cat }}</li>
+                @endif
+            @endforeach
+        </ul>
+
+        <div class="presento-portfolio-grid">
+            @foreach($portofolios as $portofolio)
+            <div class="presento-portfolio-item" data-category="{{ Str::slug($portofolio->category) }}" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
+                <img src="{{ asset($portofolio->image_path ?? 'assets/wp-content/uploads/2026/02/Garap-Edu.webp') }}" alt="{{ $portofolio->title }}" loading="lazy">
+                
+                <div class="portfolio-links">
+                    <a href="{{ url('/portofolio/' . $portofolio->id) }}" title="More Details"><i class="fas fa-link"></i></a>
+                    @if($portofolio->url)
+                        <a href="{{ $portofolio->url }}" target="_blank" rel="noopener noreferrer" title="Web"><i class="fas fa-external-link-alt"></i></a>
+                    @endif
                 </div>
-                @endforeach
+                
+                <div class="portfolio-info-overlay">
+                    <h4>{{ $portofolio->title }}</h4>
+                    <p>{{ $portofolio->category }}</p>
+                </div>
             </div>
+            @endforeach
         </div>
     </section>
 
     <style>
-    .portfolio-section { padding: 80px 0 40px 0; background: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
-    .portfolio-container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
-    .portfolio-header { text-align: center; margin-bottom: 50px; }
-    .portfolio-title { font-size: 38px; font-weight: 800; color: #1F2937; line-height: 1.2; margin: 0; }
-    .portfolio-grid { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: none; }
-    .portfolio-grid::-webkit-scrollbar { display: none; }
-    .portfolio-card { flex: 0 0 calc(33.333% - 20px); scroll-snap-align: start; display: flex; flex-direction: column; background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .portfolio-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
-    .portfolio-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 1px solid #f0f0f0; display: block; }
-    .portfolio-info { padding: 25px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; }
-    .portfolio-info h4 { font-size: 20px; font-weight: 700; color: #000000; margin: 0 0 8px 0; }
-    .portfolio-category-badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .porto-card-actions { display: flex; gap: 8px; margin-top: auto; justify-content: center; flex-wrap: wrap; }
-    .porto-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.25s ease; cursor: pointer; }
-    .porto-btn-detail { background: #4B6BF5; color: #fff !important; }
-    .porto-btn-detail:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.35); }
-    .porto-btn-url { background: transparent; color: #4B6BF5 !important; border: 1.5px solid #4B6BF5; }
-    .porto-btn-url:hover { background: #4B6BF5; color: #fff !important; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.25); }
-    .porto-btn-url-disabled { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; border: 1.5px solid #cbd5e1; color: #94a3b8 !important; background: transparent; cursor: not-allowed; opacity: 0.6; }
-    @media (max-width: 992px) { .portfolio-card { flex: 0 0 calc(50% - 15px); } }
-    @media (max-width: 768px) { .portfolio-card { flex: 0 0 100%; } }
+    .presento-portfolio-section { padding: 80px 0; background: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .presento-portfolio-header { text-align: center; margin-bottom: 20px; padding: 0 20px; }
+    .presento-portfolio-header h2 { font-size: 32px; font-weight: 800; color: #1F2937; line-height: 1.2; margin: 0; }
+
+    .presento-portfolio-filter { list-style: none; padding: 0; margin: 0 auto 40px auto; text-align: center; }
+    .presento-portfolio-filter li { cursor: pointer; display: inline-block; padding: 10px 15px; font-size: 15px; font-weight: 600; color: #444; transition: all 0.3s ease; text-transform: capitalize; margin: 0 5px; }
+    .presento-portfolio-filter li:hover, .presento-portfolio-filter li.filter-active { color: #4B6BF5; }
+
+    .presento-portfolio-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 0 20px; }
+    .presento-portfolio-item { position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: opacity 0.3s ease; }
+    .presento-portfolio-item img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4/3; transition: all 0.3s ease; display: block; }
+
+    .presento-portfolio-item .portfolio-info-overlay { opacity: 0; position: absolute; bottom: -20px; left: 0; right: 0; text-align: center; z-index: 3; transition: all 0.3s ease; padding: 15px; background: rgba(255,255,255,0.95); }
+    .presento-portfolio-item:hover .portfolio-info-overlay { opacity: 1; bottom: 0; }
+    .presento-portfolio-item .portfolio-info-overlay h4 { font-size: 18px; color: #111; font-weight: 700; margin-bottom: 5px; }
+    .presento-portfolio-item .portfolio-info-overlay p { color: #4B6BF5; font-size: 13px; font-weight: 600; margin: 0; text-transform: uppercase; }
+
+    .presento-portfolio-item .portfolio-links { opacity: 0; position: absolute; top: 50%; left: 0; right: 0; text-align: center; z-index: 3; transition: all 0.3s ease; transform: translateY(-50%); }
+    .presento-portfolio-item:hover .portfolio-links { opacity: 1; }
+    .presento-portfolio-item .portfolio-links a { color: #fff; background: #4B6BF5; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; margin: 0 4px; font-size: 16px; transition: 0.3s; text-decoration: none; }
+    .presento-portfolio-item .portfolio-links a:hover { background: #1a202c; }
+    
+    .presento-portfolio-item:hover img { transform: scale(1.1); }
+    .presento-portfolio-item::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.4); opacity: 0; transition: all 0.3s ease; z-index: 2; pointer-events: none; }
+    .presento-portfolio-item:hover::before { opacity: 1; }
+
+    @media (max-width: 992px) { .presento-portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+    @media (max-width: 768px) { .presento-portfolio-grid { grid-template-columns: 1fr; gap: 20px; } }
     </style>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filters = document.querySelectorAll('.presento-portfolio-filter li');
+        const items = document.querySelectorAll('.presento-portfolio-item');
+
+        filters.forEach(filter => {
+            filter.addEventListener('click', function() {
+                filters.forEach(f => f.classList.remove('filter-active'));
+                this.classList.add('filter-active');
+
+                const filterValue = this.getAttribute('data-filter');
+
+                items.forEach(item => {
+                    if(filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                        setTimeout(() => item.style.opacity = '1', 50);
+                    } else {
+                        item.style.opacity = '0';
+                        setTimeout(() => item.style.display = 'none', 300);
+                    }
+                });
+            });
+        });
+    });
+    </script>
     @endif
 
     @if(isset($artikels) && $artikels->count() > 0)
@@ -1393,21 +978,24 @@
                 <h2 class="blog-title">Blog</h2>
             </div>
             
-            <div class="blog-grid">
+            <div class="blog-grid" data-aos="fade-up">
                 @foreach($artikels as $artikel)
-                <div class="blog-card" draggable="false">
-                    <!-- For dummy we use static image based on iteration, for real you can add image_path to article model -->
+                <div class="ve-insight-card" draggable="false">
                     @php 
                         $images = ['Magang-Online.webp', 'Skill-Lab.webp', 'Magang-Mahasiswa.webp'];
                         $randomImg = $images[$artikel->id % 3];
                         $bgImage = $artikel->image_path ? asset($artikel->image_path) : asset('assets/wp-content/uploads/2026/02/'.$randomImg);
+                        $catName = $artikel->category ?: 'Update';
                     @endphp
-                    <img src="{{ $bgImage }}" class="blog-img" alt="{{ $artikel->title }}" loading="lazy">
-                    <div class="blog-content">
-                        <h4><a href="#">{{ $artikel->title }}</a></h4>
-                        <div class="blog-meta"><i class="fas fa-clock"></i> {{ $artikel->published_at ? \Carbon\Carbon::parse($artikel->published_at)->format('d M Y') : $artikel->created_at->format('d M Y') }}</div>
-                        <p>{{ Str::limit(strip_tags($artikel->content ?? 'Blog informatif dari Elcoding membahas berbagai topik seputar teknologi, pemrograman, dan dunia digital...'), 120) }}</p>
-                        <a href="{{ url('/artikel/' . $artikel->id) }}" class="blog-btn">BACA BLOG</a>
+                    <div class="ve-insight-img" style="background-image:url('{{ $bgImage }}');"></div>
+                    <div class="ve-insight-body">
+                        <span class="ve-insight-cat">{{ $catName }}</span>
+                        <h5><a href="{{ url('/blog/' . $artikel->id) }}">{{ Str::limit($artikel->title, 55) }}</a></h5>
+                        <p>{{ Str::limit(strip_tags($artikel->content ?? 'Blog informatif dari Elcoding membahas berbagai topik seputar teknologi, pemrograman, dan dunia digital...'), 90) }}</p>
+                        <div class="ve-insight-meta">
+                            <span><i class="far fa-calendar-alt"></i> {{ $artikel->published_at ? \Carbon\Carbon::parse($artikel->published_at)->format('F d, Y') : $artikel->created_at->format('F d, Y') }}</span>
+                            <a href="{{ url('/blog/' . $artikel->id) }}" style="color:#4B6BF5; font-size:14px; font-weight:600; text-decoration:none;">Baca <i class="fas fa-arrow-right" style="margin-left:5px;"></i></a>
+                        </div>
                     </div>
                 </div>
                 @endforeach
@@ -1417,28 +1005,41 @@
 
     <style>
     .blog-section { padding: 0 0 40px 0; background: #fff; font-family: 'Plus Jakarta Sans', sans-serif; }
-    .blog-container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
-    .blog-header { text-align: center; margin-bottom: 50px; }
+    .blog-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .blog-header { text-align: center; margin-bottom: 30px; }
     .blog-subtitle { display: inline-block; color: #4B6BF5; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #EDE9FE; padding: 8px 16px; border-radius: 50px; margin-bottom: 15px; letter-spacing: 1px; }
-    .blog-title { font-size: 38px; font-weight: 800; color: #1F2937; line-height: 1.2; margin: 0; }
+    .blog-title { font-size: 32px; font-weight: 800; color: #1F2937; line-height: 1.2; margin: 0; }
     .blog-grid { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; scrollbar-width: none; }
     .blog-grid::-webkit-scrollbar { display: none; }
-    .blog-card { flex: 0 0 calc(33.333% - 20px); scroll-snap-align: start; display: flex; flex-direction: column; background: #fff; border: 1px solid #f0f0f0; border-radius: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .blog-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-    .blog-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 1px solid #f0f0f0; display: block; }
-    .blog-content { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; }
-    .blog-content h4 { font-size: 20px; font-weight: 700; line-height: 1.4; margin: 0 0 15px 0; }
-    .blog-content h4 a { color: #1F2937; text-decoration: none; transition: color 0.3s ease; }
-    .blog-content h4 a:hover { color: #4B6BF5; }
-    .blog-meta { font-size: 13px; color: #000000; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; font-weight: 500; }
-    .blog-content p { font-size: 14px; color: #666; line-height: 1.6; margin: 0 0 25px 0; flex-grow: 1; }
-    .blog-btn { display: inline-block; align-self: flex-start; background: #4B6BF5; color: #fff !important; font-size: 13px; font-weight: 600; text-transform: uppercase; text-decoration: none; padding: 12px 25px; border-radius: 50px; transition: all 0.3s ease; }
-    .blog-btn:hover { background: #1E40AF; transform: translateY(-2px); }
-    @media (max-width: 992px) { .blog-card { flex: 0 0 calc(50% - 15px); } }
+    
+    .ve-insight-card {
+        flex: 0 0 calc(33.333% - 20px);
+        scroll-snap-align: start;
+        background-color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #e9ecef;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.3s;
+    }
+    .ve-insight-card:hover { box-shadow: 0 5px 20px rgba(0,0,0,0.05); transform: translateY(-5px); }
+    
+    .ve-insight-img { aspect-ratio: 4/3; width: 100%; background-size: cover; background-position: center; }
+    .ve-insight-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; text-align: left; }
+    .ve-insight-cat { display: inline-block; align-self: flex-start; padding: 5px 12px; background-color: #e5f3f3; color: #4B6BF5; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; border-radius: 4px; margin-bottom: 15px; }
+    .ve-insight-body h5 { font-size: 20px; font-weight: 700; margin-bottom: 15px; line-height: 1.4; }
+    .ve-insight-body h5 a { color: #1a202c; text-decoration: none; transition: 0.3s; }
+    .ve-insight-body h5 a:hover { color: #4B6BF5; }
+    .ve-insight-body p { color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 25px; flex-grow: 1; }
+    .ve-insight-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 15px; margin-top: auto; }
+    .ve-insight-meta span { color: #94a3b8; font-size: 13px; }
+    .ve-insight-meta span i { margin-right: 5px; }
+    
+    @media (max-width: 992px) { .ve-insight-card { flex: 0 0 calc(50% - 15px); } }
     @media (max-width: 768px) { 
-        .blog-card { flex: 0 0 100%; } 
+        .ve-insight-card { flex: 0 0 100%; } 
         .blog-title { font-size: 28px; }
-        .blog-content { padding: 20px; }
         .blog-section { padding: 0 0 32px 0; }
     }
     </style>
@@ -1450,7 +1051,7 @@
             <div class="ts-wrapper">
                 <div class="ts-track" id="tsTrack">
                     <!-- Slide 1 -->
-                    <div class="ts-slide">
+                    <div class="ts-slide" data-aos="fade-up">
                         <div class="ts-image-box">
                             <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-1.jpg') }}" alt="Testimoni" class="ts-img">
                         </div>
@@ -1466,7 +1067,7 @@
                         </div>
                     </div>
                     <!-- Slide 2 -->
-                    <div class="ts-slide">
+                    <div class="ts-slide" data-aos="fade-up">
                         <div class="ts-image-box">
                             <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-2.jpg') }}" alt="Testimoni" class="ts-img">
                         </div>
@@ -1482,7 +1083,7 @@
                         </div>
                     </div>
                     <!-- Slide 3 -->
-                    <div class="ts-slide">
+                    <div class="ts-slide" data-aos="fade-up">
                         <div class="ts-image-box">
                             <img src="{{ asset('assets/wp-content/uploads/2026/02/testimoni-3.jpg') }}" alt="Testimoni" class="ts-img">
                         </div>
@@ -1763,6 +1364,19 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
+
+@push('scripts')
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100,
+        });
+    });
+</script>
+@endpush
 
 @push('schema')
 <script type="application/ld+json">

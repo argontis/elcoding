@@ -6,23 +6,6 @@
 @push('styles')
 <link rel='stylesheet' id='elementor-post-11887-css' href='{{ asset("css/post-11887.css?v=3") }}' media='all' />
 <style>
-    /* Fix Hero Background Image */
-    .elementor-element-691d17c::before {
-        background-image: url('{{ asset("gambar/aset/Untitled-1.png") }}') !important;
-        background-position: center center !important;
-        background-size: cover !important;
-        content: "" !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        z-index: 0 !important;
-    }
-    .elementor-element-691d17c > .e-con-inner {
-        position: relative;
-        z-index: 1;
-    }
 
     body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
     
@@ -69,6 +52,22 @@
         background: #005a96;
         color: #ffffff;
     }
+    
+    .filter-select {
+        padding: 10px 15px;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        color: #4B5563;
+        outline: none;
+        cursor: pointer;
+        background-color: #f8fafc;
+    }
+    .filter-select:focus {
+        border-color: #005a96;
+    }
 
     /* Grid */
     .events-grid {
@@ -78,170 +77,121 @@
     }
 
     /* Card */
-    .event-card {
-        background: #ffffff;
+    .program-card {
         border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         overflow: hidden;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.04);
         display: flex;
         flex-direction: column;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: 1px solid #f1f5f9;
-    }
-    .event-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-
-    /* Card Header & Image */
-    .event-img-wrapper {
+        transition: transform 0.3s ease;
         position: relative;
-        padding: 15px;
-        background-color: #f8fafc; /* Fallback */
-        border-radius: 12px 12px 0 0;
+        background: #ffffff;
     }
-    .event-img-wrapper.bg-blue { background-color: #f0f7ff; }
-    .event-img-wrapper.bg-red { background-color: #fff5f5; }
-    .event-img-wrapper.bg-orange { background-color: #fff9f0; }
-
-    .event-img {
-        width: 100%;
-        border-radius: 8px;
-        display: block;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    .program-card.card-theme-1 { background-color: #FAF6F0; }
+    .program-card.card-theme-2 { background-color: #F4F7FE; }
+    .program-card.card-theme-3 { background-color: #F0FAFA; }
+    .program-card:hover { transform: translateY(-5px); }
+    
+    .program-card-header {
+        background-size: cover;
+        background-position: center;
+        height: 180px;
+        position: relative;
     }
-
-    .event-badge {
-        position: absolute;
-        top: 25px;
-        left: 25px;
-        padding: 6px 12px;
-        border-radius: 50px;
-        font-size: 11px;
-        font-weight: 800;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        backdrop-filter: blur(4px);
+    .program-badge {
+            position: absolute;
+            top: 15px; 
+            left: 0;
+            background: #8B5CF6;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 0 16px 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+            z-index: 2;
+            text-transform: uppercase;
+        }
+        .program-badge.badge-terlaris {
+            background: #EF4444;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+        }
+        .program-badge.badge-unggulan, .program-badge.badge-recommended {
+            background: #10B981;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+        .program-badge.badge-upcoming {
+            background: #F59E0B;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
+        .program-badge.badge-special {
+            background: #EC4899;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+        }
+    
+    .program-badge.badge-handson { background: #3B82F6; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
+        .program-badge.badge-design { background: #6366F1; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
+        .program-badge.badge-crash { background: #14B8A6; box-shadow: 0 4px 15px rgba(20, 184, 166, 0.4); }
+        
+        .program-header-info {
+        text-align: center;
+        margin-bottom: 30px;
     }
-    .badge-recommended {
-        background: rgba(139, 92, 246, 0.2);
-        color: #7c3aed;
-        border: 1px solid rgba(139, 92, 246, 0.3);
-    }
-    .badge-terlaris {
-        background: rgba(239, 68, 68, 0.2);
-        color: #dc2626;
-        border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-    .badge-upcoming {
-        background: rgba(245, 158, 11, 0.2);
-        color: #d97706;
-        border: 1px solid rgba(245, 158, 11, 0.3);
-    }
-
-    /* Card Body */
-    .event-body {
-        padding: 24px;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .event-meta {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 13px;
-        color: #6b7280;
-        margin-bottom: 12px;
-        font-weight: 600;
-    }
-    .event-meta i {
-        margin-right: 6px;
-    }
-    .event-meta .date {
-        color: #005a96;
-    }
-
-    .event-title {
-        font-size: 18px;
+    .program-title {
+        font-size: 18px !important;
         font-weight: 700;
-        color: #1f2937;
-        margin: 0 0 20px 0;
+        color: #4B5563;
+        margin: 0 0 8px 0;
         line-height: 1.4;
     }
-
-    .event-price-section {
-        margin-top: auto;
-        margin-bottom: 20px;
-    }
-    .event-price-label {
-        font-size: 12px;
-        text-transform: uppercase;
-        color: #9ca3af;
-        font-weight: 700;
-        letter-spacing: 1px;
-        margin-bottom: 4px;
+    .start-from {
+        font-size: 16px;
+        font-weight: 600;
         display: block;
+        margin-bottom: 5px;
     }
-    .event-price {
-        font-size: 20px;
+    .start-from.text-theme-1 { color: #D2A882; }
+    .start-from.text-theme-2 { color: #132252; }
+    .start-from.text-theme-3 { color: #1D667F; }
+    
+    .price-value {
+        font-size: 32px !important;
         font-weight: 800;
-        color: #1f2937;
-        display: flex;
-        align-items: baseline;
-        gap: 8px;
-    }
-    .event-price-strike {
-        font-size: 14px;
-        color: #9ca3af;
-        text-decoration: line-through;
-        font-weight: 600;
-    }
-    .event-price-free {
-        background: #f3f4f6;
-        padding: 4px 12px;
-        border-radius: 6px;
-        font-size: 14px;
-        color: #374151;
-        font-weight: 700;
-        display: inline-block;
+        color: #1F2937;
+        line-height: 1;
     }
 
-    /* Card Footer (Button) */
-    .event-footer {
-        padding: 0 24px 24px 24px;
+    .program-card-body {
+        flex-grow: 1;
+        padding: 30px 20px 0 20px;
     }
-    .btn-event {
-        display: block;
-        width: 100%;
+    
+    .program-card-footer {
+        padding: 30px 10px 0 10px;
+        display: flex;
+        justify-content: center;
+    }
+    .program-btn {
+        display: inline-block;
         text-align: center;
-        padding: 12px;
-        border-radius: 8px;
         font-weight: 600;
-        font-size: 14px;
+        font-size: 15px;
+        padding: 12px 30px;
+        border-radius: 30px;
         text-decoration: none;
         transition: all 0.3s ease;
+        border: none;
+        margin-bottom: 30px;
     }
-    .btn-primary {
-        background: #005a96;
-        color: #ffffff !important;
-    }
-    .btn-primary:hover {
-        background: #004370;
-    }
-    .btn-outline {
-        background: transparent;
-        color: #1f2937 !important;
-        border: 1px solid #d1d5db;
-    }
-    .btn-outline:hover {
-        border-color: #9ca3af;
-        background: #f9fafb;
-    }
+    .program-btn.btn-theme-1 { background: #D2A882; color: #ffffff !important; }
+    .program-btn.btn-theme-1:hover { background: #b89270; transform: translateY(-2px); }
+    .program-btn.btn-theme-2 { background: #132252; color: #ffffff !important; }
+    .program-btn.btn-theme-2:hover { background: #0c1638; transform: translateY(-2px); }
+    .program-btn.btn-theme-3 { background: #1D667F; color: #ffffff !important; }
+    .program-btn.btn-theme-3:hover { background: #14495c; transform: translateY(-2px); }
     
     /* Responsive */
     @media (max-width: 1024px) {
@@ -256,235 +206,187 @@
 @endpush
 
 <!-- Hero Section -->
-<div class="elementor elementor-11887">
-    <div class="elementor-element elementor-element-691d17c hide-hero-if e-flex e-con-boxed e-con e-parent" data-id="691d17c" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-        <div class="e-con-inner">
-            <div class="elementor-element elementor-element-0b653e6 elementor-widget elementor-widget-heading" data-id="0b653e6" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-                <h1 class="elementor-heading-title elementor-size-default">Event & Webinar</h1>
-            </div>
-            <div class="elementor-element elementor-element-89b3de6 elementor-align-center elementor-widget elementor-widget-breadcrumbs" data-id="89b3de6" data-element_type="widget" data-e-type="widget" data-widget_type="breadcrumbs.default">
-                <p id="breadcrumbs"><span><span><a href="{{ url('/') }}">Home</a></span> » <span class="breadcrumb_last" aria-current="page">Event & Webinar</span></span></p>
-            </div>
-        </div>
+<section class="ve-page-hero" style="background-image:url('{{ asset('gambar/aset/Untitled-1.png') }}');">
+    <div class="ve-page-hero-overlay"></div>
+    <div class="container ve-page-hero-content">
+        <span class="ve-section-tag">Elcoding Academy</span>
+        <h1>Event & <span>Webinar</span></h1>
+        <nav aria-label="breadcrumb">
+            <ol class="ve-breadcrumb">
+                <li><a href="{{ url('/') }}">Home</a></li>
+                <li class="active">Event & Webinar</li>
+            </ol>
+        </nav>
     </div>
-</div>
+</section>
 
+<?php
+$events = [
+    [
+        'category' => 'bootcamp',
+        'category_label' => 'Bootcamp Intensif',
+        'date' => 'flexible',
+        'badge_icon' => 'fas fa-star',
+        'badge_text' => 'RECOMMENDED',
+        'meta_text1' => '12 Minggu Pembelajaran',
+        'meta_text2' => '19:30 WIB',
+        'title' => 'AI & Machine Learning Essentials',
+        'price_label' => 'TIKET MASUK',
+        'price' => 'Gratis / Free',
+        'price_strike' => '',
+        'link' => url('/silabus?type=webinar'),
+        'btn_text' => 'Daftar Webinar',
+    ],
+    [
+        'category' => 'webinar',
+        'category_label' => 'Webinar Tech',
+        'date' => '2026-09',
+        'badge_icon' => 'fas fa-cloud',
+        'badge_text' => 'UPCOMING',
+        'meta_text1' => '05 Sep 2026',
+        'meta_text2' => '19:30 WIB',
+        'title' => 'Modern Cloud & Microservices',
+        'price_label' => 'TIKET MASUK',
+        'price' => 'Gratis / Free',
+        'price_strike' => '',
+        'link' => url('/silabus?type=webinar'),
+        'btn_text' => 'Daftar Webinar',
+    ],
+    [
+        'category' => 'webinar',
+        'category_label' => 'Webinar Tech',
+        'date' => '2026-09',
+        'badge_icon' => 'fas fa-shield-alt',
+        'badge_text' => 'SPECIAL SESSION',
+        'meta_text1' => '12 Sep 2026',
+        'meta_text2' => '19:30 WIB',
+        'title' => 'Cybersecurity Fundamentals',
+        'price_label' => 'TIKET MASUK',
+        'price' => 'Gratis / Free',
+        'price_strike' => '',
+        'link' => url('/silabus?type=webinar'),
+        'btn_text' => 'Daftar Webinar',
+    ],
+    [
+        'category' => 'workshop',
+        'category_label' => 'Workshop Online',
+        'date' => 'flexible',
+        'badge_icon' => 'fas fa-tools',
+        'badge_text' => 'HANDS-ON',
+        'meta_text1' => '2 Hari Intensif',
+        'meta_text2' => '',
+        'title' => 'Web App Production-Ready dgn Next.js 15 & Prisma',
+        'price_label' => 'INVESTASI',
+        'price' => 'Rp 199.000',
+        'price_strike' => 'Rp 500.000',
+        'link' => url('/silabus?type=workshop'),
+        'btn_text' => 'Daftar Workshop',
+    ],
+    [
+        'category' => 'workshop',
+        'category_label' => 'Workshop Online',
+        'date' => 'flexible',
+        'badge_icon' => 'fas fa-paint-brush',
+        'badge_text' => 'DESIGN SPRINT',
+        'meta_text1' => '1 Hari Full (Sabtu)',
+        'meta_text2' => '',
+        'title' => 'Membuat Scalable Design System di Figma',
+        'price_label' => 'INVESTASI',
+        'price' => 'Rp 149.000',
+        'price_strike' => 'Rp 450.000',
+        'link' => url('/silabus?type=workshop'),
+        'btn_text' => 'Daftar Workshop',
+    ],
+    [
+        'category' => 'workshop',
+        'category_label' => 'Workshop Online',
+        'date' => 'flexible',
+        'badge_icon' => 'fas fa-rocket',
+        'badge_text' => 'CRASH COURSE',
+        'meta_text1' => '2 Hari (Sabtu-Minggu)',
+        'meta_text2' => '',
+        'title' => 'Automasi Deployment App Menggunakan Docker',
+        'price_label' => 'INVESTASI',
+        'price' => 'Rp 249.000',
+        'price_strike' => 'Rp 550.000',
+        'link' => url('/silabus?type=workshop'),
+        'btn_text' => 'Daftar Workshop',
+    ],
+];
+?>
 <section class="events-section">
     <div class="events-container">
         
         <!-- Filters -->
         <div class="filter-bar" id="dynamicFilterBar">
-            <button class="filter-btn active" data-filter="all">Semua Event</button>
+            <button class="filter-btn active" data-filter="all">Semua Kategori</button>
             <!-- Button kategori lainnya akan dibuat secara otomatis oleh Javascript -->
+            
+            <div style="margin-left: 10px; padding-left: 10px; border-left: 2px solid #e2e8f0; display: flex; align-items: center;">
+                <select id="dateFilter" class="filter-select">
+                    <option value="all">Semua Waktu</option>
+                    <option value="2026-08">Agustus 2026</option>
+                    <option value="2026-09">September 2026</option>
+                    <option value="flexible">Waktu Fleksibel</option>
+                </select>
+            </div>
         </div>
 
         <!-- Grid -->
         <div class="events-grid" id="eventsGrid">
-            
-            <!-- Bootcamp 1 -->
-            <div class="event-card" data-category="bootcamp" data-category-label="Bootcamp Intensif">
-                <div class="event-img-wrapper bg-blue">
-                    <div class="event-badge badge-recommended"><i class="fas fa-star"></i> RECOMMENDED</div>
-                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="Bootcamp" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
+
+            @foreach($events as $event)
+            @php
+                $themes = ['theme-1', 'theme-2', 'theme-3'];
+                $theme = $themes[$loop->index % 3];
+                $bgClass = 'card-' . $theme;
+                $btnClass = 'btn-' . $theme;
+                $textClass = 'text-' . $theme;
+            @endphp
+            <div class="program-card {{ $bgClass }} event-card" data-category="{{ $event['category'] }}" data-category-label="{{ $event['category_label'] }}" data-date="{{ $event['date'] }}" data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3 + 1) * 100 }}">
+                <div class="program-card-header" style="background-image: url('{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}');">
+                    @php
+                            $badgeText = strtolower(trim($event['badge_text']));
+                            $badgeClass = '';
+                            $badgeIcon = 'fa-star';
+                            if (str_contains($badgeText, 'terlaris')) { $badgeClass = 'badge-terlaris'; $badgeIcon = 'fa-fire'; }
+                            elseif (str_contains($badgeText, 'unggulan') || str_contains($badgeText, 'recommended')) { $badgeClass = 'badge-unggulan'; $badgeIcon = 'fa-thumbs-up'; }
+                            elseif (str_contains($badgeText, 'upcoming')) { $badgeClass = 'badge-upcoming'; $badgeIcon = 'fa-clock'; }
+                            elseif (str_contains($badgeText, 'special')) { $badgeClass = 'badge-special'; $badgeIcon = 'fa-gem'; }
+                            elseif (str_contains($badgeText, 'hands-on')) { $badgeClass = 'badge-handson'; $badgeIcon = 'fa-laptop-code'; }
+                            elseif (str_contains($badgeText, 'design')) { $badgeClass = 'badge-design'; $badgeIcon = 'fa-paint-brush'; }
+                            elseif (str_contains($badgeText, 'crash')) { $badgeClass = 'badge-crash'; $badgeIcon = 'fa-rocket'; }
+                        @endphp
+                        @if($event['badge_text'])
+                        <div class="program-badge {{ $badgeClass }}"><i class="fas {{ $badgeIcon }}"></i> {{ $event['badge_text'] }}</div>
+                        @endif
                 </div>
-                <div class="event-body">
-                    <div class="event-meta">
-                        <span><i class="far fa-calendar-alt"></i> 12 Minggu Pembelajaran</span>
-                    </div>
-                    <h2 class="event-title">Bootcamp Intensif Full Stack Web Dev</h2>
-                    <div class="event-price-section">
-                        <span class="event-price-label">INVESTASI</span>
-                        <div class="event-price">
-                            Rp 2.500.000 <span class="event-price-strike">Rp 5.600.000</span>
+                <div class="program-card-body">
+                    <div class="program-header-info">
+                        <h2 class="program-title">{!! nl2br(e($event['title'])) !!}</h2>
+                        <span class="start-from {{ $textClass }}">{{ $event['price_label'] }}</span>
+                        <div class="price-value">{{ $event['price'] }} 
+                            @if($event['price_strike'])
+                            <span style="font-size: 14px; font-weight: normal; text-decoration: line-through; color: #9ca3af;">{{ $event['price_strike'] }}</span>
+                            @endif
                         </div>
                     </div>
+                    
+                    <div class="program-features-content">
+                        <p style="color: #4B5563; font-size: 14px; line-height: 1.6; margin-top: 15px; text-align: center;">
+                            <i class="far fa-calendar-alt"></i> {{ $event['meta_text1'] }}
+                            @if($event['meta_text2'])
+                            <br><span style="font-size: 12px; margin-top: 5px; display: block;">{{ $event['meta_text2'] }}</span>
+                            @endif
+                        </p>
+                    </div>
                 </div>
-                <div class="event-footer">
-                    <a href="{{ url('/silabus?type=fullstack') }}" class="btn-event btn-primary">Daftar Bootcamp <i class="fas fa-arrow-right"></i></a>
+                <div class="program-card-footer">
+                    <a href="{{ $event['link'] }}" class="program-btn {{ $btnClass }}">{{ $event['btn_text'] }}</a>
                 </div>
             </div>
-
-            <!-- Bootcamp 2 -->
-            <div class="event-card" data-category="bootcamp" data-category-label="Bootcamp Intensif">
-                <div class="event-img-wrapper bg-red">
-                    <div class="event-badge badge-terlaris"><i class="fas fa-fire"></i> TERLARIS</div>
-                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="Flutter" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
-                </div>
-                <div class="event-body">
-                    <div class="event-meta">
-                        <span><i class="far fa-calendar-alt"></i> 10 Minggu Pembelajaran</span>
-                    </div>
-                    <h2 class="event-title">Mobile App Development - Flutter</h2>
-                    <div class="event-price-section">
-                        <span class="event-price-label">INVESTASI</span>
-                        <div class="event-price">
-                            Rp 2.250.000 <span class="event-price-strike">Rp 4.500.000</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="event-footer">
-                    <a href="{{ url('/silabus?type=fullstack') }}" class="btn-event btn-primary">Daftar Bootcamp <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-
-            <!-- Bootcamp 3 -->
-            <div class="event-card" data-category="bootcamp" data-category-label="Bootcamp Intensif">
-                <div class="event-img-wrapper bg-orange">
-                    <div class="event-badge badge-upcoming"><i class="fas fa-bolt"></i> UPCOMING</div>
-                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="UI/UX" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
-                </div>
-                <div class="event-body">
-                    <div class="event-meta">
-                        <span><i class="far fa-calendar-alt"></i> 8 Minggu Pembelajaran</span>
-                    </div>
-                    <h2 class="event-title">UI/UX Design & Product Strategy</h2>
-                    <div class="event-price-section">
-                        <span class="event-price-label">INVESTASI</span>
-                        <div class="event-price">
-                            Rp 1.900.000 <span class="event-price-strike">Rp 3.800.000</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="event-footer">
-                    <a href="{{ url('/silabus?type=ui-ux') }}" class="btn-event btn-primary">Daftar Bootcamp <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-
-            <!-- Webinar 1 -->
-            <div class="event-card" data-category="webinar" data-category-label="Webinar Tech">
-                <div class="event-img-wrapper bg-blue">
-                    <div class="event-badge badge-upcoming"><i class="fas fa-video"></i> LIVE WEBINAR</div>
-                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="AI" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
-                </div>
-                <div class="event-body">
-                    <div class="event-meta">
-                        <span><i class="far fa-calendar-alt"></i> 28 Aug 2026</span>
-                        <span class="date">19:30 WIB</span>
-                    </div>
-                    <h2 class="event-title">AI & Machine Learning Essentials</h2>
-                    <div class="event-price-section">
-                        <span class="event-price-label">TIKET MASUK</span>
-                        <div class="event-price-free">Gratis / Free</div>
-                    </div>
-                </div>
-                <div class="event-footer">
-                    <a href="{{ url('/silabus?type=webinar') }}" class="btn-event btn-primary">Daftar Webinar <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-
-            <!-- Webinar 2 -->
-            <div class="event-card" data-category="webinar" data-category-label="Webinar Tech">
-                <div class="event-img-wrapper bg-red">
-                    <div class="event-badge badge-upcoming"><i class="fas fa-cloud"></i> UPCOMING</div>
-                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="Cloud" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
-                </div>
-                <div class="event-body">
-                    <div class="event-meta">
-                        <span><i class="far fa-calendar-alt"></i> 05 Sep 2026</span>
-                        <span class="date">19:30 WIB</span>
-                    </div>
-                    <h2 class="event-title">Modern Cloud & Microservices</h2>
-                    <div class="event-price-section">
-                        <span class="event-price-label">TIKET MASUK</span>
-                        <div class="event-price-free">Gratis / Free</div>
-                    </div>
-                </div>
-                <div class="event-footer">
-                    <a href="{{ url('/silabus?type=webinar') }}" class="btn-event btn-primary">Daftar Webinar <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-
-            <!-- Webinar 3 -->
-            <div class="event-card" data-category="webinar" data-category-label="Webinar Tech">
-                <div class="event-img-wrapper bg-orange">
-                    <div class="event-badge badge-recommended"><i class="fas fa-shield-alt"></i> SPECIAL SESSION</div>
-                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="Security" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
-                </div>
-                <div class="event-body">
-                    <div class="event-meta">
-                        <span><i class="far fa-calendar-alt"></i> 12 Sep 2026</span>
-                        <span class="date">19:30 WIB</span>
-                    </div>
-                    <h2 class="event-title">Cybersecurity Fundamentals</h2>
-                    <div class="event-price-section">
-                        <span class="event-price-label">TIKET MASUK</span>
-                        <div class="event-price-free">Gratis / Free</div>
-                    </div>
-                </div>
-                <div class="event-footer">
-                    <a href="{{ url('/silabus?type=webinar') }}" class="btn-event btn-primary">Daftar Webinar <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-
-            <!-- Workshop 1 -->
-            <div class="event-card" data-category="workshop" data-category-label="Workshop Online">
-                <div class="event-img-wrapper bg-blue">
-                    <div class="event-badge badge-terlaris"><i class="fas fa-tools"></i> HANDS-ON</div>
-                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="Next.js" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
-                </div>
-                <div class="event-body">
-                    <div class="event-meta">
-                        <span><i class="far fa-calendar-alt"></i> 2 Hari Intensif</span>
-                    </div>
-                    <h2 class="event-title">Web App Production-Ready dgn Next.js 15 & Prisma</h2>
-                    <div class="event-price-section">
-                        <span class="event-price-label">INVESTASI</span>
-                        <div class="event-price">
-                            Rp 199.000 <span class="event-price-strike">Rp 500.000</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="event-footer">
-                    <a href="{{ url('/silabus?type=workshop') }}" class="btn-event btn-primary">Daftar Workshop <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-
-            <!-- Workshop 2 -->
-            <div class="event-card" data-category="workshop" data-category-label="Workshop Online">
-                <div class="event-img-wrapper bg-red">
-                    <div class="event-badge badge-recommended"><i class="fas fa-paint-brush"></i> DESIGN SPRINT</div>
-                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="Figma" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
-                </div>
-                <div class="event-body">
-                    <div class="event-meta">
-                        <span><i class="far fa-calendar-alt"></i> 1 Hari Full (Sabtu)</span>
-                    </div>
-                    <h2 class="event-title">Membuat Scalable Design System di Figma</h2>
-                    <div class="event-price-section">
-                        <span class="event-price-label">INVESTASI</span>
-                        <div class="event-price">
-                            Rp 149.000 <span class="event-price-strike">Rp 450.000</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="event-footer">
-                    <a href="{{ url('/silabus?type=workshop') }}" class="btn-event btn-primary">Daftar Workshop <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-
-            <!-- Workshop 3 -->
-            <div class="event-card" data-category="workshop" data-category-label="Workshop Online">
-                <div class="event-img-wrapper bg-orange">
-                    <div class="event-badge badge-upcoming"><i class="fas fa-rocket"></i> CRASH COURSE</div>
-                    <img src="{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}" alt="DevOps" class="event-img" style="aspect-ratio: 16/9; object-fit: cover;">
-                </div>
-                <div class="event-body">
-                    <div class="event-meta">
-                        <span><i class="far fa-calendar-alt"></i> 2 Hari (Sabtu-Minggu)</span>
-                    </div>
-                    <h2 class="event-title">Automasi Deployment App Menggunakan Docker</h2>
-                    <div class="event-price-section">
-                        <span class="event-price-label">INVESTASI</span>
-                        <div class="event-price">
-                            Rp 249.000 <span class="event-price-strike">Rp 550.000</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="event-footer">
-                    <a href="{{ url('/silabus?type=workshop') }}" class="btn-event btn-primary">Daftar Workshop <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
+            @endforeach
+</div>
     </div>
 </section>
 
@@ -518,26 +420,38 @@ document.addEventListener('DOMContentLoaded', function() {
         filterBar.appendChild(btn);
     });
 
-    // 3. Setup event listener untuk tombol filter
+    // 3. Setup event listener untuk tombol filter kategori
     const filterBtns = document.querySelectorAll('.filter-btn');
+    const dateFilter = document.getElementById('dateFilter');
+    
+    function filterEvents() {
+        const activeCategory = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+        const activeDate = dateFilter.value;
+
+        eventCards.forEach(card => {
+            const cardCat = card.getAttribute('data-category');
+            const cardDate = card.getAttribute('data-date');
+            
+            const matchCategory = (activeCategory === 'all' || cardCat === activeCategory);
+            const matchDate = (activeDate === 'all' || cardDate === activeDate);
+            
+            if (matchCategory && matchDate) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Hapus kelas active dari semua tombol
             filterBtns.forEach(b => b.classList.remove('active'));
-            // Tambahkan kelas active ke tombol yang diklik
             btn.classList.add('active');
-
-            const filterValue = btn.getAttribute('data-filter');
-
-            eventCards.forEach(card => {
-                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            filterEvents();
         });
     });
+    
+    dateFilter.addEventListener('change', filterEvents);
 });
 </script>
 @endpush

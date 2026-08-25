@@ -6,47 +6,24 @@
     @push('styles')
         <link rel='stylesheet' id='elementor-post-11887-css' href='{{ asset('css/post-11887.css?v=3') }}' media='all' />
         <style>
-            /* Fix Hero Background Image */
-            .elementor-element-691d17c::before {
-                background-image: url('{{ asset('gambar/aset/Untitled-1.png') }}') !important;
-                background-position: center center !important;
-                background-size: cover !important;
-                content: "" !important;
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                z-index: 0 !important;
-            }
-
-            .elementor-element-691d17c>.e-con-inner {
-                position: relative;
-                z-index: 1;
-            }
+            /* Custom CSS for Contact if needed, hero CSS removed */
         </style>
     @endpush
 
     <!-- Hero Section -->
-    <div class="elementor elementor-11887">
-        <div class="elementor-element elementor-element-691d17c hide-hero-if e-flex e-con-boxed e-con e-parent"
-            data-id="691d17c" data-element_type="container" data-e-type="container"
-            data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-            <div class="e-con-inner">
-                <div class="elementor-element elementor-element-0b653e6 elementor-widget elementor-widget-heading"
-                    data-id="0b653e6" data-element_type="widget" data-e-type="widget"
-                    data-widget_type="heading.default">
-                    <h1 class="elementor-heading-title elementor-size-default">Kontak</h1>
-                </div>
-                <div class="elementor-element elementor-element-89b3de6 elementor-align-center elementor-widget elementor-widget-breadcrumbs"
-                    data-id="89b3de6" data-element_type="widget" data-e-type="widget"
-                    data-widget_type="breadcrumbs.default">
-                    <p id="breadcrumbs"><span><span><a href="{{ url('/') }}">Home</a></span> » <span
-                                class="breadcrumb_last" aria-current="page">Kontak</span></span></p>
-                </div>
-            </div>
+    <section class="ve-page-hero" style="background-image:url('{{ asset('gambar/aset/Untitled-1.png') }}');">
+        <div class="ve-page-hero-overlay"></div>
+        <div class="container ve-page-hero-content">
+            <span class="ve-section-tag">Elcoding Academy</span>
+            <h1>Hubungi <span>Kami</span></h1>
+            <nav aria-label="breadcrumb">
+                <ol class="ve-breadcrumb">
+                    <li><a href="{{ url('/') }}">Home</a></li>
+                    <li class="active">Kontak</li>
+                </ol>
+            </nav>
         </div>
-    </div>
+    </section>
 
     <!-- Contact Section -->
     <section class="contact-section">

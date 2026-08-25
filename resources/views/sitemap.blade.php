@@ -33,7 +33,7 @@
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>{{ url('/artikel') }}</loc>
+        <loc>{{ url('/blog') }}</loc>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
     </url>
@@ -76,7 +76,7 @@
     <!-- Dynamic Routes: Artikel -->
     @foreach ($artikels as $artikel)
         <url>
-            <loc>{{ url('/artikel/' . $artikel->id) }}</loc>
+            <loc>{{ url('/blog/' . $artikel->id) }}</loc>
             <lastmod>{{ $artikel->updated_at->tz('UTC')->toAtomString() }}</lastmod>
             <changefreq>weekly</changefreq>
             <priority>0.8</priority>

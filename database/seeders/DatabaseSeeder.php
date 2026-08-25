@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             AdminSeeder::class,
+            SettingsSeeder::class,
+            LayananSeeder::class,
         ]);
     }
 }

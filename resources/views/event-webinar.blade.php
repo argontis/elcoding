@@ -206,7 +206,7 @@
 @endpush
 
 <!-- Hero Section -->
-<section class="ve-page-hero" style="background-image:url('{{ asset('gambar/aset/Untitled-1.png') }}');">
+<section class="ve-page-hero" style="background-image:url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1920&q=80');">
     <div class="ve-page-hero-overlay"></div>
     <div class="container ve-page-hero-content">
         <span class="ve-section-tag">Elcoding Academy</span>

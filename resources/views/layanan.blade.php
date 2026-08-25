@@ -2,7 +2,7 @@
     <x-slot name="title">Produk & Layanan</x-slot>
 
     @push('preload')
-    <link rel="preload" as="image" href="{{ asset('gambar/aset/Untitled-1.png') }}">
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80">
     @endpush
 
     @push('styles')

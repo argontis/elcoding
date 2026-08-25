@@ -1,6 +1,6 @@
 <x-layout title="Event & Webinar - Elcoding Academy">
 @push('preload')
-<link rel="preload" as="image" href="{{ asset('gambar/aset/Untitled-1.png') }}">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1920&q=80">
 @endpush
 
 @push('styles')

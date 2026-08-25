@@ -1,6 +1,6 @@
 <x-layout title="Tentang Kami - Elcoding Academy">
 @push('preload')
-<link rel="preload" as="image" href="{{ asset('gambar/aset/Untitled-1.png') }}">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80">
 @endpush
 
 @push('styles')
@@ -91,7 +91,7 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
 @endpush
 
 <!-- Hero Section -->
-<section class="ve-page-hero" style="background-image:url('{{ asset('gambar/aset/Untitled-1.png') }}');">
+<section class="ve-page-hero" style="background-image:url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80');">
     <div class="ve-page-hero-overlay"></div>
     <div class="container ve-page-hero-content">
         <span class="ve-section-tag">Elcoding Academy</span>

@@ -1,6 +1,6 @@
 <x-layout title="Blog - Elcoding Academy">
 @push('preload')
-<link rel="preload" as="image" href="{{ asset('gambar/aset/Untitled-1.png') }}">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1920&q=80">
 @endpush
 
     @push('styles')
@@ -36,7 +36,7 @@
     </style>
     @endpush
     <!-- Hero Section -->
-    <section class="ve-page-hero" style="background-image:url('{{ asset('gambar/aset/Untitled-1.png') }}');">
+    <section class="ve-page-hero" style="background-image:url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1920&q=80');">
         <div class="ve-page-hero-overlay"></div>
         <div class="container ve-page-hero-content">
             <span class="ve-section-tag">Elcoding Academy</span>

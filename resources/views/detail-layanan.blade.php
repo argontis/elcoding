@@ -59,15 +59,26 @@
                 <div class="pricing-card">
                     @php
                         $badgeText = strtolower(trim($layanan->badge ?? 'Layanan'));
-                        $badgeClass = 'badge-default';
-                        $badgeIcon = 'fa-star';
-                        if (str_contains($badgeText, 'terlaris')) { $badgeClass = 'badge-terlaris'; $badgeIcon = 'fa-fire'; }
-                        elseif (str_contains($badgeText, 'unggulan') || str_contains($badgeText, 'recommended')) { $badgeClass = 'badge-unggulan'; $badgeIcon = 'fa-thumbs-up'; }
-                        elseif (str_contains($badgeText, 'upcoming')) { $badgeClass = 'badge-upcoming'; $badgeIcon = 'fa-clock'; }
-                        elseif (str_contains($badgeText, 'special')) { $badgeClass = 'badge-special'; $badgeIcon = 'fa-gem'; }
-                            elseif (str_contains($badgeText, 'hands-on')) { $badgeClass = 'badge-handson'; $badgeIcon = 'fa-laptop-code'; }
-                            elseif (str_contains($badgeText, 'design')) { $badgeClass = 'badge-design'; $badgeIcon = 'fa-paint-brush'; }
-                            elseif (str_contains($badgeText, 'crash')) { $badgeClass = 'badge-crash'; $badgeIcon = 'fa-rocket'; }
+                            $badgeClass = 'badge-special'; // Default color
+                            $badgeIcon = 'fa-star'; // Default icon
+                            
+                            // Status Badges
+                            if (str_contains($badgeText, 'terlaris') || str_contains($badgeText, 'populer')) { $badgeClass = 'badge-terlaris'; $badgeIcon = 'fa-fire'; }
+                            elseif (str_contains($badgeText, 'unggulan') || str_contains($badgeText, 'recommended') || str_contains($badgeText, 'rekomendasi')) { $badgeClass = 'badge-unggulan'; $badgeIcon = 'fa-thumbs-up'; }
+                            elseif (str_contains($badgeText, 'upcoming') || str_contains($badgeText, 'baru')) { $badgeClass = 'badge-upcoming'; $badgeIcon = 'fa-clock'; }
+                            elseif (str_contains($badgeText, 'special') || str_contains($badgeText, 'promo') || str_contains($badgeText, 'diskon')) { $badgeClass = 'badge-special'; $badgeIcon = 'fa-gem'; }
+                            
+                            // Category Badges (Layanan & Programs)
+                            elseif (str_contains($badgeText, 'website') || str_contains($badgeText, 'web')) { $badgeClass = 'badge-handson'; $badgeIcon = 'fa-globe'; }
+                            elseif (str_contains($badgeText, 'hosting') || str_contains($badgeText, 'server')) { $badgeClass = 'badge-design'; $badgeIcon = 'fa-server'; }
+                            elseif (str_contains($badgeText, 'perpustakaan') || str_contains($badgeText, 'digital')) { $badgeClass = 'badge-crash'; $badgeIcon = 'fa-book-reader'; }
+                            elseif (str_contains($badgeText, 'aplikasi') || str_contains($badgeText, 'app')) { $badgeClass = 'badge-upcoming'; $badgeIcon = 'fa-mobile-alt'; }
+                            elseif (str_contains($badgeText, 'sistem') || str_contains($badgeText, 'informasi')) { $badgeClass = 'badge-unggulan'; $badgeIcon = 'fa-cogs'; }
+                            
+                            // Fallbacks for specific course types
+                            elseif (str_contains($badgeText, 'hands-on') || str_contains($badgeText, 'praktek')) { $badgeClass = 'badge-handson'; $badgeIcon = 'fa-laptop-code'; }
+                            elseif (str_contains($badgeText, 'design') || str_contains($badgeText, 'desain')) { $badgeClass = 'badge-design'; $badgeIcon = 'fa-paint-brush'; }
+                            elseif (str_contains($badgeText, 'crash') || str_contains($badgeText, 'kilat')) { $badgeClass = 'badge-crash'; $badgeIcon = 'fa-rocket'; }
                     @endphp
                     <span class="card-badge {{ $badgeClass }}"><i class="fas {{ $badgeIcon }}"></i> {{ $layanan->badge ?? 'Layanan' }}</span>
                     <h3 class="price-title">{{ $layanan->price_label ?? 'Mulai dari' }}</h3>

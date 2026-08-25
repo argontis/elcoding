@@ -228,14 +228,14 @@
         .clients-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; overflow: hidden; position: relative; }
         .clients-slider { display: flex; align-items: center; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; scroll-behavior: smooth; padding-bottom: 20px; }
         .clients-slider::-webkit-scrollbar { display: none; }
-        .client-logo { flex: 0 0 20%; scroll-snap-align: start; display: flex; justify-content: center; align-items: center; padding: 0 10px; height: 150px; }
-        .client-logo img { width: 100%; height: 100%; max-height: 120px; object-fit: contain; filter: grayscale(100%); opacity: 0.6; transform: scale(1.2); transition: all 0.3s ease; }
-        .client-logo img:hover { filter: grayscale(0); opacity: 1; transform: scale(1.35); }
+        .client-logo { flex: 0 0 20%; scroll-snap-align: start; display: flex; justify-content: center; align-items: center; padding: 0 15px; height: 120px; }
+        .client-logo img { max-width: 100%; max-height: 80px; object-fit: contain; filter: grayscale(100%); opacity: 0.6; transition: all 0.3s ease; }
+        .client-logo img:hover { filter: grayscale(0); opacity: 1; transform: scale(1.05); }
         .clients-pagination { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
         .clients-dot { width: 10px; height: 10px; border-radius: 50%; background: #e2e8f0; cursor: pointer; transition: 0.3s; }
         .clients-dot.active { background: #4B6BF5; transform: scale(1.2); }
         @media (max-width: 992px) { .client-logo { flex: 0 0 33.333%; } }
-        @media (max-width: 768px) { .client-logo { flex: 0 0 50%; height: 100px; } .client-logo img { max-height: 80px; transform: scale(1.1); } }
+        @media (max-width: 768px) { .client-logo { flex: 0 0 50%; height: 100px; } .client-logo img { max-height: 60px; } }
     </style>
 
     <script>

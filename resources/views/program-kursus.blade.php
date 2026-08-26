@@ -237,9 +237,9 @@
             display: block;
             margin-bottom: 5px;
         }
-        .start-from.text-theme-1 { color: #D2A882; }
+        .start-from.text-theme-1 { color: #132252; }
         .start-from.text-theme-2 { color: #132252; }
-        .start-from.text-theme-3 { color: #1D667F; }
+        .start-from.text-theme-3 { color: #132252; }
         
         .price-value {
             font-size: 32px !important;

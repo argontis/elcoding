@@ -117,9 +117,9 @@
             transition: transform 0.3s ease;
             position: relative;
         }
-        .program-card.card-theme-1 { background-color: #FAF6F0; }
-        .program-card.card-theme-2 { background-color: #F4F7FE; }
-        .program-card.card-theme-3 { background-color: #F0FAFA; }
+        .program-card.card-theme-1 { background-color: #0d1b2a; }
+        .program-card.card-theme-2 { background-color: #0d1b2a; }
+        .program-card.card-theme-3 { background-color: #0d1b2a; }
         .program-card:hover { transform: translateY(-5px); }
         
         .program-card-header {
@@ -173,7 +173,7 @@
         .program-title {
             font-size: 18px !important;
             font-weight: 700;
-            color: #4B5563;
+            color: #ffffff;
             margin: 0 0 8px 0;
             line-height: 1.4;
         }
@@ -182,15 +182,16 @@
             font-weight: 600;
             display: block;
             margin-bottom: 5px;
+            color: #9ca3af !important;
         }
-        .start-from.text-theme-1 { color: #D2A882; }
-        .start-from.text-theme-2 { color: #132252; }
-        .start-from.text-theme-3 { color: #1D667F; }
+        .start-from.text-theme-1 { color: #9ca3af; }
+        .start-from.text-theme-2 { color: #9ca3af; }
+        .start-from.text-theme-3 { color: #9ca3af; }
         
         .price-value {
             font-size: 32px !important;
             font-weight: 800;
-            color: #1F2937;
+            color: #ffffff;
             line-height: 1;
         }
 

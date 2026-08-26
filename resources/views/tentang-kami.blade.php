@@ -164,6 +164,120 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
     </div>
 </section>
 
+<!-- TEAM MENTORS & INSTRUCTORS SECTION -->
+<section class="ve-mentors-section" style="padding: 90px 0; background: #f8fafc;">
+    <div class="ve-container">
+        <!-- Section Header -->
+        <div class="text-center max-w-2xl mx-auto mb-12" data-aos="fade-up">
+            <span class="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-[#1D6395] bg-[#1D6395]/10 border border-[#1D6395]/20 mb-3">
+                Pengajar Profesional
+            </span>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mb-3">
+                Belajar Langsung dari <span style="color: #1D6395;">Praktisi Industri</span>
+            </h2>
+            <p class="text-slate-600 text-sm md:text-base leading-relaxed">
+                Mentor kami adalah praktisi aktif di perusahaan teknologi ternama yang siap membimbing Anda step-by-step.
+            </p>
+        </div>
+
+        <!-- Mentors Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4">
+            @php
+            $mentors = [
+                [
+                    'name' => 'Zaky Afrizal, S.Kom',
+                    'role' => 'Lead Web Development & Digital Marketing',
+                    'company' => 'Elcoding Academy',
+                    'rating' => '⭐ 4.9/5 Rating',
+                    'experience' => '💼 5+ Tahun Exp',
+                    'image' => asset('gambar/aset/mentor-zaky.png'),
+                    'skills' => ['Laravel', 'React.js', 'Tailwind CSS', 'Digital Marketing'],
+                    'linkedin' => 'https://linkedin.com',
+                    'github' => 'https://github.com/zakyafrz2605?fbclid=PARlRTSAT7cQ1wZG9mAmZkaWQWUNP3zABeUflOCV3x4VHHkxHv9UURKmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp-7DbR243he14VscpbSn9DUgyuBhx-R0uROfAJWruCG6yY6ow5Kwxidw-VDp_aem_ZmFrZWR1bW15MTZieXRlcw',
+                    'portfolio' => 'https://github.com/zakyafrz2605'
+                ]
+            ];
+            @endphp
+
+            @foreach($mentors as $index => $mentor)
+            <div class="bg-white rounded-3xl border border-slate-200 p-5 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
+                <div>
+                    <!-- Photo Box Container with Gradient Backdrop & Ambient Circle -->
+                    <div class="h-48 w-full rounded-2xl overflow-hidden relative flex items-end justify-center mb-4 bg-gradient-to-b from-[#EBF5FF] via-sky-100/50 to-slate-100">
+                        <!-- Decorative Ambient Blur Circle -->
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-sky-200/50 rounded-full blur-lg pointer-events-none"></div>
+
+                        <!-- Top-Right Floating Rating Badge -->
+                        @if(!empty($mentor['rating']))
+                        <div class="absolute top-2.5 right-2.5 bg-white/90 backdrop-blur-md border border-slate-200/80 text-slate-800 text-[11px] font-bold px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1 z-10">
+                            {{ $mentor['rating'] }}
+                        </div>
+                        @endif
+
+                        <!-- Top-Left Floating Experience Badge -->
+                        @if(!empty($mentor['experience']))
+                        <div class="absolute top-2.5 left-2.5 bg-[#1D6395]/10 border border-[#1D6395]/20 text-[#1D6395] text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 z-10">
+                            {{ $mentor['experience'] }}
+                        </div>
+                        @endif
+
+                        <!-- Cutout Portrait Photo Aligned to Bottom -->
+                        <img src="{{ $mentor['image'] }}" alt="{{ $mentor['name'] }}" class="h-44 w-auto object-contain object-bottom group-hover:scale-105 transition-transform duration-300 relative z-0">
+                    </div>
+
+                    <!-- Mentor Name -->
+                    <h3 class="font-bold text-slate-900 text-base group-hover:text-[#1D6395] transition-colors line-clamp-1">
+                        {{ $mentor['name'] }}
+                    </h3>
+
+                    <!-- Current Company Tag -->
+                    <div class="text-xs font-semibold text-[#1D6395] flex items-center gap-1 mt-1">
+                        <i class="fas fa-check-circle text-[10px]"></i>
+                        <span>{{ $mentor['role'] }} {{ !empty($mentor['company']) ? '@ ' . $mentor['company'] : '' }}</span>
+                    </div>
+
+                    <!-- Tech Stack Pills -->
+                    @if(!empty($mentor['skills']) && is_array($mentor['skills']))
+                    <div class="flex flex-wrap gap-1.5 mt-3">
+                        @foreach($mentor['skills'] as $skill)
+                        <span class="bg-slate-100 text-slate-700 text-[11px] font-medium px-2.5 py-1 rounded-lg">
+                            {{ $skill }}
+                        </span>
+                        @endforeach
+                    </div>
+                    @endif
+                </div>
+
+                <!-- Interactive Footer -->
+                <div class="border-t border-slate-100 pt-3 mt-4 flex items-center justify-between text-xs">
+                    <a href="{{ $mentor['portfolio'] ?? '#' }}" target="_blank" class="text-[#1D6395] font-semibold hover:underline flex items-center gap-0.5">
+                        Portofolio ↗
+                    </a>
+
+                    <div class="flex items-center gap-2">
+                        @if(!empty($mentor['linkedin']))
+                        <a href="{{ $mentor['linkedin'] }}" target="_blank" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-[#0A66C2] text-slate-500 hover:text-white flex items-center justify-center text-xs transition-colors" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        @endif
+                        @if(!empty($mentor['github']))
+                        <a href="{{ $mentor['github'] }}" target="_blank" class="w-8 h-8 rounded-lg bg-slate-50 hover:bg-slate-900 text-slate-500 hover:text-white flex items-center justify-center text-xs transition-all shadow-sm hover:scale-110" title="GitHub Profile">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        @endif
+                        @if(!empty($mentor['portfolio']))
+                        <a href="{{ $mentor['portfolio'] }}" target="_blank" class="w-8 h-8 rounded-lg bg-slate-50 hover:bg-[#1D6395] text-slate-500 hover:text-white flex items-center justify-center text-xs transition-all shadow-sm hover:scale-110" title="Portofolio / Website">
+                            <i class="fas fa-globe"></i>
+                        </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+
 <!-- MITRA / CLIENTS -->
 <section class="clients-section">
     <div class="ve-container">

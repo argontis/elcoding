@@ -4,7 +4,7 @@ $syllabuses = [
     'fullstack' => [
         'breadcrumb' => 'Full Stack Web Dev',
         'badge' => 'Bootcamp Intensif',
-        'title' => 'Silabus Lengkap: Full Stack Web Development',
+        'title' => 'Silabus Lengkap: Bootcamp Intensif Full Stack Web Development',
         'subtitle' => 'Kurikulum berbasis industri yang dirancang untuk membekali Anda dengan keterampilan end-to-end, dari merancang antarmuka hingga mengelola arsitektur server yang skalabel.',
         'pills' => ['12 Minggu Pembelajaran', 'Pemula ke Mahir', '5 Real-world Projects', 'Sertifikat Resmi'],
         'register_url' => url('/pendaftaran-bootcamp?program=bootcamp-web-dev'),
@@ -37,7 +37,7 @@ $syllabuses = [
     'ui-ux' => [
         'breadcrumb' => 'Mastering UI/UX Design',
         'badge' => 'Terlaris',
-        'title' => 'Silabus Lengkap: UI/UX Design',
+        'title' => 'Silabus Lengkap: Mastering UI/UX Design',
         'subtitle' => 'Pelajari cara merancang antarmuka pengguna yang intuitif dan pengalaman digital yang memukau dengan standar industri terkini.',
         'pills' => ['8 Minggu Pembelajaran', 'Figma Mastery', 'Design Portfolio', 'Sertifikat Resmi'],
         'register_url' => url('/pendaftaran-bootcamp?program=bootcamp-ui-ux'),
@@ -253,13 +253,13 @@ $data = $syllabuses[$type] ?? $syllabuses['fullstack'];
         }
 
         .module-count-badge {
-            background: #f1f5f9;
-            color: #475569;
-            font-size: 13px;
-            font-weight: 700;
-            padding: 6px 14px;
-            border-radius: 30px;
-            border: 1px solid #cbd5e1;
+            background-color: #f1f5f9;
+            color: #334155;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: none;
         }
 
         .accordion-container {
@@ -610,8 +610,20 @@ $data = $syllabuses[$type] ?? $syllabuses['fullstack'];
             </nav>
 
             <div class="silabus-hero-badge">{{ $data['badge'] }}</div>
-            <h1 class="silabus-hero-title">{{ $data['title'] }}</h1>
-            <p class="silabus-hero-subtitle">{{ $data['subtitle'] }}</p>
+            <h1 class="silabus-hero-title">
+                @if(isset($program) && !empty($program->title))
+                    {{ \Illuminate\Support\Str::startsWith($program->title, 'Silabus') ? $program->title : 'Silabus Lengkap: ' . $program->title }}
+                @else
+                    {{ $data['title'] }}
+                @endif
+            </h1>
+            <p class="silabus-hero-subtitle">
+                @if(isset($program) && !empty($program->short_description))
+                    {{ $program->short_description }}
+                @else
+                    {{ $data['subtitle'] }}
+                @endif
+            </p>
             
             <div class="silabus-features">
                 @foreach($data['pills'] as $pill)
@@ -631,7 +643,14 @@ $data = $syllabuses[$type] ?? $syllabuses['fullstack'];
             <div class="silabus-main">
                 <div class="silabus-header-section">
                     <h2 class="silabus-main-title">Detail Kurikulum</h2>
-                    <span class="module-count-badge">{{ count($data['modules']) }} Modul Utama</span>
+                    <div class="flex items-center gap-3">
+                        <span class="bg-slate-100 text-slate-700 text-xs font-medium px-3 py-1 rounded-full module-count-badge">
+                            {{ count($data['modules']) }} Modul Utama
+                        </span>
+                        <button onclick="downloadSyllabusPdf('{{ $data['breadcrumb'] }}')" class="border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition cursor-pointer">
+                            📥 Unduh Silabus (PDF)
+                        </button>
+                    </div>
                 </div>
 
                 <div class="accordion-container">
@@ -721,6 +740,11 @@ $data = $syllabuses[$type] ?? $syllabuses['fullstack'];
                 currentItem.classList.add('active');
                 content.style.maxHeight = content.scrollHeight + "px";
             }
+        }
+
+        function downloadSyllabusPdf(programTitle) {
+            alert('Mengunduh Silabus PDF lengkap untuk: ' + programTitle + '\nDokumen silabus akan tersimpan secara otomatis.');
+            window.print();
         }
 
         document.addEventListener('DOMContentLoaded', function() {

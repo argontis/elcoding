@@ -22,6 +22,9 @@ if (!function_exists('setSeoMeta')) {
 
 Route::get('/clear-cache-all', function () {
     \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+    if (function_exists('opcache_reset')) {
+        @opcache_reset();
+    }
     return 'Semua cache (termasuk view dan route) berhasil dibersihkan! Silakan kembali ke panel admin dan refresh (F5).';
 });
 

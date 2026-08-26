@@ -165,13 +165,13 @@
             position: relative;
         }
         .program-card.card-theme-1 {
-            background-color: #0d1b2a;
+            background-color: #F4F7FE;
         }
         .program-card.card-theme-2 {
-            background-color: #0d1b2a;
+            background-color: #F4F7FE;
         }
         .program-card.card-theme-3 {
-            background-color: #0d1b2a;
+            background-color: #F4F7FE;
         }
         .program-card:hover {
             transform: translateY(-5px);
@@ -227,7 +227,7 @@
         .program-title {
             font-size: 18px !important;
             font-weight: 700;
-            color: #ffffff;
+            color: #4B5563;
             margin: 0 0 8px 0;
             line-height: 1.4;
         }
@@ -236,16 +236,15 @@
             font-weight: 600;
             display: block;
             margin-bottom: 5px;
-            color: #9ca3af !important;
         }
-        .start-from.text-theme-1 { color: #9ca3af; }
-        .start-from.text-theme-2 { color: #9ca3af; }
-        .start-from.text-theme-3 { color: #9ca3af; }
+        .start-from.text-theme-1 { color: #D2A882; }
+        .start-from.text-theme-2 { color: #132252; }
+        .start-from.text-theme-3 { color: #1D667F; }
         
         .price-value {
             font-size: 32px !important;
             font-weight: 800;
-            color: #ffffff;
+            color: #1F2937;
             line-height: 1;
         }
 
@@ -258,14 +257,14 @@
         .program-features-content ul, .program-features-content ol { list-style: none; padding: 0; margin: 0; }
         .program-features-content p, .program-features-content ul li { 
             font-size: 14px; 
-            color: #d1d5db; 
+            color: #4B5563; 
             padding: 12px 0; 
             margin: 0;
             display: flex; 
             align-items: center; 
             gap: 12px; 
             line-height: 1.4;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
         }
         .program-features-content ul li:last-child {
             border-bottom: none;
@@ -274,12 +273,12 @@
             content: "\f058"; 
             font-family: "Font Awesome 6 Free"; 
             font-weight: 400; 
-            color: #4B6BF5; 
+            color: #4B5563; 
             font-size: 18px; 
             min-width: 18px;
         }
         .program-features-content p br { display: none; }
-        .program-features-content strong { color: #ffffff; font-weight: 600; }
+        .program-features-content strong { color: #1F2937; font-weight: 600; }
         
         .program-card-footer {
             padding: 30px 10px 0 10px;

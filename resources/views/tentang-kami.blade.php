@@ -182,8 +182,6 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
                     'name' => 'Zaky Afrizal, S.Kom',
                     'role' => 'Lead Web Development',
                     'company' => 'Elcoding Academy',
-                    'rating' => '⭐ 4.9/5 Rating',
-                    'experience' => '💼 5+ Tahun Exp',
                     'image' => asset('gambar/aset/mentor-zaky.png'),
                     'skills' => ['Laravel', 'React.js', 'Tailwind CSS', 'Digital Marketing'],
                     'linkedin' => 'https://linkedin.com',
@@ -194,38 +192,26 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
             @endphp
 
             @foreach($mentors as $index => $mentor)
-            <div style="text-align: center; max-width: 700px; width: 100%;" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
+            <div style="text-align: center; max-width: 900px; width: 100%;" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                 
                 <!-- Image Container -->
-                <div style="position: relative; display: flex; justify-content: center; margin-bottom: 40px;">
-                    <!-- Floating Badges -->
-                    @if(!empty($mentor['rating']))
-                    <div style="position: absolute; top: 20px; right: -20px; background: rgba(255,255,255,0.95); padding: 12px 24px; border-radius: 40px; font-size: 16px; font-weight: bold; box-shadow: 0 6px 15px rgba(0,0,0,0.15); z-index: 10;">
-                        {{ $mentor['rating'] }}
-                    </div>
-                    @endif
-                    @if(!empty($mentor['experience']))
-                    <div style="position: absolute; top: 20px; left: -20px; background: rgba(75, 107, 245, 0.1); border: 2px solid rgba(75, 107, 245, 0.2); color: #4B6BF5; padding: 12px 24px; border-radius: 40px; font-size: 16px; font-weight: bold; z-index: 10;">
-                        {{ $mentor['experience'] }}
-                    </div>
-                    @endif
-
-                    <img src="{{ $mentor['image'] }}" alt="{{ $mentor['name'] }}" style="max-width: 100%; height: auto; max-height: 550px; object-fit: contain; object-position: bottom;">
+                <div style="position: relative; display: flex; justify-content: center; margin-bottom: 50px;">
+                    <img src="{{ $mentor['image'] }}" alt="{{ $mentor['name'] }}" style="width: 100%; max-width: 650px; height: auto; object-fit: contain; object-position: bottom;">
                 </div>
 
                 <!-- Mentor Name & Role -->
-                <h3 style="font-size: 42px; font-weight: 800; color: #1a202c; margin: 0 0 10px;">{{ $mentor['name'] }}</h3>
+                <h3 style="font-size: 48px; font-weight: 800; color: #1a202c; margin: 0 0 12px;">{{ $mentor['name'] }}</h3>
                 
-                <div style="font-size: 18px; font-weight: 600; color: #4B6BF5; display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 25px;">
+                <div style="font-size: 20px; font-weight: 600; color: #4B6BF5; display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 30px;">
                     <i class="fas fa-briefcase"></i>
                     <span>{{ $mentor['role'] }} {{ !empty($mentor['company']) ? '· ' . $mentor['company'] : '' }}</span>
                 </div>
 
                 <!-- Tech Stack Pills -->
                 @if(!empty($mentor['skills']) && is_array($mentor['skills']))
-                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 40px;">
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 50px;">
                     @foreach($mentor['skills'] as $skill)
-                    <span style="background: #f1f5f9; color: #4a5568; font-size: 16px; font-weight: 600; padding: 8px 20px; border-radius: 10px;">
+                    <span style="background: #f1f5f9; color: #4a5568; font-size: 18px; font-weight: 600; padding: 10px 24px; border-radius: 12px;">
                         {{ $skill }}
                     </span>
                     @endforeach
@@ -233,27 +219,27 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
                 @endif
 
                 <!-- Interactive Footer -->
-                <div style="border-top: 1px solid #e2e8f0; padding-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 25px;">
-                    <div style="display: flex; gap: 20px; justify-content: center;">
+                <div style="border-top: 1px solid #e2e8f0; padding-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 30px;">
+                    <div style="display: flex; gap: 25px; justify-content: center;">
                         @if(!empty($mentor['linkedin']))
-                        <a href="{{ $mentor['linkedin'] }}" target="_blank" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 24px; background: #f1f5f9; color: #4a5568; border-radius: 50%; text-decoration: none; transition: 0.3s;" onmouseover="this.style.background='#0A66C2'; this.style.color='#fff';" onmouseout="this.style.background='#f1f5f9'; this.style.color='#4a5568';">
+                        <a href="{{ $mentor['linkedin'] }}" target="_blank" style="width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; font-size: 28px; background: #f1f5f9; color: #4a5568; border-radius: 50%; text-decoration: none; transition: 0.3s;" onmouseover="this.style.background='#0A66C2'; this.style.color='#fff';" onmouseout="this.style.background='#f1f5f9'; this.style.color='#4a5568';">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
                         @endif
                         @if(!empty($mentor['github']))
-                        <a href="{{ $mentor['github'] }}" target="_blank" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 24px; background: #f1f5f9; color: #4a5568; border-radius: 50%; text-decoration: none; transition: 0.3s;" onmouseover="this.style.background='#1a202c'; this.style.color='#fff';" onmouseout="this.style.background='#f1f5f9'; this.style.color='#4a5568';">
+                        <a href="{{ $mentor['github'] }}" target="_blank" style="width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; font-size: 28px; background: #f1f5f9; color: #4a5568; border-radius: 50%; text-decoration: none; transition: 0.3s;" onmouseover="this.style.background='#1a202c'; this.style.color='#fff';" onmouseout="this.style.background='#f1f5f9'; this.style.color='#4a5568';">
                             <i class="fab fa-github"></i>
                         </a>
                         @endif
                         @if(!empty($mentor['portfolio']))
-                        <a href="{{ $mentor['portfolio'] }}" target="_blank" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 24px; background: #f1f5f9; color: #4a5568; border-radius: 50%; text-decoration: none; transition: 0.3s;" onmouseover="this.style.background='#4B6BF5'; this.style.color='#fff';" onmouseout="this.style.background='#f1f5f9'; this.style.color='#4a5568';">
+                        <a href="{{ $mentor['portfolio'] }}" target="_blank" style="width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; font-size: 28px; background: #f1f5f9; color: #4a5568; border-radius: 50%; text-decoration: none; transition: 0.3s;" onmouseover="this.style.background='#4B6BF5'; this.style.color='#fff';" onmouseout="this.style.background='#f1f5f9'; this.style.color='#4a5568';">
                             <i class="fas fa-globe"></i>
                         </a>
                         @endif
                     </div>
 
-                    <a href="{{ $mentor['portfolio'] ?? '#' }}" target="_blank" style="color: #4B6BF5; font-weight: bold; font-size: 18px; text-decoration: none; display: flex; align-items: center; gap: 8px;">
-                        Lihat Profil Lengkap <i class="fas fa-arrow-right" style="font-size: 14px;"></i>
+                    <a href="{{ $mentor['portfolio'] ?? '#' }}" target="_blank" style="color: #4B6BF5; font-weight: bold; font-size: 20px; text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                        Lihat Profil Lengkap <i class="fas fa-arrow-right" style="font-size: 16px;"></i>
                     </a>
                 </div>
 

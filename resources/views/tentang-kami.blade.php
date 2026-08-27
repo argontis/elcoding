@@ -168,110 +168,95 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
 <section class="ve-mentors-section" style="padding: 90px 0; background: #f8fafc;">
     <div class="ve-container">
         <!-- Section Header -->
-        <div class="text-center max-w-2xl mx-auto mb-12" data-aos="fade-up">
-            <span class="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider text-[#1D6395] bg-[#1D6395]/10 border border-[#1D6395]/20 mb-3">
-                Pengajar Profesional
-            </span>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mb-3">
-                Belajar Langsung dari <span style="color: #1D6395;">Praktisi Industri</span>
-            </h2>
-            <p class="text-slate-600 text-sm md:text-base leading-relaxed">
-                Mentor kami adalah praktisi aktif di perusahaan teknologi ternama yang siap membimbing Anda step-by-step.
-            </p>
+        <div class="ve-section-header text-center" data-aos="fade-up">
+            <span class="ve-section-tag-gold">Pengajar Profesional</span>
+            <h2>Belajar Langsung dari <span>Praktisi Industri</span></h2>
+            <p>Mentor kami adalah praktisi aktif di perusahaan teknologi ternama yang siap membimbing Anda step-by-step.</p>
         </div>
 
-        <!-- Mentors Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4">
+        <!-- Mentors Grid (Centered, No Card) -->
+        <div style="display: flex; justify-content: center; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
             @php
             $mentors = [
                 [
                     'name' => 'Zaky Afrizal, S.Kom',
-                    'role' => 'Lead Web Development & Digital Marketing',
+                    'role' => 'Lead Web Development',
                     'company' => 'Elcoding Academy',
                     'rating' => '⭐ 4.9/5 Rating',
                     'experience' => '💼 5+ Tahun Exp',
                     'image' => asset('gambar/aset/mentor-zaky.png'),
                     'skills' => ['Laravel', 'React.js', 'Tailwind CSS', 'Digital Marketing'],
                     'linkedin' => 'https://linkedin.com',
-                    'github' => 'https://github.com/zakyafrz2605?fbclid=PARlRTSAT7cQ1wZG9mAmZkaWQWUNP3zABeUflOCV3x4VHHkxHv9UURKmV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp-7DbR243he14VscpbSn9DUgyuBhx-R0uROfAJWruCG6yY6ow5Kwxidw-VDp_aem_ZmFrZWR1bW15MTZieXRlcw',
+                    'github' => 'https://github.com/zakyafrz2605',
                     'portfolio' => 'https://github.com/zakyafrz2605'
                 ]
             ];
             @endphp
 
             @foreach($mentors as $index => $mentor)
-            <div class="bg-white rounded-3xl border border-slate-200 p-5 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between group" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
-                <div>
-                    <!-- Photo Box Container with Gradient Backdrop & Ambient Circle -->
-                    <div class="h-48 w-full rounded-2xl overflow-hidden relative flex items-end justify-center mb-4 bg-gradient-to-b from-[#EBF5FF] via-sky-100/50 to-slate-100">
-                        <!-- Decorative Ambient Blur Circle -->
-                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-sky-200/50 rounded-full blur-lg pointer-events-none"></div>
-
-                        <!-- Top-Right Floating Rating Badge -->
-                        @if(!empty($mentor['rating']))
-                        <div class="absolute top-2.5 right-2.5 bg-white/90 backdrop-blur-md border border-slate-200/80 text-slate-800 text-[11px] font-bold px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1 z-10">
-                            {{ $mentor['rating'] }}
-                        </div>
-                        @endif
-
-                        <!-- Top-Left Floating Experience Badge -->
-                        @if(!empty($mentor['experience']))
-                        <div class="absolute top-2.5 left-2.5 bg-[#1D6395]/10 border border-[#1D6395]/20 text-[#1D6395] text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 z-10">
-                            {{ $mentor['experience'] }}
-                        </div>
-                        @endif
-
-                        <!-- Cutout Portrait Photo Aligned to Bottom -->
-                        <img src="{{ $mentor['image'] }}" alt="{{ $mentor['name'] }}" class="h-44 w-auto object-contain object-bottom group-hover:scale-105 transition-transform duration-300 relative z-0">
-                    </div>
-
-                    <!-- Mentor Name -->
-                    <h3 class="font-bold text-slate-900 text-base group-hover:text-[#1D6395] transition-colors line-clamp-1">
-                        {{ $mentor['name'] }}
-                    </h3>
-
-                    <!-- Current Company Tag -->
-                    <div class="text-xs font-semibold text-[#1D6395] flex items-center gap-1 mt-1">
-                        <i class="fas fa-check-circle text-[10px]"></i>
-                        <span>{{ $mentor['role'] }} {{ !empty($mentor['company']) ? '@ ' . $mentor['company'] : '' }}</span>
-                    </div>
-
-                    <!-- Tech Stack Pills -->
-                    @if(!empty($mentor['skills']) && is_array($mentor['skills']))
-                    <div class="flex flex-wrap gap-1.5 mt-3">
-                        @foreach($mentor['skills'] as $skill)
-                        <span class="bg-slate-100 text-slate-700 text-[11px] font-medium px-2.5 py-1 rounded-lg">
-                            {{ $skill }}
-                        </span>
-                        @endforeach
+            <div style="text-align: center; max-width: 400px; width: 100%;" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
+                
+                <!-- Image Container -->
+                <div style="position: relative; display: flex; justify-content: center; margin-bottom: 20px;">
+                    <!-- Floating Badges -->
+                    @if(!empty($mentor['rating']))
+                    <div style="position: absolute; top: 10px; right: 0px; background: rgba(255,255,255,0.9); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 10;">
+                        {{ $mentor['rating'] }}
                     </div>
                     @endif
+                    @if(!empty($mentor['experience']))
+                    <div style="position: absolute; top: 10px; left: 0px; background: rgba(75, 107, 245, 0.1); border: 1px solid rgba(75, 107, 245, 0.2); color: #4B6BF5; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; z-index: 10;">
+                        {{ $mentor['experience'] }}
+                    </div>
+                    @endif
+
+                    <img src="{{ $mentor['image'] }}" alt="{{ $mentor['name'] }}" style="max-width: 100%; height: auto; max-height: 350px; object-fit: contain; object-position: bottom;">
                 </div>
 
-                <!-- Interactive Footer -->
-                <div class="border-t border-slate-100 pt-3 mt-4 flex items-center justify-between text-xs">
-                    <a href="{{ $mentor['portfolio'] ?? '#' }}" target="_blank" class="text-[#1D6395] font-semibold hover:underline flex items-center gap-0.5">
-                        Portofolio ↗
-                    </a>
+                <!-- Mentor Name & Role -->
+                <h3 style="font-size: 24px; font-weight: 800; color: #1a202c; margin: 0 0 5px;">{{ $mentor['name'] }}</h3>
+                
+                <div style="font-size: 14px; font-weight: 600; color: #4B6BF5; display: flex; justify-content: center; align-items: center; gap: 5px; margin-bottom: 15px;">
+                    <i class="fas fa-briefcase"></i>
+                    <span>{{ $mentor['role'] }} {{ !empty($mentor['company']) ? '· ' . $mentor['company'] : '' }}</span>
+                </div>
 
-                    <div class="flex items-center gap-2">
+                <!-- Tech Stack Pills -->
+                @if(!empty($mentor['skills']) && is_array($mentor['skills']))
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 25px;">
+                    @foreach($mentor['skills'] as $skill)
+                    <span style="background: #f1f5f9; color: #4a5568; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 6px;">
+                        {{ $skill }}
+                    </span>
+                    @endforeach
+                </div>
+                @endif
+
+                <!-- Interactive Footer -->
+                <div style="border-top: 1px solid #e2e8f0; padding-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                    <div style="display: flex; gap: 10px; justify-content: center;">
                         @if(!empty($mentor['linkedin']))
-                        <a href="{{ $mentor['linkedin'] }}" target="_blank" class="w-7 h-7 rounded-full bg-slate-100 hover:bg-[#0A66C2] text-slate-500 hover:text-white flex items-center justify-center text-xs transition-colors" title="LinkedIn">
+                        <a href="{{ $mentor['linkedin'] }}" target="_blank" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #4a5568; border-radius: 50%; text-decoration: none; transition: 0.3s;" onmouseover="this.style.background='#0A66C2'; this.style.color='#fff';" onmouseout="this.style.background='#f1f5f9'; this.style.color='#4a5568';">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
                         @endif
                         @if(!empty($mentor['github']))
-                        <a href="{{ $mentor['github'] }}" target="_blank" class="w-8 h-8 rounded-lg bg-slate-50 hover:bg-slate-900 text-slate-500 hover:text-white flex items-center justify-center text-xs transition-all shadow-sm hover:scale-110" title="GitHub Profile">
+                        <a href="{{ $mentor['github'] }}" target="_blank" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #4a5568; border-radius: 50%; text-decoration: none; transition: 0.3s;" onmouseover="this.style.background='#1a202c'; this.style.color='#fff';" onmouseout="this.style.background='#f1f5f9'; this.style.color='#4a5568';">
                             <i class="fab fa-github"></i>
                         </a>
                         @endif
                         @if(!empty($mentor['portfolio']))
-                        <a href="{{ $mentor['portfolio'] }}" target="_blank" class="w-8 h-8 rounded-lg bg-slate-50 hover:bg-[#1D6395] text-slate-500 hover:text-white flex items-center justify-center text-xs transition-all shadow-sm hover:scale-110" title="Portofolio / Website">
+                        <a href="{{ $mentor['portfolio'] }}" target="_blank" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #4a5568; border-radius: 50%; text-decoration: none; transition: 0.3s;" onmouseover="this.style.background='#4B6BF5'; this.style.color='#fff';" onmouseout="this.style.background='#f1f5f9'; this.style.color='#4a5568';">
                             <i class="fas fa-globe"></i>
                         </a>
                         @endif
                     </div>
+
+                    <a href="{{ $mentor['portfolio'] ?? '#' }}" target="_blank" style="color: #4B6BF5; font-weight: bold; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                        Lihat Profil Lengkap <i class="fas fa-arrow-right" style="font-size: 11px;"></i>
+                    </a>
                 </div>
+
             </div>
             @endforeach
         </div>

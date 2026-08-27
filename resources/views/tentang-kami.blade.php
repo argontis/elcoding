@@ -195,8 +195,8 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
             <div style="text-align: center; max-width: 600px; width: 100%;" data-aos="fade-up" data-aos-delay="{{ 100 * ($index + 1) }}">
                 
                 <!-- Image Container -->
-                <div style="position: relative; display: flex; justify-content: center; margin-bottom: 30px;">
-                    <img src="{{ $mentor['image'] }}" alt="{{ $mentor['name'] }}" style="width: 100%; max-width: 500px; height: auto; max-height: 400px; object-fit: contain; object-position: bottom;">
+                <div style="position: relative; display: flex; justify-content: center; margin-bottom: 20px;">
+                    <img src="{{ $mentor['image'] }}" alt="{{ $mentor['name'] }}" style="max-width: 100%; height: auto; max-height: 350px; object-fit: contain; object-position: bottom;">
                 </div>
 
                 <!-- Mentor Name & Role -->

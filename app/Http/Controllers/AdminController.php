@@ -15,6 +15,9 @@ class AdminController extends Controller
             'orders_count' => \App\Models\Order::count(),
             'orders_paid' => \App\Models\Order::whereIn('status', ['paid', 'PAID', 'SETTLED'])->count(),
             'orders_revenue' => \App\Models\Order::whereIn('status', ['paid', 'PAID', 'SETTLED'])->sum('amount'),
+            'visitors' => \App\Models\Visitor::count(),
+            'layanan' => \App\Models\Layanan::count(),
+            'event' => \App\Models\Event::count(),
         ];
 
         $recentOrders = \App\Models\Order::with('programKursus')->latest()->take(5)->get();

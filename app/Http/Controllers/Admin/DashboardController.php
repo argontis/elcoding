@@ -136,6 +136,9 @@ class DashboardController extends Controller
             'orders_count' => \App\Models\Order::count(),
             'orders_paid' => \App\Models\Order::whereIn('status', ['paid', 'PAID', 'SETTLED', 'success'])->count(),
             'orders_revenue' => \App\Models\Order::whereIn('status', ['paid', 'PAID', 'SETTLED', 'success'])->sum('amount'),
+            'visitors' => \App\Models\Visitor::count(),
+            'layanan' => \App\Models\Layanan::count(),
+            'event' => \App\Models\Event::count(),
         ];
 
         // Fetch Real Visitor Data for the last 7 days

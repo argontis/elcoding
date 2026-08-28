@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin Panel - Elcoding')</title>
+    <link rel="icon" href="{{ asset('gambar/aset/logo-elcoding.svg?v=3') }}" type="image/svg+xml">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -32,27 +33,35 @@
         /* Sidebar Styling */
         .sidebar { background: var(--sidebar-bg); }
         .sidebar-item {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s ease-in-out;
             position: relative;
             color: #94A3B8;
-            margin: 4px 16px;
-            padding: 10px 16px !important;
-            border-radius: 12px !important;
+            margin: 2px 16px;
+            padding: 12px 16px !important;
+            border-radius: 8px !important;
             width: auto;
         }
         .sidebar-item:hover {
             color: #FFFFFF;
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateX(4px);
+            background: rgba(255, 255, 255, 0.08);
         }
         .sidebar-item.active {
             color: #FFFFFF;
-            background: var(--accent-gradient);
-            box-shadow: 0 4px 15px -3px rgba(59, 130, 246, 0.4);
+            background: #2563eb; /* blue-600 */
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
         }
-        .sidebar-item i { transition: transform 0.3s ease; }
-        .sidebar-item:hover i { transform: scale(1.1); color: #fff; }
-        .sidebar-item.active i { color: #fff; }
+        .sidebar-item i { transition: color 0.2s ease; }
+        .sidebar-item.active i, .sidebar-item:hover i { color: #fff; }
+
+        /* Mini Sidebar Styles */
+        body.sidebar-collapsed #app-sidebar { width: 80px !important; }
+        body.sidebar-collapsed #main-content { margin-left: 80px !important; }
+        body.sidebar-collapsed .sidebar-text,
+        body.sidebar-collapsed .sidebar-header,
+        body.sidebar-collapsed .sidebar-logo-text { opacity: 0; display: none; }
+        body.sidebar-collapsed .sidebar-item { justify-content: center; padding: 12px !important; margin: 2px 8px; }
+        body.sidebar-collapsed .sidebar-item i { font-size: 1.25rem; margin-right: 0; }
+        body.sidebar-collapsed .sidebar-logo-icon { display: block !important; }
 
         /* Cards & Surfaces */
         .surface-card {
@@ -114,22 +123,41 @@
         }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased overflow-hidden">
     
-    <!-- Sidebar -->
-    <x-admin-sidebar />
+    <div class="flex h-screen overflow-hidden w-full">
+        
+        <!-- Sidebar -->
+        <x-admin-sidebar />
 
-    <!-- Main Content -->
-    <main class="flex-1 flex flex-col h-screen overflow-hidden relative">
-        <!-- Topbar removed per user request -->
+        <!-- Main Wrapper -->
+        <div class="flex-1 flex flex-col h-screen w-full ml-[260px] transition-all duration-300" id="main-content">
+            
+            <!-- Topbar (DashboardKit Style) -->
+            <header class="h-[70px] bg-white border-b border-slate-200 flex items-center justify-end px-6 shrink-0 z-[90]">
+                <!-- Removed topbar toggle per user request, moved to sidebar -->
+                <div class="flex items-center gap-2 md:gap-4">
+                    <div class="flex items-center gap-3 border-l border-slate-200 pl-4 ml-1 md:ml-2 cursor-pointer group relative">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm shadow-sm group-hover:shadow-md transition-all">
+                            {{ substr(auth()->user()->name ?? 'A', 0, 1) }}
+                        </div>
+                        <div class="hidden md:block">
+                            <p class="text-sm font-bold text-slate-700 leading-none mb-1">{{ auth()->user()->name ?? 'Administrator' }}</p>
+                            <p class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider leading-none">Admin</p>
+                        </div>
+                        <i class="fas fa-chevron-down text-slate-400 text-xs ml-2 group-hover:text-blue-600"></i>
+                    </div>
+                </div>
+            </header>
 
-        <!-- Content Area -->
-        <div class="flex-1 overflow-y-auto p-8 pb-12">
-            <div class="max-w-[1600px] mx-auto fade-in-up">
-                @yield('content')
-            </div>
+            <!-- Content Area -->
+            <main class="flex-1 overflow-y-auto overflow-x-hidden p-6 md:p-8 bg-[#f4f7fa]">
+                <div class="max-w-[1600px] mx-auto fade-in-up pb-12">
+                    @yield('content')
+                </div>
+            </main>
         </div>
-    </main>
+    </div>
 
     <!-- SweetAlert2 & QuillJS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -205,6 +233,27 @@
                     }
                 });
             });
+
+            // 2. Toggle Sidebar (Mini Sidebar DashboardKit Style)
+            const toggleBtn = document.getElementById('sidebar-toggle-btn');
+            const toggleIcon = document.getElementById('sidebar-toggle-icon');
+            const sidebar = document.getElementById('app-sidebar');
+            const mainContent = document.getElementById('main-content');
+            const body = document.body;
+
+            if (toggleBtn && sidebar && mainContent) {
+                toggleBtn.addEventListener('click', () => {
+                    // Universal behavior: toggle mini sidebar (80px width)
+                    body.classList.toggle('sidebar-collapsed');
+                    if (body.classList.contains('sidebar-collapsed')) {
+                        toggleIcon.classList.remove('fa-chevron-left');
+                        toggleIcon.classList.add('fa-chevron-right');
+                    } else {
+                        toggleIcon.classList.remove('fa-chevron-right');
+                        toggleIcon.classList.add('fa-chevron-left');
+                    }
+                });
+            }
         });
     </script>
 </body>

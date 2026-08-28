@@ -62,7 +62,7 @@ class DashboardController extends Controller
         // 4. Hitung Recency, Frequency, Monetary (RFM Raw Values)
         $rfmRaw = [];
         foreach ($customers as $email => $data) {
-            $recencyDays = $now->diffInDays($data['last_order_date']);
+            $recencyDays = abs((int) $now->diffInDays($data['last_order_date']));
             $rfmRaw[] = [
                 'name' => $data['name'],
                 'email' => $data['email'],

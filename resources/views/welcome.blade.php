@@ -1384,7 +1384,7 @@ document.addEventListener("DOMContentLoaded", function() {
   "@@context": "https://schema.org",
   "@@type": "LocalBusiness",
   "name": "Elcoding Academy",
-  "image": "{{ asset('gambar/aset/logo.png') }}",
+  "image": "{{ asset('gambar/aset/logo.png?v=2') }}",
   "@@id": "{{ url('/') }}",
   "url": "{{ url('/') }}",
   "telephone": "+6281476652656, +6287762334232",

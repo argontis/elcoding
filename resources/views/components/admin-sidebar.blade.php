@@ -2,7 +2,7 @@
     <!-- Logo Area -->
     <div class="h-[70px] flex items-center justify-between px-6 border-b border-white/5 bg-slate-900 shrink-0">
         <a href="{{ url('/') }}" class="flex items-center gap-3">
-            <img src="{{ asset('gambar/aset/logo.png') }}" alt="Elcoding" class="h-7 object-contain opacity-90 hover:opacity-100 transition-opacity sidebar-logo-text">
+            <img src="{{ asset('gambar/aset/logo.png?v=2') }}" alt="Elcoding" class="h-7 object-contain opacity-90 hover:opacity-100 transition-opacity sidebar-logo-text">
             <!-- Mini Logo (Hidden by default, shown when collapsed) -->
             <div class="hidden sidebar-logo-icon text-white font-black text-2xl tracking-tighter w-8 h-8 flex items-center justify-center bg-blue-600 rounded-lg shadow-lg">E</div>
         </a>

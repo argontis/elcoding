@@ -461,7 +461,7 @@
     <div class="status-top-bar">
         <div class="top-bar-container">
             <a href="{{ url('/') }}" style="display: flex; align-items: center; text-decoration: none;">
-                <img src="{{ asset('gambar/aset/logo.png') }}" alt="Elcoding" style="height: 38px; width: auto;">
+                <img src="{{ asset('gambar/aset/logo.png?v=2') }}" alt="Elcoding" style="height: 38px; width: auto;">
             </a>
             <div class="top-bar-links">
                 <a href="{{ url('/') }}" class="top-bar-link">Dashboard</a>

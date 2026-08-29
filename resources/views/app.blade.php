@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
-        <link rel="icon" href="{{ asset('gambar/aset/logo-elcoding.svg?v=3') }}" type="image/svg+xml">
+        <link rel="icon" href="{{ asset('gambar/aset/logo-elcoding.png?v=4') }}" type="image/svg+xml">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

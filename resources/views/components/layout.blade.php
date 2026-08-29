@@ -22,7 +22,7 @@
 
     {!! SEO::generate() !!}
 
-    <link rel="icon" href="{{ asset('gambar/aset/logo-elcoding.svg?v=3') }}" type="image/svg+xml">
+    <link rel="icon" href="{{ asset('gambar/aset/logo-elcoding.png?v=4') }}" type="image/svg+xml">
 
     <!-- LCP Preload Stack -->
     @stack('preload')
@@ -623,7 +623,7 @@
             <!-- 1. BAGIAN KIRI: Logo -->
             <div class="header-logo">
                 <a href="{{ url('/') }}" style="text-decoration: none; display: flex; align-items: baseline;">
-                    <span class="header-logo-text" style="font-family: 'Georgia', serif; font-weight: 800; font-size: 28px; color: #1a202c; letter-spacing: -0.5px;">elcoding</span><span class="header-logo-dot" style="font-family: 'Georgia', serif; font-weight: 800; font-size: 28px; color: #4B6BF5;">.id</span>
+                    <img src="{{ asset('gambar/aset/logo-elcoding.png?v=4') }}" alt="Elcoding.id" style="height: 32px; width: auto; object-fit: contain;">
                 </a>
             </div>
 
@@ -991,7 +991,7 @@
             <div class="footer-col">
                 <div class="footer-logo" style="margin-bottom: 25px; display: flex; align-items: baseline;">
                     <a href="{{ url('/') }}" style="text-decoration: none;">
-                        <span style="font-family: 'Georgia', serif; font-weight: 800; font-size: 36px; color: #ffffff; letter-spacing: -0.5px;">elcoding</span><span style="font-family: 'Georgia', serif; font-weight: 800; font-size: 36px; color: #4B6BF5;">.id</span>
+                        <img src="{{ asset('gambar/aset/logo-elcoding.png?v=4') }}" alt="Elcoding.id" style="height: 42px; width: auto; object-fit: contain;">
                     </a>
                 </div>
                 <p class="footer-desc">Software House profesional penyedia jasa pembuatan aplikasi/website, sekaligus

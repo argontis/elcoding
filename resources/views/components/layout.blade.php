@@ -22,7 +22,7 @@
 
     {!! SEO::generate() !!}
 
-    <link rel="icon" href="{{ asset('gambar/aset/logo.png?v=2') }}" type="image/png">
+    <link rel="icon" href="{{ asset('gambar/aset/icon.png') }}" type="image/png">
 
     <!-- LCP Preload Stack -->
     @stack('preload')

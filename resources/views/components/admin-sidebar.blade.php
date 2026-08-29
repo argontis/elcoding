@@ -4,7 +4,7 @@
         <a href="{{ url('/') }}" class="flex items-center gap-3">
             <img src="{{ asset('gambar/aset/logo.png?v=2') }}" alt="Elcoding" class="h-7 object-contain opacity-90 hover:opacity-100 transition-opacity sidebar-logo-text">
             <!-- Mini Logo (Hidden by default, shown when collapsed) -->
-            <div class="hidden sidebar-logo-icon text-white font-black text-2xl tracking-tighter w-8 h-8 flex items-center justify-center bg-blue-600 rounded-lg shadow-lg">E</div>
+            <img src="{{ asset('gambar/aset/icon.png') }}" alt="E" class="hidden sidebar-logo-icon h-8 w-8 object-contain drop-shadow-sm">
         </a>
         <button id="sidebar-toggle-btn" class="text-slate-500 hover:text-white focus:outline-none transition-colors w-8 h-8 flex items-center justify-center rounded-md hover:bg-white/10">
             <i id="sidebar-toggle-icon" class="fas fa-chevron-left text-sm"></i>

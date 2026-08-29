@@ -395,7 +395,7 @@
     "name": "Elcoding Academy",
     "logo": {
       "@@type": "ImageObject",
-      "url": "{{ asset('gambar/aset/logo-elcoding.png') }}"
+      "url": "{{ asset('gambar/aset/logo.png') }}"
     }
   }
 }

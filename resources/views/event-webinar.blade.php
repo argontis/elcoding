@@ -236,6 +236,7 @@ $events = [
         'price_strike' => '',
         'link' => url('/silabus?type=webinar'),
         'btn_text' => 'Daftar Webinar',
+        'image' => asset('gambar/webinar/webinar-ai.jpg'),
     ],
     [
         'category' => 'webinar',
@@ -251,6 +252,7 @@ $events = [
         'price_strike' => '',
         'link' => url('/silabus?type=webinar'),
         'btn_text' => 'Daftar Webinar',
+        'image' => asset('gambar/webinar/webinar-cloud.jpg'),
     ],
     [
         'category' => 'webinar',
@@ -266,6 +268,7 @@ $events = [
         'price_strike' => '',
         'link' => url('/silabus?type=webinar'),
         'btn_text' => 'Daftar Webinar',
+        'image' => asset('gambar/webinar/webinar-security.jpg'),
     ],
     [
         'category' => 'workshop',
@@ -281,6 +284,7 @@ $events = [
         'price_strike' => 'Rp 500.000',
         'link' => url('/silabus?type=workshop'),
         'btn_text' => 'Daftar Workshop',
+        'image' => asset('gambar/workshop/workshop-nextjs.jpg'),
     ],
     [
         'category' => 'workshop',
@@ -296,6 +300,7 @@ $events = [
         'price_strike' => 'Rp 450.000',
         'link' => url('/silabus?type=workshop'),
         'btn_text' => 'Daftar Workshop',
+        'image' => asset('gambar/workshop/workshop-figma.jpg'),
     ],
     [
         'category' => 'workshop',
@@ -311,6 +316,7 @@ $events = [
         'price_strike' => 'Rp 550.000',
         'link' => url('/silabus?type=workshop'),
         'btn_text' => 'Daftar Workshop',
+        'image' => asset('gambar/workshop/workshop-devops.jpg'),
     ],
 ];
 ?>
@@ -344,7 +350,7 @@ $events = [
                 $textClass = 'text-' . $theme;
             @endphp
             <div class="program-card {{ $bgClass }} event-card" data-category="{{ $event['category'] }}" data-category-label="{{ $event['category_label'] }}" data-date="{{ $event['date'] }}" data-aos="fade-up" data-aos-delay="{{ ($loop->index % 3 + 1) * 100 }}">
-                <div class="program-card-header" style="background-image: url('{{ asset('gambar/aset/ilustrasi-belajar.jpg') }}');">
+                <div class="program-card-header" style="background-image: url('{{ $event['image'] ?? asset('gambar/aset/ilustrasi-belajar.jpg') }}');">
                     @php
                             $badgeText = strtolower(trim($event['badge_text']));
                             $badgeClass = 'badge-special'; // Default color

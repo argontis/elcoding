@@ -22,7 +22,9 @@
 
     {!! SEO::generate() !!}
 
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
     <link rel="icon" href="{{ asset('gambar/aset/icon.png') }}" type="image/png">
+    <link rel="apple-touch-icon" href="{{ asset('gambar/aset/icon.png') }}">
 
     <!-- LCP Preload Stack -->
     @stack('preload')

@@ -188,14 +188,55 @@
                 const quill = new Quill(container, {
                     theme: 'snow',
                     modules: {
-                        toolbar: [
-                            [{ 'header': [1, 2, 3, false] }],
-                            ['bold', 'italic', 'underline', 'strike'],
-                            [{ 'align': [] }, { 'indent': '-1'}, { 'indent': '+1' }],
-                            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                            [{ 'color': [] }, { 'background': [] }],
-                            ['link', 'clean']
-                        ]
+                        toolbar: {
+                            container: [
+                                [{ 'header': [1, 2, 3, false] }],
+                                ['bold', 'italic', 'underline', 'strike'],
+                                [{ 'align': [] }, { 'indent': '-1'}, { 'indent': '+1' }],
+                                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                                [{ 'color': [] }, { 'background': [] }],
+                                ['link', 'image', 'clean']
+                            ],
+                            handlers: {
+                                image: function() {
+                                    const input = document.createElement('input');
+                                    input.setAttribute('type', 'file');
+                                    input.setAttribute('accept', 'image/*');
+                                    input.click();
+
+                                    input.onchange = () => {
+                                        const file = input.files[0];
+                                        if (file) {
+                                            const formData = new FormData();
+                                            formData.append('image', file);
+                                            formData.append('_token', '{{ csrf_token() }}');
+
+                                            fetch('{{ url("admin/upload-image") }}', {
+                                                method: 'POST',
+                                                body: formData,
+                                                headers: {
+                                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                                }
+                                            })
+                                            .then(response => response.json())
+                                            .then(result => {
+                                                if (result.success && result.url) {
+                                                    const range = quill.getSelection(true);
+                                                    quill.insertEmbed(range.index, 'image', result.url);
+                                                    quill.setSelection(range.index + 1);
+                                                } else {
+                                                    Swal.fire('Gagal!', result.message || 'Gagal mengunggah gambar', 'error');
+                                                }
+                                            })
+                                            .catch(error => {
+                                                console.error(error);
+                                                Swal.fire('Gagal!', 'Terjadi kesalahan saat mengunggah gambar.', 'error');
+                                            });
+                                        }
+                                    };
+                                }
+                            }
+                        }
                     }
                 });
 

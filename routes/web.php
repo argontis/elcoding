@@ -272,6 +272,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/artikel/{id}', [AdminController::class, 'updateArtikel']);
         Route::delete('/artikel/{id}', [AdminController::class, 'destroyArtikel']);
 
+        // Upload Gambar Rich Text Editor
+        Route::post('/upload-image', [AdminController::class, 'uploadEditorImage']);
+
         // Pengaturan Situs
         Route::get('/settings', [AdminController::class, 'settings']);
         Route::post('/settings', [AdminController::class, 'updateSettings']);

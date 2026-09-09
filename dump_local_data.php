@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Schema;
 
 $tables = [
     'users',
+    'layanans',
+    'layanan_orders',
+    'events',
+    'event_orders',
+    'orders',
     'program_kursuses',
     'pkl_profiles',
     'pkl_tasks',
@@ -20,8 +25,12 @@ $tables = [
     'pkl_histories',
     'mitras',
     'portofolios',
+    'kategori_portofolios',
     'artikels',
-    'settings'
+    'settings',
+    'mous',
+    'mou_items',
+    'mou_sections'
 ];
 
 $sqlDump = "-- Local Data Export Dump\n";

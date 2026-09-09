@@ -62,7 +62,8 @@ class PklStudentDashboardController extends Controller
     public function profile()
     {
         $profile = $this->getProfile();
-        return view('pkl.profile', compact('profile'));
+        $programs = \App\Models\ProgramKursus::all();
+        return view('pkl.profile', compact('profile', 'programs'));
     }
 
     public function updateProfile(Request $request)
@@ -77,6 +78,7 @@ class PklStudentDashboardController extends Controller
             'student_id_number' => 'nullable|string|max:100',
             'phone_number' => 'required|string|max:30',
             'address' => 'nullable|string',
+            'program_id' => 'nullable|exists:program_kursuses,id',
         ]);
 
         $user->update(['name' => $request->name]);
@@ -87,6 +89,7 @@ class PklStudentDashboardController extends Controller
             'student_id_number' => $request->student_id_number,
             'phone_number' => $request->phone_number,
             'address' => $request->address,
+            'program_id' => $request->program_id,
         ]);
 
         PklHistory::create([

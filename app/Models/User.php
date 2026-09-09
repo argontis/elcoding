@@ -35,6 +35,16 @@ class User extends Authenticatable
         return $this->hasOne(PklProfile::class, 'user_id');
     }
 
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isMentor()
+    {
+        return $this->role === 'mentor';
+    }
+
     public function isPklStudent()
     {
         return $this->role === 'pkl_student';

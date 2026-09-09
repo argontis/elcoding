@@ -55,6 +55,20 @@
                     <input type="text" name="phone_number" value="{{ old('phone_number', $profile->phone_number) }}" required
                            class="w-full bg-slate-900/60 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 text-white">
                 </div>
+
+                <div class="md:col-span-2 border-t border-slate-700/50 pt-4 mt-2">
+                    <label class="block text-xs font-semibold text-blue-400 mb-2 font-bold uppercase tracking-wider">
+                        <i class="fas fa-graduation-cap mr-1"></i> Program / Divisi Magang (Program Kursus)
+                    </label>
+                    <select name="program_id" class="w-full bg-slate-900 border border-blue-500/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400 text-white font-semibold shadow-inner">
+                        <option value="">-- Pilih Program / Divisi Magang --</option>
+                        @foreach($programs as $prog)
+                            <option value="{{ $prog->id }}" {{ (old('program_id', $profile->program_id) == $prog->id) ? 'selected' : '' }}>
+                                📌 {{ $prog->title ?? $prog->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
 
             <div>

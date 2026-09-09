@@ -73,6 +73,10 @@
             <a href="/admin/mou" class="sidebar-item flex items-center gap-3 font-medium {{ request()->is('admin/mou*') ? 'active' : '' }}">
                 <i class="fas fa-file-signature w-6 text-center text-[15px]"></i> <span class="text-[14px] sidebar-text">MoU & Penawaran</span>
             </a>
+
+            <a href="/admin/pkl" class="sidebar-item flex items-center gap-3 font-medium {{ request()->is('admin/pkl*') ? 'active' : '' }}">
+                <i class="fas fa-user-graduate w-6 text-center text-[15px]"></i> <span class="text-[14px] sidebar-text">Peserta PKL & Magang</span>
+            </a>
         </nav>
     </div>
 

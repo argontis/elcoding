@@ -14,6 +14,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        if (auth()->check() && auth()->user()->isPklStudent()) {
+            return redirect()->route('pkl.dashboard');
+        }
+
         // 1. Ambil data dari 3 tabel (menggunakan Eloquent/DB Query Builder)
         // Kita gabungkan menjadi satu collection
         $orders = DB::table('orders')

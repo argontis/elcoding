@@ -14,6 +14,14 @@ class ProgramKursus extends Model
     }
 
     /**
+     * Accessor for name attribute (alias for title)
+     */
+    public function getNameAttribute()
+    {
+        return $this->attributes['title'] ?? null;
+    }
+
+    /**
      * Parse numeric amount from string price (e.g., 'Rp2.500.000' -> 2500000)
      */
     public function getPriceAmountAttribute()

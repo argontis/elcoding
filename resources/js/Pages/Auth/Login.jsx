@@ -178,6 +178,14 @@ export default function Login({ status, canResetPassword }) {
                                 Sign in
                             </button>
 
+                            {/* PKL Registration Link */}
+                            <div className="mt-4 text-center text-xs text-gray-600">
+                                Peserta PKL / Magang Baru?{' '}
+                                <a href="/register-pkl" className="font-bold text-[#145a9e] hover:underline">
+                                    Daftar Akun PKL Di Sini &rarr;
+                                </a>
+                            </div>
+
                         </form>
                     </div>
                 </div>

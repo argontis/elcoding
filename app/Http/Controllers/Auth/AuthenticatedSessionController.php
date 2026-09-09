@@ -33,6 +33,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if ($request->user()->isPklStudent()) {
+            return redirect()->route('pkl.dashboard');
+        }
+
         $intended = $request->session()->pull('url.intended', '/admin');
         return Inertia::location($intended);
     }

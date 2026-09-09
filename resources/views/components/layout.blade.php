@@ -661,12 +661,14 @@
 
                 <!-- 3. BAGIAN KANAN (Tampil di Mobile) -->
                 <div class="header-actions mobile-actions">
+                    <a href="{{ url('/login') }}" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Masuk</a>
                     <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}" class="btn-solid-nav" target="_blank">Konsultasi</a>
                 </div>
             </nav>
 
             <!-- 3. BAGIAN KANAN (Tampil di Desktop) -->
             <div class="header-actions desktop-actions">
+                <a href="{{ url('/login') }}" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Masuk</a>
                 <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}" class="btn-solid-nav" target="_blank">Konsultasi</a>
             </div>
         </div>

@@ -77,7 +77,7 @@ export default function Login({ status, canResetPassword }) {
                         </div>
                         
                         <h1 className="text-3xl font-bold tracking-tight text-white drop-shadow-md text-center">
-                            Admin <span className="text-cyan-300">Portal</span>
+                            Portal <span className="text-cyan-300">Login</span>
                         </h1>
                         <p className="text-[12px] text-blue-100 mt-2 font-medium tracking-widest uppercase opacity-80 text-center">
                             elcoding.id
@@ -178,12 +178,11 @@ export default function Login({ status, canResetPassword }) {
                                 Sign in
                             </button>
 
-                            {/* PKL Registration Link */}
                             <div className="mt-4 text-center text-xs text-gray-600">
-                                Peserta PKL / Magang Baru?{' '}
-                                <a href="/register-pkl" className="font-bold text-[#145a9e] hover:underline">
-                                    Daftar Akun PKL Di Sini &rarr;
-                                </a>
+                                Belum punya akun?{' '}
+                                <Link href="/register" className="font-bold text-[#145a9e] hover:underline">
+                                    Daftar Di Sini &rarr;
+                                </Link>
                             </div>
 
                         </form>

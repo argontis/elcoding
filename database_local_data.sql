@@ -1,0 +1,69 @@
+-- Local Data Export Dump
+-- Generated: 2026-09-09 06:48:52
+
+-- Table: users
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES ('1', 'Administrator', 'adminelcoding', 'admin@elcoding.id', 'user', NULL, '$2y$12$ExqZwfKoQmOcIVdmQZ25ju22esGsOz14RmxRn63v9M0alIdl/0ov.', NULL, '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES ('2', 'Siswa Magang ELC', NULL, 'siswa.pkl@elc.my.id', 'pkl_student', NULL, '$2y$12$3Eo90gfnuvP6fBidIY9n.e/D94e0Pkh8Eiz7DLi2RAvvgf8nb0Qy.', NULL, '2026-09-09 04:16:09', '2026-09-09 04:16:09');
+
+-- Table: program_kursuses
+INSERT INTO `program_kursuses` (`id`, `title`, `duration`, `price`, `price_amount`, `badge`, `description`, `created_at`, `updated_at`, `image_path`, `features`, `theme_color`) VALUES ('1', 'Bootcamp Intensif Full Stack Web Dev', '4 Bulan', 'Rp2.500.000', NULL, 'Recommended', NULL, '2026-08-19 04:27:18', '2026-09-07 02:44:58', 'gambar/aset/bootcamp-fullstack.png', NULL, 'theme-1');
+INSERT INTO `program_kursuses` (`id`, `title`, `duration`, `price`, `price_amount`, `badge`, `description`, `created_at`, `updated_at`, `image_path`, `features`, `theme_color`) VALUES ('2', 'Mastering Skill UI/UX Design', '3 Bulan', 'Rp1.800.000', NULL, 'Terlaris', NULL, '2026-08-19 04:27:18', '2026-09-07 02:50:12', 'gambar/aset/uiux-design.jpg', NULL, 'theme-1');
+INSERT INTO `program_kursuses` (`id`, `title`, `duration`, `price`, `price_amount`, `badge`, `description`, `created_at`, `updated_at`, `image_path`, `features`, `theme_color`) VALUES ('3', 'Professional Class Digital Marketing', '2 Bulan', 'Rp1.500.000', NULL, 'Reguler', NULL, '2026-08-19 04:27:18', '2026-09-07 02:55:39', 'gambar/aset/digital-marketing.jpg', NULL, 'theme-1');
+
+-- Table: pkl_profiles
+INSERT INTO `pkl_profiles` (`id`, `user_id`, `institution`, `major`, `student_id_number`, `phone_number`, `address`, `start_date`, `end_date`, `status`, `program_id`, `mentor_id`, `created_at`, `updated_at`) VALUES ('1', '2', 'SMK Negeri 1 Semarang', 'Rekayasa Perangkat Lunak', '2026998811', '081234567890', 'Jl. Pemuda No. 123, Semarang', '2026-09-01', '2026-12-09', 'active', '1', NULL, '2026-09-09 04:16:10', '2026-09-09 04:16:10');
+
+-- Table: pkl_tasks
+INSERT INTO `pkl_tasks` (`id`, `pkl_profile_id`, `assigned_by`, `title`, `description`, `due_date`, `status`, `submission_url`, `submission_file`, `submission_notes`, `submitted_at`, `grade`, `feedback`, `created_at`, `updated_at`) VALUES ('1', '1', '1', 'Membuat ERD & Skema Database Sistem PKL', 'Rancanglah diagram ERD dan struktur relasi antartabel untuk portal magang.', '2026-09-16', 'pending', NULL, NULL, NULL, NULL, NULL, NULL, '2026-09-09 04:16:10', '2026-09-09 04:16:10');
+
+-- Table: pkl_histories
+INSERT INTO `pkl_histories` (`id`, `pkl_profile_id`, `activity_type`, `title`, `description`, `icon`, `logged_at`, `created_at`, `updated_at`) VALUES ('1', '1', 'registration', 'Pendaftaran Akun PKL Berhasil', 'Mendaftar sebagai peserta PKL dari SMK Negeri 1 Semarang (Rekayasa Perangkat Lunak).', 'fa-user-check', '2026-09-09 04:16:10', '2026-09-09 04:16:10', '2026-09-09 04:16:10');
+
+-- Table: mitras
+INSERT INTO `mitras` (`id`, `name`, `logo_path`, `created_at`, `updated_at`) VALUES ('1', 'Partner Logo 1 (1)', 'gambar/mitra/Partner_Logo_1__1_.svg', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `mitras` (`id`, `name`, `logo_path`, `created_at`, `updated_at`) VALUES ('2', 'Partner Logo 1 (2)', 'gambar/mitra/Partner_Logo_1__2_.svg', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `mitras` (`id`, `name`, `logo_path`, `created_at`, `updated_at`) VALUES ('3', 'Partner Logo 1', 'gambar/mitra/Partner_Logo_1.svg', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `mitras` (`id`, `name`, `logo_path`, `created_at`, `updated_at`) VALUES ('4', 'Partner Logo 2 (1)', 'gambar/mitra/Partner_Logo_2__1_.svg', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `mitras` (`id`, `name`, `logo_path`, `created_at`, `updated_at`) VALUES ('5', 'Partner Logo 2', 'gambar/mitra/Partner_Logo_2.svg', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `mitras` (`id`, `name`, `logo_path`, `created_at`, `updated_at`) VALUES ('6', 'Partner Logo 3 (1)', 'gambar/mitra/Partner_Logo_3__1_.svg', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `mitras` (`id`, `name`, `logo_path`, `created_at`, `updated_at`) VALUES ('7', 'Partner Logo 3', 'gambar/mitra/Partner_Logo_3.png', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `mitras` (`id`, `name`, `logo_path`, `created_at`, `updated_at`) VALUES ('8', 'Partner Logo 3', 'gambar/mitra/Partner_Logo_3.svg', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `mitras` (`id`, `name`, `logo_path`, `created_at`, `updated_at`) VALUES ('9', 'Partner Logo 4 (1)', 'gambar/mitra/Partner_Logo_4__1_.svg', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `mitras` (`id`, `name`, `logo_path`, `created_at`, `updated_at`) VALUES ('10', 'Partner Logo 4 (2)', 'gambar/mitra/Partner_Logo_4__2_.svg', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `mitras` (`id`, `name`, `logo_path`, `created_at`, `updated_at`) VALUES ('11', 'Partner Logo 4', 'gambar/mitra/Partner_Logo_4.svg', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `mitras` (`id`, `name`, `logo_path`, `created_at`, `updated_at`) VALUES ('12', 'Partner Logo 5 (1)', 'gambar/mitra/Partner_Logo_5__1_.svg', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `mitras` (`id`, `name`, `logo_path`, `created_at`, `updated_at`) VALUES ('13', 'Partner Logo 5', 'gambar/mitra/Partner_Logo_5.svg', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+
+-- Table: portofolios
+INSERT INTO `portofolios` (`id`, `title`, `category`, `image_path`, `created_at`, `updated_at`, `content`, `client`, `date`) VALUES ('1', 'Film Islami Kemenag', 'Coding', 'gambar/portofolio/Film-Islami-Kemenag.webp', '2026-08-19 04:27:18', '2026-08-19 04:27:18', 'Proyek pembuatan website untuk Kemenag dengan fitur streaming film islami.', NULL, NULL);
+INSERT INTO `portofolios` (`id`, `title`, `category`, `image_path`, `created_at`, `updated_at`, `content`, `client`, `date`) VALUES ('2', 'TOSTEM Prima Cipta', 'Desain Grafis', 'gambar/portofolio/Tostem-Prima-Cipta.webp', '2026-08-19 04:27:18', '2026-08-19 04:27:18', 'Pembuatan desain profil perusahaan dan materi promosi untuk TOSTEM Prima Cipta.', NULL, NULL);
+INSERT INTO `portofolios` (`id`, `title`, `category`, `image_path`, `created_at`, `updated_at`, `content`, `client`, `date`) VALUES ('3', 'Tutur Bangsa', 'B. Inggris & Mandarin', 'gambar/portofolio/Tutur-Bangsa.webp', '2026-08-19 04:27:18', '2026-08-19 04:27:18', 'Sistem e-learning interaktif untuk pembelajaran bahasa.', NULL, NULL);
+INSERT INTO `portofolios` (`id`, `title`, `category`, `image_path`, `created_at`, `updated_at`, `content`, `client`, `date`) VALUES ('4', 'Kerjasama Pengembangan Sinergis dengan LazizMU', 'Kerjasama', 'gambar/portofolio/kerjasama-lazizmu.webp', '2026-09-02 04:52:44', '2026-09-02 04:52:44', 'Elcoding Academy menjalin kerjasama strategis dengan LazizMU dalam rangka pengembangan sistem digital sinergis, optimalisasi tata kelola teknologi informasi, dan peningkatan efisiensi layanan secara terpadu.', 'LazizMU', '2026-09-02');
+
+-- Table: artikels
+INSERT INTO `artikels` (`id`, `title`, `author`, `category`, `status`, `published_at`, `created_at`, `updated_at`, `content`, `image_path`) VALUES ('1', 'Mengapa Belajar Pemrograman Adalah Investasi Terbaik untuk Masa Depan Anda', 'Admin Elcoding', 'Teknologi', 'Published', '2026-06-24', '2026-08-19 04:27:18', '2026-08-19 04:27:18', 'Di era digital yang berkembang dengan sangat pesat, kemampuan pemrograman atau coding telah berubah dari sekadar keahlian teknis khusus menjadi salah satu keterampilan dasar yang paling dicari oleh berbagai industri di seluruh dunia.
+
+Banyak orang mengira bahwa coding hanya diperuntukkan bagi mereka yang ingin menjadi software engineer atau IT support. Faktanya, pemahaman dasar tentang cara kerja perangkat lunak dan logika pemrograman dapat memberikan keuntungan kompetitif yang besar di hampir setiap bidang karier.', NULL);
+INSERT INTO `artikels` (`id`, `title`, `author`, `category`, `status`, `published_at`, `created_at`, `updated_at`, `content`, `image_path`) VALUES ('2', '5 Tips Memilih Bootcamp Web Developer yang Tepat', 'Admin Elcoding', 'Edukasi', 'Published', '2026-06-20', '2026-08-19 04:27:18', '2026-08-19 04:27:18', 'Memilih bootcamp yang tepat adalah langkah penting. Pastikan Anda mempertimbangkan:
+1. Kurikulum yang up to date
+2. Mentor yang berpengalaman
+3. Fokus pada praktik (project-based)
+4. Dukungan penyaluran kerja
+5. Fasilitas yang memadai', NULL);
+INSERT INTO `artikels` (`id`, `title`, `author`, `category`, `status`, `published_at`, `created_at`, `updated_at`, `content`, `image_path`) VALUES ('3', 'Mengenal Perbedaan UI dan UX Design untuk Pemula', 'Tim Kreatif', 'Desain', 'Draft', '2026-06-18', '2026-08-19 04:27:18', '2026-08-19 04:27:18', 'User Interface (UI) dan User Experience (UX) adalah dua hal yang berbeda. UI fokus pada tampilan antarmuka (warna, tombol, tipografi), sedangkan UX berfokus pada kemudahan dan pengalaman pengguna saat menggunakan aplikasi. Keduanya harus berjalan beriringan untuk menciptakan produk digital yang sukses.', NULL);
+INSERT INTO `artikels` (`id`, `title`, `author`, `category`, `status`, `published_at`, `created_at`, `updated_at`, `content`, `image_path`) VALUES ('4', 'Kerjasama Pengembangan Sinergis dengan LazizMU', 'Admin Elcoding', 'Kerjasama', 'Published', '2026-09-02', '2026-09-02 05:02:20', '2026-09-02 05:02:19', '<p>Elcoding Academy secara resmi menjalin kerjasama pengembangan sinergis dengan LazizMU. Kerjasama ini bertujuan untuk memperkuat ekosistem digital, mempercepat otomatisasi layanan, serta meningkatkan efisiensi tata kelola teknologi informasi secara berkesinambungan.</p><p>Melalui kolaborasi ini, kedua pihak berkomitmen untuk menghadirkan inovasi solusi perangkat lunak yang andal dan tepat guna untuk mendukung berbagai program operasional LazizMU secara optimal.</p>', 'gambar/artikel/kerjasama-lazizmu.webp');
+INSERT INTO `artikels` (`id`, `title`, `author`, `category`, `status`, `published_at`, `created_at`, `updated_at`, `content`, `image_path`) VALUES ('5', 'Training & Pelatihan Website Elrhea', 'Admin Elcoding', 'Edukasi', 'Published', '2026-07-22', '2026-09-02 05:14:36', '2026-09-02 05:14:36', '<p><strong>Elcoding Academy</strong> sukses menyelenggarakan program <em>Training &amp; Pelatihan Website Elrhea</em> yang berlangsung pada tanggal 21 hingga 22 Juli 2026 di Semarang.</p><p>Kegiatan pelatihan ini dirancang untuk memberikan pemahaman mendalam serta keterampilan praktis dalam pengolahan, pengelolaan, dan pengoperasian website secara mandiri dan profesional. Peserta dibimbing langsung oleh tim instruktur berpengalaman dari Elcoding Academy.</p><p style=\"text-align: center; margin: 25px 0;\"><img src=\"/gambar/artikel/training-pelatihan-elrhea-2.webp\" alt=\"Dokumentasi Pelatihan Website Elrhea\" style=\"max-width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);\" /></p><p>Selama dua hari penuh, peserta antusias mengikuti rangkaian materi mulai dari pengenalan struktur pengelolaan sistem, manajemen konten, hingga otomatisasi serta pemeliharaan keandalan sistem website. Diharapkan pelatihan ini mampu meningkatkan efisiensi dan kapasitas digital secara berkelanjutan.</p>', 'gambar/artikel/training-pelatihan-elrhea-1.webp');
+
+-- Table: settings
+INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES ('1', 'contact_address', 'CitraLand Tegal blok Belleza Plaza Lt.2, Kraton, Kota Tegal, Jawa Tengah (Gedung Training Center)', '2026-08-19 04:27:18', '2026-08-24 02:21:26');
+INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES ('2', 'contact_phone', '+62 814-7665-2656', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES ('3', 'contact_whatsapp_chat', '+6281476652656', '2026-08-19 04:27:18', '2026-08-24 02:21:26');
+INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES ('4', 'contact_email', 'info@elcodingacademy.com', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES ('5', 'social_facebook', '#', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES ('6', 'social_instagram', 'https://www.instagram.com/elcoding.id?igsh=c2pndTFlYW5laXk0&utm_source=qr', '2026-08-19 04:27:18', '2026-08-24 02:21:26');
+INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES ('7', 'social_youtube', '#', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES ('8', 'contact_map_iframe', 'https://maps.google.com/maps?q=Azzahra%20Computer%20Tegal&t=&z=17&ie=UTF8&iwloc=&output=embed', '2026-08-19 04:27:18', '2026-08-19 04:27:18');
+INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES ('9', 'contact_address_bekasi', 'Jl. Alternatif Cibubur Ruko Kranggan Blok Rt16/27, Jatisampurna, Kota Bekasi, Jawa Barat', '2026-08-24 02:21:26', '2026-08-24 02:21:26');
+INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES ('10', 'contact_phone_bekasi', '+62 877-6233-4232', '2026-08-24 02:21:26', '2026-08-24 02:21:26');
+INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES ('11', 'contact_email_bekasi', 'info@elcodingacademy.com', '2026-08-24 02:21:26', '2026-08-24 02:21:26');
+

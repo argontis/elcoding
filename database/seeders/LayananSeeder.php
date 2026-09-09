@@ -18,6 +18,7 @@ class LayananSeeder extends Seeder
         \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
 
         $services = [
+            // --- SET 1: LAYANAN WEBSITE & APLIKASI SEKOLAH ---
             [
                 'title' => 'Website Sekolah',
                 'slug' => 'website-sekolah',
@@ -26,6 +27,7 @@ class LayananSeeder extends Seeder
                 'short_description' => 'Pembuatan website sekolah instan untuk TK, SD, SMP, SMA, SMK, SLB, Madrasah, Ponpes, Yayasan dan Lembaga Pendidikan lainnya. Website modern, responsif, dan mudah dikelola.',
                 'price_label' => 'Mulai dari',
                 'price' => 'Rp 375.000',
+                'price_amount' => 375000,
                 'price_period' => '/ tahun',
                 'image_path' => '',
                 'description' => '<p>Di era digital saat ini, memiliki website resmi sekolah sangatlah penting untuk menunjang akreditasi, transparansi informasi, dan media komunikasi yang efektif antara pihak sekolah, siswa, dan masyarakat.</p><p>Elcoding hadir memberikan solusi pembuatan website sekolah instan yang siap pakai, sudah termasuk gratis pendaftaran domain resmi <strong>.sch.id</strong>, hosting yang cepat dan stabil, serta kontrol panel yang mudah digunakan oleh tenaga pendidik atau tata usaha sekolah tanpa perlu keahlian pemrograman (coding) sama sekali.</p>',
@@ -66,6 +68,7 @@ class LayananSeeder extends Seeder
                 'short_description' => 'Hosting khusus untuk eRapor SMK yang aplikasinya disediakan oleh Direktorat SMK melalui situs erapor-smk.net. Dukungan penuh dari tim kami.',
                 'price_label' => 'Harga',
                 'price' => 'Rp 210.000',
+                'price_amount' => 210000,
                 'price_period' => '/ tahun',
                 'image_path' => '',
                 'description' => '<p>Kini Anda tidak perlu lagi repot mengatur server lokal di sekolah yang harus selalu menyala 24 jam. Elcoding menyediakan layanan hosting khusus yang dirancang optimal untuk aplikasi <strong>eRapor SMK</strong>.</p><p>Aplikasi eRapor SMK Anda dapat diakses dari mana saja dan kapan saja secara online oleh para guru dan wali kelas tanpa terkendala infrastruktur jaringan lokal.</p>',
@@ -93,6 +96,7 @@ class LayananSeeder extends Seeder
                 'short_description' => 'Hosting khusus untuk Rapor Digital Madrasah (RDM) yang aplikasinya disediakan oleh Kementerian Agama melalui rdm.kemenag.go.id. Cepat, stabil, dan terpercaya.',
                 'price_label' => 'Harga',
                 'price' => 'Rp 150.000',
+                'price_amount' => 150000,
                 'price_period' => '/ tahun',
                 'image_path' => '',
                 'description' => '<p>Rapor Digital Madrasah (RDM) merupakan aplikasi wajib dari Kemenag. Namun instalasi di server lokal sekolah seringkali merepotkan karena keterbatasan spesifikasi PC dan keharusan IP Public.</p><p>Kami menawarkan solusi <strong>Hosting Khusus RDM</strong> yang siap pakai, aman, dan sangat ringan, sehingga guru-guru di Madrasah Anda dapat mengerjakan RDM darimana saja.</p>',
@@ -120,6 +124,7 @@ class LayananSeeder extends Seeder
                 'short_description' => 'Cloud server untuk aplikasi eRapor & Dapodik baik untuk SD/SMP/SMA/SMK dengan sistem operasi Windows Server dan akses dengan domain sendiri.',
                 'price_label' => 'Mulai dari',
                 'price' => 'Rp 375.000',
+                'price_amount' => 375000,
                 'price_period' => '/ 3 bulan',
                 'image_path' => '',
                 'description' => '<p>Bagi sekolah yang memiliki aplikasi berat atau spesifik yang mengharuskan penggunaan sistem operasi Windows Server, layanan Cloud Server (VPS Windows) kami adalah jawabannya.</p><p>Biasa digunakan untuk menghosting Dapodik, eRapor versi khusus, aplikasi CBT, hingga sistem informasi manajemen mandiri milik sekolah dengan kebebasan penuh akses Administrator (RDP).</p>',
@@ -147,6 +152,7 @@ class LayananSeeder extends Seeder
                 'short_description' => 'Template WordPress Sitesch.ID siap pakai untuk website sekolah modern, responsif, dan berfitur lengkap. Beli sekali, aktif selamanya tanpa biaya berulang.',
                 'price_label' => 'Harga',
                 'price' => 'Rp 395.000',
+                'price_amount' => 395000,
                 'price_period' => '/ sekali beli',
                 'image_path' => '',
                 'description' => '<p>Sitesch.ID merupakan template WordPress eksklusif yang dirancang khusus untuk kebutuhan Website Sekolah di Indonesia.</p><p>Hanya dengan sekali bayar, Anda mendapatkan lisensi penggunaan selamanya, lengkap dengan fitur PSB (Penerimaan Siswa Baru), Galeri, Berita, Pengumuman Kelulusan, dan berbagai fitur akademik lainnya.</p>',
@@ -174,6 +180,7 @@ class LayananSeeder extends Seeder
                 'short_description' => 'Perpustakaan digital untuk sekolah — katalog buku online, peminjaman mandiri, dan baca e-book langsung dari browser tanpa perlu instalasi.',
                 'price_label' => 'Harga',
                 'price' => 'Rp 425.000',
+                'price_amount' => 425000,
                 'price_period' => '/ tahun',
                 'image_path' => '',
                 'description' => '<p>Ubah perpustakaan fisik sekolah Anda menjadi perpustakaan digital modern dengan E-Library Sekolah.</p><p>Aplikasi ini memungkinkan siswa untuk mencari katalog buku, melakukan peminjaman secara digital, atau bahkan membaca E-Book PDF langsung dari perangkat mereka, sehingga menumbuhkan minat baca siswa di era digital.</p>',
@@ -192,7 +199,138 @@ class LayananSeeder extends Seeder
                 ],
                 'features_full' => [],
                 'whatsapp_message' => 'Halo Admin Elcoding, saya ingin bertanya tentang layanan E-Library Sekolah.'
-            ]
+            ],
+
+            // --- SET 2: LAYANAN JASA IT AGENCY & DEVELOPMENT ---
+            [
+                'title' => 'Jasa Pembuatan Website & Web Application',
+                'slug' => 'pembuatan-website-aplikasi-web',
+                'icon' => 'fas fa-globe',
+                'badge' => 'RECOMMENDED',
+                'short_description' => 'Pengembangan website responsif, company profile, toko online (e-commerce), dan sistem informasi bisnis berbasis Laravel & React.',
+                'price_label' => 'Mulai Dari',
+                'price' => 'Rp 2.500.000',
+                'price_amount' => 2500000,
+                'price_period' => '/ project',
+                'image_path' => 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80',
+                'description' => 'Kami menyediakan jasa pembuatan website profesional yang dirancang khusus untuk meningkatkan kredibilitas dan penjualan bisnis Anda. Menggunakan teknologi modern terkini dengan desain elegan, SEO-friendly, dan akses super cepat.',
+                'features_main' => ['Desain Responsive & Modern', 'Optimasi SEO & Kecepatan Tinggi', 'Integrasi Payment Gateway', 'Gratis Domain & Hosting 1 Tahun'],
+                'pricing_includes' => ['Free Source Code', 'Gratis Revisi Desain', 'Garansi & Support 6 Bulan', 'Panduan Penggunaan Admin Panel'],
+                'features_full' => [
+                    'Desain Kustom Eksklusif (Non-Template)',
+                    'Content Management System (CMS) Mudah Digunakan',
+                    'Integrasi WhatsApp & Live Chat Widget',
+                    'Keamanan SSL Certificate Terpasang',
+                    'Analitik Pengunjung (Google Analytics)'
+                ],
+                'whatsapp_message' => 'Halo Elcoding, saya ingin berkonsultasi mengenai Jasa Pembuatan Website & Web Application.'
+            ],
+            [
+                'title' => 'Pengembangan Aplikasi Mobile (Android & iOS)',
+                'slug' => 'pengembangan-aplikasi-mobile',
+                'icon' => 'fas fa-mobile-alt',
+                'badge' => 'TERLARIS',
+                'short_description' => 'Aplikasi mobile cross-platform performa tinggi menggunakan Flutter & React Native dengan desain UI/UX interaktif.',
+                'price_label' => 'Mulai Dari',
+                'price' => 'Rp 4.500.000',
+                'price_amount' => 4500000,
+                'price_period' => '/ project',
+                'image_path' => 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80',
+                'description' => 'Wujudkan ide aplikasi mobile impian Anda untuk Android dan iOS dalam satu codebase efisien. Dilengkapi backend API terstruktur, push notification, serta performa native yang mulus.',
+                'features_main' => ['Support Android & iOS', 'UI/UX Interactive & Smooth', 'Push Notification Realtime', 'Integrasi API & Cloud DB'],
+                'pricing_includes' => ['Bantuan Publish ke Google PlayStore & AppStore', 'Dokumentasi REST API Complete', 'Free Maintenance 3 Bulan'],
+                'features_full' => [
+                    'Multi-language Support',
+                    'Fitur Lokasi / GPS Mapping',
+                    'Sistem Keamanan Auth JWT & Biometric Login',
+                    'Optimasi Ukuran App & Baterai'
+                ],
+                'whatsapp_message' => 'Halo Elcoding, saya berminat membuat Aplikasi Mobile untuk bisnis saya.'
+            ],
+            [
+                'title' => 'Jasa UI/UX Design & Prototyping',
+                'slug' => 'jasa-ui-ux-design-prototyping',
+                'icon' => 'fas fa-paint-brush',
+                'badge' => 'PROMO',
+                'short_description' => 'Perancangan antarmuka pengguna (UI) dan pengalaman pengguna (UX) berbasis penelitian pengguna dan Design System scalable.',
+                'price_label' => 'Mulai Dari',
+                'price' => 'Rp 1.200.000',
+                'price_amount' => 1200000,
+                'price_period' => '/ project',
+                'image_path' => 'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=800&q=80',
+                'description' => 'Layanan pembuatan kraf wireframe, prototype interaktif Figma, serta Design System standar industri untuk mempermudah proses koding tim developer Anda.',
+                'features_main' => ['Figma Source File (.fig)', 'Design System & Component Library', 'Clickable Interactive Prototype', 'User Research & Wireframing'],
+                'pricing_includes' => ['Export Aset SVG/PNG/JPG', 'Design Handoff ke Developer', 'Revisi Sesuai Feedback'],
+                'features_full' => [
+                    'UX Audit & Usability Testing',
+                    'Responsive Layouts (Desktop & Mobile)',
+                    'Iconography & Design Palette Custom'
+                ],
+                'whatsapp_message' => 'Halo Elcoding, saya butuh layanan Jasa UI/UX Design untuk aplikasi saya.'
+            ],
+            [
+                'title' => 'Private Corporate IT Training',
+                'slug' => 'private-corporate-it-training',
+                'icon' => 'fas fa-users-cog',
+                'badge' => 'SPECIAL',
+                'short_description' => 'Pelatihan teknologi dan pemrograman khusus perusahaan & instansi dengan kurikulum kustom disesuaikan kebutuhan industri Anda.',
+                'price_label' => 'Mulai Dari',
+                'price' => 'Rp 3.500.000',
+                'price_amount' => 3500000,
+                'price_period' => '/ batch',
+                'image_path' => 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80',
+                'description' => 'Tingkatkan kompetensi digital tim internal perusahaan Anda dalam topik Fullstack Web Development, DevOps, Cloud Infrastructure, atau AI/Data Science bersama instruktur praktisi berpengalaman.',
+                'features_main' => ['Kurikulum Custom Sesuai Project Tim', 'Instruktur Expert Praktisi Industri', 'Modul & Sertifikat Pelatihan', 'Konsultasi Studi Kasus Real'],
+                'pricing_includes' => ['Materi Presentasi & Source Code', 'Sertifikat Kelulusan Peserta', 'Evaluasi Hasil Pembelajaran'],
+                'features_full' => [
+                    'Pilihan Metode Onsite atau Online Live Class',
+                    'Recording Sesi Pelatihan Harian',
+                    'Group Support Telegram / Slack Dedikasi'
+                ],
+                'whatsapp_message' => 'Halo Elcoding, kami ingin mengadakan Corporate IT Training untuk perusahaan kami.'
+            ],
+            [
+                'title' => 'Cloud Server, DevOps & Maintenance',
+                'slug' => 'cloud-devops-maintenance-server',
+                'icon' => 'fas fa-server',
+                'badge' => 'POPULER',
+                'short_description' => 'Konfigurasi cloud server (AWS, GCP, VPS), automasi CI/CD pipeline, monitoring keamanan, dan perawatan server berkala.',
+                'price_label' => 'Mulai Dari',
+                'price' => 'Rp 990.000',
+                'price_amount' => 990000,
+                'price_period' => '/ bulan',
+                'image_path' => 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80',
+                'description' => 'Jaga kestabilan dan keamanan aplikasi bisnis Anda tanpa perlu khawatir server down. Layanan DevOps dan managed server profesional untuk skalabilitas bisnis tinggi.',
+                'features_main' => ['Setup Cloud VPS / Server AWS GCP', 'Automasi Deployment CI/CD', 'Backup Database Otomatis Harian', 'Monitoring Server 24/7 Uptime'],
+                'pricing_includes' => ['Firewall & Hardening Security', 'SSL Certificate Management', 'Laporan Performa Bulanan'],
+                'features_full' => [
+                    'Docker & Kubernetes Containerization',
+                    'Load Balancer Configuration',
+                    'Penanganan Insiden Darurat (SLA Fast Response)'
+                ],
+                'whatsapp_message' => 'Halo Elcoding, saya butuh layanan Cloud Server & DevOps Maintenance.'
+            ],
+            [
+                'title' => 'Audit Keamanan Website & PenTest',
+                'slug' => 'audit-keamanan-website-penetration-testing',
+                'icon' => 'fas fa-shield-alt',
+                'badge' => 'BARU',
+                'short_description' => 'Pengujian penetrasi (Penetration Testing) dan analisis celah keamanan website serta server aplikasi dari potensi peretasan.',
+                'price_label' => 'Mulai Dari',
+                'price' => 'Rp 1.950.000',
+                'price_amount' => 1950000,
+                'price_period' => '/ audit',
+                'image_path' => 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80',
+                'description' => 'Lindungi data sensitif pelanggan dan reputasi bisnis Anda dari ancaman cyber crime, SQL injection, XSS, dan kebocoran data dengan pengujian keamanan standar OWASP.',
+                'features_main' => ['Vulnerability Assessment OWASP Top 10', 'Penetration Testing Blackbox & Graybox', 'Laporan Rekomendasi Perbaikan', 'Re-Testing Setelah Fix Celah'],
+                'pricing_includes' => ['Dokumen Executive Summary Audit', 'Panduan Remediasi Teknis', 'Sertifikat Audit Keamanan'],
+                'features_full' => [
+                    'Pemeriksaan Security Header & Network Port',
+                    'Analisis Kerentanan API Endpoint',
+                    'Konsultasi Tim Security Specialist'
+                ],
+                'whatsapp_message' => 'Halo Elcoding, saya ingin berkonsultasi untuk Audit Keamanan Website / PenTest.'
+            ],
         ];
 
         foreach ($services as $service) {

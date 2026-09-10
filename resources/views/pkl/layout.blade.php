@@ -30,6 +30,11 @@
 
             <!-- Profile & Actions -->
             <div class="flex items-center gap-4">
+                <a href="{{ url('/') }}" class="text-xs font-semibold text-slate-300 hover:text-white bg-slate-700/60 hover:bg-slate-700 px-3 py-1.5 rounded-xl border border-slate-600/50 transition flex items-center gap-1.5" title="Kembali ke Website Utama">
+                    <i class="fas fa-globe text-blue-400"></i>
+                    <span class="hidden sm:inline">Website Utama</span>
+                </a>
+
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center shadow-md">
                         {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}

@@ -645,13 +645,15 @@
                     
                     <!-- Dropdown "Lainnya" -->
                     @php
-                        $isLainnyaActive = request()->is('portofolio*') || request()->is('blog*') || request()->is('kontak*');
+                        $isLainnyaActive = request()->is('pkl*') || request()->is('register-pkl*') || request()->is('portofolio*') || request()->is('blog*') || request()->is('kontak*');
                     @endphp
                     <li class="dropdown" id="navDropdown">
                         <a href="#" class="nav-link dropdown-toggle {{ $isLainnyaActive ? 'active' : '' }}" id="dropdownBtn">
                             Lainnya <i class="fas fa-chevron-down" style="font-size: 12px; margin-left: 3px;"></i>
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a href="{{ url('/pkl/dashboard') }}" class="{{ request()->is('pkl*') ? 'active' : '' }}"><i class="fas fa-chart-pie text-blue-500 mr-2" style="width: 16px;"></i> Dashboard Internship</a></li>
+                            <li><a href="{{ url('/register-pkl') }}" class="{{ request()->is('register-pkl*') ? 'active' : '' }}"><i class="fas fa-user-plus text-emerald-500 mr-2" style="width: 16px;"></i> Pendaftaran PKL & Magang</a></li>
                             <li><a href="{{ url('/portofolio') }}" class="{{ request()->is('portofolio*') ? 'active' : '' }}">Portofolio</a></li>
                             <li><a href="{{ url('/blog') }}" class="{{ request()->is('blog*') ? 'active' : '' }}">Blog</a></li>
                             <li><a href="{{ url('/kontak') }}" class="{{ request()->is('kontak*') ? 'active' : '' }}">Kontak</a></li>
@@ -812,7 +814,7 @@
             border: 1px solid #f1f5f9;
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            min-width: 200px;
+            min-width: 220px;
             list-style: none;
             padding: 10px 0;
             margin: 0;
@@ -834,6 +836,7 @@
             font-weight: 500;
             text-decoration: none;
             transition: 0.2s;
+            white-space: nowrap;
         }
         .dropdown-menu li a:hover,
         .dropdown-menu li a.active {

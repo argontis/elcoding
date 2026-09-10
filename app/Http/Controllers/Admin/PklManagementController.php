@@ -13,10 +13,19 @@ use App\Models\PklCertificate;
 use App\Models\PklHistory;
 use App\Models\ProgramKursus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class PklManagementController extends Controller
 {
+    private function getMentors()
+    {
+        if (Schema::hasColumn('users', 'role')) {
+            return User::whereIn('role', ['admin', 'mentor'])->get();
+        }
+        return User::all();
+    }
+
     public function index(Request $request)
     {
         $query = PklProfile::with(['user', 'mentor', 'program']);
@@ -38,14 +47,14 @@ class PklManagementController extends Controller
         }
 
         $pklStudents = $query->latest()->paginate(15);
-        $mentors = User::whereIn('role', ['admin', 'mentor'])->get();
+        $mentors = $this->getMentors();
 
         return view('admin.pkl.index', compact('pklStudents', 'mentors'));
     }
 
     public function create()
     {
-        $mentors = User::whereIn('role', ['admin', 'mentor'])->get();
+        $mentors = $this->getMentors();
         $programs = ProgramKursus::all();
         return view('admin.pkl.create', compact('mentors', 'programs'));
     }
@@ -114,7 +123,7 @@ class PklManagementController extends Controller
             'histories'
         ])->findOrFail($id);
 
-        $mentors = User::whereIn('role', ['admin', 'mentor'])->get();
+        $mentors = $this->getMentors();
         $programs = ProgramKursus::all();
 
         return view('admin.pkl.show', compact('profile', 'mentors', 'programs'));
@@ -123,7 +132,7 @@ class PklManagementController extends Controller
     public function edit($id)
     {
         $profile = PklProfile::with('user')->findOrFail($id);
-        $mentors = User::whereIn('role', ['admin', 'mentor'])->get();
+        $mentors = $this->getMentors();
         $programs = ProgramKursus::all();
         return view('admin.pkl.edit', compact('profile', 'mentors', 'programs'));
     }

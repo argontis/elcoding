@@ -120,6 +120,9 @@
             <button onclick="switchTab('tasks')" id="tab-btn-tasks" class="tab-btn py-3 px-2 font-bold text-xs border-b-2 border-blue-600 text-blue-600 whitespace-nowrap">
                 <i class="fas fa-tasks mr-1"></i> Tugas & Penilaian ({{ $profile->tasks->count() }})
             </button>
+            <button onclick="switchTab('student-progress')" id="tab-btn-student-progress" class="tab-btn py-3 px-2 font-semibold text-xs border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
+                <i class="fas fa-list-check mr-1"></i> Modul & Progress Checklist ({{ $profile->studentProgress->count() }})
+            </button>
             <button onclick="switchTab('quizzes')" id="tab-btn-quizzes" class="tab-btn py-3 px-2 font-semibold text-xs border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
                 <i class="fas fa-award mr-1"></i> Progress & Quiz ({{ $profile->quizzes->count() }})
             </button>
@@ -200,6 +203,37 @@
             @empty
                 <p class="text-xs text-slate-500 py-4 text-center">Belum ada tugas yang diberikan.</p>
             @endforelse
+        </div>
+
+        <!-- Tab: Student Progress Checklist -->
+        <div id="tab-content-student-progress" class="tab-content hidden space-y-4">
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h4 class="font-bold text-slate-800 text-sm">Checklist Progress Belajar & Silabus</h4>
+                    <span class="font-extrabold text-blue-600 text-sm">Persentase: {{ $profile->progress_percentage }}% Tuntas</span>
+                </div>
+                <div class="space-y-3">
+                    @forelse($profile->studentProgress as $index => $sp)
+                        @php $m = $sp->module; $isDone = ($sp->status === 'completed'); @endphp
+                        <div class="p-3 rounded-xl border {{ $isDone ? 'bg-emerald-50/50 border-emerald-200' : 'bg-white border-slate-200' }} flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-7 h-7 rounded-full font-bold text-xs flex items-center justify-center {{ $isDone ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-600' }}">
+                                    {{ $isDone ? '✓' : ($index + 1) }}
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-xs text-slate-800">{{ $m->title ?? 'Modul ' . ($index + 1) }}</h5>
+                                    <p class="text-[11px] text-slate-500">{{ $m->description ?? '-' }}</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-lg {{ $isDone ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700' }}">
+                                {{ $isDone ? '✓ Selesai (' . ($sp->completed_at ? $sp->completed_at->format('d/m/Y') : '-') . ')' : '⏳ Belum Selesai' }}
+                            </span>
+                        </div>
+                    @empty
+                        <p class="text-xs text-slate-500 py-4 text-center">Belum ada modul terdaftar untuk peserta ini.</p>
+                    @endforelse
+                </div>
+            </div>
         </div>
 
         <!-- Tab 2: Quizzes -->

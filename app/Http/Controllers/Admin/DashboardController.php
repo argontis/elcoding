@@ -14,7 +14,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        if (auth()->check() && auth()->user()->isPklStudent()) {
+        if (auth()->check() && !auth()->user()->isAdminOrMentor()) {
             return redirect()->route('pkl.dashboard');
         }
 

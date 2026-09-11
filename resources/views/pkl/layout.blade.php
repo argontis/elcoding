@@ -64,6 +64,11 @@
                 <i class="fas fa-chart-pie"></i> Overview
             </a>
 
+            <a href="{{ route('pkl.modules') }}" 
+               class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl flex items-center gap-2 transition whitespace-nowrap {{ request()->routeIs('pkl.modules') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-slate-400 hover:text-white hover:bg-slate-700/40' }}">
+                <i class="fas fa-book-open"></i> Modul & Silabus
+            </a>
+
             <a href="{{ route('pkl.tasks') }}" 
                class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl flex items-center gap-2 transition whitespace-nowrap {{ request()->routeIs('pkl.tasks') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-slate-400 hover:text-white hover:bg-slate-700/40' }}">
                 <i class="fas fa-tasks"></i> Tugas Saya

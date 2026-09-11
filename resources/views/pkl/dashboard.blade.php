@@ -100,6 +100,44 @@
         <!-- Left 2 Cols: Mentor & Pending Tasks -->
         <div class="lg:col-span-2 space-y-8">
             
+            <!-- Progress Checklist Card -->
+            <div class="bg-slate-800/60 border border-slate-700/60 rounded-3xl p-6 backdrop-blur-md">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fas fa-list-check text-blue-400"></i> Checklist Silabus & Modul Pembelajaran
+                    </h3>
+                    <a href="{{ route('pkl.modules') }}" class="text-xs text-blue-400 hover:underline font-semibold">
+                        Lihat Modul &rarr;
+                    </a>
+                </div>
+
+                @if(isset($studentProgressList) && $studentProgressList->count() > 0)
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        @foreach($studentProgressList as $index => $item)
+                            @php
+                                $mod = $item->module;
+                                $isDone = ($item->status === 'completed');
+                            @endphp
+                            <div class="bg-slate-900/60 p-3 rounded-2xl border {{ $isDone ? 'border-emerald-500/30' : 'border-slate-700/50' }} flex items-center justify-between">
+                                <div class="flex items-center gap-2.5 overflow-hidden">
+                                    <div class="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-xs {{ $isDone ? 'bg-emerald-500 text-slate-950' : 'bg-slate-800 text-slate-400' }}">
+                                        {{ $isDone ? '✓' : ($index + 1) }}
+                                    </div>
+                                    <span class="text-xs font-semibold text-white truncate">{{ $mod->title ?? 'Modul ' . ($index + 1) }}</span>
+                                </div>
+                                <span class="text-[11px] font-bold shrink-0 ml-2 {{ $isDone ? 'text-emerald-400' : 'text-amber-400' }}">
+                                    {{ $isDone ? '✓ Selesai' : '⏳ Pending' }}
+                                </span>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="bg-slate-900/40 p-4 text-center rounded-2xl border border-slate-700/40 text-xs text-slate-400">
+                        Modul pembelajaran sedang disiapkan oleh tim mentor.
+                    </div>
+                @endif
+            </div>
+
             <!-- Mentor Card -->
             <div class="bg-slate-800/60 border border-slate-700/60 rounded-3xl p-6 backdrop-blur-md">
                 <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">

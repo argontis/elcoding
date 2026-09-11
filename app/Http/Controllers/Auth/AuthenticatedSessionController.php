@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if ($request->user()->isPklStudent()) {
+        if (!$request->user()->isAdminOrMentor()) {
             return redirect()->route('pkl.dashboard');
         }
 

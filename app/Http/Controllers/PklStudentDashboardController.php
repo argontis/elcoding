@@ -47,6 +47,11 @@ class PklStudentDashboardController extends Controller
         $portfoliosCount = $profile->portfolios()->count();
         $unpaidInvoicesCount = $profile->invoices()->where('status', 'pending')->count();
 
+        // Student modules progress checklist
+        $studentProgressList = \App\Models\PklStudentProgress::where('pkl_profile_id', $profile->id)
+            ->with('module')
+            ->get();
+
         return view('pkl.dashboard', compact(
             'profile',
             'totalTasks',
@@ -55,96 +60,56 @@ class PklStudentDashboardController extends Controller
             'avgQuizScore',
             'histories',
             'portfoliosCount',
-            'unpaidInvoicesCount'
+            'unpaidInvoicesCount',
+            'studentProgressList'
         ));
     }
 
-    public function profile()
+    public function modules()
     {
         $profile = $this->getProfile();
-        $programs = \App\Models\ProgramKursus::all();
-        return view('pkl.profile', compact('profile', 'programs'));
-    }
 
-    public function updateProfile(Request $request)
-    {
-        $profile = $this->getProfile();
-        $user = Auth::user();
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'institution' => 'required|string|max:255',
-            'major' => 'required|string|max:255',
-            'student_id_number' => 'nullable|string|max:100',
-            'phone_number' => 'required|string|max:30',
-            'address' => 'nullable|string',
-            'program_id' => 'nullable|exists:program_kursuses,id',
-        ]);
-
-        $user->update(['name' => $request->name]);
-
-        $profile->update([
-            'institution' => $request->institution,
-            'major' => $request->major,
-            'student_id_number' => $request->student_id_number,
-            'phone_number' => $request->phone_number,
-            'address' => $request->address,
-            'program_id' => $request->program_id,
-        ]);
-
-        PklHistory::create([
-            'pkl_profile_id' => $profile->id,
-            'activity_type' => 'profile_update',
-            'title' => 'Memperbarui Data Diri',
-            'description' => 'Informasi profil dan tempat studi diperbarui.',
-            'icon' => 'fa-user-edit',
-            'logged_at' => now(),
-        ]);
-
-        return redirect()->back()->with('success', 'Data diri berhasil diperbarui!');
-    }
-
-    public function tasks()
-    {
-        $profile = $this->getProfile();
-        $tasks = $profile->tasks()->paginate(10);
-        return view('pkl.tasks', compact('profile', 'tasks'));
-    }
-
-    public function submitTask(Request $request, $id)
-    {
-        $profile = $this->getProfile();
-        $task = PklTask::where('pkl_profile_id', $profile->id)->findOrFail($id);
-
-        $request->validate([
-            'submission_url' => 'nullable|url',
-            'submission_notes' => 'nullable|string',
-            'submission_file' => 'nullable|file|mimes:pdf,zip,rar,doc,docx,png,jpg,jpeg|max:10240',
-        ]);
-
-        $filePath = $task->submission_file;
-        if ($request->hasFile('submission_file')) {
-            $filePath = $request->file('submission_file')->store('pkl_submissions', 'public');
+        // Check if student progress exists, if not initialize
+        if ($profile->program_id) {
+            $programModules = \App\Models\ProgramModule::where('program_id', $profile->program_id)->orderBy('order_index')->get();
+            foreach ($programModules as $module) {
+                \App\Models\PklStudentProgress::firstOrCreate(
+                    [
+                        'pkl_profile_id' => $profile->id,
+                        'program_module_id' => $module->id,
+                    ],
+                    ['status' => 'pending']
+                );
+            }
         }
 
-        $task->update([
-            'submission_url' => $request->submission_url,
-            'submission_notes' => $request->submission_notes,
-            'submission_file' => $filePath,
-            'status' => 'submitted',
-            'submitted_at' => now(),
+        $studentProgressList = \App\Models\PklStudentProgress::where('pkl_profile_id', $profile->id)
+            ->with('module')
+            ->get();
+
+        return view('pkl.modules', compact('profile', 'studentProgressList'));
+    }
+
+    public function completeModule($id)
+    {
+        $profile = $this->getProfile();
+        $progress = \App\Models\PklStudentProgress::where('pkl_profile_id', $profile->id)->findOrFail($id);
+
+        $progress->update([
+            'status' => 'completed',
+            'completed_at' => now(),
         ]);
 
         PklHistory::create([
             'pkl_profile_id' => $profile->id,
-            'activity_type' => 'task_submission',
-            'title' => 'Mengumpulkan Tugas: ' . $task->title,
-            'description' => 'Tugas telah dikirim untuk ditinjau oleh mentor.',
-            'icon' => 'fa-paper-plane',
+            'activity_type' => 'module_completed',
+            'title' => 'Menyelesaikan Modul: ' . ($progress->module->title ?? 'Materi Kelas'),
+            'description' => 'Modul materi pembelajaran telah berhasil diselesaikan.',
+            'icon' => 'fa-check-circle',
             'logged_at' => now(),
         ]);
 
-        return redirect()->back()->with('success', 'Tugas berhasil dikumpulkan!');
+        return redirect()->back()->with('success', 'Selamat! Modul materi telah berhasil Anda selesaikan.');
     }
 
     public function progress()
@@ -152,7 +117,12 @@ class PklStudentDashboardController extends Controller
         $profile = $this->getProfile();
         $quizzes = $profile->quizzes()->get();
         $tasks = $profile->tasks()->get();
-        return view('pkl.progress', compact('profile', 'quizzes', 'tasks'));
+
+        $studentProgressList = \App\Models\PklStudentProgress::where('pkl_profile_id', $profile->id)
+            ->with('module')
+            ->get();
+
+        return view('pkl.progress', compact('profile', 'quizzes', 'tasks', 'studentProgressList'));
     }
 
     public function invoices()

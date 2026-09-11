@@ -343,16 +343,20 @@ class PklManagementController extends Controller
             'paid_at' => $request->status === 'paid' ? now() : null,
         ]);
 
+        if ($request->status === 'paid' && $invoice->pklProfile) {
+            $invoice->pklProfile->update(['status' => 'active']);
+        }
+
         PklHistory::create([
             'pkl_profile_id' => $invoice->pkl_profile_id,
             'activity_type' => 'invoice_updated',
             'title' => 'Status Invoice Diperbarui: ' . $invoice->invoice_code,
-            'description' => 'Status invoice diubah menjadi ' . strtoupper($request->status) . '.',
+            'description' => 'Status invoice diubah menjadi ' . strtoupper($request->status) . '. Akses kelas & portal magang aktif.',
             'icon' => 'fa-check-circle',
             'logged_at' => now(),
         ]);
 
-        return redirect()->back()->with('success', 'Status invoice berhasil diperbarui!');
+        return redirect()->back()->with('success', 'Status invoice berhasil diperbarui & akses peserta telah diaktifkan!');
     }
 
     public function issueCertificate(Request $request, $id)

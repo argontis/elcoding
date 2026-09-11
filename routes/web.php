@@ -215,7 +215,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // 1. Route Beranda / Dashboard
     Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
-    Route::prefix('admin')->group(function () {
+    Route::prefix('admin')->middleware('admin')->group(function () {
         Route::redirect('/', '/dashboard');
         Route::get('/aktivitas', [AdminController::class, 'aktivitas']);
         
@@ -328,6 +328,8 @@ Route::middleware(['auth'])->prefix('pkl')->name('pkl.')->group(function () {
     Route::get('/tasks', [\App\Http\Controllers\PklStudentDashboardController::class, 'tasks'])->name('tasks');
     Route::post('/tasks/{id}/submit', [\App\Http\Controllers\PklStudentDashboardController::class, 'submitTask'])->name('tasks.submit');
     Route::get('/progress', [\App\Http\Controllers\PklStudentDashboardController::class, 'progress'])->name('progress');
+    Route::get('/modules', [\App\Http\Controllers\PklStudentDashboardController::class, 'modules'])->name('modules');
+    Route::post('/modules/{id}/complete', [\App\Http\Controllers\PklStudentDashboardController::class, 'completeModule'])->name('modules.complete');
     Route::get('/invoices', [\App\Http\Controllers\PklStudentDashboardController::class, 'invoices'])->name('invoices');
     Route::post('/invoices/{id}/proof', [\App\Http\Controllers\PklStudentDashboardController::class, 'uploadInvoiceProof'])->name('invoices.proof');
     Route::get('/portfolio', [\App\Http\Controllers\PklStudentDashboardController::class, 'portfolio'])->name('portfolio');

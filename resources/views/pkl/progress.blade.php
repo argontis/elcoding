@@ -6,8 +6,8 @@
 <div class="space-y-8">
     
     <div>
-        <h1 class="text-2xl font-extrabold text-white">Progress Belajar & Nilai Quiz</h1>
-        <p class="text-slate-400 text-sm mt-1">Pantau pencapaian belajar dan rekapitulasi nilai ujian evaluasi Anda</p>
+        <h1 class="text-2xl font-extrabold text-white">Progress Belajar & Progress Tracker</h1>
+        <p class="text-slate-400 text-sm mt-1">Pantau rincian pencapaian modul, tugas, quiz, dan project akhir Anda</p>
     </div>
 
     <!-- Progress Meter Banner -->
@@ -16,7 +16,7 @@
             <div>
                 <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Metrik Capaian Pembelajaran</span>
                 <h2 class="text-3xl font-black text-white mt-1">{{ $profile->progress_percentage }}% <span class="text-sm font-normal text-slate-400">Tuntas</span></h2>
-                <p class="text-xs text-slate-300 mt-1">Diukur dari rasio penyelesaian tugas dan modul magang.</p>
+                <p class="text-xs text-slate-300 mt-1">Diukur dari rasio penyelesaian modul, quiz, dan tugas magang.</p>
             </div>
             
             <div class="w-full sm:w-64 bg-slate-900/80 p-4 rounded-2xl border border-slate-700/60 text-center">
@@ -31,6 +31,66 @@
         <div class="w-full bg-slate-700 h-3 rounded-full overflow-hidden mt-6">
             <div class="bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 h-full rounded-full transition-all duration-700" style="width: {{ $profile->progress_percentage }}%"></div>
         </div>
+    </div>
+
+    <!-- Step-by-Step Progress Checklist Card -->
+    <div class="bg-slate-800/60 border border-slate-700/60 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-xl">
+        <h3 class="text-base font-bold text-white mb-6 flex items-center gap-2">
+            <i class="fas fa-list-check text-blue-400"></i> Checklist Silabus & Modul Pembelajaran
+        </h3>
+
+        @if(isset($studentProgressList) && $studentProgressList->count() > 0)
+            <div class="relative border-l-2 border-slate-700 ml-4 space-y-6">
+                @foreach($studentProgressList as $index => $item)
+                    @php
+                        $mod = $item->module;
+                        $isDone = ($item->status === 'completed');
+                    @endphp
+                    <div class="relative pl-8 flex items-start justify-between gap-4">
+                        <!-- Step Icon Marker -->
+                        <div class="absolute -left-[17px] top-0.5 w-8 h-8 rounded-full border-2 flex items-center justify-center font-bold text-xs shadow-md transition {{ $isDone ? 'bg-emerald-500 border-emerald-400 text-slate-950' : 'bg-slate-900 border-slate-600 text-slate-400' }}">
+                            @if($isDone)
+                                ✓
+                            @else
+                                {{ $index + 1 }}
+                            @endif
+                        </div>
+
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold text-white">{{ $mod->title ?? 'Modul ' . ($index + 1) }}</span>
+                                @if($isDone)
+                                    <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 font-bold text-[10px] rounded-md border border-emerald-500/20">
+                                        ✓ Selesai
+                                    </span>
+                                @else
+                                    <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 font-bold text-[10px] rounded-md border border-amber-500/20">
+                                        ⏳ Belum Dikerjakan
+                                    </span>
+                                @endif
+                            </div>
+                            <p class="text-xs text-slate-400 mt-0.5">{{ $mod->description ?? 'Deskripsi modul pembelajaran' }}</p>
+                        </div>
+
+                        <div class="flex-shrink-0">
+                            @if($isDone)
+                                <span class="text-emerald-400 text-xs font-bold flex items-center gap-1">
+                                    <i class="fas fa-check-circle"></i> Tuntas
+                                </span>
+                            @else
+                                <a href="{{ route('pkl.modules') }}" class="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                                    Buka <i class="fas fa-arrow-right"></i>
+                                </a>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="bg-slate-900/40 p-6 text-center rounded-2xl border border-slate-700/50 text-xs text-slate-400">
+                Belum ada modul terdaftar. Silakan pilih program magang pada menu profil.
+            </div>
+        @endif
     </div>
 
     <!-- Quiz & Evaluasi Table -->

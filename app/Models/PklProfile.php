@@ -61,15 +61,26 @@ class PklProfile extends Model
         return $this->hasMany(PklHistory::class, 'pkl_profile_id')->latest('logged_at');
     }
 
-    // Progress calculation helper
+    public function studentProgress()
+    {
+        return $this->hasMany(PklStudentProgress::class, 'pkl_profile_id');
+    }
+
+    // Combined Progress calculation helper (Modules & Tasks)
     public function getProgressPercentageAttribute()
     {
+        $totalModules = $this->studentProgress()->count();
+        $completedModules = $this->studentProgress()->where('status', 'completed')->count();
+
         $totalTasks = $this->tasks()->count();
-        if ($totalTasks === 0) {
+        $completedTasks = $this->tasks()->whereIn('status', ['completed', 'reviewed'])->count();
+
+        $totalItems = $totalModules + $totalTasks;
+        if ($totalItems === 0) {
             return 0;
         }
 
-        $completedTasks = $this->tasks()->whereIn('status', ['completed', 'reviewed'])->count();
-        return round(($completedTasks / $totalTasks) * 100);
+        $completedItems = $completedModules + $completedTasks;
+        return round(($completedItems / $totalItems) * 100);
     }
 }

@@ -74,7 +74,7 @@
                     <select name="program_id" required class="w-full bg-slate-900 border border-blue-500/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400 text-white font-semibold shadow-inner">
                         <option value="">-- Pilih Program / Divisi Magang --</option>
                         @foreach($programs as $program)
-                            <option value="{{ $program->id }}" {{ (old('program_id', $profile->program_id ?? '') == $program->id) ? 'selected' : '' }}>
+                            <option value="{{ $program->id }}" {{ (old('program_id', $profile?->program_id ?? '') == $program->id) ? 'selected' : '' }}>
                                 📌 {{ $program->title ?? $program->name }}
                             </option>
                         @endforeach
@@ -90,13 +90,13 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 mb-1">Sekolah / Kampus *</label>
-                        <input type="text" name="institution" value="{{ old('institution', $profile->institution ?? '') }}" required
+                        <input type="text" name="institution" value="{{ old('institution', $profile?->institution ?? '') }}" required
                                class="w-full bg-slate-900/60 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition text-white placeholder-slate-500"
                                placeholder="Contoh: SMK Negeri 1 / Universitas Diponegoro">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 mb-1">Jurusan / Program Studi *</label>
-                        <input type="text" name="major" value="{{ old('major', $profile->major ?? '') }}" required
+                        <input type="text" name="major" value="{{ old('major', $profile?->major ?? '') }}" required
                                class="w-full bg-slate-900/60 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition text-white placeholder-slate-500"
                                placeholder="Contoh: Rekayasa Perangkat Lunak / Teknik Informatika">
                     </div>
@@ -105,13 +105,13 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 mb-1">Nomor Induk (NIS / NIM)</label>
-                        <input type="text" name="student_id_number" value="{{ old('student_id_number', $profile->student_id_number ?? '') }}"
+                        <input type="text" name="student_id_number" value="{{ old('student_id_number', $profile?->student_id_number ?? '') }}"
                                class="w-full bg-slate-900/60 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition text-white placeholder-slate-500"
                                placeholder="NISN / NIM siswa">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 mb-1">No. WhatsApp *</label>
-                        <input type="text" name="phone_number" value="{{ old('phone_number', $profile->phone_number ?? '') }}" required
+                        <input type="text" name="phone_number" value="{{ old('phone_number', $profile?->phone_number ?? '') }}" required
                                class="w-full bg-slate-900/60 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition text-white placeholder-slate-500"
                                placeholder="081234567890">
                     </div>
@@ -126,12 +126,12 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 mb-1">Tanggal Mulai PKL *</label>
-                        <input type="date" name="start_date" value="{{ old('start_date', $profile->start_date ? $profile->start_date->format('Y-m-d') : date('Y-m-d')) }}" required
+                        <input type="date" name="start_date" value="{{ old('start_date', $profile?->start_date ? $profile->start_date->format('Y-m-d') : date('Y-m-d')) }}" required
                                class="w-full bg-slate-900/60 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition text-white">
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 mb-1">Tanggal Selesai PKL *</label>
-                        <input type="date" name="end_date" value="{{ old('end_date', $profile->end_date ? $profile->end_date->format('Y-m-d') : '') }}" required
+                        <input type="date" name="end_date" value="{{ old('end_date', $profile?->end_date ? $profile->end_date->format('Y-m-d') : '') }}" required
                                class="w-full bg-slate-900/60 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition text-white">
                     </div>
                 </div>
@@ -140,7 +140,7 @@
                     <label class="block text-xs font-semibold text-slate-300 mb-1">Alamat Domisili</label>
                     <textarea name="address" rows="2"
                               class="w-full bg-slate-900/60 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition text-white placeholder-slate-500"
-                              placeholder="Alamat tempat tinggal saat ini">{{ old('address', $profile->address ?? '') }}</textarea>
+                              placeholder="Alamat tempat tinggal saat ini">{{ old('address', $profile?->address ?? '') }}</textarea>
                 </div>
             </div>
 

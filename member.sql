@@ -1,0 +1,14 @@
+INSERT OR IGNORE INTO users (name, nomor_kartu, kota, created_at, updated_at) VALUES ('Talita Rizqiana Dilani', '0008191822', 'Bekasi', datetime('now'), datetime('now'));
+INSERT OR IGNORE INTO users (name, nomor_kartu, kota, created_at, updated_at) VALUES ('Salsabila Agustina Ramadani', '0008232736', 'Bekasi', datetime('now'), datetime('now'));
+INSERT OR IGNORE INTO users (name, nomor_kartu, kota, created_at, updated_at) VALUES ('Kaesha Sahida', '0008165662', 'Bekasi', datetime('now'), datetime('now'));
+INSERT OR IGNORE INTO users (name, nomor_kartu, kota, created_at, updated_at) VALUES ('Nesta Sadina', '0008182271', 'Bekasi', datetime('now'), datetime('now'));
+INSERT OR IGNORE INTO users (name, nomor_kartu, kota, created_at, updated_at) VALUES ('Zanevi Nur Wulandari', '0002215562', 'Bekasi', datetime('now'), datetime('now'));
+INSERT OR IGNORE INTO users (name, nomor_kartu, kota, created_at, updated_at) VALUES ('Aulia Desira', '0008168070', 'Bekasi', datetime('now'), datetime('now'));
+INSERT OR IGNORE INTO users (name, nomor_kartu, kota, created_at, updated_at) VALUES ('Ferdi Alfiansyah', '0008213690', 'Bekasi', datetime('now'), datetime('now'));
+INSERT OR IGNORE INTO users (name, nomor_kartu, kota, created_at, updated_at) VALUES ('Salma Aulia Dewi', '0008174500', 'Bekasi', datetime('now'), datetime('now'));
+INSERT OR IGNORE INTO users (name, nomor_kartu, kota, created_at, updated_at) VALUES ('Mohamad Syamir Al Ghifari', '0008183279', 'Bekasi', datetime('now'), datetime('now'));
+INSERT OR IGNORE INTO users (name, nomor_kartu, kota, created_at, updated_at) VALUES ('Rachmad Taufik Deniarto', '0000728374', 'Bogor', datetime('now'), datetime('now'));
+INSERT OR IGNORE INTO users (name, nomor_kartu, kota, created_at, updated_at) VALUES ('Nayla Aura Putriherdianto', '0008193609', 'Bogor', datetime('now'), datetime('now'));
+INSERT OR IGNORE INTO users (name, nomor_kartu, kota, created_at, updated_at) VALUES ('Iwan Nursanto Ramadhan', '0002203750', 'Bekasi', datetime('now'), datetime('now'));
+INSERT OR IGNORE INTO users (name, nomor_kartu, kota, created_at, updated_at) VALUES ('Najwa Sukma', '0008582831', 'Bekasi', datetime('now'), datetime('now'));
+INSERT OR IGNORE INTO users (name, nomor_kartu, kota, created_at, updated_at) VALUES ('Cahyo Anugrah', '0008190313', 'Bekasi', datetime('now'), datetime('now'));

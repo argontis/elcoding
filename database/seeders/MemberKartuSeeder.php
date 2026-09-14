@@ -3,35 +3,35 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
+use App\Models\Member;
 
 class MemberKartuSeeder extends Seeder
 {
     /**
-     * Seed test users that login via nomor kartu (no email/password).
+     * Seed test members that login via nomor kartu.
      */
     public function run(): void
     {
         $members = [
             [
-                'name' => 'Zanevi Nur Wulandari',
+                'nama' => 'Zanevi Nur Wulandari',
                 'nomor_kartu' => '0002215562',
-                'kota' => 'Bekasi',
+                'alamat' => 'Bekasi',
             ],
             [
-                'name' => 'Arief Rachman Hakim',
+                'nama' => 'Arief Rachman Hakim',
                 'nomor_kartu' => '0002215563',
-                'kota' => 'Jakarta',
+                'alamat' => 'Jakarta',
             ],
             [
-                'name' => 'Putri Maharani Sari',
+                'nama' => 'Putri Maharani Sari',
                 'nomor_kartu' => '0002215564',
-                'kota' => 'Bandung',
+                'alamat' => 'Bandung',
             ],
         ];
 
         foreach ($members as $member) {
-            User::updateOrCreate(
+            Member::updateOrCreate(
                 ['nomor_kartu' => $member['nomor_kartu']],
                 $member
             );

@@ -301,4 +301,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// ==========================================
+// ROUTE MEMBER AREA (KARTU LOGIN)
+// ==========================================
+Route::middleware('auth:member')->prefix('member')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Member\MemberDashboardController::class, 'index'])->name('member.dashboard');
+    Route::get('/learning-modul', [\App\Http\Controllers\Member\MemberController::class, 'learningModul'])->name('member.learning-modul');
+    Route::get('/asesmen', [\App\Http\Controllers\Member\MemberController::class, 'asesmen'])->name('member.asesmen');
+    Route::get('/invoice', [\App\Http\Controllers\Member\MemberController::class, 'invoice'])->name('member.invoice');
+
+    Route::post('/logout', function (\Illuminate\Http\Request $request) {
+        \Illuminate\Support\Facades\Auth::guard('member')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    })->name('member.logout');
+});
+
 require __DIR__.'/auth.php';

@@ -62,15 +62,15 @@ class AuthController extends Controller
             'nomor_kartu' => ['required', 'string'],
         ]);
 
-        $user = User::where('nomor_kartu', $request->nomor_kartu)->first();
+        $member = \App\Models\Member::where('nomor_kartu', $request->nomor_kartu)->first();
 
-        if (!$user) {
+        if (!$member) {
             return back()->withErrors([
                 'nomor_kartu' => 'Nomor kartu tidak ditemukan.',
             ])->onlyInput('nomor_kartu');
         }
 
-        Auth::login($user);
+        Auth::guard('member')->login($member);
         $request->session()->regenerate();
 
         \App\Models\ActivityLog::add(
@@ -81,7 +81,7 @@ class AuthController extends Controller
             'fa-id-card'
         );
 
-        return redirect()->intended('/admin/dashboard');
+        return redirect('/member/dashboard');
     }
 
     public function logout(Request $request)

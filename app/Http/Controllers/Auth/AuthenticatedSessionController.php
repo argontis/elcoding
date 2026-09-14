@@ -35,19 +35,18 @@ class AuthenticatedSessionController extends Controller
                 'nomor_kartu' => ['required', 'string'],
             ]);
 
-            $user = \App\Models\User::where('nomor_kartu', $request->nomor_kartu)->first();
+            $member = \App\Models\Member::where('nomor_kartu', $request->nomor_kartu)->first();
 
-            if (!$user) {
+            if (!$member) {
                 throw \Illuminate\Validation\ValidationException::withMessages([
                     'nomor_kartu' => 'Nomor kartu tidak ditemukan.',
                 ]);
             }
 
-            Auth::login($user);
+            Auth::guard('member')->login($member);
             $request->session()->regenerate();
 
-            $intended = $request->session()->pull('url.intended', '/admin');
-            return Inertia::location($intended);
+            return Inertia::location('/member/dashboard');
         }
 
         // Handle normal credential login

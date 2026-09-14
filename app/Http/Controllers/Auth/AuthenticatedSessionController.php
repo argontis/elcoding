@@ -27,9 +27,32 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request)
+    public function store(Request $request)
     {
-        $request->authenticate();
+        // Handle nomor kartu login
+        if ($request->input('login_method') === 'kartu') {
+            $request->validate([
+                'nomor_kartu' => ['required', 'string'],
+            ]);
+
+            $user = \App\Models\User::where('nomor_kartu', $request->nomor_kartu)->first();
+
+            if (!$user) {
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'nomor_kartu' => 'Nomor kartu tidak ditemukan.',
+                ]);
+            }
+
+            Auth::login($user);
+            $request->session()->regenerate();
+
+            $intended = $request->session()->pull('url.intended', '/admin');
+            return Inertia::location($intended);
+        }
+
+        // Handle normal credential login
+        $loginRequest = app(LoginRequest::class);
+        $loginRequest->authenticate();
 
         $request->session()->regenerate();
 

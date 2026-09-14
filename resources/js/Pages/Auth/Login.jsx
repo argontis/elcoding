@@ -218,7 +218,7 @@ export default function Login({ status, canResetPassword }) {
                                                 type="text"
                                                 name="nomor_kartu"
                                                 value={kartuForm.data.nomor_kartu}
-                                                placeholder="Contoh: 0002215562"
+                                                placeholder="Masukkan nomor kartu"
                                                 className="w-full !pl-12 !pr-4 !py-3.5 !bg-[#f0f2f5] !border-0 !rounded-xl text-sm font-semibold text-gray-800 focus:!ring-2 focus:!ring-blue-500 focus:!bg-white transition-all outline-none placeholder-gray-400 shadow-sm tracking-[0.15em] font-mono"
                                                 inputMode="numeric"
                                                 autoFocus

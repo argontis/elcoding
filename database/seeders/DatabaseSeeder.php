@@ -21,7 +21,9 @@ class DatabaseSeeder extends Seeder
             'username' => 'adminelcoding',
             'email' => 'admin@elcoding.id',
             'password' => bcrypt('2026Sukses*'),
+            'role' => 'admin',
         ]);
+
 
         $this->call([
             AdminSeeder::class,

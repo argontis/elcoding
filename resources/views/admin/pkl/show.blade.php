@@ -25,6 +25,20 @@
             <button onclick="this.parentElement.remove()" class="text-emerald-500 hover:text-emerald-700">&times;</button>
         </div>
     @endif
+    
+    @if($errors->any())
+        <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-2xl flex items-center justify-between text-xs font-semibold">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-exclamation-circle text-base"></i>
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            <button onclick="this.parentElement.remove()" class="text-red-500 hover:text-red-700">&times;</button>
+        </div>
+    @endif
 
     <!-- Profile Overview Banner -->
     <div class="surface-card p-6 md:p-8 relative overflow-hidden">
@@ -499,6 +513,14 @@
                 <label class="block text-xs font-semibold text-slate-600 mb-1">Catatan Tambahan</label>
                 <textarea name="notes" rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800"></textarea>
             </div>
+            <div class="flex justify-end gap-2 pt-2">
+                <button type="button" onclick="document.getElementById('modal-issue-certificate').classList.add('hidden')" class="px-4 py-2 bg-slate-200 text-xs font-semibold rounded-xl">Batal</button>
+                <button type="submit" class="bg-emerald-600 text-white px-4 py-2 text-xs font-bold rounded-xl hover:bg-emerald-700">Sah kan & Terbitkan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- MODAL ASSIGN RFID CARD -->
 <div id="modal-rfid" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl border border-slate-100">

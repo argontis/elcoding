@@ -1,5 +1,0 @@
-<<<<<<<< HEAD:public/build/assets/TextInput-DCq8kQ-U.js
-import{r as e,j as f}from"./app-CBA9zQoR.js";const i=e.forwardRef(function({type:o="text",className:s="",isFocused:t=!1,...n},u){const r=e.useRef(null);return e.useImperativeHandle(u,()=>({focus:()=>r.current?.focus()})),e.useEffect(()=>{t&&r.current?.focus()},[t]),f.jsx("input",{...n,type:o,className:"rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 "+s,ref:r})});export{i as T};
-========
-import{r as e,j as f}from"./app-DdB0x7u5.js";const i=e.forwardRef(function({type:o="text",className:s="",isFocused:t=!1,...n},u){const r=e.useRef(null);return e.useImperativeHandle(u,()=>({focus:()=>r.current?.focus()})),e.useEffect(()=>{t&&r.current?.focus()},[t]),f.jsx("input",{...n,type:o,className:"rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 "+s,ref:r})});export{i as T};
->>>>>>>> develop:public/build/assets/TextInput-qcKJwBlQ.js

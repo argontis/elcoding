@@ -178,6 +178,24 @@ export default function Login({ status, canResetPassword }) {
                                 Sign in
                             </button>
 
+                            {/* RFID Quick Login Section */}
+                            <div className="mt-6 pt-4 border-t border-gray-200 text-center">
+                                <div className="p-3 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl flex items-center justify-between gap-2 shadow-xs">
+                                    <div className="flex items-center gap-2.5 text-left">
+                                        <div className="w-8 h-8 rounded-lg bg-emerald-500 text-white flex items-center justify-center font-bold shadow-xs animate-pulse">
+                                            <span className="text-xs">RFID</span>
+                                        </div>
+                                        <div>
+                                            <div className="text-[11px] font-bold text-gray-800">Quick RFID Tap Login</div>
+                                            <div className="text-[10px] text-gray-500">Tempelkan kartu RFID Anda untuk login</div>
+                                        </div>
+                                    </div>
+                                    <Link href="/presensi-rfid" className="px-2.5 py-1.5 text-[10px] font-bold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 rounded-lg transition">
+                                        Kiosk Presensi &rarr;
+                                    </Link>
+                                </div>
+                            </div>
+
                             <div className="mt-4 text-center text-xs text-gray-600">
                                 Belum punya akun?{' '}
                                 <Link href="/register" className="font-bold text-[#145a9e] hover:underline">

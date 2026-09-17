@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password', 'role'])]
+#[Fillable(['name', 'email', 'password', 'role', 'rfid_uid'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -33,6 +33,11 @@ class User extends Authenticatable
     public function pklProfile()
     {
         return $this->hasOne(PklProfile::class, 'user_id');
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(PklAttendance::class, 'user_id');
     }
 
     public function isAdmin()

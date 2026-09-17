@@ -99,6 +99,10 @@
             <i class="fas fa-award"></i> Catat Nilai Quiz
         </button>
 
+        <button onclick="document.getElementById('modal-rfid').classList.remove('hidden')" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+            <i class="fas fa-id-card"></i> Hubungkan Kartu RFID {{ $profile->user->rfid_uid ? '(' . $profile->user->rfid_uid . ')' : '' }}
+        </button>
+
         <button onclick="document.getElementById('modal-add-invoice').classList.remove('hidden')" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
             <i class="fas fa-file-invoice-dollar"></i> Buat Invoice
         </button>
@@ -495,9 +499,36 @@
                 <label class="block text-xs font-semibold text-slate-600 mb-1">Catatan Tambahan</label>
                 <textarea name="notes" rows="2" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800"></textarea>
             </div>
+<!-- MODAL ASSIGN RFID CARD -->
+<div id="modal-rfid" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl border border-slate-100">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+            <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                <i class="fas fa-id-card text-emerald-600"></i> Hubungkan Kartu RFID
+            </h3>
+            <button onclick="document.getElementById('modal-rfid').classList.add('hidden')" class="text-slate-400 hover:text-slate-600 text-lg">&times;</button>
+        </div>
+
+        <form action="{{ route('admin.users.assignRfid', $profile->user_id) }}" method="POST" class="space-y-4">
+            @csrf
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Peserta PKL</label>
+                <input type="text" value="{{ $profile->user->name }}" readonly class="w-full bg-slate-100 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700">
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Kode Kartu RFID (Tap Kartu pada Scanner) *</label>
+                <div class="relative">
+                    <input type="text" name="rfid_uid" value="{{ old('rfid_uid', $profile->user->rfid_uid) }}" required autofocus
+                           placeholder="Tempelkan kartu ke scanner RFID..." 
+                           class="w-full bg-slate-50 border border-emerald-300 rounded-xl px-3 py-2.5 text-xs font-mono font-bold text-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+                <p class="text-[11px] text-slate-400 mt-1">Gunakan USB RFID Scanner untuk langsung memindai atau ketik manual UID kartu.</p>
+            </div>
+
             <div class="flex justify-end gap-2 pt-2">
-                <button type="button" onclick="document.getElementById('modal-issue-certificate').classList.add('hidden')" class="px-4 py-2 bg-slate-200 text-xs font-semibold rounded-xl">Batal</button>
-                <button type="submit" class="bg-emerald-600 text-white px-4 py-2 text-xs font-bold rounded-xl hover:bg-emerald-700">Sah kan & Terbitkan</button>
+                <button type="button" onclick="document.getElementById('modal-rfid').classList.add('hidden')" class="px-4 py-2 bg-slate-200 text-xs font-semibold rounded-xl">Batal</button>
+                <button type="submit" class="bg-emerald-600 text-white px-5 py-2 text-xs font-bold rounded-xl hover:bg-emerald-700 transition shadow-sm">Simpan RFID</button>
             </div>
         </form>
     </div>

@@ -253,6 +253,39 @@
                 @endif
             </div>
 
+            <!-- RFID Attendance Log Card -->
+            <div class="bg-slate-800/60 border border-slate-700/60 rounded-3xl p-6 backdrop-blur-md">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fas fa-id-card text-emerald-400"></i> Presensi RFID Saya
+                    </h3>
+                    <span class="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
+                        {{ auth()->user()->rfid_uid ?: 'Kartu Belum Terhubung' }}
+                    </span>
+                </div>
+
+                @if(isset($attendances) && count($attendances) > 0)
+                    <div class="space-y-2.5">
+                        @foreach($attendances as $att)
+                            <div class="p-3 rounded-2xl bg-slate-900/60 border border-slate-700/50 flex items-center justify-between text-xs">
+                                <div>
+                                    <div class="font-bold text-white">{{ \Carbon\Carbon::parse($att->date)->format('d M Y') }}</div>
+                                    <div class="text-[11px] text-slate-400">Status: <span class="text-emerald-400 font-semibold">{{ ucfirst($att->status) }}</span></div>
+                                </div>
+                                <div class="text-right font-mono text-[11px]">
+                                    <div class="text-emerald-400">Masuk: {{ substr($att->check_in, 0, 5) }}</div>
+                                    <div class="text-sky-400">Pulang: {{ $att->check_out ? substr($att->check_out, 0, 5) : '-' }}</div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="bg-slate-900/40 p-4 text-center rounded-2xl border border-slate-700/40 text-xs text-slate-400">
+                        Belum ada riwayat presensi RFID.
+                    </div>
+                @endif
+            </div>
+
             <!-- Recent Timeline History -->
             <div class="bg-slate-800/60 border border-slate-700/60 rounded-3xl p-6 backdrop-blur-md">
                 <div class="flex items-center justify-between mb-4">

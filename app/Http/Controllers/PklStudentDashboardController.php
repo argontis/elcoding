@@ -52,6 +52,12 @@ class PklStudentDashboardController extends Controller
             ->with('module')
             ->get();
 
+        // Recent RFID Attendances
+        $attendances = \App\Models\PklAttendance::where('user_id', Auth::id())
+            ->latest('date')
+            ->take(10)
+            ->get();
+
         return view('pkl.dashboard', compact(
             'profile',
             'totalTasks',
@@ -61,7 +67,8 @@ class PklStudentDashboardController extends Controller
             'histories',
             'portfoliosCount',
             'unpaidInvoicesCount',
-            'studentProgressList'
+            'studentProgressList',
+            'attendances'
         ));
     }
 

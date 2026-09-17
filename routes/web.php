@@ -308,8 +308,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/pkl/{id}/add-invoice', [\App\Http\Controllers\Admin\PklManagementController::class, 'addInvoice'])->name('admin.pkl.addInvoice');
         Route::put('/pkl/invoice/{invoiceId}/status', [\App\Http\Controllers\Admin\PklManagementController::class, 'updateInvoiceStatus'])->name('admin.pkl.invoiceStatus');
         Route::post('/pkl/{id}/issue-certificate', [\App\Http\Controllers\Admin\PklManagementController::class, 'issueCertificate'])->name('admin.pkl.issueCertificate');
+        Route::post('/users/{id}/rfid', [\App\Http\Controllers\RfidController::class, 'assignRfid'])->name('admin.users.assignRfid');
     });
 });
+
+// ==========================================
+// ROUTE INTEGRASI RFID (PRESENSI & QUICK LOGIN)
+// ==========================================
+Route::get('/presensi-rfid', [\App\Http\Controllers\RfidController::class, 'terminal'])->name('presensi.rfid');
+Route::post('/api/rfid/scan', [\App\Http\Controllers\RfidController::class, 'scanAttendance'])->name('rfid.scan');
+Route::post('/login/rfid', [\App\Http\Controllers\RfidController::class, 'loginWithRfid'])->name('login.rfid');
 
 // ==========================================
 // ROUTE PKL / MAGANG & SERTIFIKAT (PUBLIC)

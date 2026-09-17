@@ -12,9 +12,14 @@
             <p class="text-slate-500 text-sm mt-1">Kelola data seluruh peserta PKL, pembimbing mentor, tugas, nilai, dan sertifikat</p>
         </div>
 
-        <a href="{{ route('admin.pkl.create') }}" class="btn-primary px-5 py-2.5 rounded-xl font-bold text-xs inline-flex items-center gap-2 self-start md:self-auto">
-            <i class="fas fa-user-plus"></i> Tambah Peserta PKL Baru
-        </a>
+        <div class="flex items-center gap-2 self-start md:self-auto">
+            <a href="{{ route('presensi.rfid') }}" target="_blank" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs inline-flex items-center gap-2 shadow-sm transition">
+                <i class="fas fa-id-card"></i> Buka Terminal RFID
+            </a>
+            <a href="{{ route('admin.pkl.create') }}" class="btn-primary px-5 py-2.5 rounded-xl font-bold text-xs inline-flex items-center gap-2">
+                <i class="fas fa-user-plus"></i> Tambah Peserta PKL Baru
+            </a>
+        </div>
     </div>
 
     <!-- Filter Card -->

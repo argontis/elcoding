@@ -215,7 +215,24 @@
 
             </div>
 
-            <div class="mt-8 text-center border-t border-slate-100 pt-6">
+            <div class="mt-6 pt-4 border-t border-slate-100">
+                <a href="{{ route('presensi.rfid') }}" class="w-full p-3 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl flex items-center justify-between gap-2 transition hover:bg-emerald-100 group">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs font-bold shadow-sm group-hover:scale-105 transition-transform">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <div class="text-left">
+                            <div class="text-xs font-bold text-slate-800">Terminal Presensi RFID</div>
+                            <div class="text-[11px] text-slate-500">Buka Kiosk Scan Kartu RFID</div>
+                        </div>
+                    </div>
+                    <span class="text-xs font-bold text-emerald-700 flex items-center gap-1">
+                        Buka <i class="fas fa-chevron-right text-[10px]"></i>
+                    </span>
+                </a>
+            </div>
+
+            <div class="mt-4 text-center">
                 <a href="{{ url('/') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-brand-600 transition-colors">
                     <i class="fas fa-home"></i> Kembali ke Beranda
                 </a>

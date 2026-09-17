@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password', 'username', 'nomor_kartu', 'kota'])]
+#[Fillable(['name', 'email', 'password', 'role', 'rfid_uid', 'username', 'nomor_kartu', 'kota'])]
+
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -28,5 +29,35 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function pklProfile()
+    {
+        return $this->hasOne(PklProfile::class, 'user_id');
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(PklAttendance::class, 'user_id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isMentor()
+    {
+        return $this->role === 'mentor';
+    }
+
+    public function isPklStudent()
+    {
+        return $this->role === 'pkl_student';
+    }
+
+    public function isAdminOrMentor()
+    {
+        return in_array($this->role, ['admin', 'mentor']);
     }
 }

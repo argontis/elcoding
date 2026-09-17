@@ -42,7 +42,10 @@
                 <p class="text-xs text-slate-400 mt-1">Biarkan kosong jika tidak ingin mengubah gambar.</p>
             </div>
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Konten Blog</label>
+                <div class="flex items-center justify-between mb-1">
+                    <label class="block text-sm font-medium text-slate-700">Konten Blog</label>
+                    <span class="text-xs text-blue-600 font-medium"><i class="fas fa-image mr-1"></i> Klik ikon Gambar di toolbar editor untuk menyisipkan foto ke dalam artikel</span>
+                </div>
                 <textarea name="content" rows="10" class="rich-text w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50" required placeholder="Tulis konten blog di sini...">{{ $data->content ?? '' }}</textarea>
             </div>
         </div>

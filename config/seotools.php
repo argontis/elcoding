@@ -42,7 +42,9 @@ return [
             'url'         => null, // Set null for using Url::current(), set false to total remove
             'type'        => 'website',
             'site_name'   => 'Elcoding',
-            'images'      => [],
+            'images'      => [
+                env('APP_URL', 'https://elc.my.id') . '/gambar/aset/logo.png',
+            ],
         ],
     ],
     'twitter' => [
@@ -63,7 +65,9 @@ return [
             'description' => 'Elcoding adalah Software House profesional dan Lembaga Kursus Pelatihan IT terpadu. Menyediakan jasa pembuatan aplikasi, website, dan program bootcamp IT terlengkap.', // set false to total remove
             'url'         => 'current', // Set to null or 'full' to use Url::full(), set to 'current' to use Url::current(), set false to total remove
             'type'        => 'WebPage',
-            'images'      => [],
+            'images'      => [
+                env('APP_URL', 'https://elc.my.id') . '/gambar/aset/logo.png',
+            ],
         ],
     ],
 ];

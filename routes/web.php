@@ -215,7 +215,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // 1. Route Beranda / Dashboard
     Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
-    Route::prefix('admin')->group(function () {
+    Route::prefix('admin')->middleware('admin')->group(function () {
         Route::redirect('/', '/dashboard');
         Route::get('/aktivitas', [AdminController::class, 'aktivitas']);
         
@@ -272,6 +272,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/artikel/{id}', [AdminController::class, 'updateArtikel']);
         Route::delete('/artikel/{id}', [AdminController::class, 'destroyArtikel']);
 
+        // Upload Gambar Rich Text Editor
+        Route::post('/upload-image', [AdminController::class, 'uploadEditorImage']);
+
         // Pengaturan Situs
         Route::get('/settings', [AdminController::class, 'settings']);
         Route::post('/settings', [AdminController::class, 'updateSettings']);
@@ -289,7 +292,59 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index']);
         Route::put('/orders/{id}/status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus']);
         Route::delete('/orders/{id}', [\App\Http\Controllers\Admin\OrderController::class, 'destroy']);
+
+        // Manajemen PKL & Magang
+        Route::get('/pkl', [\App\Http\Controllers\Admin\PklManagementController::class, 'index'])->name('admin.pkl.index');
+        Route::get('/pkl/create', [\App\Http\Controllers\Admin\PklManagementController::class, 'create'])->name('admin.pkl.create');
+        Route::post('/pkl', [\App\Http\Controllers\Admin\PklManagementController::class, 'store'])->name('admin.pkl.store');
+        Route::get('/pkl/{id}', [\App\Http\Controllers\Admin\PklManagementController::class, 'show'])->name('admin.pkl.show');
+        Route::get('/pkl/{id}/edit', [\App\Http\Controllers\Admin\PklManagementController::class, 'edit'])->name('admin.pkl.edit');
+        Route::put('/pkl/{id}', [\App\Http\Controllers\Admin\PklManagementController::class, 'update'])->name('admin.pkl.update');
+        Route::delete('/pkl/{id}', [\App\Http\Controllers\Admin\PklManagementController::class, 'destroy'])->name('admin.pkl.destroy');
+        Route::post('/pkl/{id}/assign-mentor', [\App\Http\Controllers\Admin\PklManagementController::class, 'assignMentor'])->name('admin.pkl.assignMentor');
+        Route::post('/pkl/{id}/add-task', [\App\Http\Controllers\Admin\PklManagementController::class, 'addTask'])->name('admin.pkl.addTask');
+        Route::post('/pkl/task/{taskId}/grade', [\App\Http\Controllers\Admin\PklManagementController::class, 'gradeTask'])->name('admin.pkl.gradeTask');
+        Route::post('/pkl/{id}/add-quiz', [\App\Http\Controllers\Admin\PklManagementController::class, 'addQuiz'])->name('admin.pkl.addQuiz');
+        Route::post('/pkl/{id}/add-invoice', [\App\Http\Controllers\Admin\PklManagementController::class, 'addInvoice'])->name('admin.pkl.addInvoice');
+        Route::put('/pkl/invoice/{invoiceId}/status', [\App\Http\Controllers\Admin\PklManagementController::class, 'updateInvoiceStatus'])->name('admin.pkl.invoiceStatus');
+        Route::post('/pkl/{id}/issue-certificate', [\App\Http\Controllers\Admin\PklManagementController::class, 'issueCertificate'])->name('admin.pkl.issueCertificate');
+        Route::post('/users/{id}/rfid', [\App\Http\Controllers\RfidController::class, 'assignRfid'])->name('admin.users.assignRfid');
     });
+});
+
+// ==========================================
+// ROUTE INTEGRASI RFID (PRESENSI & QUICK LOGIN)
+// ==========================================
+Route::get('/presensi-rfid', [\App\Http\Controllers\RfidController::class, 'terminal'])->name('presensi.rfid');
+Route::post('/api/rfid/scan', [\App\Http\Controllers\RfidController::class, 'scanAttendance'])->name('rfid.scan');
+Route::post('/login/rfid', [\App\Http\Controllers\RfidController::class, 'loginWithRfid'])->name('login.rfid');
+
+// ==========================================
+// ROUTE PKL / MAGANG & SERTIFIKAT (PUBLIC)
+// ==========================================
+Route::get('/register-pkl', [\App\Http\Controllers\PklRegisterController::class, 'showRegistrationForm'])->name('register.pkl');
+Route::post('/register-pkl', [\App\Http\Controllers\PklRegisterController::class, 'register'])->name('register.pkl.store');
+Route::get('/verifikasi-sertifikat/{code?}', [\App\Http\Controllers\CertificateVerificationController::class, 'verify'])->name('verifikasi.sertifikat');
+
+// ==========================================
+// ROUTE PORTAL PESERTA PKL / MAGANG
+// ==========================================
+Route::middleware(['auth'])->prefix('pkl')->name('pkl.')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\PklStudentDashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/profile', [\App\Http\Controllers\PklStudentDashboardController::class, 'profile'])->name('profile');
+    Route::put('/profile', [\App\Http\Controllers\PklStudentDashboardController::class, 'updateProfile'])->name('profile.update');
+    Route::get('/tasks', [\App\Http\Controllers\PklStudentDashboardController::class, 'tasks'])->name('tasks');
+    Route::post('/tasks/{id}/submit', [\App\Http\Controllers\PklStudentDashboardController::class, 'submitTask'])->name('tasks.submit');
+    Route::get('/progress', [\App\Http\Controllers\PklStudentDashboardController::class, 'progress'])->name('progress');
+    Route::get('/modules', [\App\Http\Controllers\PklStudentDashboardController::class, 'modules'])->name('modules');
+    Route::post('/modules/{id}/complete', [\App\Http\Controllers\PklStudentDashboardController::class, 'completeModule'])->name('modules.complete');
+    Route::get('/invoices', [\App\Http\Controllers\PklStudentDashboardController::class, 'invoices'])->name('invoices');
+    Route::post('/invoices/{id}/proof', [\App\Http\Controllers\PklStudentDashboardController::class, 'uploadInvoiceProof'])->name('invoices.proof');
+    Route::get('/portfolio', [\App\Http\Controllers\PklStudentDashboardController::class, 'portfolio'])->name('portfolio');
+    Route::post('/portfolio', [\App\Http\Controllers\PklStudentDashboardController::class, 'storePortfolio'])->name('portfolio.store');
+    Route::delete('/portfolio/{id}', [\App\Http\Controllers\PklStudentDashboardController::class, 'destroyPortfolio'])->name('portfolio.destroy');
+    Route::get('/certificate', [\App\Http\Controllers\PklStudentDashboardController::class, 'certificate'])->name('certificate');
+    Route::get('/history', [\App\Http\Controllers\PklStudentDashboardController::class, 'history'])->name('history');
 });
 
 // ==========================================

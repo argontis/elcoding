@@ -35,8 +35,14 @@ export default function Welcome({ canLogin, canRegister }) {
             <Link href="/kontak-publik" className="hover:text-blue-600 transition-colors">Kontak</Link>
           </div>
 
-          {/* Tombol Konsultasi (Menggantikan Daftar/Masuk) */}
-          <div>
+          {/* Tombol Masuk & Konsultasi */}
+          <div className="flex items-center gap-3">
+            <a
+              href="/login"
+              className="text-blue-600 hover:text-blue-800 text-sm font-bold transition-all px-2"
+            >
+              Masuk
+            </a>
             <a
               href="https://wa.me/"
               target="_blank"

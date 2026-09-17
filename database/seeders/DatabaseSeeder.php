@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             SettingsSeeder::class,
             LayananSeeder::class,
+            PklSeeder::class,
         ]);
     }
 }

@@ -99,6 +99,17 @@ class AdminController extends Controller
         }
     }
 
+    public function uploadEditorImage(Request $request) {
+        if ($request->hasFile('image')) {
+            $path = $this->handleUpload($request, 'image');
+            return response()->json([
+                'success' => true,
+                'url' => asset($path)
+            ]);
+        }
+        return response()->json(['success' => false, 'message' => 'Tidak ada file gambar yang diunggah'], 400);
+    }
+
     // --- Mitra CRUD ---
     public function mitra(Request $request) {
         $query = \App\Models\Mitra::latest();

@@ -248,7 +248,7 @@ export default function Dashboard({
             <div className="flex items-center gap-3 pl-1">
               <div className="text-right leading-tight hidden sm:block">
                 <p className="text-xs font-bold text-slate-800">{auth?.user?.name || 'Super Admin'}</p>
-                <p className="text-[10px] text-slate-400 font-medium">{auth?.user?.email || 'admin@elcoding.id'}</p>
+                <p className="text-[10px] text-slate-400 font-medium">{auth?.user?.email || 'elcoding.id@gmail.com'}</p>
               </div>
               <div className="w-9 h-9 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold ring-2 ring-blue-100 overflow-hidden">
                 <img 

@@ -217,6 +217,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('admin')->middleware('admin')->group(function () {
         Route::redirect('/', '/dashboard');
+        Route::redirect('/dashboard', '/dashboard');
         Route::get('/aktivitas', [AdminController::class, 'aktivitas']);
         
         // Layanan CRUD

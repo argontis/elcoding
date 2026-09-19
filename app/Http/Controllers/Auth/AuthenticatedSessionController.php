@@ -44,12 +44,23 @@ class AuthenticatedSessionController extends Controller
                 Auth::guard('web')->login($user);
                 $request->session()->regenerate();
 
-                if (!$user->isAdminOrMentor()) {
-                    return Inertia::location('/member/dashboard');
+                if ($user->isAdminOrMentor()) {
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('dashboard');
+                    }
+                    return Inertia::location($intended);
                 }
 
-                $intended = $request->session()->pull('url.intended', '/admin');
-                return Inertia::location($intended);
+                if ($user->isPklStudent()) {
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('pkl.dashboard');
+                    }
+                    return Inertia::location($intended);
+                }
+
+                return Inertia::location(route('member.dashboard'));
             }
 
             // Fallback to Member model
@@ -64,7 +75,7 @@ class AuthenticatedSessionController extends Controller
             Auth::guard('member')->login($member);
             $request->session()->regenerate();
 
-            return Inertia::location('/member/dashboard');
+            return Inertia::location(route('member.dashboard'));
         }
 
         // Handle normal credential login
@@ -73,12 +84,25 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (!$request->user()->isAdminOrMentor()) {
-            return Inertia::location('/member/dashboard');
+        $user = $request->user();
+
+        if ($user->isAdminOrMentor()) {
+            $intended = $request->session()->pull('url.intended');
+            if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                $intended = route('dashboard');
+            }
+            return Inertia::location($intended);
         }
 
-        $intended = $request->session()->pull('url.intended', '/admin');
-        return Inertia::location($intended);
+        if ($user->isPklStudent()) {
+            $intended = $request->session()->pull('url.intended');
+            if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                $intended = route('pkl.dashboard');
+            }
+            return Inertia::location($intended);
+        }
+
+        return Inertia::location(route('member.dashboard'));
     }
 
     /**

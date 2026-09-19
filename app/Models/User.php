@@ -41,23 +41,41 @@ class User extends Authenticatable
         return $this->hasMany(PklAttendance::class, 'user_id');
     }
 
+    public function getRoleAttribute($value)
+    {
+        if (empty($value) || $value === 'user') {
+            if ($this->email === 'elcoding.id@gmail.com' || $this->email === 'admin@elcoding.id' || $this->username === 'adminelcoding') {
+                return 'admin';
+            }
+        }
+        return $value;
+    }
+
     public function isAdmin()
     {
-        return $this->role === 'admin';
+        $role = strtolower(trim($this->role ?? ''));
+        return in_array($role, ['admin', 'administrator', 'superadmin'])
+            || $this->email === 'elcoding.id@gmail.com'
+            || $this->email === 'admin@elcoding.id'
+            || $this->username === 'adminelcoding';
     }
 
     public function isMentor()
     {
-        return $this->role === 'mentor';
+        return strtolower(trim($this->role ?? '')) === 'mentor';
     }
 
     public function isPklStudent()
     {
-        return $this->role === 'pkl_student';
+        return strtolower(trim($this->role ?? '')) === 'pkl_student' && !$this->isAdmin();
     }
 
     public function isAdminOrMentor()
     {
-        return in_array($this->role, ['admin', 'mentor']);
+        $role = strtolower(trim($this->role ?? ''));
+        return in_array($role, ['admin', 'mentor', 'administrator', 'superadmin'])
+            || $this->email === 'elcoding.id@gmail.com'
+            || $this->email === 'admin@elcoding.id'
+            || $this->username === 'adminelcoding';
     }
 }

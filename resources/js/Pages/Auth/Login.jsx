@@ -109,10 +109,10 @@ export default function Login({ status, canResetPassword }) {
                                                 <User className="w-[18px] h-[18px] fill-current" />
                                             </div>
                                             <input
-                                                type="email"
+                                                type="text"
                                                 name="email"
                                                 value={credentialForm.data.email}
-                                                placeholder="User Name"
+                                                placeholder="Username atau Email"
                                                 className="w-full !pl-12 !pr-4 !py-3.5 !bg-[#f0f2f5] !border-0 !rounded-xl text-xs font-semibold text-gray-800 focus:!ring-2 focus:!ring-blue-500 focus:!bg-white transition-all outline-none placeholder-gray-500 shadow-sm"
                                                 autoComplete="username"
                                                 onChange={(e) => credentialForm.setData('email', e.target.value)}

@@ -139,10 +139,10 @@
                 <div class="flex items-center gap-2 md:gap-4">
                     <div class="flex items-center gap-3 border-l border-slate-200 pl-4 ml-1 md:ml-2">
                         <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-sm shadow-sm">
-                            {{ substr(auth('member')->user()->nama ?? 'M', 0, 1) }}
+                            {{ substr($member->nama ?? $member->name ?? 'M', 0, 1) }}
                         </div>
                         <div class="hidden md:block">
-                            <p class="text-sm font-bold text-slate-700 leading-none mb-1">{{ auth('member')->user()->nama ?? 'Member' }}</p>
+                            <p class="text-sm font-bold text-slate-700 leading-none mb-1">{{ $member->nama ?? $member->name ?? 'Member' }}</p>
                             <p class="text-[11px] font-semibold text-emerald-600 uppercase tracking-wider leading-none">Member</p>
                         </div>
                     </div>

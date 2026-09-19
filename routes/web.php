@@ -359,7 +359,7 @@ Route::middleware('auth')->group(function () {
 // ==========================================
 // ROUTE MEMBER AREA (KARTU LOGIN)
 // ==========================================
-Route::middleware('auth:member')->prefix('member')->group(function () {
+Route::middleware('auth:member,web')->prefix('member')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Member\MemberDashboardController::class, 'index'])->name('member.dashboard');
     Route::get('/learning-modul', [\App\Http\Controllers\Member\MemberController::class, 'learningModul'])->name('member.learning-modul');
     Route::get('/asesmen', [\App\Http\Controllers\Member\MemberController::class, 'asesmen'])->name('member.asesmen');

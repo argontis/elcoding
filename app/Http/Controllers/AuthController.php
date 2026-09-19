@@ -62,6 +62,31 @@ class AuthController extends Controller
             'nomor_kartu' => ['required', 'string'],
         ]);
 
+        // Try to find in User model first (check both nomor_kartu and rfid_uid)
+        $user = \App\Models\User::where('nomor_kartu', $request->nomor_kartu)
+                                ->orWhere('rfid_uid', $request->nomor_kartu)
+                                ->first();
+
+        if ($user) {
+            Auth::guard('web')->login($user);
+            $request->session()->regenerate();
+
+            \App\Models\ActivityLog::add(
+                'Autentikasi', 
+                'Login Kartu', 
+                'Login via nomor kartu (' . $request->nomor_kartu . ') dari IP: ' . $request->ip(),
+                'green',
+                'fa-id-card'
+            );
+
+            if (!$user->isAdminOrMentor()) {
+                return redirect()->route('member.dashboard');
+            }
+
+            return redirect()->intended('/admin/dashboard');
+        }
+
+        // Fallback to Member model
         $member = \App\Models\Member::where('nomor_kartu', $request->nomor_kartu)->first();
 
         if (!$member) {

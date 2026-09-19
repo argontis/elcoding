@@ -8,7 +8,7 @@ class MemberDashboardController extends Controller
 {
     public function index()
     {
-        $member = auth('member')->user();
+        $member = auth('member')->user() ?? auth('web')->user();
 
         return view('member.dashboard', [
             'member' => $member,

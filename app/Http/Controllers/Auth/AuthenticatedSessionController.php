@@ -35,6 +35,24 @@ class AuthenticatedSessionController extends Controller
                 'nomor_kartu' => ['required', 'string'],
             ]);
 
+            // Try to find in User model first (check both nomor_kartu and rfid_uid)
+            $user = \App\Models\User::where('nomor_kartu', $request->nomor_kartu)
+                                    ->orWhere('rfid_uid', $request->nomor_kartu)
+                                    ->first();
+
+            if ($user) {
+                Auth::guard('web')->login($user);
+                $request->session()->regenerate();
+
+                if (!$user->isAdminOrMentor()) {
+                    return Inertia::location('/member/dashboard');
+                }
+
+                $intended = $request->session()->pull('url.intended', '/admin');
+                return Inertia::location($intended);
+            }
+
+            // Fallback to Member model
             $member = \App\Models\Member::where('nomor_kartu', $request->nomor_kartu)->first();
 
             if (!$member) {
@@ -56,7 +74,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if (!$request->user()->isAdminOrMentor()) {
-            return redirect()->route('pkl.dashboard');
+            return Inertia::location('/member/dashboard');
         }
 
         $intended = $request->session()->pull('url.intended', '/admin');

@@ -1073,7 +1073,7 @@
                         <a href="https://wa.me/6287762334232" target="_blank" style="color: inherit; text-decoration: none; font-weight: 600;">+62 877-6233-4232</a>
                     </li>
                     <li><i class="fas fa-envelope"></i>
-                        {{ \App\Models\Setting::getValue('contact_email', 'info@elcodingacademy.com') }}</li>
+                        {{ \App\Models\Setting::getValue('contact_email', 'elcoding.id@gmail.com') }}</li>
                 </ul>
             </div> <!-- End Col 4 -->
         </div> <!-- End Footer Container -->

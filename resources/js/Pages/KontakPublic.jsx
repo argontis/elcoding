@@ -80,7 +80,7 @@ export default function KontakPublic() {
                 </div>
                 <div>
                   <p className="text-[11px] font-bold tracking-wider text-purple-600 uppercase mb-0.5">Email</p>
-                  <p className="text-sm text-slate-700 leading-snug">info@elcodingacademy.com</p>
+                  <p className="text-sm text-slate-700 leading-snug">elcoding.id@gmail.com</p>
                 </div>
               </div>
 
@@ -218,7 +218,7 @@ export default function KontakPublic() {
             <div className="space-y-3 text-xs text-slate-400 mb-6">
               <p className="flex items-start gap-2"><MapPin className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" /> Ruko Citraland, Tegal, Jawa Tengah</p>
               <p className="flex items-center gap-2"><Phone className="w-4 h-4 text-emerald-500 shrink-0" /> Admin: +62 814-7665-2656</p>
-              <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-blue-500 shrink-0" /> info@elcodingacademy.com</p>
+              <p className="flex items-center gap-2"><Mail className="w-4 h-4 text-blue-500 shrink-0" /> elcoding.id@gmail.com</p>
             </div>
             <div className="flex gap-3">
               <a href="#" className="w-7 h-7 bg-slate-800 rounded-full flex items-center justify-center text-slate-300 hover:bg-blue-600 transition-colors"><Facebook className="w-3.5 h-3.5" /></a>

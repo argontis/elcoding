@@ -258,7 +258,7 @@ export default function TentangKamiPublic() {
             <div className="space-y-4 text-sm text-slate-600 mb-6">
               <p className="flex items-start gap-3"><MapPin className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" /> <span>Ruko Citraland, Tegal, Jawa Tengah</span></p>
               <p className="flex items-center gap-3"><Phone className="w-4 h-4 text-emerald-500 shrink-0" /> <span>Admin: +62 814-7665-2656</span></p>
-              <p className="flex items-center gap-3"><Mail className="w-4 h-4 text-blue-600 shrink-0" /> <span>info@elcodingacademy.com</span></p>
+              <p className="flex items-center gap-3"><Mail className="w-4 h-4 text-blue-600 shrink-0" /> <span>elcoding.id@gmail.com</span></p>
             </div>
             <div className="flex gap-4 text-xs font-bold text-blue-600">
               <a href="#" className="hover:underline">Facebook</a>

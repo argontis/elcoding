@@ -43,7 +43,7 @@ class AdminSeeder extends Seeder
             ['key' => 'contact_address', 'value' => 'Ruko Citraland, Tegal, Jawa Tengah, Indonesia 52111'],
             ['key' => 'contact_phone', 'value' => '+62 814-7665-2656'],
             ['key' => 'contact_whatsapp_chat', 'value' => '6281476652656'],
-            ['key' => 'contact_email', 'value' => 'info@elcodingacademy.com'],
+            ['key' => 'contact_email', 'value' => 'elcoding.id@gmail.com'],
             ['key' => 'social_facebook', 'value' => '#'],
             ['key' => 'social_instagram', 'value' => '#'],
             ['key' => 'social_youtube', 'value' => '#'],

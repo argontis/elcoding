@@ -52,16 +52,26 @@ class AuthenticatedSessionController extends Controller
                     return Inertia::location($intended);
                 }
 
+                // Check if user has course or event
+                $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
+                $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
+                
+                if (!$hasCourse && !$hasEvent) {
+                    Auth::guard('web')->logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+                    
+                    throw \Illuminate\Validation\ValidationException::withMessages([
+                        'nomor_kartu' => 'Anda belum berlangganan. Silakan berlangganan program kursus atau event terlebih dahulu.',
+                    ]);
+                }
+
                 if ($user->isPklStudent()) {
-                    $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
-                    $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
-                    if ($hasCourse || $hasEvent) {
-                        $intended = $request->session()->pull('url.intended');
-                        if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
-                            $intended = route('pkl.dashboard');
-                        }
-                        return Inertia::location($intended);
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('pkl.dashboard');
                     }
+                    return Inertia::location($intended);
                 }
 
                 return Inertia::location(route('member.dashboard'));
@@ -98,16 +108,26 @@ class AuthenticatedSessionController extends Controller
             return Inertia::location($intended);
         }
 
+        // Check if user has course or event
+        $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
+        $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
+        
+        if (!$hasCourse && !$hasEvent) {
+            Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'email' => 'Anda belum berlangganan. Silakan berlangganan program kursus atau event terlebih dahulu.',
+            ]);
+        }
+
         if ($user->isPklStudent()) {
-            $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
-            $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
-            if ($hasCourse || $hasEvent) {
-                $intended = $request->session()->pull('url.intended');
-                if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
-                    $intended = route('pkl.dashboard');
-                }
-                return Inertia::location($intended);
+            $intended = $request->session()->pull('url.intended');
+            if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                $intended = route('pkl.dashboard');
             }
+            return Inertia::location($intended);
         }
 
         return Inertia::location(route('member.dashboard'));

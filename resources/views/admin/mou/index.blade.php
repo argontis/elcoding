@@ -38,7 +38,13 @@
                     <td class="py-4 px-6 text-center">
                         <div class="flex items-center justify-center gap-2">
                             <a href="{{ url('admin/mou/'.$mou->id.'/pdf') }}" class="text-xs bg-indigo-600 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-indigo-700 transition flex items-center gap-1">
-                                <i class="fas fa-download"></i> Download
+                                <i class="fas fa-file-contract"></i> MoU
+                            </a>
+                            <a href="{{ url('admin/mou/'.$mou->id.'/invoice?type=dp') }}" class="text-xs bg-amber-500 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-amber-600 transition flex items-center gap-1">
+                                <i class="fas fa-file-invoice-dollar"></i> Inv DP
+                            </a>
+                            <a href="{{ url('admin/mou/'.$mou->id.'/invoice?type=lunas') }}" class="text-xs bg-emerald-600 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-emerald-700 transition flex items-center gap-1">
+                                <i class="fas fa-check-circle"></i> Inv Lunas
                             </a>
                             <a href="{{ url('admin/mou/'.$mou->id.'/edit') }}" class="text-xs bg-blue-500 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-blue-600 transition flex items-center gap-1">
                                 <i class="fas fa-edit"></i> Edit

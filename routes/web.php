@@ -278,7 +278,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/mou/{id}/edit', [\App\Http\Controllers\Admin\MouController::class, 'edit']);
         Route::put('/mou/{id}', [\App\Http\Controllers\Admin\MouController::class, 'update']);
         Route::delete('/mou/{id}', [\App\Http\Controllers\Admin\MouController::class, 'destroy']);
+        Route::get('/mou/{id}', [\App\Http\Controllers\Admin\MouController::class, 'show']);
         Route::get('/mou/{id}/pdf', [\App\Http\Controllers\Admin\MouController::class, 'downloadPdf']);
+        Route::get('/mou/{id}/invoice', [\App\Http\Controllers\Admin\MouController::class, 'downloadInvoicePdf']);
 
         // Transaksi & Pembayaran Kursus
         Route::get('/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index']);

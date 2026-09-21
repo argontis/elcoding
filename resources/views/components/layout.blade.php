@@ -663,14 +663,30 @@
 
                 <!-- 3. BAGIAN KANAN (Tampil di Mobile) -->
                 <div class="header-actions mobile-actions">
-                    <a href="/login" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Masuk</a>
+                    @auth
+                        <a href="{{ url('/member/dashboard') }}" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Dashboard</a>
+                        <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Keluar</button>
+                        </form>
+                    @else
+                        <a href="/login" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Masuk</a>
+                    @endauth
                     <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}" class="btn-solid-nav" target="_blank">Konsultasi</a>
                 </div>
             </nav>
 
             <!-- 3. BAGIAN KANAN (Tampil di Desktop) -->
             <div class="header-actions desktop-actions">
-                <a href="/login" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Masuk</a>
+                @auth
+                    <a href="{{ url('/member/dashboard') }}" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Dashboard</a>
+                    <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Keluar</button>
+                    </form>
+                @else
+                    <a href="/login" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Masuk</a>
+                @endauth
                 <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}" class="btn-solid-nav" target="_blank">Konsultasi</a>
             </div>
         </div>

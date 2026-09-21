@@ -53,11 +53,15 @@ class AuthenticatedSessionController extends Controller
                 }
 
                 if ($user->isPklStudent()) {
-                    $intended = $request->session()->pull('url.intended');
-                    if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
-                        $intended = route('pkl.dashboard');
+                    $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
+                    $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
+                    if ($hasCourse || $hasEvent) {
+                        $intended = $request->session()->pull('url.intended');
+                        if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                            $intended = route('pkl.dashboard');
+                        }
+                        return Inertia::location($intended);
                     }
-                    return Inertia::location($intended);
                 }
 
                 return Inertia::location(route('member.dashboard'));
@@ -95,11 +99,15 @@ class AuthenticatedSessionController extends Controller
         }
 
         if ($user->isPklStudent()) {
-            $intended = $request->session()->pull('url.intended');
-            if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
-                $intended = route('pkl.dashboard');
+            $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
+            $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
+            if ($hasCourse || $hasEvent) {
+                $intended = $request->session()->pull('url.intended');
+                if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                    $intended = route('pkl.dashboard');
+                }
+                return Inertia::location($intended);
             }
-            return Inertia::location($intended);
         }
 
         return Inertia::location(route('member.dashboard'));

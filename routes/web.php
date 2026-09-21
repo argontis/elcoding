@@ -51,10 +51,10 @@ Route::get('/sitemap.xml', function () {
 // ==========================================
 Route::get('/', function () {
     setSeoMeta('Pelatihan Coding & Bootcamp IT Terbaik');
-    $mitras = \App\Models\Mitra::oldest()->get();
+    $mitras = \App\Models\Mitra::latest()->get();
     $programs = \App\Models\ProgramKursus::oldest()->take(3)->get();
-    $portofolios = \App\Models\Portofolio::oldest()->take(3)->get();
-    $artikels = \App\Models\Artikel::where('status', 'Published')->oldest()->take(3)->get();
+    $portofolios = \App\Models\Portofolio::latest()->take(3)->get();
+    $artikels = \App\Models\Artikel::where('status', 'Published')->latest()->take(3)->get();
     return view('welcome', compact('mitras', 'programs', 'portofolios', 'artikels'));
 });
 
@@ -76,7 +76,7 @@ Route::post('/xendit/layanan/callback', [\App\Http\Controllers\CheckoutLayananCo
 
 Route::get('/tentang-kami', function () {
     setSeoMeta('Tentang Kami');
-    $mitras = \App\Models\Mitra::oldest()->get();
+    $mitras = \App\Models\Mitra::latest()->get();
     return view('tentang-kami', compact('mitras'));
 });
 

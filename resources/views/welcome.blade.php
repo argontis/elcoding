@@ -799,6 +799,13 @@
         .program-features-content p br { display: none; }
         .program-features-content strong { color: #1F2937; font-weight: 600; }
         
+        /* Batasi maksimal 4 poin yang tampil */
+        .program-features-content > *:nth-child(n+5),
+        .program-features-content ul li:nth-child(n+5),
+        .program-features-content ol li:nth-child(n+5) {
+            display: none !important;
+        }
+        
         .program-card-footer { padding: 30px 10px 0 10px; display: flex; justify-content: center; }
         .program-btn {
             display: inline-block;

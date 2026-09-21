@@ -243,9 +243,9 @@ header {
         <h4>Informasi Pembayaran:</h4>
         <p style="margin: 0;">Pembayaran dapat ditransfer melalui rekening berikut:</p>
         <p style="margin: 5px 0 0 0;">
-            <strong>Bank BNI</strong><br>
-            No. Rekening: <strong>1322961559</strong><br>
-            Atas Nama: <strong>Zaky Afrizal</strong>
+            <strong>BANK BCA</strong><br>
+            No. Rekening: <strong>0471736359</strong><br>
+            Atas Nama: <strong>Muh Zaky Afrizal</strong>
         </p>
     </div>
 

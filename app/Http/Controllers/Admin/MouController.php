@@ -229,9 +229,9 @@ class MouController extends Controller
             'type' => $type,
             'qrcode' => $qrcode,
             'invoice_number' => 'INV/' . date('Y/m/') . str_pad($mou->id, 3, '0', STR_PAD_LEFT) . ($type == 'dp' ? '/DP' : '/LUNAS'),
-            'amount' => $mou->grand_total / 2, // 50%
+            'amount' => $mou->grand_total,
             'description' => $type == 'dp' 
-                ? 'Pembayaran DP (50%) untuk pembuatan ' . $mou->nama_file 
+                ? 'Pembayaran DP untuk pembuatan ' . $mou->nama_file 
                 : 'Pelunasan Pembayaran untuk pembuatan ' . $mou->nama_file,
             'date' => date('d F Y')
         ];

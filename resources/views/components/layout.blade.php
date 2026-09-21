@@ -713,11 +713,13 @@
         }
         .custom-header.transparent-header:not(.scrolled) .header-logo-text,
         .custom-header.transparent-header:not(.scrolled) .nav-link,
+        .custom-header.transparent-header:not(.scrolled) .btn-outline-nav,
         .custom-header.transparent-header:not(.scrolled) .mobile-toggle {
             color: #ffffff !important;
         }
         .custom-header.transparent-header:not(.scrolled) .nav-link:hover,
-        .custom-header.transparent-header:not(.scrolled) .nav-link.active {
+        .custom-header.transparent-header:not(.scrolled) .nav-link.active,
+        .custom-header.transparent-header:not(.scrolled) .btn-outline-nav:hover {
             background-color: transparent !important;
             color: #ffffff !important;
         }

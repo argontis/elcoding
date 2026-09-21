@@ -190,9 +190,12 @@ class AdminController extends Controller
     }
     public function createProgram() { return view('admin.program-kursus.form'); }
     public function storeProgram(Request $request) {
-        $data = $request->except('image_file');
+        $data = $request->except('image_file', 'materi_pdf');
         if ($request->hasFile('image_file')) {
             $data['image_path'] = $this->handleUpload($request, 'image_file');
+        }
+        if ($request->hasFile('materi_pdf')) {
+            $data['materi_pdf'] = $this->handleUpload($request, 'materi_pdf');
         }
         \App\Models\ProgramKursus::create($data);
         \App\Models\ActivityLog::add('Program Kursus', 'Tambah Program', 'Program "' . $request->title . '" telah ditambahkan.', 'amber', 'fa-graduation-cap');
@@ -204,13 +207,17 @@ class AdminController extends Controller
     }
     public function updateProgram(Request $request, $id) {
         $program = \App\Models\ProgramKursus::findOrFail($id);
-        $data = $request->except('image_file');
+        $data = $request->except('image_file', 'materi_pdf');
         if ($request->hasFile('image_file')) {
             $data['image_path'] = $this->handleUpload($request, 'image_file', $program->image_path);
+        }
+        if ($request->hasFile('materi_pdf')) {
+            $data['materi_pdf'] = $this->handleUpload($request, 'materi_pdf', $program->materi_pdf);
         }
         $program->update($data);
         $desc = 'Data program "' . $program->title . '" telah diperbarui';
         if ($request->hasFile('image_file')) $desc .= ' (Thumbnail diperbarui)';
+        if ($request->hasFile('materi_pdf')) $desc .= ' (Materi diperbarui)';
         \App\Models\ActivityLog::add('Program Kursus', 'Perbarui Program', $desc . '.', 'amber', 'fa-graduation-cap');
         return redirect('/admin/program-kursus')->with('success', 'Program berhasil diperbarui.');
     }

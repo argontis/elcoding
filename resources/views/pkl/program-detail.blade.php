@@ -70,6 +70,13 @@
                 <a href="{{ url('/program-kursus/' . $program->id) }}" target="_blank" class="block w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-center rounded-xl transition shadow-lg shadow-blue-500/30">
                     Daftar Sekarang <i class="fas fa-external-link-alt ml-1 text-xs opacity-70"></i>
                 </a>
+                
+                @if($program->materi_pdf)
+                <a href="{{ asset($program->materi_pdf) }}" target="_blank" class="mt-4 block w-full py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-center rounded-xl transition shadow-lg shadow-orange-500/30">
+                    <i class="fas fa-file-pdf mr-2"></i> Download Materi PDF
+                </a>
+                @endif
+                
                 <p class="text-center text-xs text-slate-500 mt-4">
                     Anda akan diarahkan ke halaman pendaftaran publik.
                 </p>

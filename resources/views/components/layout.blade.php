@@ -663,14 +663,44 @@
 
                 <!-- 3. BAGIAN KANAN (Tampil di Mobile) -->
                 <div class="header-actions mobile-actions">
-                    <a href="{{ url('/login') }}" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Masuk</a>
+                    @auth
+                        @php
+                            $user = auth()->user();
+                            $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
+                            $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
+                            $hasAccess = $user->role === 'admin' || $hasCourse || $hasEvent;
+                        @endphp
+                        <div style="position: relative; display: inline-block;">
+                            <a href="{{ url('/pkl/dashboard') }}" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 15px;">Dashboard</a>
+                            @if(!$hasAccess)
+                                <span style="position: absolute; top: -5px; right: 5px; background: #ef4444; color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: bold; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2); line-height: 1;" title="Belum Berlangganan">!</span>
+                            @endif
+                        </div>
+                    @else
+                        <a href="{{ url('/login') }}" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Masuk</a>
+                    @endauth
                     <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}" class="btn-solid-nav" target="_blank">Konsultasi</a>
                 </div>
             </nav>
 
             <!-- 3. BAGIAN KANAN (Tampil di Desktop) -->
             <div class="header-actions desktop-actions">
-                <a href="{{ url('/login') }}" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Masuk</a>
+                @auth
+                    @php
+                        $user = auth()->user();
+                        $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
+                        $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
+                        $hasAccess = $user->role === 'admin' || $hasCourse || $hasEvent;
+                    @endphp
+                    <div style="position: relative; display: inline-block;">
+                        <a href="{{ url('/pkl/dashboard') }}" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 15px;">Dashboard</a>
+                        @if(!$hasAccess)
+                            <span style="position: absolute; top: -5px; right: 5px; background: #ef4444; color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: bold; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.2); line-height: 1;" title="Belum berlangganan program">!</span>
+                        @endif
+                    </div>
+                @else
+                    <a href="{{ url('/login') }}" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Masuk</a>
+                @endauth
                 <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}" class="btn-solid-nav" target="_blank">Konsultasi</a>
             </div>
         </div>

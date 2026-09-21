@@ -801,9 +801,19 @@
         
         /* Batasi maksimal 4 poin yang tampil */
         .program-features-content > *:nth-child(n+5),
+        .program-features-content > *:nth-of-type(n+5),
+        .program-features-content p:nth-child(n+5),
+        .program-features-content p:nth-of-type(n+5),
         .program-features-content ul li:nth-child(n+5),
-        .program-features-content ol li:nth-child(n+5) {
+        .program-features-content ol li:nth-child(n+5),
+        .program-features-content div:nth-child(n+5) {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
         }
         
         .program-card-footer { padding: 30px 10px 0 10px; display: flex; justify-content: center; }

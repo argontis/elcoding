@@ -224,14 +224,20 @@ class MouController extends Controller
             ->size(100)
             ->generate(url('/admin/mou/' . $mou->id . '/invoice?type=' . $type));
 
+        $dpPercentage = $mou->dp_percentage ?? 50;
+        $dpAmount = ($mou->grand_total * $dpPercentage) / 100;
+        $lunasAmount = $mou->grand_total - $dpAmount;
+
+        $amount = $type == 'dp' ? $dpAmount : $lunasAmount;
+
         $invoiceData = [
             'mou' => $mou,
             'type' => $type,
             'qrcode' => $qrcode,
             'invoice_number' => 'INV/' . date('Y/m/') . str_pad($mou->id, 3, '0', STR_PAD_LEFT) . ($type == 'dp' ? '/DP' : '/LUNAS'),
-            'amount' => $mou->grand_total,
+            'amount' => $amount,
             'description' => $type == 'dp' 
-                ? 'Pembayaran DP untuk pembuatan ' . $mou->nama_file 
+                ? 'Pembayaran DP (' . $dpPercentage . '%) untuk pembuatan ' . $mou->nama_file 
                 : 'Pelunasan Pembayaran untuk pembuatan ' . $mou->nama_file,
             'date' => date('d F Y')
         ];

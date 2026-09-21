@@ -69,8 +69,12 @@
                 <small class="text-slate-500">Angka saja tanpa titik/koma. Digunakan untuk perhitungan otomatis pada Invoice.</small>
             </div>
 
-
-
+            <div class="md:col-span-1">
+                <label class="block text-sm font-bold text-slate-700 mb-2">Persentase DP (%)</label>
+                <input type="number" name="dp_percentage" value="{{ old('dp_percentage', $mou->dp_percentage ?? '50') }}" min="0" max="100" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                <small class="text-slate-500">Berapa persen dari total biaya yang harus dibayar saat DP (default: 50).</small>
+            </div>
+            
             <div class="md:col-span-2">
                 <label class="block text-sm font-bold text-slate-700 mb-2">Pilih Ketentuan</label>
                 <div class="flex items-center mb-2">

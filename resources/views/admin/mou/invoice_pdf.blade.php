@@ -127,6 +127,7 @@ header {
 .payment-info {
     float: left;
     width: 50%;
+    margin-top: 25px; /* Aligned with barcode */
     padding: 15px;
     background-color: #f8fafc;
     border-left: 4px solid #1f497d;

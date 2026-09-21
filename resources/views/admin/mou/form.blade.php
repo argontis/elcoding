@@ -58,9 +58,15 @@
                 <input type="text" name="nama_customer" value="{{ old('nama_customer', $mou->nama_customer ?? '') }}" placeholder="Contoh: Direksi PT Berkah Aqiqah" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
             </div>
 
-            <div class="md:col-span-2">
+            <div class="md:col-span-1">
                 <label class="block text-sm font-bold text-slate-700 mb-2">Penandatangan (Diajukan Oleh) *</label>
                 <input type="text" name="created_by" value="{{ old('created_by', $mou->created_by ?? '') }}" placeholder="Contoh: Zaky Afrizal" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+
+            <div class="md:col-span-1">
+                <label class="block text-sm font-bold text-slate-700 mb-2">Total Biaya / Grand Total (Rp)</label>
+                <input type="number" name="grand_total" value="{{ old('grand_total', $mou->grand_total ?? '') }}" placeholder="Contoh: 1500000" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <small class="text-slate-500">Angka saja tanpa titik/koma. Digunakan untuk perhitungan otomatis pada Invoice.</small>
             </div>
 
 

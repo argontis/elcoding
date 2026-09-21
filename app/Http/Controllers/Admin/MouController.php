@@ -34,6 +34,7 @@ class MouController extends Controller
             'lokasi' => 'required',
             'nama_customer' => 'required',
             'created_by' => 'required',
+            'grand_total' => 'nullable|numeric',
         ]);
 
         DB::beginTransaction();
@@ -51,6 +52,7 @@ class MouController extends Controller
                 'ketentuan_type' => $request->ketentuan_type ?? 'custom',
                 'ketentuan' => $request->ketentuan,
                 'created_by' => $request->created_by,
+                'grand_total' => $request->grand_total ?? 0,
             ]);
 
             if ($request->has('sections')) {
@@ -113,6 +115,7 @@ class MouController extends Controller
             'lokasi' => 'required',
             'nama_customer' => 'required',
             'created_by' => 'required',
+            'grand_total' => 'nullable|numeric',
         ]);
 
         DB::beginTransaction();
@@ -131,6 +134,7 @@ class MouController extends Controller
                 'ketentuan_type' => $request->ketentuan_type ?? 'custom',
                 'ketentuan' => $request->ketentuan,
                 'created_by' => $request->created_by,
+                'grand_total' => $request->grand_total ?? 0,
             ]);
 
             $mou->sections()->delete();

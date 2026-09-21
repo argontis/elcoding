@@ -337,4 +337,18 @@ class PklStudentDashboardController extends Controller
         $histories = $profile->histories()->paginate(15);
         return view('pkl.history', compact('profile', 'histories'));
     }
+
+    public function programDetail($id)
+    {
+        $profile = $this->getProfile();
+        $program = \App\Models\ProgramKursus::findOrFail($id);
+        return view('pkl.program-detail', compact('profile', 'program'));
+    }
+
+    public function eventDetail($id)
+    {
+        $profile = $this->getProfile();
+        $event = \App\Models\Event::findOrFail($id);
+        return view('pkl.event-detail', compact('profile', 'event'));
+    }
 }

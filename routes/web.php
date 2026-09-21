@@ -337,6 +337,10 @@ Route::middleware(['auth'])->prefix('pkl')->name('pkl.')->group(function () {
     Route::delete('/portfolio/{id}', [\App\Http\Controllers\PklStudentDashboardController::class, 'destroyPortfolio'])->name('portfolio.destroy');
     Route::get('/certificate', [\App\Http\Controllers\PklStudentDashboardController::class, 'certificate'])->name('certificate');
     Route::get('/history', [\App\Http\Controllers\PklStudentDashboardController::class, 'history'])->name('history');
+    
+    // Eksplorasi Detail
+    Route::get('/program-kursus/{id}', [\App\Http\Controllers\PklStudentDashboardController::class, 'programDetail'])->name('program.detail');
+    Route::get('/event/{id}', [\App\Http\Controllers\PklStudentDashboardController::class, 'eventDetail'])->name('event.detail');
 });
 
 // ==========================================

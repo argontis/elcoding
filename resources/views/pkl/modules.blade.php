@@ -168,7 +168,7 @@
                 @if(isset($coursePrograms) && $coursePrograms->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     @foreach($coursePrograms as $program)
-                    <a href="{{ url('/program-kursus/' . $program->id) }}" target="_blank" class="block bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden hover:border-blue-500/30 transition group">
+                    <a href="{{ route('pkl.program.detail', $program->id) }}" class="block bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden hover:border-blue-500/30 transition group">
                         <div class="h-32 bg-slate-700/50 relative">
                             @if($program->image_path)
                             <img src="{{ asset($program->image_path) }}" alt="{{ $program->title }}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition">
@@ -202,7 +202,7 @@
                 @if(isset($events) && $events->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     @foreach($events as $event)
-                    <a href="{{ url('/event-webinar') }}" target="_blank" class="block bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden hover:border-amber-500/30 transition group">
+                    <a href="{{ route('pkl.event.detail', $event->id) }}" class="block bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden hover:border-amber-500/30 transition group">
                         <div class="h-32 bg-slate-700/50 relative">
                             @if($event->image_path)
                             <img src="{{ asset($event->image_path) }}" alt="{{ $event->title }}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition">

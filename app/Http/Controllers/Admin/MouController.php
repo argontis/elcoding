@@ -228,7 +228,7 @@ class MouController extends Controller
             'amount' => $mou->grand_total / 2, // 50%
             'description' => $type == 'dp' 
                 ? 'Pembayaran DP (50%) untuk pembuatan ' . $mou->nama_file 
-                : 'Pelunasan Pembayaran (50%) untuk pembuatan ' . $mou->nama_file,
+                : 'Pelunasan Pembayaran untuk pembuatan ' . $mou->nama_file,
             'date' => date('d F Y')
         ];
 

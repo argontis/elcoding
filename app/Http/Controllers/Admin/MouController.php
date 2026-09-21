@@ -226,7 +226,7 @@ class MouController extends Controller
 
         $dpPercentage = $mou->dp_percentage ?? 50;
         $dpAmount = ($mou->grand_total * $dpPercentage) / 100;
-        $lunasAmount = $mou->grand_total - $dpAmount;
+        $lunasAmount = $mou->grand_total; // Always show full total for Pelunasan
 
         $amount = $type == 'dp' ? $dpAmount : $lunasAmount;
 

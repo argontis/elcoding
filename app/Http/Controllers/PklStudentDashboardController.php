@@ -174,7 +174,21 @@ class PklStudentDashboardController extends Controller
             ->with('module')
             ->get();
 
-        return view('pkl.modules', compact('profile', 'studentProgressList'));
+        $search = request('search');
+
+        $programsQuery = \App\Models\ProgramKursus::latest();
+        if ($search) {
+            $programsQuery->where('title', 'like', "%{$search}%");
+        }
+        $coursePrograms = $programsQuery->get();
+
+        $eventsQuery = \App\Models\Event::latest();
+        if ($search) {
+            $eventsQuery->where('title', 'like', "%{$search}%");
+        }
+        $events = $eventsQuery->get();
+
+        return view('pkl.modules', compact('profile', 'studentProgressList', 'coursePrograms', 'events', 'search'));
     }
 
     public function completeModule($id)

@@ -119,12 +119,18 @@ header {
     border-top: 2px solid #1f497d;
 }
 
-.payment-info {
+.footer-section {
     margin-top: 50px;
-    clear: both;
+    width: 100%;
+}
+
+.payment-info {
+    float: left;
+    width: 50%;
     padding: 15px;
     background-color: #f8fafc;
     border-left: 4px solid #1f497d;
+    box-sizing: border-box;
 }
 .payment-info h4 {
     margin: 0 0 10px 0;
@@ -132,10 +138,6 @@ header {
     font-size: 11pt;
 }
 
-.signature-section {
-    margin-top: 50px;
-    width: 100%;
-}
 .signature-box {
     float: right;
     width: 250px;
@@ -239,17 +241,17 @@ header {
         </table>
     </div>
 
-    <div class="payment-info">
-        <h4>Informasi Pembayaran:</h4>
-        <p style="margin: 0;">Pembayaran dapat ditransfer melalui rekening berikut:</p>
-        <p style="margin: 5px 0 0 0;">
-            <strong>BANK BCA</strong><br>
-            No. Rekening: <strong>0471736359</strong><br>
-            Atas Nama: <strong>Muh Zaky Afrizal</strong>
-        </p>
-    </div>
+    <div class="footer-section clearfix">
+        <div class="payment-info">
+            <h4>Informasi Pembayaran:</h4>
+            <p style="margin: 0;">Pembayaran dapat ditransfer melalui rekening berikut:</p>
+            <p style="margin: 5px 0 0 0;">
+                <strong>BANK BCA</strong><br>
+                No. Rekening: <strong>0471736359</strong><br>
+                Atas Nama: <strong>Muh Zaky Afrizal</strong>
+            </p>
+        </div>
 
-    <div class="signature-section clearfix">
         <div class="signature-box">
             <p style="margin: 0;">Hormat Kami,</p>
             <div style="margin: 15px 0;">

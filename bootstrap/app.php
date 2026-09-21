@@ -21,6 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
+            'pkl.access' => \App\Http\Middleware\CheckPklAccess::class,
         ]);
 
         $middleware->validateCsrfTokens(except: [

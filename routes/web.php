@@ -85,8 +85,6 @@ Route::get('/program-kursus', function () {
     $programs = \App\Models\ProgramKursus::oldest()->paginate(9);
     return view('program-kursus', compact('programs'));
 });
-
-Route::middleware('auth')->group(function () {
     Route::get('/pendaftaran-bootcamp', function () { return view('pendaftaran-bootcamp'); });
     Route::get('/pendaftaran-workshop', function () { return view('pendaftaran-workshop'); });
     Route::get('/daftar-event', function () { return view('daftar-event'); });
@@ -96,7 +94,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/pendaftaran-bootcamp', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
     Route::post('/pendaftaran-workshop', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
     Route::post('/program-kursus/{id}/checkout', [ProgramKursusController::class, 'checkout']);
-});
 
 Route::get('/status-pembayaran-bootcamp', function () {
     return view('status-pembayaran-bootcamp');
@@ -323,7 +320,7 @@ Route::get('/verifikasi-sertifikat/{code?}', [\App\Http\Controllers\CertificateV
 // ==========================================
 // ROUTE PORTAL PESERTA PKL / MAGANG
 // ==========================================
-Route::middleware(['auth'])->prefix('pkl')->name('pkl.')->group(function () {
+Route::middleware(['auth', 'pkl.access'])->prefix('pkl')->name('pkl.')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\PklStudentDashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/profile', [\App\Http\Controllers\PklStudentDashboardController::class, 'profile'])->name('profile');
     Route::put('/profile', [\App\Http\Controllers\PklStudentDashboardController::class, 'updateProfile'])->name('profile.update');

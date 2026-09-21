@@ -86,8 +86,16 @@ Route::get('/program-kursus', function () {
     return view('program-kursus', compact('programs'));
 });
 
-Route::get('/pendaftaran-bootcamp', function () {
-    return view('pendaftaran-bootcamp');
+Route::middleware('auth')->group(function () {
+    Route::get('/pendaftaran-bootcamp', function () { return view('pendaftaran-bootcamp'); });
+    Route::get('/pendaftaran-workshop', function () { return view('pendaftaran-workshop'); });
+    Route::get('/daftar-event', function () { return view('daftar-event'); });
+    Route::get('/pendaftaran-webinar', function () { return view('daftar-event'); });
+    
+    Route::post('/daftar-event', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
+    Route::post('/pendaftaran-bootcamp', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
+    Route::post('/pendaftaran-workshop', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
+    Route::post('/program-kursus/{id}/checkout', [ProgramKursusController::class, 'checkout']);
 });
 
 Route::get('/status-pembayaran-bootcamp', function () {
@@ -97,18 +105,6 @@ Route::get('/status-pembayaran-bootcamp', function () {
 Route::get('/event-webinar', function () {
     setSeoMeta('Event & Webinar');
     return view('event-webinar');
-});
-
-Route::get('/pendaftaran-workshop', function () {
-    return view('pendaftaran-workshop');
-});
-
-Route::get('/daftar-event', function () {
-    return view('daftar-event');
-});
-
-Route::get('/pendaftaran-webinar', function () {
-    return view('daftar-event');
 });
 
 Route::get('/data-diri', function () {
@@ -127,12 +123,8 @@ Route::get('/daftar-event-berhasil', function () {
     return view('daftar-event-berhasil');
 });
 
-Route::post('/daftar-event', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
 Route::get('/event-webinar/payment/success', [\App\Http\Controllers\EventCheckoutController::class, 'paymentSuccess']);
 Route::post('/xendit/event/callback', [\App\Http\Controllers\EventCheckoutController::class, 'callback']);
-
-Route::post('/pendaftaran-bootcamp', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
-Route::post('/pendaftaran-workshop', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
 
 Route::get('/silabus', function () {
     return view('silabus');
@@ -144,7 +136,6 @@ Route::get('/program-kursus/{id}/silabus', function ($id) {
 });
 
 Route::get('/program-kursus/{id}', [ProgramKursusController::class, 'show']);
-Route::post('/program-kursus/{id}/checkout', [ProgramKursusController::class, 'checkout']);
 Route::get('/payment/success', [ProgramKursusController::class, 'paymentSuccess']);
 Route::post('/xendit/callback', [ProgramKursusController::class, 'callback']);
 

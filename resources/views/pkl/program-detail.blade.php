@@ -27,7 +27,11 @@
             <div class="bg-slate-800/60 border border-slate-700/60 rounded-3xl p-8 backdrop-blur-xl">
                 <h2 class="text-xl font-bold text-white mb-4">Deskripsi Program</h2>
                 <div class="prose prose-invert prose-sm max-w-none text-slate-300">
-                    {!! nl2br(e($program->description)) !!}
+                    @if($program->description)
+                        {!! nl2br(e($program->description)) !!}
+                    @else
+                        <p>Program kursus ini dirancang untuk membimbing Anda dari tingkat dasar hingga mahir dengan materi berbasis kurikulum industri terbaru, didampingi oleh mentor profesional. Ikuti kelas ini untuk meningkatkan skill Anda ke level selanjutnya dan persiapkan diri menghadapi tantangan karir masa depan.</p>
+                    @endif
                 </div>
             </div>
 

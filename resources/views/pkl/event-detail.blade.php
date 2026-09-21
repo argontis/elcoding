@@ -27,7 +27,11 @@
             <div class="bg-slate-800/60 border border-slate-700/60 rounded-3xl p-8 backdrop-blur-xl">
                 <h2 class="text-xl font-bold text-white mb-4">Deskripsi Event</h2>
                 <div class="prose prose-invert prose-sm max-w-none text-slate-300">
-                    {!! nl2br(e($event->description)) !!}
+                    @if($event->description)
+                        {!! nl2br(e($event->description)) !!}
+                    @else
+                        <p>Mari bergabung dalam event dan webinar kami untuk memperluas wawasan, mendapatkan sertifikat keahlian, dan terkoneksi dengan para praktisi profesional di bidangnya.</p>
+                    @endif
                 </div>
             </div>
 

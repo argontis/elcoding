@@ -140,18 +140,29 @@
                 <p class="text-xs text-slate-400 mt-1">Tingkatkan skill Anda dengan mengikuti program kursus atau webinar</p>
             </div>
             
-            <!-- Search Form -->
-            <form action="{{ route('pkl.modules') }}" method="GET" class="relative max-w-xs w-full">
-                <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Cari program atau event..." class="w-full bg-slate-800/60 border border-slate-700/60 rounded-xl px-4 py-2.5 pl-10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition">
-                <i class="fas fa-search absolute left-3.5 top-3.5 text-slate-500"></i>
-                @if(!empty($search))
-                    <a href="{{ route('pkl.modules') }}" class="absolute right-3 top-3 text-slate-400 hover:text-white"><i class="fas fa-times"></i></a>
-                @endif
+            <!-- Search & Filter Form -->
+            <form action="{{ route('pkl.modules') }}" method="GET" class="flex flex-col sm:flex-row gap-3 w-full max-w-lg">
+                <!-- Search -->
+                <div class="relative flex-grow">
+                    <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Cari program atau event..." class="w-full bg-slate-800/60 border border-slate-700/60 rounded-xl px-4 py-2.5 pl-10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition">
+                    <i class="fas fa-search absolute left-3.5 top-3.5 text-slate-500"></i>
+                    @if(!empty($search))
+                        <a href="{{ route('pkl.modules', ['filter' => $filter ?? 'all']) }}" class="absolute right-3 top-3 text-slate-400 hover:text-white"><i class="fas fa-times"></i></a>
+                    @endif
+                </div>
+                
+                <!-- Filter -->
+                <select name="filter" onchange="this.form.submit()" class="bg-slate-800/60 border border-slate-700/60 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition cursor-pointer w-full sm:w-auto">
+                    <option value="all" {{ ($filter ?? 'all') == 'all' ? 'selected' : '' }}>Semua Kategori</option>
+                    <option value="course" {{ ($filter ?? 'all') == 'course' ? 'selected' : '' }}>Program Kursus</option>
+                    <option value="event" {{ ($filter ?? 'all') == 'event' ? 'selected' : '' }}>Event & Webinar</option>
+                </select>
             </form>
         </div>
 
         <div class="space-y-8">
             <!-- Program Kursus -->
+            @if(($filter ?? 'all') == 'all' || ($filter ?? 'all') == 'course')
             <div>
                 <h3 class="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2"><i class="fas fa-laptop-code text-blue-400"></i> Program Kursus</h3>
                 @if(isset($coursePrograms) && $coursePrograms->count() > 0)
@@ -182,8 +193,10 @@
                 </div>
                 @endif
             </div>
+            @endif
 
             <!-- Event & Webinar -->
+            @if(($filter ?? 'all') == 'all' || ($filter ?? 'all') == 'event')
             <div>
                 <h3 class="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2"><i class="fas fa-calendar-alt text-amber-400"></i> Event & Webinar</h3>
                 @if(isset($events) && $events->count() > 0)
@@ -214,6 +227,7 @@
                 </div>
                 @endif
             </div>
+            @endif
         </div>
     </div>
 </div>

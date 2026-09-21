@@ -175,20 +175,27 @@ class PklStudentDashboardController extends Controller
             ->get();
 
         $search = request('search');
+        $filter = request('filter', 'all');
 
-        $programsQuery = \App\Models\ProgramKursus::latest();
-        if ($search) {
-            $programsQuery->where('title', 'like', "%{$search}%");
+        $coursePrograms = collect();
+        if ($filter === 'all' || $filter === 'course') {
+            $programsQuery = \App\Models\ProgramKursus::latest();
+            if ($search) {
+                $programsQuery->where('title', 'like', "%{$search}%");
+            }
+            $coursePrograms = $programsQuery->get();
         }
-        $coursePrograms = $programsQuery->get();
 
-        $eventsQuery = \App\Models\Event::latest();
-        if ($search) {
-            $eventsQuery->where('title', 'like', "%{$search}%");
+        $events = collect();
+        if ($filter === 'all' || $filter === 'event') {
+            $eventsQuery = \App\Models\Event::latest();
+            if ($search) {
+                $eventsQuery->where('title', 'like', "%{$search}%");
+            }
+            $events = $eventsQuery->get();
         }
-        $events = $eventsQuery->get();
 
-        return view('pkl.modules', compact('profile', 'studentProgressList', 'coursePrograms', 'events', 'search'));
+        return view('pkl.modules', compact('profile', 'studentProgressList', 'coursePrograms', 'events', 'search', 'filter'));
     }
 
     public function completeModule($id)

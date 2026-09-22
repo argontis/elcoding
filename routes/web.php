@@ -369,6 +369,13 @@ Route::middleware(['auth', 'pkl.access'])->prefix('pkl')->name('pkl.')->group(fu
     // Eksplorasi Detail
     Route::get('/program-kursus/{id}', [\App\Http\Controllers\PklStudentDashboardController::class, 'programDetail'])->name('program.detail');
     Route::get('/event/{id}', [\App\Http\Controllers\PklStudentDashboardController::class, 'eventDetail'])->name('event.detail');
+
+    // Checkout / Pendaftaran dari portal
+    Route::get('/program-kursus/{id}/checkout', [\App\Http\Controllers\PklCheckoutController::class, 'checkoutProgram'])->name('program.checkout');
+    Route::post('/program-kursus/{id}/checkout', [\App\Http\Controllers\PklCheckoutController::class, 'processProgram'])->name('program.checkout.process');
+    
+    Route::get('/event/{id}/checkout', [\App\Http\Controllers\PklCheckoutController::class, 'checkoutEvent'])->name('event.checkout');
+    Route::post('/event/{id}/checkout', [\App\Http\Controllers\PklCheckoutController::class, 'processEvent'])->name('event.checkout.process');
 });
 
 // ==========================================

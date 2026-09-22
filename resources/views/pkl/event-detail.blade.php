@@ -89,20 +89,8 @@
                     <div class="mb-6"></div>
                 @endif
 
-                @php
-                    $checkoutRoute = '/event-webinar'; // Default fallback
-                    $lowerType = strtolower($event->type ?? '');
-                    if (str_contains($lowerType, 'bootcamp')) {
-                        $checkoutRoute = '/pendaftaran-bootcamp';
-                    } elseif (str_contains($lowerType, 'workshop')) {
-                        $checkoutRoute = '/pendaftaran-workshop';
-                    } elseif (str_contains($lowerType, 'webinar')) {
-                        $checkoutRoute = '/pendaftaran-webinar';
-                    }
-                @endphp
-
-                <a href="{{ url($checkoutRoute) }}" target="_blank" class="block w-full py-4 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold text-center rounded-xl transition shadow-lg shadow-amber-500/30">
-                    Daftar Sekarang <i class="fas fa-external-link-alt ml-1 text-xs opacity-70"></i>
+                <a href="{{ route('pkl.event.checkout', $event->id) }}" class="block w-full py-4 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold text-center rounded-xl transition shadow-lg shadow-amber-500/30">
+                    Daftar Sekarang <i class="fas fa-arrow-right ml-1 text-xs opacity-70"></i>
                 </a>
                 
                 @if($isPurchased)

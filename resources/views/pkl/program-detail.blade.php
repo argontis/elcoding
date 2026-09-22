@@ -67,8 +67,8 @@
                     </div>
                 </div>
 
-                <a href="{{ url('/program-kursus/' . $program->id) }}" target="_blank" class="block w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-center rounded-xl transition shadow-lg shadow-blue-500/30">
-                    Daftar Sekarang <i class="fas fa-external-link-alt ml-1 text-xs opacity-70"></i>
+                <a href="{{ route('pkl.program.checkout', $program->id) }}" class="block w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-center rounded-xl transition shadow-lg shadow-blue-500/30">
+                    Daftar Sekarang <i class="fas fa-arrow-right ml-1 text-xs opacity-70"></i>
                 </a>
                 
                 @if($isPurchased)

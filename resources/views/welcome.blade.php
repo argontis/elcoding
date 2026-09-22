@@ -903,14 +903,14 @@
             <li class="filter-active" data-filter="all">All</li>
             @foreach($portfolioCategories as $cat)
                 @if($cat)
-                    <li data-filter="{{ Str::slug($cat) }}">{{ $cat }}</li>
+                    <li data-filter="{{ \Illuminate\Support\Str::slug($cat) }}">{{ $cat }}</li>
                 @endif
             @endforeach
         </ul>
 
         <div class="presento-portfolio-grid">
             @foreach($portofolios as $portofolio)
-            <div class="presento-portfolio-item" data-category="{{ Str::slug($portofolio->category) }}" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
+            <div class="presento-portfolio-item" data-category="{{ \Illuminate\Support\Str::slug($portofolio->category) }}" data-aos="fade-up" data-aos-delay="{{ $loop->iteration * 100 }}">
                 <img src="{{ asset($portofolio->image_path ?? 'assets/wp-content/uploads/2026/02/Garap-Edu.webp') }}" alt="{{ $portofolio->title }}" loading="lazy">
                 
                 <div class="portfolio-links">
@@ -1007,8 +1007,8 @@
                     <div class="ve-insight-img" style="background-image:url('{{ $bgImage }}');"></div>
                     <div class="ve-insight-body">
                         <span class="ve-insight-cat">{{ $catName }}</span>
-                        <h5><a href="{{ url('/blog/' . $artikel->id) }}">{{ Str::limit($artikel->title, 55) }}</a></h5>
-                        <p>{{ Str::limit(strip_tags($artikel->content ?? 'Blog informatif dari Elcoding membahas berbagai topik seputar teknologi, pemrograman, dan dunia digital...'), 90) }}</p>
+                        <h5><a href="{{ url('/blog/' . $artikel->id) }}">{{ \Illuminate\Support\Str::limit($artikel->title, 55) }}</a></h5>
+                        <p>{{ \Illuminate\Support\Str::limit(strip_tags($artikel->content ?? 'Blog informatif dari Elcoding membahas berbagai topik seputar teknologi, pemrograman, dan dunia digital...'), 90) }}</p>
                         <div class="ve-insight-meta">
                             <span><i class="far fa-calendar-alt"></i> {{ $artikel->published_at ? \Carbon\Carbon::parse($artikel->published_at)->format('F d, Y') : $artikel->created_at->format('F d, Y') }}</span>
                             <a href="{{ url('/blog/' . $artikel->id) }}" style="color:#4B6BF5; font-size:14px; font-weight:600; text-decoration:none;">Baca <i class="fas fa-arrow-right" style="margin-left:5px;"></i></a>

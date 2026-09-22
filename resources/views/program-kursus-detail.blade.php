@@ -227,7 +227,11 @@
 
                     <div class="form-group">
                         <label class="form-label" for="user_email">Alamat Email</label>
-                        <input type="email" name="user_email" id="user_email" class="form-input" placeholder="contoh@email.com" required value="{{ old('user_email') }}">
+                        <input type="email" name="user_email" id="user_email" class="form-input" placeholder="contoh@email.com" required value="{{ old('user_email', auth()->user()->email ?? '') }}">
+                        <p class="text-[11px] font-semibold text-amber-600 mt-1.5 flex gap-1 items-start leading-tight">
+                            <i class="fas fa-info-circle mt-0.5"></i> 
+                            Pastikan email yang Anda gunakan sama dengan email akun Elcoding Anda agar akses kelas dapat terbuka otomatis.
+                        </p>
                     </div>
 
                     <div class="form-group">

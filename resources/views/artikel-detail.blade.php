@@ -2,7 +2,7 @@
     $images = ['Magang-Online.webp', 'Skill-Lab.webp', 'Magang-Mahasiswa.webp'];
     $randomImg = $images[$artikel->id % 3];
     $bgImage = $artikel->image_path ? asset($artikel->image_path) : asset('assets/wp-content/uploads/2026/02/'.$randomImg);
-    $excerpt = Str::limit(strip_tags($artikel->content ?? 'Blog informatif dari Elcoding.'), 150);
+    $excerpt = \Illuminate\Support\\Illuminate\Support\Str::limit(strip_tags($artikel->content ?? 'Blog informatif dari Elcoding.'), 150);
 @endphp
 <x-layout>
     <x-slot:title>{{ $artikel->title }}</x-slot>
@@ -251,7 +251,7 @@
                             <div class="ve-recent-post">
                                 <div class="ve-rp-img" style="background-image:url('{{ $bgImageRp }}');"></div>
                                 <div class="ve-rp-info">
-                                    <a href="{{ url('/blog/' . $rp->id) }}">{{ Str::limit($rp->title, 45) }}</a>
+                                    <a href="{{ url('/blog/' . $rp->id) }}">{{ \Illuminate\Support\\Illuminate\Support\Str::limit($rp->title, 45) }}</a>
                                     <span><i class="far fa-calendar-alt"></i> {{ $rp->published_at ? \Carbon\Carbon::parse($rp->published_at)->format('F d') : $rp->created_at->format('F d') }}</span>
                                 </div>
                             </div>
@@ -263,29 +263,32 @@
         </div>
     </section>
 @push('schema')
-<script type="application/ld+json">
-{
-  "@@context": "https://schema.org",
-  "@@type": "Article",
-  "headline": "{{ $artikel->title }}",
-  "image": [
-    "{{ $bgImage }}"
+@php
+$schema = [
+  "@context" => "https://schema.org",
+  "@type" => "Article",
+  "headline" => $artikel->title,
+  "image" => [ $bgImage ],
+  "datePublished" => $artikel->published_at ? \Carbon\Carbon::parse($artikel->published_at)->toIso8601String() : $artikel->created_at->toIso8601String(),
+  "dateModified" => $artikel->updated_at->toIso8601String(),
+  "author" => [
+      [
+          "@type" => "Person",
+          "name" => $artikel->author->name ?? 'Admin Elcoding'
+      ]
   ],
-  "datePublished": "{{ $artikel->published_at ? \Carbon\Carbon::parse($artikel->published_at)->toIso8601String() : $artikel->created_at->toIso8601String() }}",
-  "dateModified": "{{ $artikel->updated_at->toIso8601String() }}",
-  "author": [{
-      "@@type": "Person",
-      "name": "{{ $artikel->author->name ?? 'Admin Elcoding' }}"
-  }],
-  "publisher": {
-    "@@type": "Organization",
-    "name": "Elcoding Academy",
-    "logo": {
-      "@@type": "ImageObject",
-      "url": "{{ asset('gambar/aset/logo.png?v=2') }}"
-    }
-  }
-}
+  "publisher" => [
+    "@type" => "Organization",
+    "name" => "Elcoding Academy",
+    "logo" => [
+      "@type" => "ImageObject",
+      "url" => asset('gambar/aset/logo.png?v=2')
+    ]
+  ]
+];
+@endphp
+<script type="application/ld+json">
+{!! json_encode($schema, JSON_UNESCAPED_SLASHES) !!}
 </script>
 @endpush
 </x-layout>

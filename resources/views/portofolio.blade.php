@@ -58,14 +58,14 @@
             <li class="filter-active" data-filter="all">All</li>
             @foreach($portfolioCategories as $cat)
                 @if($cat)
-                    <li data-filter="{{ Str::slug($cat) }}">{{ $cat }}</li>
+                    <li data-filter="{{ \Illuminate\Support\Str::slug($cat) }}">{{ $cat }}</li>
                 @endif
             @endforeach
         </ul>
 
         <div class="presento-portfolio-grid">
             @foreach($portofolios as $portofolio)
-            <div class="presento-portfolio-item" data-category="{{ Str::slug($portofolio->category) }}">
+            <div class="presento-portfolio-item" data-category="{{ \Illuminate\Support\Str::slug($portofolio->category) }}">
                 <img src="{{ asset($portofolio->image_path ?? 'assets/wp-content/uploads/2026/02/Garap-Edu.webp') }}" alt="{{ $portofolio->title }}" loading="lazy">
                 
                 <div class="portfolio-links">

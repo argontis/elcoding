@@ -68,7 +68,7 @@
                             <div class="ve-insight-body">
                                 <span class="ve-insight-cat">{{ $artikel->category }}</span>
                                 <h5><a href="{{ url('/blog/' . $artikel->id) }}">{{ $artikel->title }}</a></h5>
-                                <p>{{ Str::limit(strip_tags($artikel->content ?? 'Blog informatif dari Elcoding membahas berbagai topik seputar teknologi, pemrograman, dan dunia digital...'), 120) }}</p>
+                                <p>{{ \Illuminate\Support\Str::limit(strip_tags($artikel->content ?? 'Blog informatif dari Elcoding membahas berbagai topik seputar teknologi, pemrograman, dan dunia digital...'), 120) }}</p>
                                 <div class="ve-insight-meta">
                                     <span><i class="far fa-calendar-alt"></i> {{ $artikel->published_at ? \Carbon\Carbon::parse($artikel->published_at)->format('F d') : $artikel->created_at->format('F d') }}</span>
                                     <a href="{{ url('/blog/' . $artikel->id) }}" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
@@ -125,7 +125,7 @@
                             <div class="ve-recent-post">
                                 <div class="ve-rp-img" style="background-image:url('{{ $bgImageRp }}');"></div>
                                 <div class="ve-rp-info">
-                                    <a href="{{ url('/blog/' . $rp->id) }}">{{ Str::limit($rp->title, 45) }}</a>
+                                    <a href="{{ url('/blog/' . $rp->id) }}">{{ \Illuminate\Support\Str::limit($rp->title, 45) }}</a>
                                     <span><i class="far fa-calendar-alt"></i> {{ $rp->published_at ? \Carbon\Carbon::parse($rp->published_at)->format('F d') : $rp->created_at->format('F d') }}</span>
                                 </div>
                             </div>

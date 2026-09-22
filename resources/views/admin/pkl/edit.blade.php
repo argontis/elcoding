@@ -122,7 +122,10 @@
                         </select>
                     </div>
 
-
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Divisi / Posisi Magang</label>
+                        <input type="text" name="division" value="{{ old('division', $profile->division) }}" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-blue-500" placeholder="Misal: Web Developer">
+                    </div>
                 </div>
 
                 <div>

@@ -81,7 +81,7 @@
 
                         <div class="bg-slate-950/60 p-3.5 rounded-xl border border-slate-800 space-y-1">
                             <span class="text-slate-500 block">Program / Divisi Magang</span>
-                            <strong class="text-blue-400">{{ $certificate->profile->program->title ?? $certificate->profile->program->name ?? 'IT & Development' }}</strong>
+                            <strong class="text-blue-400">{{ $certificate->profile->division ?? 'IT & Development' }}</strong>
                         </div>
 
                         <div class="bg-slate-950/60 p-3.5 rounded-xl border border-slate-800 space-y-1">

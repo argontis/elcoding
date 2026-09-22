@@ -45,7 +45,7 @@ class PklRegisterController extends Controller
             'phone_number' => 'required|string|max:30',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'program_id' => 'required|exists:program_kursuses,id',
+            'division' => 'required|string|max:255',
             'address' => 'nullable|string',
         ]);
 
@@ -65,80 +65,30 @@ class PklRegisterController extends Controller
                 'start_date' => $request->start_date,
                 'end_date' => $request->end_date,
                 'status' => 'active',
-                'program_id' => $request->program_id,
+                'division' => $request->division,
+                'program_id' => null, // Kept for legacy compatibility if needed
             ]
         );
 
-        $program = ProgramKursus::findOrFail($request->program_id);
-
-        // Auto-generate Invoice for selected program if none exists
+        // Auto-generate default pending invoice (Wait, the user creates them manually or what?)
+        // Let's create a pending default invoice with Rp0 so they can manage it later or manually add one
         $existingInvoice = \App\Models\PklInvoice::where('pkl_profile_id', $profile->id)->first();
         if (!$existingInvoice) {
-            $rawPrice = preg_replace('/[^0-9]/', '', $program->price ?? '0');
-            $amount = floatval($rawPrice) > 0 ? floatval($rawPrice) : 0;
-            $invoiceStatus = $amount == 0 ? 'paid' : 'pending';
-
             \App\Models\PklInvoice::create([
                 'pkl_profile_id' => $profile->id,
                 'invoice_code' => 'INV-PKL-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -4)),
-                'amount' => $amount,
-                'description' => 'Biaya Pendaftaran & Akses Kelas ' . ($program->title ?? $program->name ?? 'PKL / Magang'),
-                'status' => $invoiceStatus,
-                'paid_at' => $invoiceStatus === 'paid' ? now() : null,
+                'amount' => 0, // Default to 0, admin can add actual invoice later
+                'description' => 'Biaya Registrasi & Administrasi Magang',
+                'status' => 'pending',
+                'due_date' => now()->addDays(7),
+                'paid_at' => null,
             ]);
         }
 
-        // Initialize default modules if program has no modules yet
-        $modulesCount = \App\Models\ProgramModule::where('program_id', $program->id)->count();
-        if ($modulesCount === 0) {
-            $defaultModules = [
-                [
-                    'title' => 'Materi 1: Pengenalan & Fundamental Program',
-                    'type' => 'materi',
-                    'description' => 'Memahami gambaran umum divisi, alur kerja tim, dan aturan pelaksanaan magang.',
-                    'content' => 'Selamat datang di program magang! Di modul ini Anda akan mempelajari dasar-dasar industri dan workflow tim.',
-                    'order_index' => 1,
-                ],
-                [
-                    'title' => 'Quiz 1: Evaluasi Pemahaman Fundamental',
-                    'type' => 'quiz',
-                    'description' => 'Kuis evaluasi tingkat dasar untuk menguji pemahaman konsep awal.',
-                    'order_index' => 2,
-                ],
-                [
-                    'title' => 'Tugas 1: Setup Development Environment & Laporan Awal',
-                    'type' => 'tugas',
-                    'description' => 'Instalasi tools kerja, setup environment, dan pembuatan laporan rencana kerja.',
-                    'order_index' => 3,
-                ],
-                [
-                    'title' => 'Materi 2: Arsitektur Sistem & Best Practices Coding',
-                    'type' => 'materi',
-                    'description' => 'Teknik penulisan kode bersih, struktur arsitektur project, dan integrasi database.',
-                    'content' => 'Modul ini mendalami implementasi teknis, clean code, serta penggunaan git repository.',
-                    'order_index' => 4,
-                ],
-                [
-                    'title' => 'Quiz 2: Evaluasi Teknikal & Problem Solving',
-                    'type' => 'quiz',
-                    'description' => 'Kuis evaluasi tingkat menengah mencakup logika program dan penanganan masalah.',
-                    'order_index' => 5,
-                ],
-                [
-                    'title' => 'Final Project: Pengembangan Sistem / Aplikasi Akhir',
-                    'type' => 'project',
-                    'description' => 'Proyek akhir mandiri/kelompok sebagai syarat kelulusan sertifikasi magang.',
-                    'order_index' => 6,
-                ],
-            ];
-
-            foreach ($defaultModules as $mod) {
-                \App\Models\ProgramModule::create(array_merge($mod, ['program_id' => $program->id]));
-            }
-        }
-
-        // Initialize Student Progress for all program modules
-        $programModules = \App\Models\ProgramModule::where('program_id', $program->id)->orderBy('order_index')->get();
+        // Initialize Student Progress for all program modules is skipped since we don't link to program_id anymore.
+        // If they buy a course, the PklStudentDashboardController will handle modules based on purchased courses as requested earlier?
+        // Wait, the user previously requested: "saat program kursus/event telah dibeli maka muncul di modul silabus bukan 'Belum Ada Modul Belajar' tapi kumpulan card materi yang telah dibeli". This means modules will be tied to user's purchases, not the registration program.
+        $programModules = [];
         foreach ($programModules as $module) {
             \App\Models\PklStudentProgress::firstOrCreate(
                 [

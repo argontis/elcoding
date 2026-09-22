@@ -36,7 +36,7 @@
                     </p>
                     <p class="text-xs text-slate-400 pt-2 leading-relaxed">
                         Telah menyelesaikan seluruh rangkaian Praktik Kerja Lapangan (PKL) / Magang di elc.my.id 
-                        pada divisi <strong class="text-blue-400">{{ $profile->program ? ($profile->program->title ?? $profile->program->name) : 'IT & Development' }}</strong>
+                        pada divisi <strong class="text-blue-400">{{ $profile->division ?? 'IT & Development' }}</strong>
                         dengan hasil akhir predikat:
                     </p>
                     <div class="inline-block px-5 py-2 bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-black text-lg rounded-2xl shadow-lg shadow-amber-500/20">

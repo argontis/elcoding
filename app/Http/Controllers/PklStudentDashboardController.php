@@ -90,7 +90,7 @@ class PklStudentDashboardController extends Controller
             'major' => 'required|string|max:255',
             'student_id_number' => 'nullable|string|max:100',
             'phone_number' => 'required|string|max:30',
-            'program_id' => 'nullable|exists:program_kursuses,id',
+            'division' => 'nullable|string|max:255',
             'address' => 'nullable|string',
         ]);
 
@@ -104,8 +104,8 @@ class PklStudentDashboardController extends Controller
             'major' => $request->major,
             'student_id_number' => $request->student_id_number,
             'phone_number' => $request->phone_number,
-            'program_id' => $request->program_id,
             'address' => $request->address,
+            'division' => $request->division,
         ]);
 
         return redirect()->route('pkl.profile')->with('success', 'Profil berhasil diperbarui.');

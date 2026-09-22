@@ -21,10 +21,10 @@
                         <i class="fas fa-calendar-alt text-blue-400"></i>
                         <span>Periode: {{ $profile->start_date ? $profile->start_date->format('d M Y') : '-' }} s/d {{ $profile->end_date ? $profile->end_date->format('d M Y') : '-' }}</span>
                     </div>
-                    @if($profile->program)
+                    @if($profile->division)
                         <div class="flex items-center gap-1.5 bg-slate-900/60 px-3 py-1.5 rounded-lg border border-slate-700/50">
                             <i class="fas fa-graduation-cap text-indigo-400"></i>
-                            <span>Divisi: {{ $profile->program->title ?? $profile->program->name }}</span>
+                            <span>Divisi: {{ $profile->division }}</span>
                         </div>
                     @endif
                 </div>

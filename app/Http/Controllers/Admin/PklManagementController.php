@@ -73,7 +73,7 @@ class PklManagementController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
             'status' => 'required|string|in:active,completed,inactive,pending',
             'mentor_id' => 'nullable|exists:users,id',
-            'program_id' => 'nullable|exists:program_kursuses,id',
+            'division' => 'nullable|string|max:255',
         ]);
 
         $user = User::create([
@@ -94,7 +94,7 @@ class PklManagementController extends Controller
             'end_date' => $request->end_date,
             'status' => $request->status,
             'mentor_id' => $request->mentor_id,
-            'program_id' => $request->program_id,
+            'division' => $request->division,
         ]);
 
         PklHistory::create([
@@ -153,7 +153,7 @@ class PklManagementController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
             'status' => 'required|string|in:active,completed,inactive,pending',
             'mentor_id' => 'nullable|exists:users,id',
-            'program_id' => 'nullable|exists:program_kursuses,id',
+            'division' => 'nullable|string|max:255',
         ]);
 
         $user->update([
@@ -175,7 +175,7 @@ class PklManagementController extends Controller
             'end_date' => $request->end_date,
             'status' => $request->status,
             'mentor_id' => $request->mentor_id,
-            'program_id' => $request->program_id,
+            'division' => $request->division,
         ]);
 
         return redirect()->route('admin.pkl.show', $profile->id)->with('success', 'Data peserta PKL berhasil diperbarui!');

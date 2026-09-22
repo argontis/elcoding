@@ -8,6 +8,9 @@ use App\Models\PklProfile;
 use App\Models\PklTask;
 use App\Models\PklQuiz;
 use App\Models\PklInvoice;
+use App\Models\Event;
+use App\Models\Order;
+use App\Models\EventOrder;
 use App\Models\PklPortfolio;
 use App\Models\PklCertificate;
 use App\Models\PklHistory;
@@ -125,8 +128,9 @@ class PklManagementController extends Controller
 
         $mentors = $this->getMentors();
         $programs = ProgramKursus::all();
+        $events = Event::all();
 
-        return view('admin.pkl.show', compact('profile', 'mentors', 'programs'));
+        return view('admin.pkl.show', compact('profile', 'mentors', 'programs', 'events'));
     }
 
     public function edit($id)
@@ -309,6 +313,8 @@ class PklManagementController extends Controller
             'description' => 'required|string|max:255',
             'due_days' => 'required|integer|min:1',
             'valid_days' => 'nullable|integer|min:1',
+            'granted_programs' => 'nullable|array',
+            'granted_events' => 'nullable|array',
         ]);
 
         $code = 'INV-PKL-' . date('Ymd') . '-' . rand(100, 999);
@@ -322,6 +328,8 @@ class PklManagementController extends Controller
             'status' => 'pending',
             'due_date' => $dueDate,
             'valid_days' => $request->valid_days,
+            'granted_programs' => $request->granted_programs,
+            'granted_events' => $request->granted_events,
         ]);
 
         PklHistory::create([
@@ -354,8 +362,50 @@ class PklManagementController extends Controller
             'valid_until' => $validUntil,
         ]);
 
-        if ($request->status === 'paid' && $invoice->pklProfile) {
-            $invoice->pklProfile->update(['status' => 'active']);
+        if ($request->status === 'paid') {
+            if ($invoice->pklProfile) {
+                $invoice->pklProfile->update(['status' => 'active']);
+            }
+
+            // Grant programs
+            if (is_array($invoice->granted_programs) && count($invoice->granted_programs) > 0) {
+                $userEmail = $invoice->profile->user->email;
+                $userName = $invoice->profile->user->name;
+                $userPhone = $invoice->profile->whatsapp ?? '0000';
+
+                foreach ($invoice->granted_programs as $progId) {
+                    Order::firstOrCreate([
+                        'user_email' => $userEmail,
+                        'program_kursus_id' => $progId
+                    ], [
+                        'external_id' => $invoice->invoice_code . '-P' . $progId,
+                        'user_name' => $userName,
+                        'user_phone' => $userPhone,
+                        'amount' => 0,
+                        'status' => 'PAID',
+                    ])->update(['status' => 'PAID']);
+                }
+            }
+
+            // Grant events
+            if (is_array($invoice->granted_events) && count($invoice->granted_events) > 0) {
+                $userEmail = $invoice->profile->user->email;
+                $userName = $invoice->profile->user->name;
+                $userPhone = $invoice->profile->whatsapp ?? '0000';
+
+                foreach ($invoice->granted_events as $eventId) {
+                    EventOrder::firstOrCreate([
+                        'user_email' => $userEmail,
+                        'event_id' => $eventId
+                    ], [
+                        'external_id' => $invoice->invoice_code . '-E' . $eventId,
+                        'user_name' => $userName,
+                        'user_phone' => $userPhone,
+                        'amount' => 0,
+                        'status' => 'PAID',
+                    ])->update(['status' => 'PAID']);
+                }
+            }
         }
 
         PklHistory::create([

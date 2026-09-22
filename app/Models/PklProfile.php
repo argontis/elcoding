@@ -75,12 +75,14 @@ class PklProfile extends Model
         $totalTasks = $this->tasks()->count();
         $completedTasks = $this->tasks()->whereIn('status', ['completed', 'reviewed'])->count();
 
-        $totalItems = $totalModules + $totalTasks;
+        $totalQuizzes = $this->quizzes()->count();
+
+        $totalItems = $totalModules + $totalTasks + $totalQuizzes;
         if ($totalItems === 0) {
             return 0;
         }
 
-        $completedItems = $completedModules + $completedTasks;
+        $completedItems = $completedModules + $completedTasks + $totalQuizzes;
         return round(($completedItems / $totalItems) * 100);
     }
 }

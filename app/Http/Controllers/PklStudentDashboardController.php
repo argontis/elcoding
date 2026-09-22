@@ -16,6 +16,7 @@ class PklStudentDashboardController extends Controller
 {
     private function getProfile()
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         $profile = PklProfile::where('user_id', $user->id)
             ->with(['mentor', 'program', 'certificate'])
@@ -93,6 +94,7 @@ class PklStudentDashboardController extends Controller
             'address' => 'nullable|string',
         ]);
 
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         $user->name = $request->name;
         $user->save();
@@ -196,7 +198,9 @@ class PklStudentDashboardController extends Controller
         }
 
         // Fetch purchased programs and events
-        $userEmail = Auth::user()->email;
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $userEmail = $user->email;
         $purchasedProgramIds = \App\Models\Order::where('user_email', $userEmail)
             ->whereIn('status', ['paid', 'PAID', 'SETTLED'])
             ->pluck('program_kursus_id')

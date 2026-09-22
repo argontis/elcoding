@@ -53,13 +53,20 @@
             
             <div>
                 <label class="block text-sm font-medium text-slate-700 mb-1">Upload Materi Pendukung (PDF)</label>
-                @if(isset($data) && $data->materi_pdf)
-                    <div class="mb-3 text-sm text-blue-600">
-                        <i class="fas fa-file-pdf mr-1"></i> <a href="{{ asset(str_replace(' ', '%20', $data->materi_pdf)) }}" target="_blank" class="hover:underline">Lihat Materi Saat Ini</a>
+                @if(isset($data) && $data->materi_pdf && is_array($data->materi_pdf) && count($data->materi_pdf) > 0)
+                    <div class="mb-3">
+                        <p class="text-sm font-medium text-slate-600 mb-2">Materi Terunggah:</p>
+                        <div class="flex flex-col gap-2">
+                        @foreach($data->materi_pdf as $index => $pdf)
+                            <div class="flex items-center gap-2 text-sm text-blue-600">
+                                <i class="fas fa-file-pdf"></i> <a href="{{ asset(str_replace(' ', '%20', $pdf)) }}" target="_blank" class="hover:underline">Materi {{ $index + 1 }}</a>
+                            </div>
+                        @endforeach
+                        </div>
                     </div>
                 @endif
-                <input type="file" name="materi_pdf" accept=".pdf" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50">
-                <p class="text-xs text-slate-400 mt-1">Format harus PDF. Kosongkan jika belum ada materi atau tidak ingin mengubahnya.</p>
+                <input type="file" name="materi_pdf[]" multiple accept=".pdf" class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50">
+                <p class="text-xs text-slate-400 mt-1">Format harus PDF. Bisa pilih lebih dari 1 file sekaligus. Kosongkan jika tidak ingin menambah materi baru.</p>
             </div>
             <div>
                 <label class="block text-sm font-medium text-slate-700 mb-1">Poin-poin Fitur Program</label>

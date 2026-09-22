@@ -21,6 +21,7 @@ class PklRegisterController extends Controller
         }
 
         $programs = ProgramKursus::all();
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         $profile = PklProfile::where('user_id', $user->id)->first();
 
@@ -34,6 +35,7 @@ class PklRegisterController extends Controller
             return redirect()->route('login')->with('status', 'Silakan login terlebih dahulu sebelum memilih program PKL / Magang.');
         }
 
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         $request->validate([
@@ -67,7 +69,7 @@ class PklRegisterController extends Controller
             ]
         );
 
-        $program = ProgramKursus::find($request->program_id);
+        $program = ProgramKursus::findOrFail($request->program_id);
 
         // Auto-generate Invoice for selected program if none exists
         $existingInvoice = \App\Models\PklInvoice::where('pkl_profile_id', $profile->id)->first();

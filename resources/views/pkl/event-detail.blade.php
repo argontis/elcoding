@@ -105,10 +105,16 @@
                     Daftar Sekarang <i class="fas fa-external-link-alt ml-1 text-xs opacity-70"></i>
                 </a>
                 
-                @if($event->materi_pdf)
-                <a href="{{ asset($event->materi_pdf) }}" target="_blank" class="mt-4 block w-full py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-center rounded-xl transition shadow-lg shadow-orange-500/30">
-                    <i class="fas fa-file-pdf mr-2"></i> Download Materi PDF
-                </a>
+                @if($event->materi_pdf && is_array($event->materi_pdf) && count($event->materi_pdf) > 0)
+                    @foreach($event->materi_pdf as $index => $pdf)
+                        <a href="{{ asset($pdf) }}" target="_blank" class="mt-4 block w-full py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-center rounded-xl transition shadow-lg shadow-orange-500/30">
+                            <i class="fas fa-file-pdf mr-2"></i> Download Materi {{ count($event->materi_pdf) > 1 ? $index + 1 : 'PDF' }}
+                        </a>
+                    @endforeach
+                @elseif($event->materi_pdf && !is_array($event->materi_pdf))
+                    <a href="{{ asset($event->materi_pdf) }}" target="_blank" class="mt-4 block w-full py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-center rounded-xl transition shadow-lg shadow-orange-500/30">
+                        <i class="fas fa-file-pdf mr-2"></i> Download Materi PDF
+                    </a>
                 @endif
                 
                 <p class="text-center text-xs text-slate-500 mt-4">

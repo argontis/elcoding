@@ -129,16 +129,23 @@
                 <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
                     <h4 class="text-sm font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2">Materi Event (PDF)</h4>
                     
-                    @if(isset($data) && $data->materi_pdf)
-                        <div class="mb-4 text-sm text-blue-600">
-                            <i class="fas fa-file-pdf mr-1"></i> <a href="{{ asset(str_replace(' ', '%20', $data->materi_pdf)) }}" target="_blank" class="hover:underline">Lihat Materi Saat Ini</a>
+                    @if(isset($data) && $data->materi_pdf && is_array($data->materi_pdf) && count($data->materi_pdf) > 0)
+                        <div class="mb-4">
+                            <p class="text-xs font-semibold text-slate-700 mb-2">Materi Terunggah:</p>
+                            <div class="flex flex-col gap-2">
+                            @foreach($data->materi_pdf as $index => $pdf)
+                                <div class="text-sm text-blue-600">
+                                    <i class="fas fa-file-pdf mr-1"></i> <a href="{{ asset(str_replace(' ', '%20', $pdf)) }}" target="_blank" class="hover:underline">Materi {{ $index + 1 }}</a>
+                                </div>
+                            @endforeach
+                            </div>
                         </div>
                     @endif
                     
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-2">Upload File PDF</label>
-                        <input type="file" name="materi_pdf" accept=".pdf" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 cursor-pointer">
-                        <p class="text-[10px] text-slate-500 mt-2">Hanya format .pdf. Biarkan kosong jika tidak ada materi.</p>
+                        <input type="file" name="materi_pdf[]" multiple accept=".pdf" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 cursor-pointer">
+                        <p class="text-[10px] text-slate-500 mt-2">Hanya format .pdf. Bisa upload lebih dari 1 file.</p>
                     </div>
                 </div>
 

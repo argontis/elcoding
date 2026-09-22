@@ -307,9 +307,11 @@ class PklManagementController extends Controller
         $request->validate([
             'amount' => 'required|numeric|min:0',
             'description' => 'required|string|max:255',
+            'due_days' => 'required|integer|min:1',
         ]);
 
         $code = 'INV-PKL-' . date('Ymd') . '-' . rand(100, 999);
+        $dueDate = now()->addDays($request->due_days);
 
         PklInvoice::create([
             'pkl_profile_id' => $profile->id,
@@ -317,6 +319,7 @@ class PklManagementController extends Controller
             'amount' => $request->amount,
             'description' => $request->description,
             'status' => 'pending',
+            'due_date' => $dueDate,
         ]);
 
         PklHistory::create([

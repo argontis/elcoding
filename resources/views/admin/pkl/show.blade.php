@@ -295,11 +295,16 @@
                             <span class="font-mono font-bold text-xs text-blue-600">{{ $inv->invoice_code }}</span>
                             @if($inv->status === 'paid')
                                 <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 font-bold text-[10px] rounded">LUNAS</span>
+                            @elseif($inv->status === 'cancelled')
+                                <span class="px-2 py-0.5 bg-slate-100 text-slate-700 font-bold text-[10px] rounded">CANCELLED</span>
                             @else
                                 <span class="px-2 py-0.5 bg-red-100 text-red-700 font-bold text-[10px] rounded">PENDING</span>
                             @endif
                         </div>
                         <p class="font-bold text-slate-800 text-sm">Rp {{ number_format($inv->amount, 0, ',', '.') }} &bull; <span class="font-normal text-slate-600">{{ $inv->description }}</span></p>
+                        @if($inv->status === 'pending' && $inv->due_date)
+                            <p class="text-[10px] text-red-600 mt-0.5"><i class="fas fa-clock mr-1"></i>Jatuh tempo: {{ \Carbon\Carbon::parse($inv->due_date)->format('d M Y H:i') }}</p>
+                        @endif
                         @if($inv->proof_file)
                             <p class="text-xs text-blue-600 font-semibold">
                                 <i class="fas fa-image mr-1"></i> <a href="{{ asset('storage/' . $inv->proof_file) }}" target="_blank" class="underline">Lihat Bukti Transfer</a>
@@ -492,6 +497,11 @@
             <div>
                 <label class="block text-xs font-semibold text-slate-600 mb-1">Nominal (Rp) *</label>
                 <input type="number" name="amount" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 font-bold" placeholder="500000">
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Periode Jatuh Tempo (Hari)</label>
+                <input type="number" name="due_days" min="1" value="7" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 font-bold" placeholder="7">
+                <p class="text-[10px] text-slate-500 mt-1">Jika lewat tempo dan belum lunas, akun akan dinonaktifkan otomatis.</p>
             </div>
             <div class="flex justify-end gap-2 pt-2">
                 <button type="button" onclick="document.getElementById('modal-add-invoice').classList.add('hidden')" class="px-4 py-2 bg-slate-200 text-xs font-semibold rounded-xl">Batal</button>

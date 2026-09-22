@@ -13,6 +13,7 @@ class PklInvoice extends Model
 
     protected $casts = [
         'paid_at' => 'datetime',
+        'due_date' => 'datetime',
         'amount' => 'decimal:2',
     ];
 

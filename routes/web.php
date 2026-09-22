@@ -291,6 +291,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/pkl/{id}', [\App\Http\Controllers\Admin\PklManagementController::class, 'show'])->name('admin.pkl.show');
         Route::get('/pkl/{id}/edit', [\App\Http\Controllers\Admin\PklManagementController::class, 'edit'])->name('admin.pkl.edit');
         Route::put('/pkl/{id}', [\App\Http\Controllers\Admin\PklManagementController::class, 'update'])->name('admin.pkl.update');
+        Route::put('/pkl/{id}/toggle-status', [\App\Http\Controllers\Admin\PklManagementController::class, 'toggleStatus'])->name('admin.pkl.toggleStatus');
         Route::delete('/pkl/{id}', [\App\Http\Controllers\Admin\PklManagementController::class, 'destroy'])->name('admin.pkl.destroy');
         Route::post('/pkl/{id}/assign-mentor', [\App\Http\Controllers\Admin\PklManagementController::class, 'assignMentor'])->name('admin.pkl.assignMentor');
         Route::post('/pkl/{id}/add-task', [\App\Http\Controllers\Admin\PklManagementController::class, 'addTask'])->name('admin.pkl.addTask');

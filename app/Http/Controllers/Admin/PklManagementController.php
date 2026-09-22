@@ -404,4 +404,37 @@ class PklManagementController extends Controller
 
         return redirect()->back()->with('success', 'Sertifikat kelulusan berhasil diterbitkan!');
     }
-}
+
+    public function toggleStatus(Request $request, $id)
+    {
+        $profile = PklProfile::findOrFail($id);
+        
+        if ($profile->status === 'active') {
+            $profile->update(['status' => 'inactive']);
+            $message = 'Akun PKL berhasil dinonaktifkan.';
+            
+            PklHistory::create([
+                'pkl_profile_id' => $profile->id,
+                'activity_type' => 'account_deactivated',
+                'title' => 'Akun Dinonaktifkan Manual',
+                'description' => 'Admin telah menonaktifkan akun ini.',
+                'icon' => 'fa-user-slash',
+                'logged_at' => now(),
+            ]);
+        } else {
+            $profile->update(['status' => 'active']);
+            $message = 'Akun PKL berhasil diaktifkan.';
+            
+            PklHistory::create([
+                'pkl_profile_id' => $profile->id,
+                'activity_type' => 'account_activated',
+                'title' => 'Akun Diaktifkan Manual',
+                'description' => 'Admin telah mengaktifkan kembali akun ini.',
+                'icon' => 'fa-user-check',
+                'logged_at' => now(),
+            ]);
+        }
+
+        return redirect()->back()->with('success', $message);
+    }
+    }

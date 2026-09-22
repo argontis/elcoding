@@ -68,6 +68,15 @@ class AuthController extends Controller
                                 ->first();
 
         if ($user) {
+            if ($user->isPklStudent()) {
+                $pklProfile = \App\Models\PklProfile::where('user_id', $user->id)->first();
+                if ($pklProfile && $pklProfile->status === 'inactive') {
+                    return back()->withErrors([
+                        'nomor_kartu' => 'Akun PKL/Magang Anda sedang dinonaktifkan. Silakan selesaikan pembayaran atau hubungi admin.',
+                    ])->onlyInput('nomor_kartu');
+                }
+            }
+
             Auth::guard('web')->login($user);
             $request->session()->regenerate();
 

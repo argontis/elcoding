@@ -11,6 +11,19 @@
             <i class="fas fa-arrow-left"></i> Kembali ke Daftar PKL
         </a>
         <div class="flex items-center gap-2">
+            <form action="{{ route('admin.pkl.toggleStatus', $profile->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                @if($profile->status === 'active')
+                    <button type="submit" class="px-3.5 py-1.5 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white text-xs font-bold rounded-lg transition border border-red-200" onclick="return confirm('Yakin ingin menonaktifkan akun ini?');">
+                        <i class="fas fa-ban mr-1"></i> Nonaktifkan Akun
+                    </button>
+                @else
+                    <button type="submit" class="px-3.5 py-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white text-xs font-bold rounded-lg transition border border-emerald-200" onclick="return confirm('Yakin ingin mengaktifkan akun ini?');">
+                        <i class="fas fa-check mr-1"></i> Aktifkan Akun
+                    </button>
+                @endif
+            </form>
             <a href="{{ route('admin.pkl.edit', $profile->id) }}" class="px-3.5 py-1.5 bg-amber-50 text-amber-600 hover:bg-amber-600 hover:text-white text-xs font-bold rounded-lg transition border border-amber-200">
                 <i class="fas fa-edit mr-1"></i> Edit Profil
             </a>

@@ -41,6 +41,16 @@ class AuthenticatedSessionController extends Controller
                                     ->first();
 
             if ($user) {
+                // Block inactive PKL student
+                if ($user->isPklStudent()) {
+                    $pklProfile = \App\Models\PklProfile::where('user_id', $user->id)->first();
+                    if ($pklProfile && $pklProfile->status === 'inactive') {
+                        throw \Illuminate\Validation\ValidationException::withMessages([
+                            'nomor_kartu' => 'Akun PKL/Magang Anda sedang dinonaktifkan. Silakan selesaikan pembayaran atau hubungi admin.',
+                        ]);
+                    }
+                }
+
                 Auth::guard('web')->login($user);
                 $request->session()->regenerate();
 
@@ -85,6 +95,20 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $user = $request->user();
+        
+        // Block inactive PKL student
+        if ($user->isPklStudent()) {
+            $pklProfile = \App\Models\PklProfile::where('user_id', $user->id)->first();
+            if ($pklProfile && $pklProfile->status === 'inactive') {
+                Auth::guard('web')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'email' => 'Akun PKL/Magang Anda sedang dinonaktifkan. Silakan selesaikan pembayaran atau hubungi admin.',
+                ]);
+            }
+        }
 
         if ($user->isAdminOrMentor()) {
             $intended = $request->session()->pull('url.intended');

@@ -88,7 +88,7 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->except('image_file', '_token');
+        $data = $request->except('image_file', 'materi_pdf', '_token');
         
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($request->title) . '-' . time();
@@ -96,6 +96,9 @@ class EventController extends Controller
         
         if ($request->hasFile('image_file')) {
             $data['image_path'] = $this->handleUpload($request, 'image_file');
+        }
+        if ($request->hasFile('materi_pdf')) {
+            $data['materi_pdf'] = $this->handleUpload($request, 'materi_pdf');
         }
 
         Event::create($data);
@@ -111,7 +114,7 @@ class EventController extends Controller
     public function update(Request $request, $id)
     {
         $event = Event::findOrFail($id);
-        $data = $request->except('image_file', '_token', '_method');
+        $data = $request->except('image_file', 'materi_pdf', '_token', '_method');
         
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($request->title) . '-' . time();
@@ -119,6 +122,9 @@ class EventController extends Controller
 
         if ($request->hasFile('image_file')) {
             $data['image_path'] = $this->handleUpload($request, 'image_file', $event->image_path);
+        }
+        if ($request->hasFile('materi_pdf')) {
+            $data['materi_pdf'] = $this->handleUpload($request, 'materi_pdf', $event->materi_pdf);
         }
 
         $event->update($data);

@@ -44,15 +44,37 @@ class AuthenticatedSessionController extends Controller
                 Auth::guard('web')->login($user);
                 $request->session()->regenerate();
 
-                if (!$user->isAdminOrMentor()) {
-                    if ($user->isPklStudent()) {
-                        return Inertia::location('/pkl/dashboard');
+                if ($user->isAdminOrMentor()) {
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('dashboard');
                     }
-                    return Inertia::location('/member/dashboard');
+                    return Inertia::location($intended);
                 }
 
-                $intended = $request->session()->pull('url.intended', '/admin');
-                return Inertia::location($intended);
+                if ($user->isPklStudent()) {
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('pkl.dashboard');
+                    }
+                    return Inertia::location($intended);
+                }
+
+                // Check if user has course or event
+                $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
+                $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
+                
+                if (!$hasCourse && !$hasEvent) {
+                    Auth::guard('web')->logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+                    
+                    throw \Illuminate\Validation\ValidationException::withMessages([
+                        'nomor_kartu' => 'Anda belum berlangganan. Silakan berlangganan program kursus atau event terlebih dahulu.',
+                    ]);
+                }
+
+                return Inertia::location(route('member.dashboard'));
             }
 
             // Fallback to Member model
@@ -67,7 +89,7 @@ class AuthenticatedSessionController extends Controller
             Auth::guard('member')->login($member);
             $request->session()->regenerate();
 
-            return Inertia::location('/member/dashboard');
+            return Inertia::location(route('member.dashboard'));
         }
 
         // Handle normal credential login
@@ -76,15 +98,39 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (!$request->user()->isAdminOrMentor()) {
-            if ($request->user()->isPklStudent()) {
-                return Inertia::location('/pkl/dashboard');
+        $user = $request->user();
+
+        if ($user->isAdminOrMentor()) {
+            $intended = $request->session()->pull('url.intended');
+            if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                $intended = route('dashboard');
             }
-            return Inertia::location('/member/dashboard');
+            return Inertia::location($intended);
         }
 
-        $intended = $request->session()->pull('url.intended', '/admin');
-        return Inertia::location($intended);
+        if ($user->isPklStudent()) {
+            $intended = $request->session()->pull('url.intended');
+            if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                $intended = route('pkl.dashboard');
+            }
+            return Inertia::location($intended);
+        }
+
+        // Check if user has course or event
+        $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
+        $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
+        
+        if (!$hasCourse && !$hasEvent) {
+            Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'email' => 'Anda belum berlangganan. Silakan berlangganan program kursus atau event terlebih dahulu.',
+            ]);
+        }
+
+        return Inertia::location(route('member.dashboard'));
     }
 
     /**

@@ -51,10 +51,10 @@ Route::get('/sitemap.xml', function () {
 // ==========================================
 Route::get('/', function () {
     setSeoMeta('Pelatihan Coding & Bootcamp IT Terbaik');
-    $mitras = \App\Models\Mitra::oldest()->get();
+    $mitras = \App\Models\Mitra::latest()->get();
     $programs = \App\Models\ProgramKursus::oldest()->take(3)->get();
-    $portofolios = \App\Models\Portofolio::oldest()->take(3)->get();
-    $artikels = \App\Models\Artikel::where('status', 'Published')->oldest()->take(3)->get();
+    $portofolios = \App\Models\Portofolio::latest()->take(3)->get();
+    $artikels = \App\Models\Artikel::where('status', 'Published')->latest()->take(3)->get();
     return view('welcome', compact('mitras', 'programs', 'portofolios', 'artikels'));
 });
 
@@ -76,7 +76,7 @@ Route::post('/xendit/layanan/callback', [\App\Http\Controllers\CheckoutLayananCo
 
 Route::get('/tentang-kami', function () {
     setSeoMeta('Tentang Kami');
-    $mitras = \App\Models\Mitra::oldest()->get();
+    $mitras = \App\Models\Mitra::latest()->get();
     return view('tentang-kami', compact('mitras'));
 });
 
@@ -85,10 +85,15 @@ Route::get('/program-kursus', function () {
     $programs = \App\Models\ProgramKursus::oldest()->paginate(9);
     return view('program-kursus', compact('programs'));
 });
-
-Route::get('/pendaftaran-bootcamp', function () {
-    return view('pendaftaran-bootcamp');
-});
+    Route::get('/pendaftaran-bootcamp', function () { return view('pendaftaran-bootcamp'); });
+    Route::get('/pendaftaran-workshop', function () { return view('pendaftaran-workshop'); });
+    Route::get('/daftar-event', function () { return view('daftar-event'); });
+    Route::get('/pendaftaran-webinar', function () { return view('daftar-event'); });
+    
+    Route::post('/daftar-event', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
+    Route::post('/pendaftaran-bootcamp', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
+    Route::post('/pendaftaran-workshop', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
+    Route::post('/program-kursus/{id}/checkout', [ProgramKursusController::class, 'checkout']);
 
 Route::get('/status-pembayaran-bootcamp', function () {
     return view('status-pembayaran-bootcamp');
@@ -97,18 +102,6 @@ Route::get('/status-pembayaran-bootcamp', function () {
 Route::get('/event-webinar', function () {
     setSeoMeta('Event & Webinar');
     return view('event-webinar');
-});
-
-Route::get('/pendaftaran-workshop', function () {
-    return view('pendaftaran-workshop');
-});
-
-Route::get('/daftar-event', function () {
-    return view('daftar-event');
-});
-
-Route::get('/pendaftaran-webinar', function () {
-    return view('daftar-event');
 });
 
 Route::get('/data-diri', function () {
@@ -127,12 +120,8 @@ Route::get('/daftar-event-berhasil', function () {
     return view('daftar-event-berhasil');
 });
 
-Route::post('/daftar-event', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
 Route::get('/event-webinar/payment/success', [\App\Http\Controllers\EventCheckoutController::class, 'paymentSuccess']);
 Route::post('/xendit/event/callback', [\App\Http\Controllers\EventCheckoutController::class, 'callback']);
-
-Route::post('/pendaftaran-bootcamp', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
-Route::post('/pendaftaran-workshop', [\App\Http\Controllers\EventCheckoutController::class, 'checkout']);
 
 Route::get('/silabus', function () {
     return view('silabus');
@@ -144,7 +133,6 @@ Route::get('/program-kursus/{id}/silabus', function ($id) {
 });
 
 Route::get('/program-kursus/{id}', [ProgramKursusController::class, 'show']);
-Route::post('/program-kursus/{id}/checkout', [ProgramKursusController::class, 'checkout']);
 Route::get('/payment/success', [ProgramKursusController::class, 'paymentSuccess']);
 Route::post('/xendit/callback', [ProgramKursusController::class, 'callback']);
 
@@ -217,6 +205,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('admin')->middleware('admin')->group(function () {
         Route::redirect('/', '/dashboard');
+        Route::redirect('/dashboard', '/dashboard');
         Route::get('/aktivitas', [AdminController::class, 'aktivitas']);
         
         // Layanan CRUD
@@ -286,7 +275,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/mou/{id}/edit', [\App\Http\Controllers\Admin\MouController::class, 'edit']);
         Route::put('/mou/{id}', [\App\Http\Controllers\Admin\MouController::class, 'update']);
         Route::delete('/mou/{id}', [\App\Http\Controllers\Admin\MouController::class, 'destroy']);
+        Route::get('/mou/{id}', [\App\Http\Controllers\Admin\MouController::class, 'show']);
         Route::get('/mou/{id}/pdf', [\App\Http\Controllers\Admin\MouController::class, 'downloadPdf']);
+        Route::get('/mou/{id}/invoice', [\App\Http\Controllers\Admin\MouController::class, 'downloadInvoicePdf']);
 
         // Transaksi & Pembayaran Kursus
         Route::get('/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index']);
@@ -329,7 +320,7 @@ Route::get('/verifikasi-sertifikat/{code?}', [\App\Http\Controllers\CertificateV
 // ==========================================
 // ROUTE PORTAL PESERTA PKL / MAGANG
 // ==========================================
-Route::middleware(['auth'])->prefix('pkl')->name('pkl.')->group(function () {
+Route::middleware(['auth', 'pkl.access'])->prefix('pkl')->name('pkl.')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\PklStudentDashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/profile', [\App\Http\Controllers\PklStudentDashboardController::class, 'profile'])->name('profile');
     Route::put('/profile', [\App\Http\Controllers\PklStudentDashboardController::class, 'updateProfile'])->name('profile.update');
@@ -345,6 +336,10 @@ Route::middleware(['auth'])->prefix('pkl')->name('pkl.')->group(function () {
     Route::delete('/portfolio/{id}', [\App\Http\Controllers\PklStudentDashboardController::class, 'destroyPortfolio'])->name('portfolio.destroy');
     Route::get('/certificate', [\App\Http\Controllers\PklStudentDashboardController::class, 'certificate'])->name('certificate');
     Route::get('/history', [\App\Http\Controllers\PklStudentDashboardController::class, 'history'])->name('history');
+    
+    // Eksplorasi Detail
+    Route::get('/program-kursus/{id}', [\App\Http\Controllers\PklStudentDashboardController::class, 'programDetail'])->name('program.detail');
+    Route::get('/event/{id}', [\App\Http\Controllers\PklStudentDashboardController::class, 'eventDetail'])->name('event.detail');
 });
 
 // ==========================================

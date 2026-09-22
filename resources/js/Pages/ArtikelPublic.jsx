@@ -172,7 +172,7 @@ export default function ArtikelPublic() {
               </p>
               <p className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-blue-600 shrink-0" /> 
-                <span>info@elcodingacademy.com</span>
+                <span>elcoding.id@gmail.com</span>
               </p>
             </div>
 

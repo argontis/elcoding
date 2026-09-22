@@ -42,6 +42,21 @@ export default function Login({ status, canResetPassword }) {
 
             <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl relative z-10 min-h-[640px] overflow-hidden flex flex-col md:flex-row">
                 
+                {/* NOTIFICATION BADGE */}
+                <div className="absolute top-4 right-4 z-50 bg-blue-50/90 backdrop-blur-sm border border-blue-200 text-blue-800 px-4 py-2.5 rounded-xl shadow-lg flex items-start gap-3 max-w-[280px]">
+                    <div className="mt-0.5">
+                        <span className="flex h-2.5 w-2.5 relative">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
+                        </span>
+                    </div>
+                    <div>
+                        <div className="font-bold text-xs tracking-wide">Info Akses Dashboard</div>
+                        <div className="text-[10px] mt-0.5 opacity-80 leading-relaxed">
+                            Dashboard PKL/Magang hanya dapat diakses setelah login dan berlangganan program.
+                        </div>
+                    </div>
+                </div>
                 {/* --- SEAMLESS SVG BACKGROUND FOR LEFT SIDE --- */}
                 <div className="absolute inset-0 z-0 pointer-events-none hidden md:block">
                     <svg width="100%" height="100%" viewBox="0 0 1000 640" preserveAspectRatio="none">
@@ -109,10 +124,10 @@ export default function Login({ status, canResetPassword }) {
                                                 <User className="w-[18px] h-[18px] fill-current" />
                                             </div>
                                             <input
-                                                type="email"
+                                                type="text"
                                                 name="email"
                                                 value={credentialForm.data.email}
-                                                placeholder="User Name"
+                                                placeholder="Username atau Email"
                                                 className="w-full !pl-12 !pr-4 !py-3.5 !bg-[#f0f2f5] !border-0 !rounded-xl text-xs font-semibold text-gray-800 focus:!ring-2 focus:!ring-blue-500 focus:!bg-white transition-all outline-none placeholder-gray-500 shadow-sm"
                                                 autoComplete="username"
                                                 onChange={(e) => credentialForm.setData('email', e.target.value)}

@@ -131,5 +131,104 @@
             </div>
         @endforelse
     </div>
+
+    <!-- Eksplorasi Program Kursus & Event -->
+    <div class="mt-16 pt-8 border-t border-slate-800">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+            <div>
+                <h2 class="text-xl font-bold text-white">Eksplorasi Program & Event</h2>
+                <p class="text-xs text-slate-400 mt-1">Tingkatkan skill Anda dengan mengikuti program kursus atau webinar</p>
+            </div>
+            
+            <!-- Search & Filter Form -->
+            <form action="{{ route('pkl.modules') }}" method="GET" class="flex flex-col sm:flex-row gap-3 w-full max-w-lg">
+                <!-- Search -->
+                <div class="relative flex-grow">
+                    <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Cari program atau event..." class="w-full bg-slate-800/60 border border-slate-700/60 rounded-xl px-4 py-2.5 pl-10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition">
+                    <i class="fas fa-search absolute left-3.5 top-3.5 text-slate-500"></i>
+                    @if(!empty($search))
+                        <a href="{{ route('pkl.modules', ['filter' => $filter ?? 'all']) }}" class="absolute right-3 top-3 text-slate-400 hover:text-white"><i class="fas fa-times"></i></a>
+                    @endif
+                </div>
+                
+                <!-- Filter -->
+                <select name="filter" onchange="this.form.submit()" class="bg-slate-800/60 border border-slate-700/60 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition cursor-pointer w-full sm:w-auto">
+                    <option value="all" {{ ($filter ?? 'all') == 'all' ? 'selected' : '' }}>Semua Kategori</option>
+                    <option value="course" {{ ($filter ?? 'all') == 'course' ? 'selected' : '' }}>Program Kursus</option>
+                    <option value="event" {{ ($filter ?? 'all') == 'event' ? 'selected' : '' }}>Event & Webinar</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="space-y-8">
+            <!-- Program Kursus -->
+            @if(($filter ?? 'all') == 'all' || ($filter ?? 'all') == 'course')
+            <div>
+                <h3 class="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2"><i class="fas fa-laptop-code text-blue-400"></i> Program Kursus</h3>
+                @if(isset($coursePrograms) && $coursePrograms->count() > 0)
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    @foreach($coursePrograms as $program)
+                    <a href="{{ route('pkl.program.detail', $program->id) }}" class="block bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden hover:border-blue-500/30 transition group">
+                        <div class="h-32 bg-slate-700/50 relative">
+                            @if($program->image_path)
+                            <img src="{{ asset($program->image_path) }}" alt="{{ $program->title }}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition">
+                            @else
+                            <div class="w-full h-full flex items-center justify-center text-slate-500">
+                                <i class="fas fa-image text-3xl"></i>
+                            </div>
+                            @endif
+                            <div class="absolute top-2 left-2 px-2 py-1 bg-blue-600/90 backdrop-blur text-white text-[10px] font-bold rounded-lg">
+                                Rp {{ number_format((int)preg_replace('/[^0-9]/', '', $program->price), 0, ',', '.') }}
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="text-sm font-bold text-white leading-tight group-hover:text-blue-400 transition">{{ $program->title }}</h4>
+                        </div>
+                    </a>
+                    @endforeach
+                </div>
+                @else
+                <div class="text-center py-6 bg-slate-800/20 border border-slate-700/30 rounded-2xl">
+                    <p class="text-xs text-slate-500">Tidak ada program kursus yang ditemukan.</p>
+                </div>
+                @endif
+            </div>
+            @endif
+
+            <!-- Event & Webinar -->
+            @if(($filter ?? 'all') == 'all' || ($filter ?? 'all') == 'event')
+            <div>
+                <h3 class="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2"><i class="fas fa-calendar-alt text-amber-400"></i> Event & Webinar</h3>
+                @if(isset($events) && $events->count() > 0)
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    @foreach($events as $event)
+                    <a href="{{ route('pkl.event.detail', $event->id) }}" class="block bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden hover:border-amber-500/30 transition group">
+                        <div class="h-32 bg-slate-700/50 relative">
+                            @if($event->image_path)
+                            <img src="{{ asset($event->image_path) }}" alt="{{ $event->title }}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition">
+                            @else
+                            <div class="w-full h-full flex items-center justify-center text-slate-500">
+                                <i class="fas fa-calendar text-3xl"></i>
+                            </div>
+                            @endif
+                            <div class="absolute top-2 left-2 px-2 py-1 bg-amber-600/90 backdrop-blur text-white text-[10px] font-bold rounded-lg">
+                                {{ $event->duration_or_date ?? 'Segera' }}
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="text-sm font-bold text-white leading-tight group-hover:text-amber-400 transition">{{ $event->title }}</h4>
+                        </div>
+                    </a>
+                    @endforeach
+                </div>
+                @else
+                <div class="text-center py-6 bg-slate-800/20 border border-slate-700/30 rounded-2xl">
+                    <p class="text-xs text-slate-500">Tidak ada event/webinar yang ditemukan.</p>
+                </div>
+                @endif
+            </div>
+            @endif
+        </div>
+    </div>
 </div>
 @endsection

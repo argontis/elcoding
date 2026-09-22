@@ -15,7 +15,10 @@ class DashboardController extends Controller
     public function index()
     {
         if (auth()->check() && !auth()->user()->isAdminOrMentor()) {
-            return redirect()->route('pkl.dashboard');
+            if (auth()->user()->isPklStudent()) {
+                return redirect()->route('pkl.dashboard');
+            }
+            return redirect()->route('member.dashboard');
         }
 
         // 1. Ambil data dari 3 tabel (menggunakan Eloquent/DB Query Builder)

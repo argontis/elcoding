@@ -76,7 +76,7 @@
                                 <div class="info-icon"><i class="far fa-envelope"></i></div>
                                 <div class="info-text">
                                     <strong>Email</strong>
-                                    <span>{{ \App\Models\Setting::getValue('contact_email', 'info@elcodingacademy.com') }}</span>
+                                    <span>{{ \App\Models\Setting::getValue('contact_email', 'elcoding.id@gmail.com') }}</span>
                                 </div>
                             </li>
                             <li>

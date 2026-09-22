@@ -663,14 +663,30 @@
 
                 <!-- 3. BAGIAN KANAN (Tampil di Mobile) -->
                 <div class="header-actions mobile-actions">
-                    <a href="{{ url('/login') }}" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Masuk</a>
+                    @auth
+                        <a href="{{ url('/member/dashboard') }}" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Dashboard</a>
+                        <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                            @csrf
+                            <button type="submit" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Keluar</button>
+                        </form>
+                    @else
+                        <a href="/login" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Masuk</a>
+                    @endauth
                     <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}" class="btn-solid-nav" target="_blank">Konsultasi</a>
                 </div>
             </nav>
 
             <!-- 3. BAGIAN KANAN (Tampil di Desktop) -->
             <div class="header-actions desktop-actions">
-                <a href="{{ url('/login') }}" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Masuk</a>
+                @auth
+                    <a href="{{ url('/member/dashboard') }}" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Dashboard</a>
+                    <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Keluar</button>
+                    </form>
+                @else
+                    <a href="/login" class="btn-outline-nav" style="border: none; padding-left: 10px; padding-right: 10px;">Masuk</a>
+                @endauth
                 <a href="https://wa.me/{{ \App\Models\Setting::getValue('contact_whatsapp_chat', '6281476652656') }}" class="btn-solid-nav" target="_blank">Konsultasi</a>
             </div>
         </div>
@@ -697,11 +713,13 @@
         }
         .custom-header.transparent-header:not(.scrolled) .header-logo-text,
         .custom-header.transparent-header:not(.scrolled) .nav-link,
+        .custom-header.transparent-header:not(.scrolled) .btn-outline-nav,
         .custom-header.transparent-header:not(.scrolled) .mobile-toggle {
             color: #ffffff !important;
         }
         .custom-header.transparent-header:not(.scrolled) .nav-link:hover,
-        .custom-header.transparent-header:not(.scrolled) .nav-link.active {
+        .custom-header.transparent-header:not(.scrolled) .nav-link.active,
+        .custom-header.transparent-header:not(.scrolled) .btn-outline-nav:hover {
             background-color: transparent !important;
             color: #ffffff !important;
         }
@@ -1073,7 +1091,7 @@
                         <a href="https://wa.me/6287762334232" target="_blank" style="color: inherit; text-decoration: none; font-weight: 600;">+62 877-6233-4232</a>
                     </li>
                     <li><i class="fas fa-envelope"></i>
-                        {{ \App\Models\Setting::getValue('contact_email', 'info@elcodingacademy.com') }}</li>
+                        {{ \App\Models\Setting::getValue('contact_email', 'elcoding.id@gmail.com') }}</li>
                 </ul>
             </div> <!-- End Col 4 -->
         </div> <!-- End Footer Container -->

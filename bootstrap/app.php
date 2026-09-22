@@ -19,8 +19,24 @@ return Application::configure(basePath: dirname(__DIR__))
             // \App\Http\Middleware\RemoveHtmlComments::class,
         ]);
 
+        $middleware->redirectUsersTo(function (\Illuminate\Http\Request $request) {
+            $user = auth()->user();
+            if ($user && $user->isAdminOrMentor()) {
+                return '/admin/dashboard';
+            }
+            if ($user && $user->isPklStudent()) {
+                $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
+                $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
+                if ($hasCourse || $hasEvent) {
+                    return '/pkl/dashboard';
+                }
+            }
+            return '/member/dashboard';
+        });
+
         $middleware->alias([
             'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
+            'pkl.access' => \App\Http\Middleware\CheckPklAccess::class,
         ]);
 
         $middleware->validateCsrfTokens(except: [

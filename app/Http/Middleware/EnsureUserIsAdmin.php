@@ -15,8 +15,15 @@ class EnsureUserIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || !auth()->user()->isAdminOrMentor()) {
-            return redirect()->route('pkl.dashboard')->with('error', 'Anda tidak memiliki akses ke halaman admin.');
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
+        if (!auth()->user()->isAdminOrMentor()) {
+            if (auth()->user()->isPklStudent()) {
+                return redirect()->route('pkl.dashboard')->with('error', 'Anda tidak memiliki akses ke halaman admin.');
+            }
+            return redirect()->route('member.dashboard')->with('error', 'Anda tidak memiliki akses ke halaman admin.');
         }
 
         return $next($request);

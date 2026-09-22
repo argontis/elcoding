@@ -34,6 +34,7 @@ class MouController extends Controller
             'lokasi' => 'required',
             'nama_customer' => 'required',
             'created_by' => 'required',
+            'grand_total' => 'nullable|numeric',
         ]);
 
         DB::beginTransaction();
@@ -51,6 +52,7 @@ class MouController extends Controller
                 'ketentuan_type' => $request->ketentuan_type ?? 'custom',
                 'ketentuan' => $request->ketentuan,
                 'created_by' => $request->created_by,
+                'grand_total' => $request->grand_total ?? 0,
             ]);
 
             if ($request->has('sections')) {
@@ -113,6 +115,7 @@ class MouController extends Controller
             'lokasi' => 'required',
             'nama_customer' => 'required',
             'created_by' => 'required',
+            'grand_total' => 'nullable|numeric',
         ]);
 
         DB::beginTransaction();
@@ -131,6 +134,7 @@ class MouController extends Controller
                 'ketentuan_type' => $request->ketentuan_type ?? 'custom',
                 'ketentuan' => $request->ketentuan,
                 'created_by' => $request->created_by,
+                'grand_total' => $request->grand_total ?? 0,
             ]);
 
             $mou->sections()->delete();
@@ -202,7 +206,6 @@ class MouController extends Controller
         
         $logoPath = public_path('assets/image/logo.png');
         $qrcode = (string) \SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')
-            ->merge($logoPath, 0.25, true)
             ->size(100)
             ->generate(url('/admin/mou/' . $mou->id . '/pdf'));
 
@@ -210,5 +213,38 @@ class MouController extends Controller
         $pdf->setPaper('A4', 'portrait');
         
         return $pdf->download('MoU_' . str_replace(' ', '_', $mou->nama_file) . '.pdf');
+    }
+
+    public function downloadInvoicePdf(Request $request, $id)
+    {
+        $mou = Mou::findOrFail($id);
+        $type = $request->query('type', 'dp'); // 'dp' atau 'lunas'
+        
+        $qrcode = (string) \SimpleSoftwareIO\QrCode\Facades\QrCode::format('svg')
+            ->size(100)
+            ->generate(url('/admin/mou/' . $mou->id . '/invoice?type=' . $type));
+
+        $dpPercentage = $mou->dp_percentage ?? 50;
+        $dpAmount = ($mou->grand_total * $dpPercentage) / 100;
+        $lunasAmount = $mou->grand_total; // Always show full total for Pelunasan
+
+        $amount = $type == 'dp' ? $dpAmount : $lunasAmount;
+
+        $invoiceData = [
+            'mou' => $mou,
+            'type' => $type,
+            'qrcode' => $qrcode,
+            'invoice_number' => 'INV/' . date('Y/m/') . str_pad($mou->id, 3, '0', STR_PAD_LEFT) . ($type == 'dp' ? '/DP' : '/LUNAS'),
+            'amount' => $amount,
+            'description' => $type == 'dp' 
+                ? 'Pembayaran DP (' . $dpPercentage . '%) untuk pembuatan ' . $mou->nama_file 
+                : 'Pelunasan Pembayaran untuk pembuatan ' . $mou->nama_file,
+            'date' => date('d F Y')
+        ];
+
+        $pdf = Pdf::setOption(['isPhpEnabled' => true])->loadView('admin.mou.invoice_pdf', $invoiceData);
+        $pdf->setPaper('A4', 'portrait');
+        
+        return $pdf->download('Invoice_' . strtoupper($type) . '_' . str_replace(' ', '_', $mou->nama_file) . '.pdf');
     }
 }

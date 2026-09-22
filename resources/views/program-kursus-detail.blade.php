@@ -217,6 +217,7 @@
                 <div class="price-tag">{{ $program->price }}</div>
                 <div class="price-label">Pembayaran Aman via Xendit Payment Gateway</div>
 
+                @auth
                 <form action="{{ url('/program-kursus/' . $program->id . '/checkout') }}" method="POST">
                     @csrf
                     <div class="form-group">
@@ -238,6 +239,14 @@
                         <i class="fas fa-credit-card"></i> Bayar Sekarang
                     </button>
                 </form>
+                @else
+                <div style="text-align: center; padding: 20px 0;">
+                    <p style="margin-bottom: 15px; color: #4B5563; font-size: 15px;">Silakan login terlebih dahulu untuk mendaftar program kursus ini.</p>
+                    <a href="{{ route('login') }}" class="btn-pay" style="display: block; text-decoration: none; background-color: #f59e0b;">
+                        <i class="fas fa-sign-in-alt"></i> Login untuk Mendaftar
+                    </a>
+                </div>
+                @endauth
 
                 <div class="mt-4 text-center text-xs text-gray-500 flex items-center justify-center gap-2">
                     <i class="fas fa-shield-alt text-green-500"></i> Terenkripsi & Pembayaran Instan via Xendit

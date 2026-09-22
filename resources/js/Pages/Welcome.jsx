@@ -347,7 +347,7 @@ export default function Welcome({ canLogin, canRegister }) {
             <h4 className="font-bold text-slate-900 text-base mb-4">Hubungi Kami</h4>
             <p className="mb-3 flex items-start gap-2"><MapPin className="w-4 h-4 text-blue-600 shrink-0 mt-1" /> Ruko Citraland, Tegal, Jawa Tengah</p>
             <p className="mb-3 flex items-center gap-2"><Phone className="w-4 h-4 text-blue-600 shrink-0" /> Admin: +62 814-7665-2656</p>
-            <p className="mb-3 flex items-center gap-2"><Mail className="w-4 h-4 text-blue-600 shrink-0" /> info@elcodingacademy.com</p>
+            <p className="mb-3 flex items-center gap-2"><Mail className="w-4 h-4 text-blue-600 shrink-0" /> elcoding.id@gmail.com</p>
           </div>
         </div>
 

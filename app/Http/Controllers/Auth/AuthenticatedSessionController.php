@@ -45,8 +45,13 @@ class AuthenticatedSessionController extends Controller
                 if ($user->isPklStudent()) {
                     $pklProfile = \App\Models\PklProfile::where('user_id', $user->id)->first();
                     if ($pklProfile && $pklProfile->status === 'inactive') {
+                        $hasPendingInvoice = \App\Models\PklInvoice::where('pkl_profile_id', $pklProfile->id)->where('status', 'pending')->exists();
+                        $message = $hasPendingInvoice 
+                            ? 'Akun dinonaktifkan karena Anda belum melunasi tagihan pembayaran. Silakan selesaikan pembayaran atau hubungi admin.' 
+                            : 'Akun PKL/Magang Anda sedang dinonaktifkan. Silakan hubungi admin.';
+                        
                         throw \Illuminate\Validation\ValidationException::withMessages([
-                            'nomor_kartu' => 'Akun PKL/Magang Anda sedang dinonaktifkan. Silakan selesaikan pembayaran atau hubungi admin.',
+                            'nomor_kartu' => $message,
                         ]);
                     }
                 }
@@ -104,8 +109,13 @@ class AuthenticatedSessionController extends Controller
                 $request->session()->invalidate();
                 $request->session()->regenerateToken();
                 
+                $hasPendingInvoice = \App\Models\PklInvoice::where('pkl_profile_id', $pklProfile->id)->where('status', 'pending')->exists();
+                $message = $hasPendingInvoice 
+                    ? 'Akun dinonaktifkan karena Anda belum melunasi tagihan pembayaran. Silakan selesaikan pembayaran atau hubungi admin.' 
+                    : 'Akun PKL/Magang Anda sedang dinonaktifkan. Silakan hubungi admin.';
+                
                 throw \Illuminate\Validation\ValidationException::withMessages([
-                    'email' => 'Akun PKL/Magang Anda sedang dinonaktifkan. Silakan selesaikan pembayaran atau hubungi admin.',
+                    'email' => $message,
                 ]);
             }
         }

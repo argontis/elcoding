@@ -71,8 +71,13 @@ class AuthController extends Controller
             if ($user->isPklStudent()) {
                 $pklProfile = \App\Models\PklProfile::where('user_id', $user->id)->first();
                 if ($pklProfile && $pklProfile->status === 'inactive') {
+                    $hasPendingInvoice = \App\Models\PklInvoice::where('pkl_profile_id', $pklProfile->id)->where('status', 'pending')->exists();
+                    $message = $hasPendingInvoice 
+                        ? 'Akun dinonaktifkan karena Anda belum melunasi tagihan pembayaran. Silakan selesaikan pembayaran atau hubungi admin.' 
+                        : 'Akun PKL/Magang Anda sedang dinonaktifkan. Silakan hubungi admin.';
+                    
                     return back()->withErrors([
-                        'nomor_kartu' => 'Akun PKL/Magang Anda sedang dinonaktifkan. Silakan selesaikan pembayaran atau hubungi admin.',
+                        'nomor_kartu' => $message,
                     ])->onlyInput('nomor_kartu');
                 }
             }

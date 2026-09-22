@@ -612,7 +612,7 @@ $data = $syllabuses[$type] ?? $syllabuses['fullstack'];
             <div class="silabus-hero-badge">{{ $data['badge'] }}</div>
             <h1 class="silabus-hero-title">
                 @if(isset($program) && !empty($program->title))
-                    {{ \Illuminate\Support\\Illuminate\Support\Str::startsWith($program->title, 'Silabus') ? $program->title : 'Silabus Lengkap: ' . $program->title }}
+                    {{ \Illuminate\Support\Str::startsWith($program->title, 'Silabus') ? $program->title : 'Silabus Lengkap: ' . $program->title }}
                 @else
                     {{ $data['title'] }}
                 @endif

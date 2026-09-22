@@ -152,7 +152,7 @@
                 <i class="fas fa-tasks mr-1"></i> Tugas & Penilaian ({{ $profile->tasks->count() }})
             </button>
             <button onclick="switchTab('student-progress')" id="tab-btn-student-progress" class="tab-btn py-3 px-2 font-semibold text-xs border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
-                <i class="fas fa-list-check mr-1"></i> Modul & Progress Checklist ({{ $profile->studentProgress->count() }})
+                <i class="fas fa-box-open mr-1"></i> Materi yang Dibeli
             </button>
             <button onclick="switchTab('quizzes')" id="tab-btn-quizzes" class="tab-btn py-3 px-2 font-semibold text-xs border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
                 <i class="fas fa-award mr-1"></i> Progress & Quiz ({{ $profile->quizzes->count() }})
@@ -236,33 +236,57 @@
             @endforelse
         </div>
 
-        <!-- Tab: Student Progress Checklist -->
+        <!-- Tab: Materi yang Dibeli -->
+        @php
+            $email = $profile->user->email;
+            $purchasedPrograms = \App\Models\Order::where('user_email', $email)->whereIn('status', ['paid', 'PAID', 'SETTLED'])->get();
+            $purchasedEvents = \App\Models\EventOrder::where('user_email', $email)->whereIn('status', ['paid', 'PAID', 'SETTLED'])->get();
+        @endphp
         <div id="tab-content-student-progress" class="tab-content hidden space-y-4">
             <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
                 <div class="flex items-center justify-between mb-4">
-                    <h4 class="font-bold text-slate-800 text-sm">Checklist Progress Belajar & Silabus</h4>
-                    <span class="font-extrabold text-blue-600 text-sm">Persentase: {{ $profile->progress_percentage }}% Tuntas</span>
+                    <h4 class="font-bold text-slate-800 text-sm">Materi yang Dibeli (Program & Event)</h4>
                 </div>
                 <div class="space-y-3">
-                    @forelse($profile->studentProgress as $index => $sp)
-                        @php $m = $sp->module; $isDone = ($sp->status === 'completed'); @endphp
-                        <div class="p-3 rounded-xl border {{ $isDone ? 'bg-emerald-50/50 border-emerald-200' : 'bg-white border-slate-200' }} flex items-center justify-between">
+                    @forelse($purchasedPrograms as $order)
+                        <div class="p-3 rounded-xl border bg-white border-slate-200 flex items-center justify-between hover:border-blue-300 transition">
                             <div class="flex items-center gap-3">
-                                <div class="w-7 h-7 rounded-full font-bold text-xs flex items-center justify-center {{ $isDone ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-600' }}">
-                                    {{ $isDone ? '✓' : ($index + 1) }}
+                                <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs shrink-0">
+                                    <i class="fas fa-laptop-code"></i>
                                 </div>
                                 <div>
-                                    <h5 class="font-bold text-xs text-slate-800">{{ $m->title ?? 'Modul ' . ($index + 1) }}</h5>
-                                    <p class="text-[11px] text-slate-500">{{ $m->description ?? '-' }}</p>
+                                    <h5 class="font-bold text-xs text-slate-800">{{ $order->programKursus->title ?? 'Program Terhapus' }}</h5>
+                                    <p class="text-[10px] text-slate-500">Program Kursus</p>
                                 </div>
                             </div>
-                            <span class="text-xs font-bold px-2.5 py-1 rounded-lg {{ $isDone ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700' }}">
-                                {{ $isDone ? '✓ Selesai (' . ($sp->completed_at ? $sp->completed_at->format('d/m/Y') : '-') . ')' : '⏳ Belum Selesai' }}
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-700">
+                                ✓ Terdaftar
                             </span>
                         </div>
                     @empty
-                        <p class="text-xs text-slate-500 py-4 text-center">Belum ada modul terdaftar untuk peserta ini.</p>
                     @endforelse
+
+                    @forelse($purchasedEvents as $order)
+                        <div class="p-3 rounded-xl border bg-white border-slate-200 flex items-center justify-between hover:border-amber-300 transition">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs shrink-0">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-xs text-slate-800">{{ $order->event->title ?? 'Event Terhapus' }}</h5>
+                                    <p class="text-[10px] text-slate-500">Event / Webinar</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-700">
+                                ✓ Terdaftar
+                            </span>
+                        </div>
+                    @empty
+                    @endforelse
+
+                    @if($purchasedPrograms->isEmpty() && $purchasedEvents->isEmpty())
+                        <p class="text-xs text-slate-500 py-4 text-center">Belum ada materi yang dibeli untuk peserta ini.</p>
+                    @endif
                 </div>
             </div>
         </div>

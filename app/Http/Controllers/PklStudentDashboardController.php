@@ -350,10 +350,17 @@ class PklStudentDashboardController extends Controller
         return view('pkl.certificate', compact('profile', 'certificate'));
     }
 
-    public function history()
+    public function history(Request $request)
     {
         $profile = $this->getProfile();
-        $histories = $profile->histories()->paginate(15);
+        $query = $profile->histories();
+        
+        if ($request->filled('date')) {
+            $query->whereDate('logged_at', $request->date);
+        }
+        
+        $histories = $query->orderBy('logged_at', 'desc')->paginate(20)->withQueryString();
+        
         return view('pkl.history', compact('profile', 'histories'));
     }
 

@@ -364,13 +364,61 @@
                                 Update
                             </button>
                         </form>
+
+                        <button type="button" onclick="document.getElementById('modal-edit-invoice-{{ $inv->id }}').classList.remove('hidden')" class="px-3 py-1 bg-blue-600 text-white font-bold text-xs rounded-lg hover:bg-blue-700">
+                            Edit Akses
+                        </button>
                         
                         <form action="{{ route('admin.pkl.destroyInvoice', $inv->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus invoice ini?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="px-3 py-1 bg-red-600 text-white font-bold text-xs rounded-lg hover:bg-red-700" title="Hapus Invoice">
-                                <i class="fas fa-trash"></i>
+                            <button type="submit" class="px-3 py-1 bg-red-100 text-red-600 font-bold text-xs rounded-lg hover:bg-red-200">
+                                Hapus
                             </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Modal Edit Invoice {{ $inv->id }} -->
+                <div id="modal-edit-invoice-{{ $inv->id }}" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+                    <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl relative">
+                        <h3 class="text-sm font-bold text-slate-800 mb-4">Edit Akses Modul Invoice: {{ $inv->invoice_code }}</h3>
+                        <form action="{{ route('admin.pkl.invoiceItems', $inv->id) }}" method="POST" class="space-y-4">
+                            @csrf
+                            @method('PUT')
+                            
+                            <div class="pt-2">
+                                <label class="block text-xs font-semibold text-slate-600 mb-2">Akses Program Kursus</label>
+                                <div class="max-h-32 overflow-y-auto space-y-1 bg-slate-50 border border-slate-200 rounded-xl p-2">
+                                    @foreach($programs as $p)
+                                        <label class="flex items-center gap-2 text-xs text-slate-700 cursor-pointer p-1 hover:bg-slate-100 rounded">
+                                            <input type="checkbox" name="granted_programs[]" value="{{ $p->id }}" 
+                                                {{ is_array($inv->granted_programs) && in_array($p->id, $inv->granted_programs) ? 'checked' : '' }}
+                                                class="rounded text-blue-600 border-slate-300">
+                                            {{ $p->title }}
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-2">Akses Event/Webinar</label>
+                                <div class="max-h-32 overflow-y-auto space-y-1 bg-slate-50 border border-slate-200 rounded-xl p-2">
+                                    @foreach($events as $e)
+                                        <label class="flex items-center gap-2 text-xs text-slate-700 cursor-pointer p-1 hover:bg-slate-100 rounded">
+                                            <input type="checkbox" name="granted_events[]" value="{{ $e->id }}" 
+                                                {{ is_array($inv->granted_events) && in_array($e->id, $inv->granted_events) ? 'checked' : '' }}
+                                                class="rounded text-amber-600 border-slate-300">
+                                            {{ $e->title }}
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end gap-2 pt-2">
+                                <button type="button" onclick="document.getElementById('modal-edit-invoice-{{ $inv->id }}').classList.add('hidden')" class="px-4 py-2 bg-slate-200 text-xs font-semibold rounded-xl">Batal</button>
+                                <button type="submit" class="bg-blue-600 text-white px-4 py-2 text-xs font-bold rounded-xl hover:bg-blue-700">Simpan Akses</button>
+                            </div>
                         </form>
                     </div>
                 </div>

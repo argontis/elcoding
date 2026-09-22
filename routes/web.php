@@ -326,6 +326,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/pkl/{id}/add-quiz', [\App\Http\Controllers\Admin\PklManagementController::class, 'addQuiz'])->name('admin.pkl.addQuiz');
         Route::post('/pkl/{id}/add-invoice', [\App\Http\Controllers\Admin\PklManagementController::class, 'addInvoice'])->name('admin.pkl.addInvoice');
         Route::put('/pkl/invoice/{invoiceId}/status', [\App\Http\Controllers\Admin\PklManagementController::class, 'updateInvoiceStatus'])->name('admin.pkl.invoiceStatus');
+        Route::put('/pkl/invoice/{invoiceId}/items', [\App\Http\Controllers\Admin\PklManagementController::class, 'updateInvoiceItems'])->name('admin.pkl.invoiceItems');
         Route::delete('/pkl/invoice/{invoiceId}', [\App\Http\Controllers\Admin\PklManagementController::class, 'destroyInvoice'])->name('admin.pkl.destroyInvoice');
         Route::post('/pkl/{id}/issue-certificate', [\App\Http\Controllers\Admin\PklManagementController::class, 'issueCertificate'])->name('admin.pkl.issueCertificate');
         Route::post('/users/{id}/rfid', [\App\Http\Controllers\RfidController::class, 'assignRfid'])->name('admin.users.assignRfid');

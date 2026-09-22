@@ -420,6 +420,64 @@ class PklManagementController extends Controller
         return redirect()->back()->with('success', 'Status invoice berhasil diperbarui & akses peserta telah diaktifkan!');
     }
 
+    public function updateInvoiceItems(Request $request, $invoiceId)
+    {
+        $invoice = PklInvoice::findOrFail($invoiceId);
+        $request->validate([
+            'granted_programs' => 'nullable|array',
+            'granted_events' => 'nullable|array',
+        ]);
+
+        $invoice->update([
+            'granted_programs' => $request->granted_programs,
+            'granted_events' => $request->granted_events,
+        ]);
+
+        if ($invoice->status === 'paid') {
+            // Grant programs
+            if (is_array($invoice->granted_programs) && count($invoice->granted_programs) > 0) {
+                $userEmail = $invoice->profile->user->email;
+                $userName = $invoice->profile->user->name;
+                $userPhone = $invoice->profile->whatsapp ?? '0000';
+
+                foreach ($invoice->granted_programs as $progId) {
+                    Order::firstOrCreate([
+                        'user_email' => $userEmail,
+                        'program_kursus_id' => $progId
+                    ], [
+                        'external_id' => $invoice->invoice_code . '-P' . $progId,
+                        'user_name' => $userName,
+                        'user_phone' => $userPhone,
+                        'amount' => 0,
+                        'status' => 'PAID',
+                    ])->update(['status' => 'PAID']);
+                }
+            }
+
+            // Grant events
+            if (is_array($invoice->granted_events) && count($invoice->granted_events) > 0) {
+                $userEmail = $invoice->profile->user->email;
+                $userName = $invoice->profile->user->name;
+                $userPhone = $invoice->profile->whatsapp ?? '0000';
+
+                foreach ($invoice->granted_events as $eventId) {
+                    EventOrder::firstOrCreate([
+                        'user_email' => $userEmail,
+                        'event_id' => $eventId
+                    ], [
+                        'external_id' => $invoice->invoice_code . '-E' . $eventId,
+                        'user_name' => $userName,
+                        'user_phone' => $userPhone,
+                        'amount' => 0,
+                        'status' => 'PAID',
+                    ])->update(['status' => 'PAID']);
+                }
+            }
+        }
+
+        return redirect()->back()->with('success', 'Akses modul/event pada invoice berhasil diperbarui!');
+    }
+
     public function destroyInvoice($invoiceId)
     {
         $invoice = PklInvoice::findOrFail($invoiceId);

@@ -27,7 +27,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(Request $request) { \Illuminate\Support\Facades\Log::info("HIT AuthenticatedSessionController store");
+    public function store(Request $request)
     {
         // Handle nomor kartu login
         if ($request->input('login_method') === 'kartu') {
@@ -59,8 +59,6 @@ class AuthenticatedSessionController extends Controller
                     }
                     return Inertia::location($intended);
                 }
-
-                return Inertia::location(route('member.dashboard'));
 
                 return Inertia::location(route('member.dashboard'));
             }

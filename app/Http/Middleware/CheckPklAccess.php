@@ -24,8 +24,8 @@ class CheckPklAccess
 
         $user = Auth::user();
 
-        // Admin selalu punya akses
-        if ($user->role === 'admin') {
+        // Admin, mentor, dan siswa PKL selalu punya akses
+        if ($user->role === 'admin' || $user->role === 'mentor' || $user->isPklStudent()) {
             return $next($request);
         }
 

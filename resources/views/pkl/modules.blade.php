@@ -124,67 +124,71 @@
                 </div>
             </div>
         @empty
-            @if((isset($purchasedPrograms) && $purchasedPrograms->count() > 0) || (isset($purchasedEvents) && $purchasedEvents->count() > 0))
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    @if(isset($purchasedPrograms))
-                        @foreach($purchasedPrograms as $program)
-                        <a href="{{ route('pkl.program.detail', $program->id) }}" class="block bg-slate-800/60 border border-slate-700/50 rounded-3xl overflow-hidden hover:border-emerald-500/50 transition group shadow-lg">
-                            <div class="h-36 bg-slate-700/50 relative">
-                                @if($program->image_path)
-                                <img src="{{ asset($program->image_path) }}" alt="{{ $program->title }}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition">
-                                @else
-                                <div class="w-full h-full flex items-center justify-center text-slate-500">
-                                    <i class="fas fa-image text-4xl"></i>
-                                </div>
-                                @endif
-                                <div class="absolute top-3 left-3 px-3 py-1.5 bg-emerald-600/90 backdrop-blur text-white text-[11px] font-bold rounded-xl flex items-center gap-1.5 shadow-md">
-                                    <i class="fas fa-check-circle"></i> TELAH DIBELI
-                                </div>
-                            </div>
-                            <div class="p-5">
-                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-2 inline-block">
-                                    <i class="fas fa-laptop-code mr-1"></i> Program Kursus
-                                </span>
-                                <h4 class="text-base font-bold text-white leading-tight group-hover:text-emerald-400 transition">{{ $program->title }}</h4>
-                            </div>
-                        </a>
-                        @endforeach
-                    @endif
-
-                    @if(isset($purchasedEvents))
-                        @foreach($purchasedEvents as $event)
-                        <a href="{{ route('pkl.event.detail', $event->id) }}" class="block bg-slate-800/60 border border-slate-700/50 rounded-3xl overflow-hidden hover:border-emerald-500/50 transition group shadow-lg">
-                            <div class="h-36 bg-slate-700/50 relative">
-                                @if($event->image_path)
-                                <img src="{{ asset($event->image_path) }}" alt="{{ $event->title }}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition">
-                                @else
-                                <div class="w-full h-full flex items-center justify-center text-slate-500">
-                                    <i class="fas fa-calendar text-4xl"></i>
-                                </div>
-                                @endif
-                                <div class="absolute top-3 left-3 px-3 py-1.5 bg-emerald-600/90 backdrop-blur text-white text-[11px] font-bold rounded-xl flex items-center gap-1.5 shadow-md">
-                                    <i class="fas fa-check-circle"></i> TELAH DIBELI
-                                </div>
-                            </div>
-                            <div class="p-5">
-                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-2 inline-block">
-                                    <i class="fas fa-calendar-alt mr-1"></i> Event / Webinar
-                                </span>
-                                <h4 class="text-base font-bold text-white leading-tight group-hover:text-emerald-400 transition">{{ $event->title }}</h4>
-                            </div>
-                        </a>
-                        @endforeach
-                    @endif
-                </div>
-            @else
-                <div class="bg-slate-900/40 p-8 text-center rounded-3xl border border-slate-700/50">
-                    <i class="fas fa-book-open text-slate-500 text-3xl mb-2"></i>
-                    <p class="text-sm font-semibold text-white">Belum Ada Modul Belajar</p>
-                    <p class="text-xs text-slate-400 mt-1">Silakan beli program kursus di bawah atau tentukan program magang pada menu profil.</p>
-                </div>
-            @endif
+            <div class="bg-slate-900/40 p-8 text-center rounded-3xl border border-slate-700/50">
+                <i class="fas fa-book-open text-slate-500 text-3xl mb-2"></i>
+                <p class="text-sm font-semibold text-white">Belum Ada Modul Belajar Silabus</p>
+                <p class="text-xs text-slate-400 mt-1">Silakan tentukan program magang pada menu profil.</p>
+            </div>
         @endforelse
     </div>
+
+    <!-- Kumpulan Modul yang Telah Dibeli -->
+    @if((isset($purchasedPrograms) && $purchasedPrograms->count() > 0) || (isset($purchasedEvents) && $purchasedEvents->count() > 0))
+    <div class="mt-12">
+        <h2 class="text-xl font-bold text-white mb-4"><i class="fas fa-box-open text-emerald-400 mr-2"></i>Materi Tambahan yang Dibeli</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            @if(isset($purchasedPrograms))
+                @foreach($purchasedPrograms as $program)
+                <a href="{{ route('pkl.program.detail', $program->id) }}" class="block bg-slate-800/60 border border-slate-700/50 rounded-3xl overflow-hidden hover:border-emerald-500/50 transition group shadow-lg">
+                    <div class="h-36 bg-slate-700/50 relative">
+                        @if($program->image_path)
+                        <img src="{{ asset($program->image_path) }}" alt="{{ $program->title }}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition">
+                        @else
+                        <div class="w-full h-full flex items-center justify-center text-slate-500">
+                            <i class="fas fa-image text-4xl"></i>
+                        </div>
+                        @endif
+                        <div class="absolute top-3 left-3 px-3 py-1.5 bg-emerald-600/90 backdrop-blur text-white text-[11px] font-bold rounded-xl flex items-center gap-1.5 shadow-md">
+                            <i class="fas fa-check-circle"></i> TELAH DIBELI
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20 mb-2 inline-block">
+                            <i class="fas fa-laptop-code mr-1"></i> Program Kursus
+                        </span>
+                        <h4 class="text-base font-bold text-white leading-tight group-hover:text-emerald-400 transition">{{ $program->title }}</h4>
+                    </div>
+                </a>
+                @endforeach
+            @endif
+
+            @if(isset($purchasedEvents))
+                @foreach($purchasedEvents as $event)
+                <a href="{{ route('pkl.event.detail', $event->id) }}" class="block bg-slate-800/60 border border-slate-700/50 rounded-3xl overflow-hidden hover:border-emerald-500/50 transition group shadow-lg">
+                    <div class="h-36 bg-slate-700/50 relative">
+                        @if($event->image_path)
+                        <img src="{{ asset($event->image_path) }}" alt="{{ $event->title }}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition">
+                        @else
+                        <div class="w-full h-full flex items-center justify-center text-slate-500">
+                            <i class="fas fa-calendar text-4xl"></i>
+                        </div>
+                        @endif
+                        <div class="absolute top-3 left-3 px-3 py-1.5 bg-emerald-600/90 backdrop-blur text-white text-[11px] font-bold rounded-xl flex items-center gap-1.5 shadow-md">
+                            <i class="fas fa-check-circle"></i> TELAH DIBELI
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-2 inline-block">
+                            <i class="fas fa-calendar-alt mr-1"></i> Event / Webinar
+                        </span>
+                        <h4 class="text-base font-bold text-white leading-tight group-hover:text-emerald-400 transition">{{ $event->title }}</h4>
+                    </div>
+                </a>
+                @endforeach
+            @endif
+        </div>
+    </div>
+    @endif
 
     <!-- Eksplorasi Program Kursus & Event -->
     <div class="mt-16 pt-8 border-t border-slate-800">

@@ -195,7 +195,22 @@ class PklStudentDashboardController extends Controller
             $events = $eventsQuery->get();
         }
 
-        return view('pkl.modules', compact('profile', 'studentProgressList', 'coursePrograms', 'events', 'search', 'filter'));
+        // Fetch purchased programs and events
+        $userEmail = Auth::user()->email;
+        $purchasedProgramIds = \App\Models\Order::where('user_email', $userEmail)
+            ->whereIn('status', ['paid', 'PAID', 'SETTLED'])
+            ->pluck('program_kursus_id')
+            ->toArray();
+            
+        $purchasedEventIds = \App\Models\EventOrder::where('user_email', $userEmail)
+            ->whereIn('status', ['paid', 'PAID', 'SETTLED'])
+            ->pluck('event_id')
+            ->toArray();
+            
+        $purchasedPrograms = \App\Models\ProgramKursus::whereIn('id', $purchasedProgramIds)->get();
+        $purchasedEvents = \App\Models\Event::whereIn('id', $purchasedEventIds)->get();
+
+        return view('pkl.modules', compact('profile', 'studentProgressList', 'coursePrograms', 'events', 'search', 'filter', 'purchasedPrograms', 'purchasedEvents'));
     }
 
     public function completeModule($id)

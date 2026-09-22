@@ -9,3 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('pkl:check-overdue-invoices')->daily();
+Schedule::command('pkl:check-expired-invoices')->daily();

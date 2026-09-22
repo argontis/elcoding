@@ -308,6 +308,7 @@ class PklManagementController extends Controller
             'amount' => 'required|numeric|min:0',
             'description' => 'required|string|max:255',
             'due_days' => 'required|integer|min:1',
+            'valid_days' => 'nullable|integer|min:1',
         ]);
 
         $code = 'INV-PKL-' . date('Ymd') . '-' . rand(100, 999);
@@ -320,6 +321,7 @@ class PklManagementController extends Controller
             'description' => $request->description,
             'status' => 'pending',
             'due_date' => $dueDate,
+            'valid_days' => $request->valid_days,
         ]);
 
         PklHistory::create([
@@ -341,9 +343,15 @@ class PklManagementController extends Controller
             'status' => 'required|string|in:pending,paid,cancelled',
         ]);
 
+        $validUntil = null;
+        if ($request->status === 'paid' && $invoice->valid_days) {
+            $validUntil = now()->addDays($invoice->valid_days);
+        }
+
         $invoice->update([
             'status' => $request->status,
             'paid_at' => $request->status === 'paid' ? now() : null,
+            'valid_until' => $validUntil,
         ]);
 
         if ($request->status === 'paid' && $invoice->pklProfile) {

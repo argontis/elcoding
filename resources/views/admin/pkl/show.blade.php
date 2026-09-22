@@ -317,6 +317,8 @@
                         <p class="font-bold text-slate-800 text-sm">Rp {{ number_format($inv->amount, 0, ',', '.') }} &bull; <span class="font-normal text-slate-600">{{ $inv->description }}</span></p>
                         @if($inv->status === 'pending' && $inv->due_date)
                             <p class="text-[10px] text-red-600 mt-0.5"><i class="fas fa-clock mr-1"></i>Jatuh tempo: {{ \Carbon\Carbon::parse($inv->due_date)->format('d M Y H:i') }}</p>
+                        @elseif($inv->status === 'paid' && $inv->valid_until)
+                            <p class="text-[10px] text-emerald-600 mt-0.5"><i class="fas fa-calendar-check mr-1"></i>Berlaku s/d: {{ \Carbon\Carbon::parse($inv->valid_until)->format('d M Y H:i') }}</p>
                         @endif
                         @if($inv->proof_file)
                             <p class="text-xs text-blue-600 font-semibold">
@@ -514,7 +516,12 @@
             <div>
                 <label class="block text-xs font-semibold text-slate-600 mb-1">Periode Jatuh Tempo (Hari)</label>
                 <input type="number" name="due_days" min="1" value="7" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 font-bold" placeholder="7">
-                <p class="text-[10px] text-slate-500 mt-1">Jika lewat tempo dan belum lunas, akun akan dinonaktifkan otomatis.</p>
+                <p class="text-[10px] text-slate-500 mt-1">Batas hari sebelum invoice kedaluwarsa jika tidak dibayar.</p>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Masa Berlaku Pembayaran (Hari)</label>
+                <input type="number" name="valid_days" min="1" value="30" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 font-bold" placeholder="30">
+                <p class="text-[10px] text-slate-500 mt-1">Lama akun aktif setelah invoice ini dilunasi. Kosongkan jika berlaku selamanya.</p>
             </div>
             <div class="flex justify-end gap-2 pt-2">
                 <button type="button" onclick="document.getElementById('modal-add-invoice').classList.add('hidden')" class="px-4 py-2 bg-slate-200 text-xs font-semibold rounded-xl">Batal</button>

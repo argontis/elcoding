@@ -61,8 +61,8 @@ class AuthenticatedSessionController extends Controller
                 }
 
                 // Check if user has course or event
-                $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
-                $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
+                $hasCourse = \App\Models\Order::where('user_email', $user->email)->whereIn('status', ['paid', 'PAID', 'SETTLED'])->exists();
+                $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->whereIn('status', ['paid', 'PAID', 'SETTLED'])->exists();
                 
                 if (!$hasCourse && !$hasEvent) {
                     Auth::guard('web')->logout();
@@ -109,10 +109,10 @@ class AuthenticatedSessionController extends Controller
         }
 
         // Check if user has course or event
-        $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
-        $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
+        $hasCourse = \App\Models\Order::where('user_email', $user->email)->whereIn('status', ['paid', 'PAID', 'SETTLED'])->exists();
+        $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->whereIn('status', ['paid', 'PAID', 'SETTLED'])->exists();
 
-        if ($user->isPklStudent() || $hasCourse || $hasEvent) {
+        if ($hasCourse || $hasEvent) {
             $intended = $request->session()->pull('url.intended');
             if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
                 $intended = route('pkl.dashboard');

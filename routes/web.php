@@ -231,6 +231,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/program-kursus/{id}/edit', [AdminController::class, 'editProgram']);
         Route::put('/program-kursus/{id}', [AdminController::class, 'updateProgram']);
         Route::delete('/program-kursus/{id}', [AdminController::class, 'destroyProgram']);
+        
+        // Modules (Silabus/Kurikulum)
+        Route::get('/program-kursus/{program_id}/modules', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'index'])->name('admin.program.modules.index');
+        Route::get('/program-kursus/{program_id}/modules/create', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'create'])->name('admin.program.modules.create');
+        Route::post('/program-kursus/{program_id}/modules', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'store'])->name('admin.program.modules.store');
+        Route::get('/program-kursus/{program_id}/modules/{id}/edit', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'edit'])->name('admin.program.modules.edit');
+        Route::put('/program-kursus/{program_id}/modules/{id}', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'update'])->name('admin.program.modules.update');
+        Route::delete('/program-kursus/{program_id}/modules/{id}', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'destroy'])->name('admin.program.modules.destroy');
+        
+        // Quiz Builder
+        Route::get('/program-kursus/{program_id}/modules/{id}/quiz', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'quizBuilder'])->name('admin.program.modules.quiz');
+        Route::post('/program-kursus/{program_id}/modules/{id}/quiz', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'storeQuestion'])->name('admin.program.modules.quiz.store');
+        Route::delete('/program-kursus/{program_id}/modules/{id}/quiz/{question_id}', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'destroyQuestion'])->name('admin.program.modules.quiz.destroy');
 
         // Event & Webinar CRUD
         Route::get('/event', [\App\Http\Controllers\Admin\EventController::class, 'index']);

@@ -20,4 +20,9 @@ class ProgramModule extends Model
     {
         return $this->hasMany(PklStudentProgress::class, 'program_module_id');
     }
+
+    public function questions()
+    {
+        return $this->hasMany(ProgramModuleQuestion::class, 'program_module_id');
+    }
 }

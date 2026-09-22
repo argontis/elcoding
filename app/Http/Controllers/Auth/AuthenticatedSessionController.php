@@ -56,7 +56,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if (!$request->user()->isAdminOrMentor()) {
-            return redirect()->route('pkl.dashboard');
+            return Inertia::location(route('pkl.dashboard'));
         }
 
         $intended = $request->session()->pull('url.intended', '/admin');

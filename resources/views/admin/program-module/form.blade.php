@@ -1,3 +1,10 @@
+@php
+    $parent = isset($program) ? $program : $event;
+    $parentTitle = $parent->title;
+    $parentId = $parent->id;
+    $routePrefix = isset($program) ? 'admin.program.modules' : 'admin.event.modules';
+@endphp
+
 @extends('admin.layout')
 
 @section('title', isset($module) ? 'Edit Modul' : 'Tambah Modul')
@@ -6,16 +13,16 @@
 @section('content')
 <div class="surface-card p-6 w-full max-w-4xl mx-auto">
     <div class="flex items-center gap-4 mb-6">
-        <a href="{{ route('admin.program.modules.index', $program->id) }}" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors">
+        <a href="{{ route($routePrefix . '.index', $parentId) }}" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors">
             <i class="fas fa-arrow-left"></i>
         </a>
         <div>
             <h3 class="text-xl font-bold text-slate-800">{{ isset($module) ? 'Edit Modul' : 'Tambah Modul Baru' }}</h3>
-            <p class="text-sm text-slate-500">Program: {{ $program->title }}</p>
+            <p class="text-sm text-slate-500">{{ isset($program) ? 'Program' : 'Event' }}: {{ $parentTitle }}</p>
         </div>
     </div>
 
-    <form action="{{ isset($module) ? route('admin.program.modules.update', [$program->id, $module->id]) : route('admin.program.modules.store', $program->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ isset($module) ? route($routePrefix . '.update', [$parentId, $module->id]) : route($routePrefix . '.store', $parentId) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @if(isset($module)) @method('PUT') @endif
         
@@ -78,7 +85,7 @@
         </div>
 
         <div class="mt-8 pt-5 border-t border-slate-100 flex justify-end gap-3">
-            <a href="{{ route('admin.program.modules.index', $program->id) }}" class="px-5 py-2.5 rounded-xl font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors">Batal</a>
+            <a href="{{ route($routePrefix . '.index', $parentId) }}" class="px-5 py-2.5 rounded-xl font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors">Batal</a>
             <button type="submit" class="btn-primary px-5 py-2.5 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-md">Simpan Modul</button>
         </div>
     </form>

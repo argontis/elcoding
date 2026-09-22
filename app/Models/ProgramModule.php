@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProgramModule extends Model
 {
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_id');
+    }
     use HasFactory;
 
     protected $guarded = ['id'];

@@ -194,17 +194,8 @@ class AdminController extends Controller
         if ($request->hasFile('image_file')) {
             $data['image_path'] = $this->handleUpload($request, 'image_file');
         }
-        if ($request->hasFile('materi_pdf')) {
-            $pdfPaths = [];
-            foreach ($request->file('materi_pdf') as $pdfFile) {
-                $filename = time() . '_' . $pdfFile->getClientOriginalName();
-                $path = $pdfFile->storeAs('uploads', $filename, 'public');
-                $pdfPaths[] = 'storage/' . $path;
-            }
-            $data['materi_pdf'] = $pdfPaths;
-        } else {
-            $data['materi_pdf'] = [];
-        }
+        
+        $data['materi_pdf'] = [];
         \App\Models\ProgramKursus::create($data);
         \App\Models\ActivityLog::add('Program Kursus', 'Tambah Program', 'Program "' . $request->title . '" telah ditambahkan.', 'amber', 'fa-graduation-cap');
         return redirect('/admin/program-kursus')->with('success', 'Program berhasil ditambahkan.');
@@ -220,15 +211,8 @@ class AdminController extends Controller
             $data['image_path'] = $this->handleUpload($request, 'image_file', $program->image_path);
         }
         
-        $pdfPaths = is_array($program->materi_pdf) ? $program->materi_pdf : [];
-        if ($request->hasFile('materi_pdf')) {
-            foreach ($request->file('materi_pdf') as $pdfFile) {
-                $filename = time() . '_' . $pdfFile->getClientOriginalName();
-                $path = $pdfFile->storeAs('uploads', $filename, 'public');
-                $pdfPaths[] = 'storage/' . $path;
-            }
-        }
-        $data['materi_pdf'] = $pdfPaths;
+        // Ensure materi_pdf defaults to an array if it was not already (for schema compatibility)
+        $data['materi_pdf'] = is_array($program->materi_pdf) ? $program->materi_pdf : [];
         
         $program->update($data);
         $desc = 'Data program "' . $program->title . '" telah diperbarui';

@@ -7,7 +7,7 @@
 <div class="surface-card">
     <div class="p-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <h3 class="text-xl font-bold text-slate-800">Daftar Program Kursus</h3>
+            <h3 class="text-xl font-bold text-slate-800">Daftar Program Kursus (DEBUG)</h3>
             <p class="text-sm text-slate-500 mt-1">Kelola kelas, harga, dan ketersediaan program.</p>
         </div>
         <a href="{{ url('admin/program-kursus/create') }}" class="btn-primary px-5 py-2.5 rounded-xl font-semibold flex items-center justify-center gap-2">

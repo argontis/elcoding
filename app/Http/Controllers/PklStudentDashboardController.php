@@ -386,6 +386,8 @@ class PklStudentDashboardController extends Controller
             ->whereIn('status', ['paid', 'PAID', 'SETTLED'])
             ->exists();
             
-        return view('pkl.event-detail', compact('profile', 'event', 'isPurchased'));
+        $modules = \App\Models\ProgramModule::where('event_id', $event->id)->orderBy('order_index')->get();
+
+        return view('pkl.event-detail', compact('profile', 'event', 'isPurchased', 'modules'));
     }
 }

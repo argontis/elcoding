@@ -1,20 +1,28 @@
+@php
+    $parent = isset($program) ? $program : $event;
+    $parentTitle = $parent->title;
+    $parentId = $parent->id;
+    $routePrefix = isset($program) ? 'admin.program.modules' : 'admin.event.modules';
+    $backUrl = isset($program) ? url('admin/program-kursus') : url('admin/event');
+@endphp
+
 @extends('admin.layout')
 
-@section('title', 'Kelola Modul - ' . $program->title)
-@section('header', 'Kurikulum Program Kursus')
+@section('title', 'Kelola Modul - ' . $parentTitle)
+@section('header', 'Kurikulum ' . (isset($program) ? 'Program Kursus' : 'Event'))
 
 @section('content')
 <div class="surface-card">
     <div class="p-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <h3 class="text-xl font-bold text-slate-800">Kurikulum: {{ $program->title }}</h3>
-            <p class="text-sm text-slate-500 mt-1">Kelola urutan materi, tugas, dan kuis untuk program kursus ini.</p>
+            <h3 class="text-xl font-bold text-slate-800">Kurikulum: {{ $parentTitle }}</h3>
+            <p class="text-sm text-slate-500 mt-1">Kelola urutan materi, tugas, dan kuis.</p>
         </div>
         <div class="flex gap-2">
-            <a href="{{ url('admin/program-kursus') }}" class="px-5 py-2.5 rounded-xl font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors">
+            <a href="{{ $backUrl }}" class="px-5 py-2.5 rounded-xl font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors">
                 <i class="fas fa-arrow-left mr-1"></i> Kembali
             </a>
-            <a href="{{ route('admin.program.modules.create', $program->id) }}" class="btn-primary px-5 py-2.5 rounded-xl font-semibold flex items-center justify-center gap-2">
+            <a href="{{ route($routePrefix . '.create', $parentId) }}" class="btn-primary px-5 py-2.5 rounded-xl font-semibold flex items-center justify-center gap-2">
                 <i class="fas fa-plus"></i> Tambah Modul
             </a>
         </div>
@@ -61,17 +69,17 @@
                         @endif
                         
                         <div class="flex items-center gap-2 mt-4 pt-4 border-t border-slate-100">
-                            <a href="{{ route('admin.program.modules.edit', [$program->id, $module->id]) }}" class="px-3 py-1.5 text-xs font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">
+                            <a href="{{ route($routePrefix . '.edit', [$parentId, $module->id]) }}" class="px-3 py-1.5 text-xs font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">
                                 <i class="fas fa-edit mr-1"></i> Edit
                             </a>
                             
                             @if($module->type === 'quiz')
-                            <a href="{{ route('admin.program.modules.quiz', [$program->id, $module->id]) }}" class="px-3 py-1.5 text-xs font-semibold text-amber-600 bg-amber-50 hover:bg-amber-100 rounded-lg transition-colors">
+                            <a href="{{ route($routePrefix . '.quiz', [$parentId, $module->id]) }}" class="px-3 py-1.5 text-xs font-semibold text-amber-600 bg-amber-50 hover:bg-amber-100 rounded-lg transition-colors">
                                 <i class="fas fa-list-ul mr-1"></i> Kelola Soal
                             </a>
                             @endif
                             
-                            <form action="{{ route('admin.program.modules.destroy', [$program->id, $module->id]) }}" method="POST" class="ml-auto" onsubmit="return confirm('Yakin ingin menghapus modul ini?');">
+                            <form action="{{ route($routePrefix . '.destroy', [$parentId, $module->id]) }}" method="POST" class="ml-auto" onsubmit="return confirm('Yakin ingin menghapus modul ini?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="px-3 py-1.5 text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors">

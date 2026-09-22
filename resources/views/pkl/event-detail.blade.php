@@ -106,16 +106,58 @@
                 </a>
                 
                 @if($isPurchased)
+                    @if(isset($modules) && $modules->count() > 0)
+                        <div class="mt-6">
+                            <h3 class="text-sm font-bold text-slate-300 mb-3 border-b border-slate-700/50 pb-2">Kurikulum / Modul</h3>
+                            <div class="space-y-3">
+                                @foreach($modules as $module)
+                                <div class="p-3 bg-slate-700/30 rounded-xl border border-slate-600/50 flex items-center justify-between group hover:border-blue-500/50 transition-colors">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full flex items-center justify-center shrink-0 
+                                            {{ $module->type === 'materi' ? 'bg-blue-500/20 text-blue-400' : '' }}
+                                            {{ $module->type === 'tugas' ? 'bg-emerald-500/20 text-emerald-400' : '' }}
+                                            {{ $module->type === 'quiz' ? 'bg-amber-500/20 text-amber-400' : '' }}
+                                            {{ $module->type === 'video' ? 'bg-purple-500/20 text-purple-400' : '' }}">
+                                            @if($module->type === 'materi' || $module->type === 'video')
+                                                <i class="fas fa-book-open text-xs"></i>
+                                            @elseif($module->type === 'tugas' || $module->type === 'project')
+                                                <i class="fas fa-tasks text-xs"></i>
+                                            @elseif($module->type === 'quiz')
+                                                <i class="fas fa-question-circle text-xs"></i>
+                                            @endif
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">{{ $module->type }}</div>
+                                            <div class="text-sm font-semibold text-white line-clamp-1 group-hover:text-blue-400 transition-colors">{{ $module->title }}</div>
+                                        </div>
+                                    </div>
+                                    @if($module->file_path)
+                                        <a href="{{ asset($module->file_path) }}" target="_blank" class="w-8 h-8 rounded-full bg-slate-600 hover:bg-blue-500 flex items-center justify-center text-white transition-colors" title="Download Materi">
+                                            <i class="fas fa-download text-xs"></i>
+                                        </a>
+                                    @endif
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+                
                     @if($event->materi_pdf && is_array($event->materi_pdf) && count($event->materi_pdf) > 0)
-                        @foreach($event->materi_pdf as $index => $pdf)
-                            <a href="{{ asset($pdf) }}" target="_blank" class="mt-4 block w-full py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-center rounded-xl transition shadow-lg shadow-orange-500/30">
-                                <i class="fas fa-file-pdf mr-2"></i> Download Materi {{ count($event->materi_pdf) > 1 ? $index + 1 : 'PDF' }}
-                            </a>
-                        @endforeach
+                        <div class="mt-6 border-t border-slate-700/50 pt-4">
+                            <h3 class="text-sm font-bold text-slate-300 mb-3">Materi Tambahan (PDF Lama)</h3>
+                            @foreach($event->materi_pdf as $index => $pdf)
+                                <a href="{{ asset($pdf) }}" target="_blank" class="mt-2 block w-full py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold text-center rounded-xl transition shadow-lg text-sm border border-slate-600">
+                                    <i class="fas fa-file-pdf mr-2"></i> Download Materi {{ count($event->materi_pdf) > 1 ? $index + 1 : 'PDF' }}
+                                </a>
+                            @endforeach
+                        </div>
                     @elseif($event->materi_pdf && !is_array($event->materi_pdf))
-                        <a href="{{ asset($event->materi_pdf) }}" target="_blank" class="mt-4 block w-full py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-center rounded-xl transition shadow-lg shadow-orange-500/30">
-                            <i class="fas fa-file-pdf mr-2"></i> Download Materi PDF
-                        </a>
+                        <div class="mt-6 border-t border-slate-700/50 pt-4">
+                            <h3 class="text-sm font-bold text-slate-300 mb-3">Materi Tambahan (PDF Lama)</h3>
+                            <a href="{{ asset($event->materi_pdf) }}" target="_blank" class="mt-2 block w-full py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold text-center rounded-xl transition shadow-lg text-sm border border-slate-600">
+                                <i class="fas fa-file-pdf mr-2"></i> Download Materi PDF
+                            </a>
+                        </div>
                     @endif
                 @else
                     <div class="mt-4 block w-full py-3 px-4 bg-slate-700/50 text-slate-400 font-semibold text-center rounded-xl text-sm border border-slate-600/50">

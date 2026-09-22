@@ -1,5 +1,6 @@
 <?php
 
+Route::get('/test-update', function () { return 'Update is live!'; });
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
@@ -244,6 +245,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/program-kursus/{program_id}/modules/{id}/quiz', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'quizBuilder'])->name('admin.program.modules.quiz');
         Route::post('/program-kursus/{program_id}/modules/{id}/quiz', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'storeQuestion'])->name('admin.program.modules.quiz.store');
         Route::delete('/program-kursus/{program_id}/modules/{id}/quiz/{question_id}', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'destroyQuestion'])->name('admin.program.modules.quiz.destroy');
+
+        // Event Modules
+        Route::get('/event/{event_id}/modules', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'indexEvent'])->name('admin.event.modules.index');
+        Route::get('/event/{event_id}/modules/create', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'createEvent'])->name('admin.event.modules.create');
+        Route::post('/event/{event_id}/modules', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'storeEvent'])->name('admin.event.modules.store');
+        Route::get('/event/{event_id}/modules/{id}/edit', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'editEvent'])->name('admin.event.modules.edit');
+        Route::put('/event/{event_id}/modules/{id}', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'updateEvent'])->name('admin.event.modules.update');
+        Route::delete('/event/{event_id}/modules/{id}', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'destroyEvent'])->name('admin.event.modules.destroy');
+        
+        // Event Quiz Builder
+        Route::get('/event/{event_id}/modules/{id}/quiz', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'quizBuilderEvent'])->name('admin.event.modules.quiz');
+        Route::post('/event/{event_id}/modules/{id}/quiz', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'storeQuestionEvent'])->name('admin.event.modules.quiz.store');
+        Route::delete('/event/{event_id}/modules/{id}/quiz/{question_id}', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'destroyQuestionEvent'])->name('admin.event.modules.quiz.destroy');
 
         // Event & Webinar CRUD
         Route::get('/event', [\App\Http\Controllers\Admin\EventController::class, 'index']);

@@ -97,17 +97,7 @@ class EventController extends Controller
         if ($request->hasFile('image_file')) {
             $data['image_path'] = $this->handleUpload($request, 'image_file');
         }
-        if ($request->hasFile('materi_pdf')) {
-            $pdfPaths = [];
-            foreach ($request->file('materi_pdf') as $pdfFile) {
-                $filename = time() . '_' . $pdfFile->getClientOriginalName();
-                $path = $pdfFile->storeAs('uploads', $filename, 'public');
-                $pdfPaths[] = 'storage/' . $path;
-            }
-            $data['materi_pdf'] = $pdfPaths;
-        } else {
-            $data['materi_pdf'] = [];
-        }
+        $data['materi_pdf'] = [];
 
         Event::create($data);
         return redirect('/admin/event')->with('success', 'Event/Webinar berhasil ditambahkan.');
@@ -132,15 +122,7 @@ class EventController extends Controller
             $data['image_path'] = $this->handleUpload($request, 'image_file', $event->image_path);
         }
         
-        $pdfPaths = is_array($event->materi_pdf) ? $event->materi_pdf : [];
-        if ($request->hasFile('materi_pdf')) {
-            foreach ($request->file('materi_pdf') as $pdfFile) {
-                $filename = time() . '_' . $pdfFile->getClientOriginalName();
-                $path = $pdfFile->storeAs('uploads', $filename, 'public');
-                $pdfPaths[] = 'storage/' . $path;
-            }
-        }
-        $data['materi_pdf'] = $pdfPaths;
+        $data['materi_pdf'] = is_array($event->materi_pdf) ? $event->materi_pdf : [];
 
         $event->update($data);
         return redirect('/admin/event')->with('success', 'Event/Webinar berhasil diperbarui.');

@@ -1,3 +1,10 @@
+@php
+    $parent = isset($program) ? $program : $event;
+    $parentTitle = $parent->title;
+    $parentId = $parent->id;
+    $routePrefix = isset($program) ? 'admin.program.modules' : 'admin.event.modules';
+@endphp
+
 @extends('admin.layout')
 
 @section('title', 'Kelola Soal Kuis - ' . $module->title)
@@ -7,12 +14,12 @@
 <div class="space-y-6">
     <div class="surface-card p-6">
         <div class="flex items-center gap-4 mb-2">
-            <a href="{{ route('admin.program.modules.index', $program->id) }}" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors">
+            <a href="{{ route($routePrefix . '.index', $parentId) }}" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors">
                 <i class="fas fa-arrow-left"></i>
             </a>
             <div>
                 <h3 class="text-xl font-bold text-slate-800">Quiz: {{ $module->title }}</h3>
-                <p class="text-sm text-slate-500">Program: {{ $program->title }}</p>
+                <p class="text-sm text-slate-500">{{ isset($program) ? 'Program' : 'Event' }}: {{ $parentTitle }}</p>
             </div>
         </div>
         @if($module->description)
@@ -26,7 +33,7 @@
             <div class="surface-card p-6 sticky top-24">
                 <h4 class="font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2">Tambah Soal Baru</h4>
                 
-                <form action="{{ route('admin.program.modules.quiz.store', [$program->id, $module->id]) }}" method="POST" class="space-y-4">
+                <form action="{{ route($routePrefix . '.quiz.store', [$parentId, $module->id]) }}" method="POST" class="space-y-4">
                     @csrf
                     
                     <div>
@@ -96,7 +103,7 @@
                         @foreach($module->questions as $index => $q)
                         <div class="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-300 transition-colors shadow-sm relative group">
                             
-                            <form action="{{ route('admin.program.modules.quiz.destroy', [$program->id, $module->id, $q->id]) }}" method="POST" class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity" onsubmit="return confirm('Hapus soal ini?');">
+                            <form action="{{ route($routePrefix . '.quiz.destroy', [$parentId, $module->id, $q->id]) }}" method="POST" class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity" onsubmit="return confirm('Hapus soal ini?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="w-8 h-8 rounded bg-red-50 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors">

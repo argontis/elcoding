@@ -24,19 +24,19 @@ class CheckPklAccess
 
         $user = Auth::user();
 
-        // Admin, mentor, dan siswa PKL selalu punya akses
-        if ($user->role === 'admin' || $user->role === 'mentor' || $user->isPklStudent()) {
+        // Admin dan mentor selalu punya akses
+        if ($user->role === 'admin' || $user->role === 'mentor') {
             return $next($request);
         }
 
         // Cek apakah email user ini ada di orders (Program Kursus) dengan status PAID
         $hasCourse = Order::where('user_email', $user->email)
-                          ->where('status', 'PAID')
+                          ->whereIn('status', ['paid', 'PAID', 'SETTLED'])
                           ->exists();
 
         // Cek apakah email user ini ada di event_orders (Event/Webinar) dengan status PAID
         $hasEvent = EventOrder::where('user_email', $user->email)
-                              ->where('status', 'PAID')
+                              ->whereIn('status', ['paid', 'PAID', 'SETTLED'])
                               ->exists();
 
         if ($hasCourse || $hasEvent) {

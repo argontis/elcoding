@@ -217,17 +217,16 @@
                 <div class="price-tag">{{ $program->price }}</div>
                 <div class="price-label">Pembayaran Aman via Xendit Payment Gateway</div>
 
-                @auth
                 <form action="{{ url('/program-kursus/' . $program->id . '/checkout') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label class="form-label" for="user_name">Nama Lengkap</label>
-                        <input type="text" name="user_name" id="user_name" class="form-input" placeholder="Masukkan nama Anda" required value="{{ old('user_name') }}">
+                        <input type="text" name="user_name" id="user_name" class="form-input" placeholder="Masukkan nama Anda" required value="{{ old('user_name', optional(auth()->user())->name ?? '') }}">
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="user_email">Alamat Email</label>
-                        <input type="email" name="user_email" id="user_email" class="form-input" placeholder="contoh@email.com" required value="{{ old('user_email', auth()->user()->email ?? '') }}">
+                        <input type="email" name="user_email" id="user_email" class="form-input" placeholder="contoh@email.com" required value="{{ old('user_email', optional(auth()->user())->email ?? '') }}">
                         <p class="text-[11px] font-semibold text-amber-600 mt-1.5 flex gap-1 items-start leading-tight">
                             <i class="fas fa-info-circle mt-0.5"></i> 
                             Pastikan email yang Anda gunakan sama dengan email akun Elcoding Anda agar akses kelas dapat terbuka otomatis.
@@ -243,14 +242,6 @@
                         <i class="fas fa-credit-card"></i> Bayar Sekarang
                     </button>
                 </form>
-                @else
-                <div style="text-align: center; padding: 20px 0;">
-                    <p style="margin-bottom: 15px; color: #4B5563; font-size: 15px;">Silakan login terlebih dahulu untuk mendaftar program kursus ini.</p>
-                    <a href="{{ route('login') }}" class="btn-pay" style="display: block; text-decoration: none; background-color: #f59e0b;">
-                        <i class="fas fa-sign-in-alt"></i> Login untuk Mendaftar
-                    </a>
-                </div>
-                @endauth
 
                 <div class="mt-4 text-center text-xs text-gray-500 flex items-center justify-center gap-2">
                     <i class="fas fa-shield-alt text-green-500"></i> Terenkripsi & Pembayaran Instan via Xendit

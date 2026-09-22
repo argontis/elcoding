@@ -71,16 +71,22 @@
                     Daftar Sekarang <i class="fas fa-external-link-alt ml-1 text-xs opacity-70"></i>
                 </a>
                 
-                @if($program->materi_pdf && is_array($program->materi_pdf) && count($program->materi_pdf) > 0)
-                    @foreach($program->materi_pdf as $index => $pdf)
-                        <a href="{{ asset($pdf) }}" target="_blank" class="mt-4 block w-full py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-center rounded-xl transition shadow-lg shadow-orange-500/30">
-                            <i class="fas fa-file-pdf mr-2"></i> Download Materi {{ count($program->materi_pdf) > 1 ? $index + 1 : 'PDF' }}
+                @if($isPurchased)
+                    @if($program->materi_pdf && is_array($program->materi_pdf) && count($program->materi_pdf) > 0)
+                        @foreach($program->materi_pdf as $index => $pdf)
+                            <a href="{{ asset($pdf) }}" target="_blank" class="mt-4 block w-full py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-center rounded-xl transition shadow-lg shadow-orange-500/30">
+                                <i class="fas fa-file-pdf mr-2"></i> Download Materi {{ count($program->materi_pdf) > 1 ? $index + 1 : 'PDF' }}
+                            </a>
+                        @endforeach
+                    @elseif($program->materi_pdf && !is_array($program->materi_pdf))
+                        <a href="{{ asset($program->materi_pdf) }}" target="_blank" class="mt-4 block w-full py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-center rounded-xl transition shadow-lg shadow-orange-500/30">
+                            <i class="fas fa-file-pdf mr-2"></i> Download Materi PDF
                         </a>
-                    @endforeach
-                @elseif($program->materi_pdf && !is_array($program->materi_pdf))
-                    <a href="{{ asset($program->materi_pdf) }}" target="_blank" class="mt-4 block w-full py-4 bg-orange-600 hover:bg-orange-500 text-white font-bold text-center rounded-xl transition shadow-lg shadow-orange-500/30">
-                        <i class="fas fa-file-pdf mr-2"></i> Download Materi PDF
-                    </a>
+                    @endif
+                @else
+                    <div class="mt-4 block w-full py-3 px-4 bg-slate-700/50 text-slate-400 font-semibold text-center rounded-xl text-sm border border-slate-600/50">
+                        <i class="fas fa-lock mr-2"></i> Beli program untuk mengunduh materi
+                    </div>
                 @endif
                 
                 <p class="text-center text-xs text-slate-500 mt-4">

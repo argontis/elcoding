@@ -361,13 +361,29 @@ class PklStudentDashboardController extends Controller
     {
         $profile = $this->getProfile();
         $program = \App\Models\ProgramKursus::findOrFail($id);
-        return view('pkl.program-detail', compact('profile', 'program'));
+        
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $isPurchased = \App\Models\Order::where('user_email', $user->email)
+            ->where('program_kursus_id', $program->id)
+            ->whereIn('status', ['paid', 'PAID', 'SETTLED'])
+            ->exists();
+            
+        return view('pkl.program-detail', compact('profile', 'program', 'isPurchased'));
     }
 
     public function eventDetail($id)
     {
         $profile = $this->getProfile();
         $event = \App\Models\Event::findOrFail($id);
-        return view('pkl.event-detail', compact('profile', 'event'));
+        
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $isPurchased = \App\Models\EventOrder::where('user_email', $user->email)
+            ->where('event_id', $event->id)
+            ->whereIn('status', ['paid', 'PAID', 'SETTLED'])
+            ->exists();
+            
+        return view('pkl.event-detail', compact('profile', 'event', 'isPurchased'));
     }
 }

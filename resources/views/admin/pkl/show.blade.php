@@ -555,7 +555,7 @@
                     @foreach($programs as $p)
                         <label class="flex items-center gap-2 text-xs text-slate-700 cursor-pointer p-1 hover:bg-slate-100 rounded">
                             <input type="checkbox" name="granted_programs[]" value="{{ $p->id }}" class="rounded text-blue-600 border-slate-300">
-                            {{ $p->title }} <span class="text-[10px] text-slate-400">(Rp {{ number_format($p->price,0,',','.') }})</span>
+                            {{ $p->title }} <span class="text-[10px] text-slate-400">({{ is_numeric($p->price) ? 'Rp ' . number_format((float)$p->price,0,',','.') : $p->price }})</span>
                         </label>
                     @endforeach
                 </div>
@@ -567,7 +567,7 @@
                     @foreach($events as $e)
                         <label class="flex items-center gap-2 text-xs text-slate-700 cursor-pointer p-1 hover:bg-slate-100 rounded">
                             <input type="checkbox" name="granted_events[]" value="{{ $e->id }}" class="rounded text-amber-600 border-slate-300">
-                            {{ $e->title }} <span class="text-[10px] text-slate-400">(Rp {{ number_format($e->price,0,',','.') }})</span>
+                            {{ $e->title }} <span class="text-[10px] text-slate-400">({{ is_numeric($e->price) ? 'Rp ' . number_format((float)$e->price,0,',','.') : $e->price }})</span>
                         </label>
                     @endforeach
                 </div>

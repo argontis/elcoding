@@ -359,6 +359,14 @@ class PklManagementController extends Controller
         return redirect()->back()->with('success', 'Status invoice berhasil diperbarui & akses peserta telah diaktifkan!');
     }
 
+    public function destroyInvoice($invoiceId)
+    {
+        $invoice = PklInvoice::findOrFail($invoiceId);
+        $invoice->delete();
+
+        return redirect()->back()->with('success', 'Invoice pembayaran berhasil dihapus!');
+    }
+
     public function issueCertificate(Request $request, $id)
     {
         $profile = PklProfile::findOrFail($id);

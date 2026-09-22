@@ -307,18 +307,28 @@
                         @endif
                     </div>
 
-                    <form action="{{ route('admin.pkl.invoiceStatus', $inv->id) }}" method="POST" class="flex items-center gap-2">
-                        @csrf
-                        @method('PUT')
-                        <select name="status" class="bg-white border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-semibold text-slate-800">
-                            <option value="pending" {{ $inv->status === 'pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="paid" {{ $inv->status === 'paid' ? 'selected' : '' }}>Lunas</option>
-                            <option value="cancelled" {{ $inv->status === 'cancelled' ? 'selected' : '' }}>Batal</option>
-                        </select>
-                        <button type="submit" class="px-3 py-1 bg-slate-800 text-white font-bold text-xs rounded-lg hover:bg-slate-900">
-                            Update
-                        </button>
-                    </form>
+                    <div class="flex items-center gap-2">
+                        <form action="{{ route('admin.pkl.invoiceStatus', $inv->id) }}" method="POST" class="flex items-center gap-2">
+                            @csrf
+                            @method('PUT')
+                            <select name="status" class="bg-white border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-semibold text-slate-800">
+                                <option value="pending" {{ $inv->status === 'pending' ? 'selected' : '' }}>Pending</option>
+                                <option value="paid" {{ $inv->status === 'paid' ? 'selected' : '' }}>Lunas</option>
+                                <option value="cancelled" {{ $inv->status === 'cancelled' ? 'selected' : '' }}>Batal</option>
+                            </select>
+                            <button type="submit" class="px-3 py-1 bg-slate-800 text-white font-bold text-xs rounded-lg hover:bg-slate-900">
+                                Update
+                            </button>
+                        </form>
+                        
+                        <form action="{{ route('admin.pkl.destroyInvoice', $inv->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus invoice ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="px-3 py-1 bg-red-600 text-white font-bold text-xs rounded-lg hover:bg-red-700" title="Hapus Invoice">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             @empty
                 <p class="text-xs text-slate-500 py-4 text-center">Belum ada invoice pembayaran dibuat.</p>

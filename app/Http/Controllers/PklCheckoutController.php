@@ -7,7 +7,7 @@ use App\Models\ProgramKursus;
 use App\Models\Event;
 use App\Models\Order;
 use App\Models\EventOrder;
-use App\Models\PklStudent;
+use App\Models\PklProfile;
 use App\Services\XenditService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -20,9 +20,9 @@ class PklCheckoutController extends Controller
         $user = Auth::user();
         if (!$user) return null;
 
-        $profile = PklStudent::where('user_id', $user->id)->first();
+        $profile = PklProfile::where('user_id', $user->id)->first();
         if (!$profile) {
-            $profile = PklStudent::where('email', $user->email)->first();
+            $profile = PklProfile::where('email', $user->email)->first();
             if ($profile && !$profile->user_id) {
                 $profile->update(['user_id' => $user->id]);
             }

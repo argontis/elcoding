@@ -15,10 +15,7 @@
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Status: {{ strtoupper($profile->status) }}
                 </span>
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-white">Selamat Datang, {{ auth()->user()->name }}! 👋</h1>
-                <p class="text-slate-300 text-sm mt-1">
-                    Peserta PKL dari <strong class="text-white">{{ $profile->institution ?? 'Instansi Belum Diisi' }}</strong> 
-                    ({{ $profile->major ?? 'Jurusan' }})
-                </p>
+
                 <div class="flex flex-wrap items-center gap-4 text-xs text-slate-400 mt-4">
                     <div class="flex items-center gap-1.5 bg-slate-900/60 px-3 py-1.5 rounded-lg border border-slate-700/50">
                         <i class="fas fa-calendar-alt text-blue-400"></i>

@@ -120,7 +120,7 @@ class RfidController extends Controller
 
         $redirectUrl = route('dashboard');
         if ($user->isPklStudent()) {
-            $redirectUrl = route('member.dashboard');
+            $redirectUrl = route('pkl.dashboard');
         }
 
         return response()->json([

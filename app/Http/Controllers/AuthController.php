@@ -80,6 +80,9 @@ class AuthController extends Controller
             );
 
             if (!$user->isAdminOrMentor()) {
+                if ($user->isPklStudent()) {
+                    return redirect()->route('pkl.dashboard');
+                }
                 return redirect()->route('member.dashboard');
             }
 

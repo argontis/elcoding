@@ -45,6 +45,9 @@ class AuthenticatedSessionController extends Controller
                 $request->session()->regenerate();
 
                 if (!$user->isAdminOrMentor()) {
+                    if ($user->isPklStudent()) {
+                        return Inertia::location('/pkl/dashboard');
+                    }
                     return Inertia::location('/member/dashboard');
                 }
 
@@ -74,6 +77,9 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if (!$request->user()->isAdminOrMentor()) {
+            if ($request->user()->isPklStudent()) {
+                return Inertia::location('/pkl/dashboard');
+            }
             return Inertia::location('/member/dashboard');
         }
 

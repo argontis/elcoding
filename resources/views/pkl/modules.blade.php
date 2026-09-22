@@ -111,12 +111,9 @@
                                     <i class="fas fa-pen font-bold"></i> Ikuti Quiz
                                 </a>
                             @else
-                                <form action="{{ route('pkl.modules.complete', $item->id) }}" method="POST" class="m-0">
-                                    @csrf
-                                    <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 shadow-md shadow-emerald-500/20">
-                                        <i class="fas fa-check-circle"></i> Tandai Selesai
-                                    </button>
-                                </form>
+                                <a href="{{ route('pkl.progress') }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 shadow-md shadow-blue-500/20">
+                                    Update di Progress <i class="fas fa-arrow-right ml-1"></i>
+                                </a>
                             @endif
                         @endif
                     </div>

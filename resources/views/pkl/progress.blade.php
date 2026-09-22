@@ -78,9 +78,22 @@
                                     <i class="fas fa-check-circle"></i> Tuntas
                                 </span>
                             @else
-                                <a href="{{ route('pkl.modules') }}" class="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1">
-                                    Buka <i class="fas fa-arrow-right"></i>
-                                </a>
+                                @if(isset($mod->type) && ($mod->type === 'tugas' || $mod->type === 'project'))
+                                    <a href="{{ route('pkl.tasks') }}" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-[10px] rounded-lg transition flex items-center gap-1 shadow-md shadow-blue-500/20">
+                                        <i class="fas fa-upload"></i> Kirim Tugas
+                                    </a>
+                                @elseif(isset($mod->type) && $mod->type === 'quiz')
+                                    <button disabled class="px-3 py-1.5 bg-amber-500/50 text-slate-800 font-bold text-[10px] rounded-lg cursor-not-allowed">
+                                        <i class="fas fa-pen"></i> Quiz
+                                    </button>
+                                @else
+                                    <form action="{{ route('pkl.modules.complete', $item->id) }}" method="POST" class="m-0">
+                                        @csrf
+                                        <button type="submit" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] rounded-lg transition flex items-center gap-1 shadow-md shadow-emerald-500/20">
+                                            <i class="fas fa-check-circle"></i> Tandai Selesai
+                                        </button>
+                                    </form>
+                                @endif
                             @endif
                         </div>
                     </div>

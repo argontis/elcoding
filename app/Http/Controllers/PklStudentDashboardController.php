@@ -350,6 +350,24 @@ class PklStudentDashboardController extends Controller
         return view('pkl.certificate', compact('profile', 'certificate'));
     }
 
+    public function downloadCertificate(Request $request)
+    {
+        $profile = $this->getProfile();
+        $certificate = $profile->certificate;
+
+        if (!$certificate) {
+            return redirect()->back()->with('error', 'Sertifikat belum diterbitkan.');
+        }
+
+        $format = $request->query('format', 'pdf');
+        
+        if ($format === 'image') {
+            return \App\Services\CertificateService::generateImage($profile, $certificate);
+        }
+
+        return \App\Services\CertificateService::generatePdf($profile, $certificate);
+    }
+
     public function history(Request $request)
     {
         $profile = $this->getProfile();

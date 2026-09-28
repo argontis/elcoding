@@ -163,6 +163,9 @@
             <button onclick="switchTab('portfolios')" id="tab-btn-portfolios" class="tab-btn py-3 px-2 font-semibold text-xs border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
                 <i class="fas fa-laptop-code mr-1"></i> Portofolio ({{ $profile->portfolios->count() }})
             </button>
+            <button onclick="switchTab('materials')" id="tab-btn-materials" class="tab-btn py-3 px-2 font-semibold text-xs border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
+                <i class="fas fa-file-upload mr-1"></i> Materi ({{ $profile->materials->count() }})
+            </button>
             <button onclick="switchTab('certificate')" id="tab-btn-certificate" class="tab-btn py-3 px-2 font-semibold text-xs border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
                 <i class="fas fa-certificate mr-1"></i> Sertifikat
             </button>
@@ -450,6 +453,44 @@
             </div>
         </div>
 
+        <!-- Tab: Materials -->
+        <div id="tab-content-materials" class="tab-content hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-sm font-bold text-slate-800">Materi Tersedia</h3>
+                <button type="button" onclick="openModal('modal-add-material')" class="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-blue-700">
+                    + Upload Materi
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @forelse($profile->materials as $material)
+                    <div class="p-4 rounded-2xl border border-slate-200 bg-white flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
+                                <i class="fas fa-file"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-800">{{ $material->title }}</h4>
+                                <a href="{{ asset('storage/' . $material->file_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline">Lihat / Download</a>
+                            </div>
+                        </div>
+                        
+                        <form action="{{ route('admin.pkl.destroyMaterial', $material->id) }}" method="POST" onsubmit="return confirm('Hapus materi ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-500 hover:text-red-700 p-2">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                @empty
+                    <div class="col-span-full py-8 text-center text-slate-500 text-sm">
+                        Belum ada materi yang diunggah.
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
         <!-- Tab 5: Certificate -->
         <div id="tab-content-certificate" class="tab-content hidden">
             @if($profile->certificate)
@@ -457,9 +498,14 @@
                     <span class="px-3 py-1 bg-emerald-600 text-white font-bold text-xs rounded-full inline-block">Sertifikat Terbit</span>
                     <h3 class="text-lg font-black text-slate-800">{{ $profile->certificate->certificate_number }}</h3>
                     <p class="text-xs text-slate-600">Predikat: <strong class="text-emerald-700">{{ $profile->certificate->predicate }}</strong> &bull; Diterbitkan: {{ $profile->certificate->issue_date ? $profile->certificate->issue_date->format('d M Y') : '-' }}</p>
-                    <a href="{{ url('/verifikasi-sertifikat?code=' . urlencode($profile->certificate->certificate_number)) }}" target="_blank" class="btn-primary px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5">
-                        <i class="fas fa-external-link-alt"></i> Cek Halaman Verifikasi Sertifikat Publik
-                    </a>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <a href="{{ route('admin.pkl.downloadCertificate', $profile->id) }}" target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold inline-flex items-center gap-1.5 transition">
+                            <i class="fas fa-download"></i> Unduh Sertifikat
+                        </a>
+                        <a href="{{ url('/verifikasi-sertifikat?code=' . urlencode($profile->certificate->certificate_number)) }}" target="_blank" class="btn-primary px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5">
+                            <i class="fas fa-external-link-alt"></i> Cek Halaman Verifikasi Sertifikat Publik
+                        </a>
+                    </div>
                 </div>
             @else
                 <p class="text-xs text-slate-500 py-4 text-center">Sertifikat belum diterbitkan. Klik tombol <strong>"Terbitkan Sertifikat"</strong> di atas.</p>
@@ -627,6 +673,33 @@
                 <button type="submit" class="bg-slate-800 text-white px-4 py-2 text-xs font-bold rounded-xl hover:bg-slate-900">Buat Invoice</button>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- Modal Add Material -->
+<div id="modal-add-material" class="fixed inset-0 z-[100] hidden bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden">
+        <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+            <h3 class="font-bold text-slate-800">Upload Materi Tambahan</h3>
+            <button type="button" onclick="closeModal('modal-add-material')" class="text-slate-400 hover:text-slate-600">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="p-4">
+            <form action="{{ route('admin.pkl.uploadMaterial', $profile->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-4">
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Pilih File (Bisa lebih dari 1)</label>
+                    <input type="file" name="files[]" multiple required class="w-full text-sm border border-slate-200 rounded-lg p-2 focus:outline-none focus:border-blue-500 bg-slate-50">
+                    <p class="text-[10px] text-slate-500 mt-1">Format bebas. Maksimal 20MB per file.</p>
+                </div>
+                
+                <div class="flex justify-end gap-2">
+                    <button type="button" onclick="closeModal('modal-add-material')" class="px-4 py-2 text-xs font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Batal</button>
+                    <button type="submit" class="px-4 py-2 text-xs font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm shadow-blue-600/20">Upload</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

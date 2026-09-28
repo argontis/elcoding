@@ -12,10 +12,10 @@
 
     @if($certificate)
         <!-- Certificate Card Visual -->
-        <div class="relative bg-gradient-to-tr from-slate-900 via-indigo-950 to-slate-900 border-2 border-amber-500/40 rounded-3xl p-8 sm:p-12 shadow-2xl overflow-hidden text-center">
+        <div class="relative bg-white border-2 border-slate-200 rounded-3xl p-8 sm:p-12 shadow-2xl overflow-hidden text-center">
             <!-- Background Ornaments -->
-            <div class="absolute -top-20 -right-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -top-20 -right-20 w-80 h-80 bg-amber-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
 
             <div class="relative z-10 space-y-6">
                 
@@ -24,43 +24,63 @@
                 </div>
 
                 <div class="space-y-1">
-                    <p class="text-xs uppercase tracking-widest text-amber-400 font-bold">SERTIFIKAT KELULUSAN MAGANG / PKL</p>
-                    <p class="text-xs text-slate-400 font-mono">No. Reg: {{ $certificate->certificate_number }}</p>
+                    <p class="text-xs uppercase tracking-widest text-amber-600 font-bold">SERTIFIKAT KELULUSAN MAGANG / PKL</p>
+                    <p class="text-xs text-slate-500 font-mono">No. Reg: {{ $certificate->certificate_number }}</p>
                 </div>
 
-                <div class="py-4 border-y border-slate-700/60 max-w-xl mx-auto space-y-3">
-                    <p class="text-xs text-slate-400">Diberikan secara resmi kepada:</p>
-                    <h2 class="text-2xl sm:text-3xl font-black text-white tracking-wide">{{ auth()->user()->name }}</h2>
-                    <p class="text-sm text-slate-300">
+                <div class="py-4 border-y border-slate-200 max-w-xl mx-auto space-y-3">
+                    <p class="text-xs text-slate-500">Diberikan secara resmi kepada:</p>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-wide">{{ auth()->user()->name }}</h2>
+                    <p class="text-sm text-slate-600">
                         {{ $profile->institution }} — {{ $profile->major }}
                     </p>
-                    <p class="text-xs text-slate-400 pt-2 leading-relaxed">
+                    <p class="text-xs text-slate-500 pt-2 leading-relaxed">
                         Telah menyelesaikan seluruh rangkaian Praktik Kerja Lapangan (PKL) / Magang di elc.my.id 
-                        pada divisi <strong class="text-blue-400">{{ $profile->division ?? 'IT & Development' }}</strong>
+                        pada divisi <strong class="text-blue-600">{{ $profile->division ?? 'IT & Development' }}</strong>
                         dengan hasil akhir predikat:
                     </p>
-                    <div class="inline-block px-5 py-2 bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-black text-lg rounded-2xl shadow-lg shadow-amber-500/20">
+                    <div class="inline-block px-5 py-2 bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 font-black text-lg rounded-2xl shadow-lg shadow-amber-500/20">
                         🏆 PREDIKAT: {{ strtoupper($certificate->predicate) }}
+                    </div>
+                    
+                    <div class="pt-4">
+                        <hr class="w-32 mx-auto border-slate-300 mb-3">
+                        <span class="block text-slate-500 text-xs">Diterbitkan Tanggal</span>
+                        <strong class="text-slate-900 text-sm">{{ $certificate->issue_date ? $certificate->issue_date->format('d F Y') : date('d F Y') }}</strong>
                     </div>
                 </div>
 
-                <div class="flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400 max-w-xl mx-auto pt-2">
-                    <div>
-                        <span class="block text-slate-500">Tanggal Diterbitkan</span>
-                        <strong class="text-white">{{ $certificate->issue_date ? $certificate->issue_date->format('d M Y') : date('d M Y') }}</strong>
-                    </div>
-                    <div>
-                        <span class="block text-slate-500">Verifikasi Keaslian</span>
-                        <a href="{{ url('/verifikasi-sertifikat?code=' . urlencode($certificate->certificate_number)) }}" target="_blank" class="text-blue-400 underline font-semibold">
+                <div class="flex flex-wrap items-end justify-between gap-4 text-xs text-slate-500 max-w-xl mx-auto pt-2">
+                    <div class="text-left pb-4">
+                        <span class="block text-slate-500 mb-1">Verifikasi Keaslian</span>
+                        <a href="{{ url('/verifikasi-sertifikat?code=' . urlencode($certificate->certificate_number)) }}" target="_blank" class="text-blue-600 underline font-semibold hover:text-blue-700">
                             Cek Validitas Publik &rarr;
                         </a>
+                    </div>
+                    <div class="text-center">
+                        <span class="block text-slate-500 mb-2">Pimpinan / Direktur</span>
+                        @if(file_exists(public_path('gambar/aset/ttd_barcode.png')))
+                            <img src="{{ asset('gambar/aset/ttd_barcode.png') }}" alt="TTD Barcode" class="w-16 h-16 mx-auto mb-1 mix-blend-multiply">
+                        @else
+                            <div class="w-16 h-16 mx-auto mb-1"></div>
+                        @endif
+                        <hr class="w-32 mx-auto border-slate-300 mb-1">
+                        <strong class="text-slate-900">Zaky Afrizal</strong>
                     </div>
                 </div>
 
                 <div class="pt-6 flex flex-wrap items-center justify-center gap-4">
+                    <a href="{{ route('pkl.certificate.download', ['format' => 'pdf']) }}" target="_blank"
+                       class="px-6 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-2xl shadow-lg transition flex items-center gap-2">
+                        <i class="fas fa-file-pdf"></i> Unduh PDF
+                    </a>
+                    <a href="{{ route('pkl.certificate.download', ['format' => 'image']) }}" target="_blank"
+                       class="px-6 py-3.5 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs rounded-2xl shadow-lg transition flex items-center gap-2">
+                        <i class="fas fa-image"></i> Unduh Gambar
+                    </a>
                     <a href="{{ url('/verifikasi-sertifikat?code=' . urlencode($certificate->certificate_number)) }}" target="_blank"
                        class="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-2xl shadow-lg transition flex items-center gap-2">
-                        <i class="fas fa-external-link-alt"></i> Buka Halaman Verifikasi Sertifikat
+                        <i class="fas fa-external-link-alt"></i> Buka Halaman Verifikasi
                     </a>
                 </div>
 

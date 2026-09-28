@@ -1,6 +1,5 @@
 <?php
 
-Route::get('/test-update', function () { return 'Update is live!'; });
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
@@ -9,6 +8,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ChatController;
+
+Route::get('/test-update', function () { return 'Update is live!'; });
 
 if (!function_exists('setSeoMeta')) {
     function setSeoMeta($title, $description = null) {
@@ -329,6 +330,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/pkl/invoice/{invoiceId}/items', [\App\Http\Controllers\Admin\PklManagementController::class, 'updateInvoiceItems'])->name('admin.pkl.invoiceItems');
         Route::delete('/pkl/invoice/{invoiceId}', [\App\Http\Controllers\Admin\PklManagementController::class, 'destroyInvoice'])->name('admin.pkl.destroyInvoice');
         Route::post('/pkl/{id}/issue-certificate', [\App\Http\Controllers\Admin\PklManagementController::class, 'issueCertificate'])->name('admin.pkl.issueCertificate');
+        Route::get('/pkl/{id}/download-certificate', [\App\Http\Controllers\Admin\PklManagementController::class, 'downloadCertificate'])->name('admin.pkl.downloadCertificate');
+        Route::post('/pkl/{id}/upload-material', [\App\Http\Controllers\Admin\PklManagementController::class, 'uploadMaterial'])->name('admin.pkl.uploadMaterial');
+        Route::delete('/pkl/material/{materialId}', [\App\Http\Controllers\Admin\PklManagementController::class, 'destroyMaterial'])->name('admin.pkl.destroyMaterial');
         Route::post('/users/{id}/rfid', [\App\Http\Controllers\RfidController::class, 'assignRfid'])->name('admin.users.assignRfid');
     });
 });
@@ -365,6 +369,7 @@ Route::middleware(['auth', 'pkl.access'])->prefix('pkl')->name('pkl.')->group(fu
     Route::post('/portfolio', [\App\Http\Controllers\PklStudentDashboardController::class, 'storePortfolio'])->name('portfolio.store');
     Route::delete('/portfolio/{id}', [\App\Http\Controllers\PklStudentDashboardController::class, 'destroyPortfolio'])->name('portfolio.destroy');
     Route::get('/certificate', [\App\Http\Controllers\PklStudentDashboardController::class, 'certificate'])->name('certificate');
+    Route::get('/certificate/download', [\App\Http\Controllers\PklStudentDashboardController::class, 'downloadCertificate'])->name('certificate.download');
     Route::get('/history', [\App\Http\Controllers\PklStudentDashboardController::class, 'history'])->name('history');
     
     // Eksplorasi Detail

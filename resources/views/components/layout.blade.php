@@ -923,6 +923,21 @@
                 border-top: 1px solid #f1f5f9;
             }
             .header-nav.active { display: flex; }
+            
+            /* Override Transparent Header on Mobile because background is white */
+            .custom-header.transparent-header:not(.scrolled) .header-nav .nav-link,
+            .custom-header.transparent-header:not(.scrolled) .header-nav .btn-outline-nav {
+                color: #1a202c !important;
+            }
+            .custom-header.transparent-header:not(.scrolled) .header-nav .nav-link:hover,
+            .custom-header.transparent-header:not(.scrolled) .header-nav .nav-link.active,
+            .custom-header.transparent-header:not(.scrolled) .header-nav .btn-outline-nav:hover {
+                color: #4B6BF5 !important;
+            }
+            .custom-header.transparent-header:not(.scrolled) .header-nav .nav-link:hover::after,
+            .custom-header.transparent-header:not(.scrolled) .header-nav .nav-link.active::after {
+                background-color: #4B6BF5 !important;
+            }
             .nav-list {
                 flex-direction: column;
                 align-items: flex-start;

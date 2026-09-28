@@ -66,6 +66,11 @@ class PklProfile extends Model
         return $this->hasMany(PklStudentProgress::class, 'pkl_profile_id');
     }
 
+    public function materials()
+    {
+        return $this->hasMany(PklMaterial::class, 'pkl_profile_id')->latest();
+    }
+
     // Combined Progress calculation helper (Modules & Tasks)
     public function getProgressPercentageAttribute()
     {

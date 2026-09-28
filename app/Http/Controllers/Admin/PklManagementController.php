@@ -31,7 +31,7 @@ class PklManagementController extends Controller
 
     public function index(Request $request)
     {
-        $query = PklProfile::with(['user', 'mentor', 'program']);
+        $query = PklProfile::with(['user', 'mentor', 'program', 'certificate']);
 
         if ($request->search) {
             $query->whereHas('user', function ($q) use ($request) {
@@ -363,8 +363,8 @@ class PklManagementController extends Controller
         ]);
 
         if ($request->status === 'paid') {
-            if ($invoice->pklProfile) {
-                $invoice->pklProfile->update(['status' => 'active']);
+            if ($invoice->profile) {
+                $invoice->profile->update(['status' => 'active']);
             }
 
             // Grant programs
@@ -521,6 +521,23 @@ class PklManagementController extends Controller
         return redirect()->back()->with('success', 'Sertifikat kelulusan berhasil diterbitkan!');
     }
 
+    public function downloadCertificate(Request $request, $id)
+    {
+        $profile = PklProfile::with(['user', 'certificate'])->findOrFail($id);
+        
+        if (!$profile->certificate) {
+            return redirect()->back()->with('error', 'Sertifikat belum diterbitkan untuk siswa ini.');
+        }
+
+        $format = $request->query('format', 'pdf');
+        
+        if ($format === 'image') {
+            return \App\Services\CertificateService::generateImage($profile, $profile->certificate);
+        }
+
+        return \App\Services\CertificateService::generatePdf($profile, $profile->certificate);
+    }
+
     public function toggleStatus(Request $request, $id)
     {
         $profile = PklProfile::findOrFail($id);
@@ -552,5 +569,44 @@ class PklManagementController extends Controller
         }
 
         return redirect()->back()->with('success', $message);
+    }
+
+    public function uploadMaterial(Request $request, $id)
+    {
+        $profile = PklProfile::findOrFail($id);
+
+        $request->validate([
+            'files' => 'required|array',
+            'files.*' => 'required|file|max:20480', // max 20MB per file
+        ]);
+
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('pkl_materials', $filename, 'public');
+
+                \App\Models\PklMaterial::create([
+                    'pkl_profile_id' => $profile->id,
+                    'title' => $file->getClientOriginalName(),
+                    'file_path' => $path,
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Materi berhasil diunggah.');
+    }
+
+    public function destroyMaterial($materialId)
+    {
+        $material = \App\Models\PklMaterial::findOrFail($materialId);
+        $profileId = $material->pkl_profile_id;
+        
+        if (\Illuminate\Support\Facades\Storage::disk('public')->exists($material->file_path)) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($material->file_path);
+        }
+        
+        $material->delete();
+
+        return redirect()->back()->with('success', 'Materi berhasil dihapus.');
     }
 }

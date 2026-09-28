@@ -170,6 +170,36 @@
                 @endif
             </div>
 
+            <!-- Materials List -->
+            @if($profile->materials->count() > 0)
+            <div class="bg-slate-800/60 border border-slate-700/60 rounded-3xl p-6 backdrop-blur-md mb-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fas fa-file-alt text-blue-400"></i> Materi & Dokumen Tambahan
+                    </h3>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    @foreach($profile->materials as $material)
+                        <div class="bg-slate-900/60 p-4 rounded-2xl border border-slate-700/50 flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3 overflow-hidden">
+                                <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0">
+                                    <i class="fas fa-file-download text-lg"></i>
+                                </div>
+                                <div class="overflow-hidden">
+                                    <h4 class="font-bold text-white text-sm truncate" title="{{ $material->title }}">{{ $material->title }}</h4>
+                                    <p class="text-[10px] text-slate-500 mt-1">Diunggah: {{ $material->created_at->format('d M Y') }}</p>
+                                </div>
+                            </div>
+                            <a href="{{ asset('storage/' . $material->file_path) }}" target="_blank" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-blue-400 border border-slate-600 rounded-lg text-xs font-semibold shrink-0 transition">
+                                Buka
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+
             <!-- Pending Tasks List -->
             <div class="bg-slate-800/60 border border-slate-700/60 rounded-3xl p-6 backdrop-blur-md">
                 <div class="flex items-center justify-between mb-6">

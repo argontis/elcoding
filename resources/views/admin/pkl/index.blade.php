@@ -135,6 +135,11 @@
                                     <a href="{{ route('admin.pkl.edit', $profile->id) }}" class="p-2 bg-amber-50 text-amber-600 hover:bg-amber-600 hover:text-white rounded-lg transition" title="Edit Profil">
                                         <i class="fas fa-edit"></i>
                                     </a>
+                                    @if($profile->status === 'completed' || $profile->certificate)
+                                        <a href="{{ route('admin.pkl.downloadCertificate', $profile->id) }}" class="p-2 bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white rounded-lg transition" title="Unduh Sertifikat" target="_blank">
+                                            <i class="fas fa-certificate"></i>
+                                        </a>
+                                    @endif
                                     <form action="{{ route('admin.pkl.destroy', $profile->id) }}" method="POST" onsubmit="return confirm('Hapus seluruh data anak PKL ini?');" class="inline">
                                         @csrf
                                         @method('DELETE')

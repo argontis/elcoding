@@ -121,6 +121,9 @@
         <button onclick="document.getElementById('modal-add-task').classList.remove('hidden')" class="btn-primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5">
             <i class="fas fa-plus-circle"></i> Beri Tugas Baru
         </button>
+        <button onclick="document.getElementById('modal-add-material').classList.remove('hidden')" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+            <i class="fas fa-file-upload"></i> Upload Materi
+        </button>
 
         <button onclick="document.getElementById('modal-add-quiz').classList.remove('hidden')" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
             <i class="fas fa-award"></i> Catat Nilai Quiz
@@ -457,7 +460,7 @@
         <div id="tab-content-materials" class="tab-content hidden">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-sm font-bold text-slate-800">Materi Tersedia</h3>
-                <button type="button" onclick="openModal('modal-add-material')" class="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-blue-700">
+                <button type="button" onclick="document.getElementById('modal-add-material').classList.remove('hidden')" class="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-blue-700">
                     + Upload Materi
                 </button>
             </div>
@@ -681,7 +684,7 @@
     <div class="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden">
         <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
             <h3 class="font-bold text-slate-800">Upload Materi Tambahan</h3>
-            <button type="button" onclick="closeModal('modal-add-material')" class="text-slate-400 hover:text-slate-600">
+            <button type="button" onclick="document.getElementById('modal-add-material').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -695,7 +698,7 @@
                 </div>
                 
                 <div class="flex justify-end gap-2">
-                    <button type="button" onclick="closeModal('modal-add-material')" class="px-4 py-2 text-xs font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Batal</button>
+                    <button type="button" onclick="document.getElementById('modal-add-material').classList.add('hidden')" class="px-4 py-2 text-xs font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Batal</button>
                     <button type="submit" class="px-4 py-2 text-xs font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm shadow-blue-600/20">Upload</button>
                 </div>
             </form>

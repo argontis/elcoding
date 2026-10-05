@@ -60,6 +60,18 @@ $events = [
         'duration_or_date' => '25 Sep 2026',
         'time' => '09:00 WIB',
     ],
+    [
+        'type' => 'webinar',
+        'title' => 'Seminar Coding: From Zero to Coder',
+        'price' => 'Rp 49.000',
+        'original_price' => 'Rp 79.000',
+        'price_amount' => 49000,
+        'image_path' => 'gambar/webinar/seminar-coding.jpg',
+        'badge_text' => 'SPECIAL',
+        'duration_or_date' => '10 Okt 2026',
+        'time' => '09:00 - 11:00 WIB',
+        'description' => "Belajar Coding dari Nol hingga Siap Berkarya. Mengenal Teknologi, Membangun Skill, dan Menciptakan Peluang di Era Digital.\n\nNarasumber: Zaky Afrizal\nModerator: Hasan Machmud\nLokasi: Studio Room Lt.2 Azzahra Computer",
+    ],
 ];
 
 foreach ($events as $eventData) {

@@ -318,6 +318,22 @@ $events = [
         'btn_text' => 'Daftar Workshop',
         'image' => asset('gambar/workshop/workshop-devops.jpg'),
     ],
+    [
+        'category' => 'webinar',
+        'category_label' => 'Webinar Tech',
+        'date' => '2026-10',
+        'badge_icon' => 'fas fa-star',
+        'badge_text' => 'SPECIAL',
+        'meta_text1' => '10 Okt 2026',
+        'meta_text2' => '09:00 - 11:00 WIB',
+        'title' => 'Seminar Coding: From Zero to Coder',
+        'price_label' => 'TIKET MASUK',
+        'price' => 'Rp 49.000',
+        'price_strike' => 'Rp 79.000',
+        'link' => url('/silabus?type=webinar'),
+        'btn_text' => 'Daftar Webinar',
+        'image' => asset('gambar/webinar/seminar-coding.jpg'),
+    ],
 ];
 ?>
 <section class="events-section">
@@ -333,6 +349,7 @@ $events = [
                     <option value="all">Semua Waktu</option>
                     <option value="2026-08">Agustus 2026</option>
                     <option value="2026-09">September 2026</option>
+                    <option value="2026-10">Oktober 2026</option>
                     <option value="flexible">Waktu Fleksibel</option>
                 </select>
             </div>

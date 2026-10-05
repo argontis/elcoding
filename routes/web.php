@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ChatController;
 
+Route::get('/test-update', function () { return 'Update is live!'; });
+
 if (!function_exists('setSeoMeta')) {
     function setSeoMeta($title, $description = null) {
         if (class_exists(\Artesaos\SEOTools\Facades\SEOTools::class)) {
@@ -231,6 +233,32 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/program-kursus/{id}/edit', [AdminController::class, 'editProgram']);
         Route::put('/program-kursus/{id}', [AdminController::class, 'updateProgram']);
         Route::delete('/program-kursus/{id}', [AdminController::class, 'destroyProgram']);
+        
+        // Modules (Silabus/Kurikulum)
+        Route::get('/program-kursus/{program_id}/modules', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'index'])->name('admin.program.modules.index');
+        Route::get('/program-kursus/{program_id}/modules/create', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'create'])->name('admin.program.modules.create');
+        Route::post('/program-kursus/{program_id}/modules', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'store'])->name('admin.program.modules.store');
+        Route::get('/program-kursus/{program_id}/modules/{id}/edit', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'edit'])->name('admin.program.modules.edit');
+        Route::put('/program-kursus/{program_id}/modules/{id}', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'update'])->name('admin.program.modules.update');
+        Route::delete('/program-kursus/{program_id}/modules/{id}', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'destroy'])->name('admin.program.modules.destroy');
+        
+        // Quiz Builder
+        Route::get('/program-kursus/{program_id}/modules/{id}/quiz', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'quizBuilder'])->name('admin.program.modules.quiz');
+        Route::post('/program-kursus/{program_id}/modules/{id}/quiz', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'storeQuestion'])->name('admin.program.modules.quiz.store');
+        Route::delete('/program-kursus/{program_id}/modules/{id}/quiz/{question_id}', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'destroyQuestion'])->name('admin.program.modules.quiz.destroy');
+
+        // Event Modules
+        Route::get('/event/{event_id}/modules', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'indexEvent'])->name('admin.event.modules.index');
+        Route::get('/event/{event_id}/modules/create', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'createEvent'])->name('admin.event.modules.create');
+        Route::post('/event/{event_id}/modules', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'storeEvent'])->name('admin.event.modules.store');
+        Route::get('/event/{event_id}/modules/{id}/edit', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'editEvent'])->name('admin.event.modules.edit');
+        Route::put('/event/{event_id}/modules/{id}', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'updateEvent'])->name('admin.event.modules.update');
+        Route::delete('/event/{event_id}/modules/{id}', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'destroyEvent'])->name('admin.event.modules.destroy');
+        
+        // Event Quiz Builder
+        Route::get('/event/{event_id}/modules/{id}/quiz', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'quizBuilderEvent'])->name('admin.event.modules.quiz');
+        Route::post('/event/{event_id}/modules/{id}/quiz', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'storeQuestionEvent'])->name('admin.event.modules.quiz.store');
+        Route::delete('/event/{event_id}/modules/{id}/quiz/{question_id}', [\App\Http\Controllers\Admin\ProgramModuleController::class, 'destroyQuestionEvent'])->name('admin.event.modules.quiz.destroy');
 
         // Event & Webinar CRUD
         Route::get('/event', [\App\Http\Controllers\Admin\EventController::class, 'index']);
@@ -291,6 +319,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/pkl/{id}', [\App\Http\Controllers\Admin\PklManagementController::class, 'show'])->name('admin.pkl.show');
         Route::get('/pkl/{id}/edit', [\App\Http\Controllers\Admin\PklManagementController::class, 'edit'])->name('admin.pkl.edit');
         Route::put('/pkl/{id}', [\App\Http\Controllers\Admin\PklManagementController::class, 'update'])->name('admin.pkl.update');
+        Route::put('/pkl/{id}/toggle-status', [\App\Http\Controllers\Admin\PklManagementController::class, 'toggleStatus'])->name('admin.pkl.toggleStatus');
         Route::delete('/pkl/{id}', [\App\Http\Controllers\Admin\PklManagementController::class, 'destroy'])->name('admin.pkl.destroy');
         Route::post('/pkl/{id}/assign-mentor', [\App\Http\Controllers\Admin\PklManagementController::class, 'assignMentor'])->name('admin.pkl.assignMentor');
         Route::post('/pkl/{id}/add-task', [\App\Http\Controllers\Admin\PklManagementController::class, 'addTask'])->name('admin.pkl.addTask');
@@ -298,7 +327,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/pkl/{id}/add-quiz', [\App\Http\Controllers\Admin\PklManagementController::class, 'addQuiz'])->name('admin.pkl.addQuiz');
         Route::post('/pkl/{id}/add-invoice', [\App\Http\Controllers\Admin\PklManagementController::class, 'addInvoice'])->name('admin.pkl.addInvoice');
         Route::put('/pkl/invoice/{invoiceId}/status', [\App\Http\Controllers\Admin\PklManagementController::class, 'updateInvoiceStatus'])->name('admin.pkl.invoiceStatus');
+        Route::put('/pkl/invoice/{invoiceId}/items', [\App\Http\Controllers\Admin\PklManagementController::class, 'updateInvoiceItems'])->name('admin.pkl.invoiceItems');
+        Route::delete('/pkl/invoice/{invoiceId}', [\App\Http\Controllers\Admin\PklManagementController::class, 'destroyInvoice'])->name('admin.pkl.destroyInvoice');
         Route::post('/pkl/{id}/issue-certificate', [\App\Http\Controllers\Admin\PklManagementController::class, 'issueCertificate'])->name('admin.pkl.issueCertificate');
+        Route::get('/pkl/{id}/download-certificate', [\App\Http\Controllers\Admin\PklManagementController::class, 'downloadCertificate'])->name('admin.pkl.downloadCertificate');
+        Route::post('/pkl/{id}/upload-material', [\App\Http\Controllers\Admin\PklManagementController::class, 'uploadMaterial'])->name('admin.pkl.uploadMaterial');
+        Route::delete('/pkl/material/{materialId}', [\App\Http\Controllers\Admin\PklManagementController::class, 'destroyMaterial'])->name('admin.pkl.destroyMaterial');
         Route::post('/users/{id}/rfid', [\App\Http\Controllers\RfidController::class, 'assignRfid'])->name('admin.users.assignRfid');
     });
 });
@@ -335,11 +369,19 @@ Route::middleware(['auth', 'pkl.access'])->prefix('pkl')->name('pkl.')->group(fu
     Route::post('/portfolio', [\App\Http\Controllers\PklStudentDashboardController::class, 'storePortfolio'])->name('portfolio.store');
     Route::delete('/portfolio/{id}', [\App\Http\Controllers\PklStudentDashboardController::class, 'destroyPortfolio'])->name('portfolio.destroy');
     Route::get('/certificate', [\App\Http\Controllers\PklStudentDashboardController::class, 'certificate'])->name('certificate');
+    Route::get('/certificate/download', [\App\Http\Controllers\PklStudentDashboardController::class, 'downloadCertificate'])->name('certificate.download');
     Route::get('/history', [\App\Http\Controllers\PklStudentDashboardController::class, 'history'])->name('history');
     
     // Eksplorasi Detail
     Route::get('/program-kursus/{id}', [\App\Http\Controllers\PklStudentDashboardController::class, 'programDetail'])->name('program.detail');
     Route::get('/event/{id}', [\App\Http\Controllers\PklStudentDashboardController::class, 'eventDetail'])->name('event.detail');
+
+    // Checkout / Pendaftaran dari portal
+    Route::get('/program-kursus/{id}/checkout', [\App\Http\Controllers\PklCheckoutController::class, 'checkoutProgram'])->name('program.checkout');
+    Route::post('/program-kursus/{id}/checkout', [\App\Http\Controllers\PklCheckoutController::class, 'processProgram'])->name('program.checkout.process');
+    
+    Route::get('/event/{id}/checkout', [\App\Http\Controllers\PklCheckoutController::class, 'checkoutEvent'])->name('event.checkout');
+    Route::post('/event/{id}/checkout', [\App\Http\Controllers\PklCheckoutController::class, 'processEvent'])->name('event.checkout.process');
 });
 
 // ==========================================

@@ -66,6 +66,11 @@ class PklProfile extends Model
         return $this->hasMany(PklStudentProgress::class, 'pkl_profile_id');
     }
 
+    public function materials()
+    {
+        return $this->hasMany(PklMaterial::class, 'pkl_profile_id')->latest();
+    }
+
     // Combined Progress calculation helper (Modules & Tasks)
     public function getProgressPercentageAttribute()
     {
@@ -75,12 +80,14 @@ class PklProfile extends Model
         $totalTasks = $this->tasks()->count();
         $completedTasks = $this->tasks()->whereIn('status', ['completed', 'reviewed'])->count();
 
-        $totalItems = $totalModules + $totalTasks;
+        $totalQuizzes = $this->quizzes()->count();
+
+        $totalItems = $totalModules + $totalTasks + $totalQuizzes;
         if ($totalItems === 0) {
             return 0;
         }
 
-        $completedItems = $completedModules + $completedTasks;
+        $completedItems = $completedModules + $completedTasks + $totalQuizzes;
         return round(($completedItems / $totalItems) * 100);
     }
 }

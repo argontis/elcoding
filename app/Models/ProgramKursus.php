@@ -8,6 +8,10 @@ class ProgramKursus extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'materi_pdf' => 'array',
+    ];
+
     public function orders()
     {
         return $this->hasMany(Order::class);

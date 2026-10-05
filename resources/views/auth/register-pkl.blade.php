@@ -71,14 +71,7 @@
                 </h3>
                 <div>
                     <label class="block text-xs font-semibold text-slate-300 mb-1.5">Program / Divisi Magang yang Diikuti *</label>
-                    <select name="program_id" required class="w-full bg-slate-900 border border-blue-500/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400 text-white font-semibold shadow-inner">
-                        <option value="">-- Pilih Program / Divisi Magang --</option>
-                        @foreach($programs as $program)
-                            <option value="{{ $program->id }}" {{ (old('program_id', $profile?->program_id ?? '') == $program->id) ? 'selected' : '' }}>
-                                📌 {{ $program->title ?? $program->name }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <input type="text" name="division" required placeholder="Contoh: IT Support / Web Development" class="w-full bg-slate-900 border border-blue-500/50 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400 text-white font-semibold shadow-inner" value="{{ old('division', $profile?->division ?? '') }}">
                 </div>
             </div>
 

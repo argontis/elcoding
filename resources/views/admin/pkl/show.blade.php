@@ -11,6 +11,19 @@
             <i class="fas fa-arrow-left"></i> Kembali ke Daftar PKL
         </a>
         <div class="flex items-center gap-2">
+            <form action="{{ route('admin.pkl.toggleStatus', $profile->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                @if($profile->status === 'active')
+                    <button type="submit" class="px-3.5 py-1.5 bg-red-50 text-red-600 hover:bg-red-600 hover:text-white text-xs font-bold rounded-lg transition border border-red-200" onclick="return confirm('Yakin ingin menonaktifkan akun ini?');">
+                        <i class="fas fa-ban mr-1"></i> Nonaktifkan Akun
+                    </button>
+                @else
+                    <button type="submit" class="px-3.5 py-1.5 bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white text-xs font-bold rounded-lg transition border border-emerald-200" onclick="return confirm('Yakin ingin mengaktifkan akun ini?');">
+                        <i class="fas fa-check mr-1"></i> Aktifkan Akun
+                    </button>
+                @endif
+            </form>
             <a href="{{ route('admin.pkl.edit', $profile->id) }}" class="px-3.5 py-1.5 bg-amber-50 text-amber-600 hover:bg-amber-600 hover:text-white text-xs font-bold rounded-lg transition border border-amber-200">
                 <i class="fas fa-edit mr-1"></i> Edit Profil
             </a>
@@ -108,6 +121,9 @@
         <button onclick="document.getElementById('modal-add-task').classList.remove('hidden')" class="btn-primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5">
             <i class="fas fa-plus-circle"></i> Beri Tugas Baru
         </button>
+        <button onclick="document.getElementById('modal-add-material').classList.remove('hidden')" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+            <i class="fas fa-file-upload"></i> Upload Materi
+        </button>
 
         <button onclick="document.getElementById('modal-add-quiz').classList.remove('hidden')" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
             <i class="fas fa-award"></i> Catat Nilai Quiz
@@ -139,7 +155,7 @@
                 <i class="fas fa-tasks mr-1"></i> Tugas & Penilaian ({{ $profile->tasks->count() }})
             </button>
             <button onclick="switchTab('student-progress')" id="tab-btn-student-progress" class="tab-btn py-3 px-2 font-semibold text-xs border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
-                <i class="fas fa-list-check mr-1"></i> Modul & Progress Checklist ({{ $profile->studentProgress->count() }})
+                <i class="fas fa-box-open mr-1"></i> Materi yang Dibeli
             </button>
             <button onclick="switchTab('quizzes')" id="tab-btn-quizzes" class="tab-btn py-3 px-2 font-semibold text-xs border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
                 <i class="fas fa-award mr-1"></i> Progress & Quiz ({{ $profile->quizzes->count() }})
@@ -149,6 +165,9 @@
             </button>
             <button onclick="switchTab('portfolios')" id="tab-btn-portfolios" class="tab-btn py-3 px-2 font-semibold text-xs border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
                 <i class="fas fa-laptop-code mr-1"></i> Portofolio ({{ $profile->portfolios->count() }})
+            </button>
+            <button onclick="switchTab('materials')" id="tab-btn-materials" class="tab-btn py-3 px-2 font-semibold text-xs border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
+                <i class="fas fa-file-upload mr-1"></i> Materi ({{ $profile->materials->count() }})
             </button>
             <button onclick="switchTab('certificate')" id="tab-btn-certificate" class="tab-btn py-3 px-2 font-semibold text-xs border-b-2 border-transparent text-slate-500 hover:text-slate-800 whitespace-nowrap">
                 <i class="fas fa-certificate mr-1"></i> Sertifikat
@@ -223,33 +242,57 @@
             @endforelse
         </div>
 
-        <!-- Tab: Student Progress Checklist -->
+        <!-- Tab: Materi yang Dibeli -->
+        @php
+            $email = $profile->user->email;
+            $purchasedPrograms = \App\Models\Order::where('user_email', $email)->whereIn('status', ['paid', 'PAID', 'SETTLED'])->get();
+            $purchasedEvents = \App\Models\EventOrder::where('user_email', $email)->whereIn('status', ['paid', 'PAID', 'SETTLED'])->get();
+        @endphp
         <div id="tab-content-student-progress" class="tab-content hidden space-y-4">
             <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
                 <div class="flex items-center justify-between mb-4">
-                    <h4 class="font-bold text-slate-800 text-sm">Checklist Progress Belajar & Silabus</h4>
-                    <span class="font-extrabold text-blue-600 text-sm">Persentase: {{ $profile->progress_percentage }}% Tuntas</span>
+                    <h4 class="font-bold text-slate-800 text-sm">Materi yang Dibeli (Program & Event)</h4>
                 </div>
                 <div class="space-y-3">
-                    @forelse($profile->studentProgress as $index => $sp)
-                        @php $m = $sp->module; $isDone = ($sp->status === 'completed'); @endphp
-                        <div class="p-3 rounded-xl border {{ $isDone ? 'bg-emerald-50/50 border-emerald-200' : 'bg-white border-slate-200' }} flex items-center justify-between">
+                    @forelse($purchasedPrograms as $order)
+                        <div class="p-3 rounded-xl border bg-white border-slate-200 flex items-center justify-between hover:border-blue-300 transition">
                             <div class="flex items-center gap-3">
-                                <div class="w-7 h-7 rounded-full font-bold text-xs flex items-center justify-center {{ $isDone ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-600' }}">
-                                    {{ $isDone ? '✓' : ($index + 1) }}
+                                <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-xs shrink-0">
+                                    <i class="fas fa-laptop-code"></i>
                                 </div>
                                 <div>
-                                    <h5 class="font-bold text-xs text-slate-800">{{ $m->title ?? 'Modul ' . ($index + 1) }}</h5>
-                                    <p class="text-[11px] text-slate-500">{{ $m->description ?? '-' }}</p>
+                                    <h5 class="font-bold text-xs text-slate-800">{{ $order->programKursus->title ?? 'Program Terhapus' }}</h5>
+                                    <p class="text-[10px] text-slate-500">Program Kursus</p>
                                 </div>
                             </div>
-                            <span class="text-xs font-bold px-2.5 py-1 rounded-lg {{ $isDone ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700' }}">
-                                {{ $isDone ? '✓ Selesai (' . ($sp->completed_at ? $sp->completed_at->format('d/m/Y') : '-') . ')' : '⏳ Belum Selesai' }}
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-700">
+                                ✓ Terdaftar
                             </span>
                         </div>
                     @empty
-                        <p class="text-xs text-slate-500 py-4 text-center">Belum ada modul terdaftar untuk peserta ini.</p>
                     @endforelse
+
+                    @forelse($purchasedEvents as $order)
+                        <div class="p-3 rounded-xl border bg-white border-slate-200 flex items-center justify-between hover:border-amber-300 transition">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-xs shrink-0">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-xs text-slate-800">{{ $order->event->title ?? 'Event Terhapus' }}</h5>
+                                    <p class="text-[10px] text-slate-500">Event / Webinar</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-700">
+                                ✓ Terdaftar
+                            </span>
+                        </div>
+                    @empty
+                    @endforelse
+
+                    @if($purchasedPrograms->isEmpty() && $purchasedEvents->isEmpty())
+                        <p class="text-xs text-slate-500 py-4 text-center">Belum ada materi yang dibeli untuk peserta ini.</p>
+                    @endif
                 </div>
             </div>
         </div>
@@ -295,11 +338,18 @@
                             <span class="font-mono font-bold text-xs text-blue-600">{{ $inv->invoice_code }}</span>
                             @if($inv->status === 'paid')
                                 <span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 font-bold text-[10px] rounded">LUNAS</span>
+                            @elseif($inv->status === 'cancelled')
+                                <span class="px-2 py-0.5 bg-slate-100 text-slate-700 font-bold text-[10px] rounded">CANCELLED</span>
                             @else
                                 <span class="px-2 py-0.5 bg-red-100 text-red-700 font-bold text-[10px] rounded">PENDING</span>
                             @endif
                         </div>
                         <p class="font-bold text-slate-800 text-sm">Rp {{ number_format($inv->amount, 0, ',', '.') }} &bull; <span class="font-normal text-slate-600">{{ $inv->description }}</span></p>
+                        @if($inv->status === 'pending' && $inv->due_date)
+                            <p class="text-[10px] text-red-600 mt-0.5"><i class="fas fa-clock mr-1"></i>Jatuh tempo: {{ \Carbon\Carbon::parse($inv->due_date)->format('d M Y H:i') }}</p>
+                        @elseif($inv->status === 'paid' && $inv->valid_until)
+                            <p class="text-[10px] text-emerald-600 mt-0.5"><i class="fas fa-calendar-check mr-1"></i>Berlaku s/d: {{ \Carbon\Carbon::parse($inv->valid_until)->format('d M Y H:i') }}</p>
+                        @endif
                         @if($inv->proof_file)
                             <p class="text-xs text-blue-600 font-semibold">
                                 <i class="fas fa-image mr-1"></i> <a href="{{ asset('storage/' . $inv->proof_file) }}" target="_blank" class="underline">Lihat Bukti Transfer</a>
@@ -307,18 +357,76 @@
                         @endif
                     </div>
 
-                    <form action="{{ route('admin.pkl.invoiceStatus', $inv->id) }}" method="POST" class="flex items-center gap-2">
-                        @csrf
-                        @method('PUT')
-                        <select name="status" class="bg-white border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-semibold text-slate-800">
-                            <option value="pending" {{ $inv->status === 'pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="paid" {{ $inv->status === 'paid' ? 'selected' : '' }}>Lunas</option>
-                            <option value="cancelled" {{ $inv->status === 'cancelled' ? 'selected' : '' }}>Batal</option>
-                        </select>
-                        <button type="submit" class="px-3 py-1 bg-slate-800 text-white font-bold text-xs rounded-lg hover:bg-slate-900">
-                            Update
+                    <div class="flex items-center gap-2">
+                        <form action="{{ route('admin.pkl.invoiceStatus', $inv->id) }}" method="POST" class="flex items-center gap-2">
+                            @csrf
+                            @method('PUT')
+                            <select name="status" class="bg-white border border-slate-300 rounded-lg px-2.5 py-1 text-xs font-semibold text-slate-800">
+                                <option value="pending" {{ $inv->status === 'pending' ? 'selected' : '' }}>Pending</option>
+                                <option value="paid" {{ $inv->status === 'paid' ? 'selected' : '' }}>Lunas</option>
+                                <option value="cancelled" {{ $inv->status === 'cancelled' ? 'selected' : '' }}>Batal</option>
+                            </select>
+                            <button type="submit" class="px-3 py-1 bg-slate-800 text-white font-bold text-xs rounded-lg hover:bg-slate-900">
+                                Update
+                            </button>
+                        </form>
+
+                        <button type="button" onclick="document.getElementById('modal-edit-invoice-{{ $inv->id }}').classList.remove('hidden')" class="px-3 py-1 bg-blue-600 text-white font-bold text-xs rounded-lg hover:bg-blue-700">
+                            Edit Akses
                         </button>
-                    </form>
+                        
+                        <form action="{{ route('admin.pkl.destroyInvoice', $inv->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus invoice ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="px-3 py-1 bg-red-100 text-red-600 font-bold text-xs rounded-lg hover:bg-red-200">
+                                Hapus
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Modal Edit Invoice {{ $inv->id }} -->
+                <div id="modal-edit-invoice-{{ $inv->id }}" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+                    <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl relative">
+                        <h3 class="text-sm font-bold text-slate-800 mb-4">Edit Akses Modul Invoice: {{ $inv->invoice_code }}</h3>
+                        <form action="{{ route('admin.pkl.invoiceItems', $inv->id) }}" method="POST" class="space-y-4">
+                            @csrf
+                            @method('PUT')
+                            
+                            <div class="pt-2">
+                                <label class="block text-xs font-semibold text-slate-600 mb-2">Akses Program Kursus</label>
+                                <div class="max-h-32 overflow-y-auto space-y-1 bg-slate-50 border border-slate-200 rounded-xl p-2">
+                                    @foreach($programs as $p)
+                                        <label class="flex items-center gap-2 text-xs text-slate-700 cursor-pointer p-1 hover:bg-slate-100 rounded">
+                                            <input type="checkbox" name="granted_programs[]" value="{{ $p->id }}" 
+                                                {{ is_array($inv->granted_programs) && in_array($p->id, $inv->granted_programs) ? 'checked' : '' }}
+                                                class="rounded text-blue-600 border-slate-300">
+                                            {{ $p->title }}
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-2">Akses Event/Webinar</label>
+                                <div class="max-h-32 overflow-y-auto space-y-1 bg-slate-50 border border-slate-200 rounded-xl p-2">
+                                    @foreach($events as $e)
+                                        <label class="flex items-center gap-2 text-xs text-slate-700 cursor-pointer p-1 hover:bg-slate-100 rounded">
+                                            <input type="checkbox" name="granted_events[]" value="{{ $e->id }}" 
+                                                {{ is_array($inv->granted_events) && in_array($e->id, $inv->granted_events) ? 'checked' : '' }}
+                                                class="rounded text-amber-600 border-slate-300">
+                                            {{ $e->title }}
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end gap-2 pt-2">
+                                <button type="button" onclick="document.getElementById('modal-edit-invoice-{{ $inv->id }}').classList.add('hidden')" class="px-4 py-2 bg-slate-200 text-xs font-semibold rounded-xl">Batal</button>
+                                <button type="submit" class="bg-blue-600 text-white px-4 py-2 text-xs font-bold rounded-xl hover:bg-blue-700">Simpan Akses</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             @empty
                 <p class="text-xs text-slate-500 py-4 text-center">Belum ada invoice pembayaran dibuat.</p>
@@ -348,6 +456,44 @@
             </div>
         </div>
 
+        <!-- Tab: Materials -->
+        <div id="tab-content-materials" class="tab-content hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-sm font-bold text-slate-800">Materi Tersedia</h3>
+                <button type="button" onclick="document.getElementById('modal-add-material').classList.remove('hidden')" class="px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-lg shadow-sm hover:bg-blue-700">
+                    + Upload Materi
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @forelse($profile->materials as $material)
+                    <div class="p-4 rounded-2xl border border-slate-200 bg-white flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-lg">
+                                <i class="fas fa-file"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-800">{{ $material->title }}</h4>
+                                <a href="{{ asset('storage/' . $material->file_path) }}" target="_blank" class="text-xs text-blue-600 hover:underline">Lihat / Download</a>
+                            </div>
+                        </div>
+                        
+                        <form action="{{ route('admin.pkl.destroyMaterial', $material->id) }}" method="POST" onsubmit="return confirm('Hapus materi ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-500 hover:text-red-700 p-2">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                @empty
+                    <div class="col-span-full py-8 text-center text-slate-500 text-sm">
+                        Belum ada materi yang diunggah.
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
         <!-- Tab 5: Certificate -->
         <div id="tab-content-certificate" class="tab-content hidden">
             @if($profile->certificate)
@@ -355,9 +501,14 @@
                     <span class="px-3 py-1 bg-emerald-600 text-white font-bold text-xs rounded-full inline-block">Sertifikat Terbit</span>
                     <h3 class="text-lg font-black text-slate-800">{{ $profile->certificate->certificate_number }}</h3>
                     <p class="text-xs text-slate-600">Predikat: <strong class="text-emerald-700">{{ $profile->certificate->predicate }}</strong> &bull; Diterbitkan: {{ $profile->certificate->issue_date ? $profile->certificate->issue_date->format('d M Y') : '-' }}</p>
-                    <a href="{{ url('/verifikasi-sertifikat?code=' . urlencode($profile->certificate->certificate_number)) }}" target="_blank" class="btn-primary px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5">
-                        <i class="fas fa-external-link-alt"></i> Cek Halaman Verifikasi Sertifikat Publik
-                    </a>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <a href="{{ route('admin.pkl.downloadCertificate', $profile->id) }}" target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold inline-flex items-center gap-1.5 transition">
+                            <i class="fas fa-download"></i> Unduh Sertifikat
+                        </a>
+                        <a href="{{ url('/verifikasi-sertifikat?code=' . urlencode($profile->certificate->certificate_number)) }}" target="_blank" class="btn-primary px-4 py-2 rounded-xl text-xs font-bold inline-flex items-center gap-1.5">
+                            <i class="fas fa-external-link-alt"></i> Cek Halaman Verifikasi Sertifikat Publik
+                        </a>
+                    </div>
                 </div>
             @else
                 <p class="text-xs text-slate-500 py-4 text-center">Sertifikat belum diterbitkan. Klik tombol <strong>"Terbitkan Sertifikat"</strong> di atas.</p>
@@ -483,11 +634,75 @@
                 <label class="block text-xs font-semibold text-slate-600 mb-1">Nominal (Rp) *</label>
                 <input type="number" name="amount" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 font-bold" placeholder="500000">
             </div>
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Periode Jatuh Tempo (Hari)</label>
+                <input type="number" name="due_days" min="1" value="7" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 font-bold" placeholder="7">
+                <p class="text-[10px] text-slate-500 mt-1">Batas hari sebelum invoice kedaluwarsa jika tidak dibayar.</p>
+            </div>
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Masa Berlaku Pembayaran (Hari)</label>
+                <input type="number" name="valid_days" min="1" value="30" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 font-bold" placeholder="30">
+                <p class="text-[10px] text-slate-500 mt-1">Lama akun aktif setelah invoice ini dilunasi. Kosongkan jika berlaku selamanya.</p>
+            </div>
+
+            <!-- Tambahan Modul yang Dipilih -->
+            <div class="pt-2 border-t border-slate-100">
+                <label class="block text-xs font-semibold text-slate-600 mb-2">Beri Akses Program Kursus (Opsional)</label>
+                <div class="max-h-32 overflow-y-auto space-y-1 bg-slate-50 border border-slate-200 rounded-xl p-2">
+                    @foreach($programs as $p)
+                        <label class="flex items-center gap-2 text-xs text-slate-700 cursor-pointer p-1 hover:bg-slate-100 rounded">
+                            <input type="checkbox" name="granted_programs[]" value="{{ $p->id }}" class="rounded text-blue-600 border-slate-300">
+                            {{ $p->title }} <span class="text-[10px] text-slate-400">({{ is_numeric($p->price) ? 'Rp ' . number_format((float)$p->price,0,',','.') : $p->price }})</span>
+                        </label>
+                    @endforeach
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-2">Beri Akses Event/Webinar (Opsional)</label>
+                <div class="max-h-32 overflow-y-auto space-y-1 bg-slate-50 border border-slate-200 rounded-xl p-2">
+                    @foreach($events as $e)
+                        <label class="flex items-center gap-2 text-xs text-slate-700 cursor-pointer p-1 hover:bg-slate-100 rounded">
+                            <input type="checkbox" name="granted_events[]" value="{{ $e->id }}" class="rounded text-amber-600 border-slate-300">
+                            {{ $e->title }} <span class="text-[10px] text-slate-400">({{ is_numeric($e->price) ? 'Rp ' . number_format((float)$e->price,0,',','.') : $e->price }})</span>
+                        </label>
+                    @endforeach
+                </div>
+                <p class="text-[10px] text-slate-500 mt-1">Sistem akan otomatis membuka akses materi ini di portal siswa saat tagihan lunas.</p>
+            </div>
+
             <div class="flex justify-end gap-2 pt-2">
                 <button type="button" onclick="document.getElementById('modal-add-invoice').classList.add('hidden')" class="px-4 py-2 bg-slate-200 text-xs font-semibold rounded-xl">Batal</button>
                 <button type="submit" class="bg-slate-800 text-white px-4 py-2 text-xs font-bold rounded-xl hover:bg-slate-900">Buat Invoice</button>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- Modal Add Material -->
+<div id="modal-add-material" class="fixed inset-0 z-[100] hidden bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden">
+        <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+            <h3 class="font-bold text-slate-800">Upload Materi Tambahan</h3>
+            <button type="button" onclick="document.getElementById('modal-add-material').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="p-4">
+            <form action="{{ route('admin.pkl.uploadMaterial', $profile->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-4">
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Pilih File (Bisa lebih dari 1)</label>
+                    <input type="file" name="files[]" multiple required class="w-full text-sm border border-slate-200 rounded-lg p-2 focus:outline-none focus:border-blue-500 bg-slate-50">
+                    <p class="text-[10px] text-slate-500 mt-1">Format bebas. Maksimal 20MB per file.</p>
+                </div>
+                
+                <div class="flex justify-end gap-2">
+                    <button type="button" onclick="document.getElementById('modal-add-material').classList.add('hidden')" class="px-4 py-2 text-xs font-bold text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200">Batal</button>
+                    <button type="submit" class="px-4 py-2 text-xs font-bold text-white bg-blue-600 rounded-lg hover:bg-blue-700 shadow-sm shadow-blue-600/20">Upload</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

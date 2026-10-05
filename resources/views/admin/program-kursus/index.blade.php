@@ -7,7 +7,7 @@
 <div class="surface-card">
     <div class="p-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <h3 class="text-xl font-bold text-slate-800">Daftar Program Kursus</h3>
+            <h3 class="text-xl font-bold text-slate-800">Daftar Program Kursus (DEBUG)</h3>
             <p class="text-sm text-slate-500 mt-1">Kelola kelas, harga, dan ketersediaan program.</p>
         </div>
         <a href="{{ url('admin/program-kursus/create') }}" class="btn-primary px-5 py-2.5 rounded-xl font-semibold flex items-center justify-center gap-2">
@@ -78,6 +78,9 @@
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex items-center justify-center gap-2">
+                            <a href="{{ route('admin.program.modules.index', $program->id) }}" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 text-xs font-bold transition-colors shadow-sm border border-emerald-200" title="Kelola Kurikulum/Modul">
+                                <i class="fas fa-book-open"></i> Kurikulum
+                            </a>
                             <a href="{{ url('admin/program-kursus/'.$program->id.'/edit') }}" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-colors" title="Edit">
                                 <i class="fas fa-pen"></i>
                             </a>

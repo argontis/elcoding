@@ -78,6 +78,9 @@
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex items-center justify-center gap-2">
+                            <a href="{{ route('admin.event.modules.index', $event->id) }}" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 text-xs font-bold transition-colors shadow-sm border border-emerald-200" title="Kelola Kurikulum/Modul">
+                                <i class="fas fa-book-open"></i> Kurikulum
+                            </a>
                             <a href="{{ url('admin/event/'.$event->id.'/edit') }}" class="w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:bg-blue-50 hover:text-blue-600 transition-colors" title="Edit">
                                 <i class="fas fa-pen"></i>
                             </a>

@@ -41,6 +41,21 @@ class AuthenticatedSessionController extends Controller
                                     ->first();
 
             if ($user) {
+                // Block inactive PKL student
+                if ($user->isPklStudent()) {
+                    $pklProfile = \App\Models\PklProfile::where('user_id', $user->id)->first();
+                    if ($pklProfile && $pklProfile->status === 'inactive') {
+                        $hasPendingInvoice = \App\Models\PklInvoice::where('pkl_profile_id', $pklProfile->id)->where('status', 'pending')->exists();
+                        $message = $hasPendingInvoice 
+                            ? 'Akun dinonaktifkan karena Anda belum melunasi tagihan pembayaran. Silakan selesaikan pembayaran atau hubungi admin.' 
+                            : 'Akun PKL/Magang Anda sedang dinonaktifkan. Silakan hubungi admin.';
+                        
+                        throw \Illuminate\Validation\ValidationException::withMessages([
+                            'nomor_kartu' => $message,
+                        ]);
+                    }
+                }
+
                 Auth::guard('web')->login($user);
                 $request->session()->regenerate();
 
@@ -58,20 +73,6 @@ class AuthenticatedSessionController extends Controller
                         $intended = route('pkl.dashboard');
                     }
                     return Inertia::location($intended);
-                }
-
-                // Check if user has course or event
-                $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
-                $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
-                
-                if (!$hasCourse && !$hasEvent) {
-                    Auth::guard('web')->logout();
-                    $request->session()->invalidate();
-                    $request->session()->regenerateToken();
-                    
-                    throw \Illuminate\Validation\ValidationException::withMessages([
-                        'nomor_kartu' => 'Anda belum berlangganan. Silakan berlangganan program kursus atau event terlebih dahulu.',
-                    ]);
                 }
 
                 return Inertia::location(route('member.dashboard'));
@@ -99,6 +100,25 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $user = $request->user();
+        
+        // Block inactive PKL student
+        if ($user->isPklStudent()) {
+            $pklProfile = \App\Models\PklProfile::where('user_id', $user->id)->first();
+            if ($pklProfile && $pklProfile->status === 'inactive') {
+                Auth::guard('web')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                
+                $hasPendingInvoice = \App\Models\PklInvoice::where('pkl_profile_id', $pklProfile->id)->where('status', 'pending')->exists();
+                $message = $hasPendingInvoice 
+                    ? 'Akun dinonaktifkan karena Anda belum melunasi tagihan pembayaran. Silakan selesaikan pembayaran atau hubungi admin.' 
+                    : 'Akun PKL/Magang Anda sedang dinonaktifkan. Silakan hubungi admin.';
+                
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'email' => $message,
+                ]);
+            }
+        }
 
         if ($user->isAdminOrMentor()) {
             $intended = $request->session()->pull('url.intended');
@@ -108,29 +128,11 @@ class AuthenticatedSessionController extends Controller
             return Inertia::location($intended);
         }
 
-        if ($user->isPklStudent()) {
-            $intended = $request->session()->pull('url.intended');
-            if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
-                $intended = route('pkl.dashboard');
-            }
-            return Inertia::location($intended);
+        $intended = $request->session()->pull('url.intended');
+        if (!$intended || str_contains($intended, '/admin') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+            $intended = route('pkl.dashboard');
         }
-
-        // Check if user has course or event
-        $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
-        $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
-        
-        if (!$hasCourse && !$hasEvent) {
-            Auth::guard('web')->logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-            
-            throw \Illuminate\Validation\ValidationException::withMessages([
-                'email' => 'Anda belum berlangganan. Silakan berlangganan program kursus atau event terlebih dahulu.',
-            ]);
-        }
-
-        return Inertia::location(route('member.dashboard'));
+        return Inertia::location($intended);
     }
 
     /**

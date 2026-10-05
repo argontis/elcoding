@@ -194,9 +194,8 @@ class AdminController extends Controller
         if ($request->hasFile('image_file')) {
             $data['image_path'] = $this->handleUpload($request, 'image_file');
         }
-        if ($request->hasFile('materi_pdf')) {
-            $data['materi_pdf'] = $this->handleUpload($request, 'materi_pdf');
-        }
+        
+        $data['materi_pdf'] = [];
         \App\Models\ProgramKursus::create($data);
         \App\Models\ActivityLog::add('Program Kursus', 'Tambah Program', 'Program "' . $request->title . '" telah ditambahkan.', 'amber', 'fa-graduation-cap');
         return redirect('/admin/program-kursus')->with('success', 'Program berhasil ditambahkan.');
@@ -211,9 +210,10 @@ class AdminController extends Controller
         if ($request->hasFile('image_file')) {
             $data['image_path'] = $this->handleUpload($request, 'image_file', $program->image_path);
         }
-        if ($request->hasFile('materi_pdf')) {
-            $data['materi_pdf'] = $this->handleUpload($request, 'materi_pdf', $program->materi_pdf);
-        }
+        
+        // Ensure materi_pdf defaults to an array if it was not already (for schema compatibility)
+        $data['materi_pdf'] = is_array($program->materi_pdf) ? $program->materi_pdf : [];
+        
         $program->update($data);
         $desc = 'Data program "' . $program->title . '" telah diperbarui';
         if ($request->hasFile('image_file')) $desc .= ' (Thumbnail diperbarui)';

@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProgramModule extends Model
 {
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_id');
+    }
     use HasFactory;
 
     protected $guarded = ['id'];
@@ -19,5 +23,10 @@ class ProgramModule extends Model
     public function studentProgress()
     {
         return $this->hasMany(PklStudentProgress::class, 'program_module_id');
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(ProgramModuleQuestion::class, 'program_module_id');
     }
 }

@@ -97,9 +97,7 @@ class EventController extends Controller
         if ($request->hasFile('image_file')) {
             $data['image_path'] = $this->handleUpload($request, 'image_file');
         }
-        if ($request->hasFile('materi_pdf')) {
-            $data['materi_pdf'] = $this->handleUpload($request, 'materi_pdf');
-        }
+        $data['materi_pdf'] = [];
 
         Event::create($data);
         return redirect('/admin/event')->with('success', 'Event/Webinar berhasil ditambahkan.');
@@ -123,9 +121,8 @@ class EventController extends Controller
         if ($request->hasFile('image_file')) {
             $data['image_path'] = $this->handleUpload($request, 'image_file', $event->image_path);
         }
-        if ($request->hasFile('materi_pdf')) {
-            $data['materi_pdf'] = $this->handleUpload($request, 'materi_pdf', $event->materi_pdf);
-        }
+        
+        $data['materi_pdf'] = is_array($event->materi_pdf) ? $event->materi_pdf : [];
 
         $event->update($data);
         return redirect('/admin/event')->with('success', 'Event/Webinar berhasil diperbarui.');

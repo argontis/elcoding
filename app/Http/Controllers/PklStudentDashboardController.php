@@ -16,6 +16,7 @@ class PklStudentDashboardController extends Controller
 {
     private function getProfile()
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         $profile = PklProfile::where('user_id', $user->id)
             ->with(['mentor', 'program', 'certificate'])
@@ -89,10 +90,11 @@ class PklStudentDashboardController extends Controller
             'major' => 'required|string|max:255',
             'student_id_number' => 'nullable|string|max:100',
             'phone_number' => 'required|string|max:30',
-            'program_id' => 'nullable|exists:program_kursuses,id',
+            'division' => 'nullable|string|max:255',
             'address' => 'nullable|string',
         ]);
 
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         $user->name = $request->name;
         $user->save();
@@ -102,8 +104,8 @@ class PklStudentDashboardController extends Controller
             'major' => $request->major,
             'student_id_number' => $request->student_id_number,
             'phone_number' => $request->phone_number,
-            'program_id' => $request->program_id,
             'address' => $request->address,
+            'division' => $request->division,
         ]);
 
         return redirect()->route('pkl.profile')->with('success', 'Profil berhasil diperbarui.');
@@ -195,7 +197,24 @@ class PklStudentDashboardController extends Controller
             $events = $eventsQuery->get();
         }
 
-        return view('pkl.modules', compact('profile', 'studentProgressList', 'coursePrograms', 'events', 'search', 'filter'));
+        // Fetch purchased programs and events
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $userEmail = $user->email;
+        $purchasedProgramIds = \App\Models\Order::where('user_email', $userEmail)
+            ->whereIn('status', ['paid', 'PAID', 'SETTLED'])
+            ->pluck('program_kursus_id')
+            ->toArray();
+            
+        $purchasedEventIds = \App\Models\EventOrder::where('user_email', $userEmail)
+            ->whereIn('status', ['paid', 'PAID', 'SETTLED'])
+            ->pluck('event_id')
+            ->toArray();
+            
+        $purchasedPrograms = \App\Models\ProgramKursus::whereIn('id', $purchasedProgramIds)->get();
+        $purchasedEvents = \App\Models\Event::whereIn('id', $purchasedEventIds)->get();
+
+        return view('pkl.modules', compact('profile', 'studentProgressList', 'coursePrograms', 'events', 'search', 'filter', 'purchasedPrograms', 'purchasedEvents'));
     }
 
     public function completeModule($id)
@@ -331,10 +350,35 @@ class PklStudentDashboardController extends Controller
         return view('pkl.certificate', compact('profile', 'certificate'));
     }
 
-    public function history()
+    public function downloadCertificate(Request $request)
     {
         $profile = $this->getProfile();
-        $histories = $profile->histories()->paginate(15);
+        $certificate = $profile->certificate;
+
+        if (!$certificate) {
+            return redirect()->back()->with('error', 'Sertifikat belum diterbitkan.');
+        }
+
+        $format = $request->query('format', 'pdf');
+        
+        if ($format === 'image') {
+            return \App\Services\CertificateService::generateImage($profile, $certificate);
+        }
+
+        return \App\Services\CertificateService::generatePdf($profile, $certificate);
+    }
+
+    public function history(Request $request)
+    {
+        $profile = $this->getProfile();
+        $query = $profile->histories();
+        
+        if ($request->filled('date')) {
+            $query->whereDate('logged_at', $request->date);
+        }
+        
+        $histories = $query->orderBy('logged_at', 'desc')->paginate(20)->withQueryString();
+        
         return view('pkl.history', compact('profile', 'histories'));
     }
 
@@ -342,13 +386,33 @@ class PklStudentDashboardController extends Controller
     {
         $profile = $this->getProfile();
         $program = \App\Models\ProgramKursus::findOrFail($id);
-        return view('pkl.program-detail', compact('profile', 'program'));
+        
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $isPurchased = \App\Models\Order::where('user_email', $user->email)
+            ->where('program_kursus_id', $program->id)
+            ->whereIn('status', ['paid', 'PAID', 'SETTLED'])
+            ->exists();
+            
+        $modules = \App\Models\ProgramModule::where('program_id', $program->id)->orderBy('order_index')->get();
+            
+        return view('pkl.program-detail', compact('profile', 'program', 'isPurchased', 'modules'));
     }
 
     public function eventDetail($id)
     {
         $profile = $this->getProfile();
         $event = \App\Models\Event::findOrFail($id);
-        return view('pkl.event-detail', compact('profile', 'event'));
+        
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $isPurchased = \App\Models\EventOrder::where('user_email', $user->email)
+            ->where('event_id', $event->id)
+            ->whereIn('status', ['paid', 'PAID', 'SETTLED'])
+            ->exists();
+            
+        $modules = \App\Models\ProgramModule::where('event_id', $event->id)->orderBy('order_index')->get();
+
+        return view('pkl.event-detail', compact('profile', 'event', 'isPurchased', 'modules'));
     }
 }

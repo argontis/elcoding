@@ -13,6 +13,7 @@ class Event extends Model
 
     protected $casts = [
         'syllabus' => 'array',
+        'materi_pdf' => 'array',
     ];
 
     /**

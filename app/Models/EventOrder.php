@@ -8,6 +8,7 @@ class EventOrder extends Model
 {
     protected $fillable = [
         'external_id',
+        'event_id',
         'user_name',
         'user_email',
         'user_phone',

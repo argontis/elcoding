@@ -8,6 +8,9 @@ use App\Models\PklProfile;
 use App\Models\PklTask;
 use App\Models\PklQuiz;
 use App\Models\PklInvoice;
+use App\Models\Event;
+use App\Models\Order;
+use App\Models\EventOrder;
 use App\Models\PklPortfolio;
 use App\Models\PklCertificate;
 use App\Models\PklHistory;
@@ -28,7 +31,7 @@ class PklManagementController extends Controller
 
     public function index(Request $request)
     {
-        $query = PklProfile::with(['user', 'mentor', 'program']);
+        $query = PklProfile::with(['user', 'mentor', 'program', 'certificate']);
 
         if ($request->search) {
             $query->whereHas('user', function ($q) use ($request) {
@@ -73,7 +76,7 @@ class PklManagementController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
             'status' => 'required|string|in:active,completed,inactive,pending',
             'mentor_id' => 'nullable|exists:users,id',
-            'program_id' => 'nullable|exists:program_kursuses,id',
+            'division' => 'nullable|string|max:255',
         ]);
 
         $user = User::create([
@@ -94,7 +97,7 @@ class PklManagementController extends Controller
             'end_date' => $request->end_date,
             'status' => $request->status,
             'mentor_id' => $request->mentor_id,
-            'program_id' => $request->program_id,
+            'division' => $request->division,
         ]);
 
         PklHistory::create([
@@ -125,8 +128,9 @@ class PklManagementController extends Controller
 
         $mentors = $this->getMentors();
         $programs = ProgramKursus::all();
+        $events = Event::all();
 
-        return view('admin.pkl.show', compact('profile', 'mentors', 'programs'));
+        return view('admin.pkl.show', compact('profile', 'mentors', 'programs', 'events'));
     }
 
     public function edit($id)
@@ -153,7 +157,7 @@ class PklManagementController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
             'status' => 'required|string|in:active,completed,inactive,pending',
             'mentor_id' => 'nullable|exists:users,id',
-            'program_id' => 'nullable|exists:program_kursuses,id',
+            'division' => 'nullable|string|max:255',
         ]);
 
         $user->update([
@@ -175,7 +179,7 @@ class PklManagementController extends Controller
             'end_date' => $request->end_date,
             'status' => $request->status,
             'mentor_id' => $request->mentor_id,
-            'program_id' => $request->program_id,
+            'division' => $request->division,
         ]);
 
         return redirect()->route('admin.pkl.show', $profile->id)->with('success', 'Data peserta PKL berhasil diperbarui!');
@@ -307,9 +311,14 @@ class PklManagementController extends Controller
         $request->validate([
             'amount' => 'required|numeric|min:0',
             'description' => 'required|string|max:255',
+            'due_days' => 'required|integer|min:1',
+            'valid_days' => 'nullable|integer|min:1',
+            'granted_programs' => 'nullable|array',
+            'granted_events' => 'nullable|array',
         ]);
 
         $code = 'INV-PKL-' . date('Ymd') . '-' . rand(100, 999);
+        $dueDate = now()->addDays($request->due_days);
 
         PklInvoice::create([
             'pkl_profile_id' => $profile->id,
@@ -317,6 +326,10 @@ class PklManagementController extends Controller
             'amount' => $request->amount,
             'description' => $request->description,
             'status' => 'pending',
+            'due_date' => $dueDate,
+            'valid_days' => $request->valid_days,
+            'granted_programs' => $request->granted_programs,
+            'granted_events' => $request->granted_events,
         ]);
 
         PklHistory::create([
@@ -338,13 +351,61 @@ class PklManagementController extends Controller
             'status' => 'required|string|in:pending,paid,cancelled',
         ]);
 
+        $validUntil = null;
+        if ($request->status === 'paid' && $invoice->valid_days) {
+            $validUntil = now()->addDays($invoice->valid_days);
+        }
+
         $invoice->update([
             'status' => $request->status,
             'paid_at' => $request->status === 'paid' ? now() : null,
+            'valid_until' => $validUntil,
         ]);
 
-        if ($request->status === 'paid' && $invoice->pklProfile) {
-            $invoice->pklProfile->update(['status' => 'active']);
+        if ($request->status === 'paid') {
+            if ($invoice->profile) {
+                $invoice->profile->update(['status' => 'active']);
+            }
+
+            // Grant programs
+            if (is_array($invoice->granted_programs) && count($invoice->granted_programs) > 0) {
+                $userEmail = $invoice->profile->user->email;
+                $userName = $invoice->profile->user->name;
+                $userPhone = $invoice->profile->whatsapp ?? '0000';
+
+                foreach ($invoice->granted_programs as $progId) {
+                    Order::firstOrCreate([
+                        'user_email' => $userEmail,
+                        'program_kursus_id' => $progId
+                    ], [
+                        'external_id' => $invoice->invoice_code . '-P' . $progId,
+                        'user_name' => $userName,
+                        'user_phone' => $userPhone,
+                        'amount' => 0,
+                        'status' => 'PAID',
+                    ])->update(['status' => 'PAID']);
+                }
+            }
+
+            // Grant events
+            if (is_array($invoice->granted_events) && count($invoice->granted_events) > 0) {
+                $userEmail = $invoice->profile->user->email;
+                $userName = $invoice->profile->user->name;
+                $userPhone = $invoice->profile->whatsapp ?? '0000';
+
+                foreach ($invoice->granted_events as $eventId) {
+                    EventOrder::firstOrCreate([
+                        'user_email' => $userEmail,
+                        'event_id' => $eventId
+                    ], [
+                        'external_id' => $invoice->invoice_code . '-E' . $eventId,
+                        'user_name' => $userName,
+                        'user_phone' => $userPhone,
+                        'amount' => 0,
+                        'status' => 'PAID',
+                    ])->update(['status' => 'PAID']);
+                }
+            }
         }
 
         PklHistory::create([
@@ -357,6 +418,72 @@ class PklManagementController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Status invoice berhasil diperbarui & akses peserta telah diaktifkan!');
+    }
+
+    public function updateInvoiceItems(Request $request, $invoiceId)
+    {
+        $invoice = PklInvoice::findOrFail($invoiceId);
+        $request->validate([
+            'granted_programs' => 'nullable|array',
+            'granted_events' => 'nullable|array',
+        ]);
+
+        $invoice->update([
+            'granted_programs' => $request->granted_programs,
+            'granted_events' => $request->granted_events,
+        ]);
+
+        if ($invoice->status === 'paid') {
+            // Grant programs
+            if (is_array($invoice->granted_programs) && count($invoice->granted_programs) > 0) {
+                $userEmail = $invoice->profile->user->email;
+                $userName = $invoice->profile->user->name;
+                $userPhone = $invoice->profile->whatsapp ?? '0000';
+
+                foreach ($invoice->granted_programs as $progId) {
+                    Order::firstOrCreate([
+                        'user_email' => $userEmail,
+                        'program_kursus_id' => $progId
+                    ], [
+                        'external_id' => $invoice->invoice_code . '-P' . $progId,
+                        'user_name' => $userName,
+                        'user_phone' => $userPhone,
+                        'amount' => 0,
+                        'status' => 'PAID',
+                    ])->update(['status' => 'PAID']);
+                }
+            }
+
+            // Grant events
+            if (is_array($invoice->granted_events) && count($invoice->granted_events) > 0) {
+                $userEmail = $invoice->profile->user->email;
+                $userName = $invoice->profile->user->name;
+                $userPhone = $invoice->profile->whatsapp ?? '0000';
+
+                foreach ($invoice->granted_events as $eventId) {
+                    EventOrder::firstOrCreate([
+                        'user_email' => $userEmail,
+                        'event_id' => $eventId
+                    ], [
+                        'external_id' => $invoice->invoice_code . '-E' . $eventId,
+                        'user_name' => $userName,
+                        'user_phone' => $userPhone,
+                        'amount' => 0,
+                        'status' => 'PAID',
+                    ])->update(['status' => 'PAID']);
+                }
+            }
+        }
+
+        return redirect()->back()->with('success', 'Akses modul/event pada invoice berhasil diperbarui!');
+    }
+
+    public function destroyInvoice($invoiceId)
+    {
+        $invoice = PklInvoice::findOrFail($invoiceId);
+        $invoice->delete();
+
+        return redirect()->back()->with('success', 'Invoice pembayaran berhasil dihapus!');
     }
 
     public function issueCertificate(Request $request, $id)
@@ -392,5 +519,94 @@ class PklManagementController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Sertifikat kelulusan berhasil diterbitkan!');
+    }
+
+    public function downloadCertificate(Request $request, $id)
+    {
+        $profile = PklProfile::with(['user', 'certificate'])->findOrFail($id);
+        
+        if (!$profile->certificate) {
+            return redirect()->back()->with('error', 'Sertifikat belum diterbitkan untuk siswa ini.');
+        }
+
+        $format = $request->query('format', 'pdf');
+        
+        if ($format === 'image') {
+            return \App\Services\CertificateService::generateImage($profile, $profile->certificate);
+        }
+
+        return \App\Services\CertificateService::generatePdf($profile, $profile->certificate);
+    }
+
+    public function toggleStatus(Request $request, $id)
+    {
+        $profile = PklProfile::findOrFail($id);
+        
+        if ($profile->status === 'active') {
+            $profile->update(['status' => 'inactive']);
+            $message = 'Akun PKL berhasil dinonaktifkan.';
+            
+            PklHistory::create([
+                'pkl_profile_id' => $profile->id,
+                'activity_type' => 'account_deactivated',
+                'title' => 'Akun Dinonaktifkan Manual',
+                'description' => 'Admin telah menonaktifkan akun ini.',
+                'icon' => 'fa-user-slash',
+                'logged_at' => now(),
+            ]);
+        } else {
+            $profile->update(['status' => 'active']);
+            $message = 'Akun PKL berhasil diaktifkan.';
+            
+            PklHistory::create([
+                'pkl_profile_id' => $profile->id,
+                'activity_type' => 'account_activated',
+                'title' => 'Akun Diaktifkan Manual',
+                'description' => 'Admin telah mengaktifkan kembali akun ini.',
+                'icon' => 'fa-user-check',
+                'logged_at' => now(),
+            ]);
+        }
+
+        return redirect()->back()->with('success', $message);
+    }
+
+    public function uploadMaterial(Request $request, $id)
+    {
+        $profile = PklProfile::findOrFail($id);
+
+        $request->validate([
+            'files' => 'required|array',
+            'files.*' => 'required|file|max:20480', // max 20MB per file
+        ]);
+
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('pkl_materials', $filename, 'public');
+
+                \App\Models\PklMaterial::create([
+                    'pkl_profile_id' => $profile->id,
+                    'title' => $file->getClientOriginalName(),
+                    'file_path' => $path,
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Materi berhasil diunggah.');
+    }
+
+    public function destroyMaterial($materialId)
+    {
+        $material = \App\Models\PklMaterial::findOrFail($materialId);
+        $profileId = $material->pkl_profile_id;
+        
+        if (\Illuminate\Support\Facades\Storage::disk('public')->exists($material->file_path)) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($material->file_path);
+        }
+        
+        $material->delete();
+
+        return redirect()->back()->with('success', 'Materi berhasil dihapus.');
     }
 }

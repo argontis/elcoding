@@ -136,28 +136,30 @@
                             </div>
                         </div>
 
-                        <!-- Submit -->
+                        <!-- Switch to Kartu -->
                         <div class="pt-2">
+                            <button type="button" onclick="showKartu()" 
+                                    class="w-full border-2 border-slate-200 hover:border-brand-300 hover:bg-brand-50/50 text-slate-700 hover:text-brand-700 font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5">
+                                <i class="fas fa-id-card text-brand-500"></i>
+                                <span>Login dengan No Kartu</span>
+                            </button>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="flex items-center gap-3 my-6">
+                            <div class="flex-1 h-px bg-slate-200"></div>
+                            <span class="text-xs text-slate-400 font-medium">atau</span>
+                            <div class="flex-1 h-px bg-slate-200"></div>
+                        </div>
+
+                        <!-- Submit -->
+                        <div>
                             <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2">
                                 <span>Masuk ke Dasbor</span>
                                 <i class="fas fa-arrow-right text-sm"></i>
                             </button>
                         </div>
                     </form>
-
-                    <!-- Divider -->
-                    <div class="flex items-center gap-3 my-6">
-                        <div class="flex-1 h-px bg-slate-200"></div>
-                        <span class="text-xs text-slate-400 font-medium">atau</span>
-                        <div class="flex-1 h-px bg-slate-200"></div>
-                    </div>
-
-                    <!-- Switch to Kartu -->
-                    <button type="button" onclick="showKartu()" 
-                            class="w-full border-2 border-slate-200 hover:border-brand-300 hover:bg-brand-50/50 text-slate-700 hover:text-brand-700 font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5">
-                        <i class="fas fa-id-card text-brand-500"></i>
-                        <span>Login dengan No Kartu</span>
-                    </button>
                 </div>
 
                 <!-- ========== KARTU LOGIN ========== -->
@@ -189,28 +191,30 @@
                             @enderror
                         </div>
 
-                        <!-- Submit -->
+                        <!-- Back to credential -->
                         <div class="pt-2">
+                            <button type="button" onclick="showCredential()" 
+                                    class="w-full border-2 border-slate-200 hover:border-brand-300 hover:bg-brand-50/50 text-slate-700 hover:text-brand-700 font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5">
+                                <i class="fas fa-arrow-left text-brand-500"></i>
+                                <span>Login dengan Username</span>
+                            </button>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="flex items-center gap-3 my-6">
+                            <div class="flex-1 h-px bg-slate-200"></div>
+                            <span class="text-xs text-slate-400 font-medium">atau</span>
+                            <div class="flex-1 h-px bg-slate-200"></div>
+                        </div>
+
+                        <!-- Submit -->
+                        <div>
                             <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2">
                                 <span>Masuk dengan Kartu</span>
                                 <i class="fas fa-arrow-right text-sm"></i>
                             </button>
                         </div>
                     </form>
-
-                    <!-- Divider -->
-                    <div class="flex items-center gap-3 my-6">
-                        <div class="flex-1 h-px bg-slate-200"></div>
-                        <span class="text-xs text-slate-400 font-medium">atau</span>
-                        <div class="flex-1 h-px bg-slate-200"></div>
-                    </div>
-
-                    <!-- Back to credential -->
-                    <button type="button" onclick="showCredential()" 
-                            class="w-full border-2 border-slate-200 hover:border-brand-300 hover:bg-brand-50/50 text-slate-700 hover:text-brand-700 font-semibold py-3.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5">
-                        <i class="fas fa-arrow-left text-brand-500"></i>
-                        <span>Login dengan Username</span>
-                    </button>
                 </div>
 
             </div>

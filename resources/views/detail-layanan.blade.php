@@ -107,7 +107,10 @@
 
                         <div class="form-group" style="text-align: left;">
                             <label class="form-label" for="user_email">Alamat Email</label>
-                            <input type="email" name="user_email" id="user_email" class="form-input" placeholder="contoh@email.com" required value="{{ old('user_email') }}">
+                            <input type="email" name="user_email" id="user_email" class="form-input" placeholder="contoh@email.com" required value="{{ old('user_email', auth()->user()->email ?? '') }}">
+                            <p style="font-size: 11px; font-weight: 600; color: #d97706; margin-top: 6px; line-height: 1.25;">
+                                <i class="fas fa-info-circle"></i> Pastikan email yang Anda gunakan sama dengan email akun Anda agar otomatis terdeteksi oleh sistem.
+                            </p>
                         </div>
 
                         <div class="form-group" style="text-align: left;">

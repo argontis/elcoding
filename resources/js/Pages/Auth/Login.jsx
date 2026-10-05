@@ -185,22 +185,22 @@ export default function Login({ status, canResetPassword }) {
                                         )}
                                     </div>
 
-                                    {/* Login dengan No Kartu Button */}
-                                    <button
-                                        type="button"
-                                        onClick={() => setMode('kartu')}
-                                        className="w-full py-4 mt-4 bg-[#1f4770] hover:bg-[#163352] text-white font-bold tracking-wide text-sm rounded-xl shadow-md transition-all duration-200 flex items-center justify-center gap-2"
-                                    >
-                                        Login dengan No Kartu
-                                    </button>
-
                                     {/* Sign in Button */}
                                     <button
                                         type="submit"
                                         disabled={credentialForm.processing}
-                                        className="w-full py-4 mt-2 bg-[#1f4770] hover:bg-[#163352] text-white font-bold tracking-wide text-sm rounded-xl shadow-md transition-all duration-200 disabled:opacity-50"
+                                        className="w-full py-4 mt-4 bg-[#1f4770] hover:bg-[#163352] text-white font-bold tracking-wide text-sm rounded-xl shadow-md transition-all duration-200 disabled:opacity-50"
                                     >
                                         Sign in
+                                    </button>
+
+                                    {/* Login dengan No Kartu Button */}
+                                    <button
+                                        type="button"
+                                        onClick={() => setMode('kartu')}
+                                        className="w-full py-4 mt-2 bg-[#1f4770] hover:bg-[#163352] text-white font-bold tracking-wide text-sm rounded-xl shadow-md transition-all duration-200 flex items-center justify-center gap-2"
+                                    >
+                                        Login dengan No Kartu
                                     </button>
                                 </form>
                             </>

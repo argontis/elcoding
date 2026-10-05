@@ -176,7 +176,7 @@
                             @endif
                         </div>
                         
-                        <p class="text-xs text-slate-500 leading-relaxed mb-3">{{ Str::limit($asesmen->description, 100) }}</p>
+                        <p class="text-xs text-slate-500 leading-relaxed mb-3">{{ \Illuminate\Support\Str::limit($asesmen->description, 100) }}</p>
                         
                         <div class="flex flex-wrap items-center gap-4 text-[11px] font-medium text-slate-400">
                             <span class="flex items-center gap-1.5"><i class="far fa-calendar-alt"></i> {{ $asesmen->type == 'quiz' ? 'Jadwal Pelaksanaan' : 'Batas Waktu' }}: {{ \Carbon\Carbon::parse($asesmen->date)->format('d M Y') }}</span>

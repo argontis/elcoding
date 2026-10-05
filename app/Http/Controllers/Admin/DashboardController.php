@@ -14,11 +14,17 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        if (auth()->check() && !auth()->user()->isAdminOrMentor()) {
-            if (auth()->user()->isPklStudent()) {
-                return redirect()->route('pkl.dashboard');
+        if (auth()->check()) {
+            $user = auth()->user();
+            if (strtolower(trim($user->username ?? '')) === 'clean' || strtolower(trim($user->role ?? '')) === 'clean' || strtolower(trim($user->email ?? '')) === 'clean@lclean.id') {
+                return redirect()->route('clean.dashboard');
             }
-            return redirect()->route('member.dashboard');
+            if (!$user->isAdminOrMentor()) {
+                if ($user->isPklStudent()) {
+                    return redirect()->route('pkl.dashboard');
+                }
+                return redirect()->route('member.dashboard');
+            }
         }
 
         // 1. Ambil data dari 3 tabel (menggunakan Eloquent/DB Query Builder)

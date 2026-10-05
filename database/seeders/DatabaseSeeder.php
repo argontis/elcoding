@@ -16,13 +16,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Admin User
-        User::create([
-            'name' => 'Administrator',
-            'username' => 'adminelcoding',
-            'email' => 'elcoding.id@gmail.com',
-            'password' => bcrypt('2026Sukses*'),
-            'role' => 'admin',
-        ]);
+        User::updateOrCreate(
+            ['username' => 'adminelcoding'],
+            [
+                'name' => 'Administrator',
+                'email' => 'elcoding.id@gmail.com',
+                'password' => bcrypt('2026Sukses*'),
+                'role' => 'admin',
+            ]
+        );
 
 
         $this->call([
@@ -30,6 +32,7 @@ class DatabaseSeeder extends Seeder
             SettingsSeeder::class,
             LayananSeeder::class,
             PklSeeder::class,
+            CleanUserSeeder::class,
         ]);
     }
 }

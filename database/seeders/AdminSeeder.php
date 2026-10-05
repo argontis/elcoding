@@ -51,7 +51,7 @@ class AdminSeeder extends Seeder
         ];
         
         foreach ($defaultSettings as $setting) {
-            Setting::create($setting);
+            Setting::updateOrCreate(['key' => $setting['key']], $setting);
         }
     }
 }

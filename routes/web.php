@@ -411,3 +411,4 @@ Route::middleware('auth:member,web')->prefix('member')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+require __DIR__.'/dashboards.php';

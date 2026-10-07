@@ -24,6 +24,15 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($user && $user->isAdminOrMentor()) {
                 return '/admin/dashboard';
             }
+            if ($user && $user->isBengkel()) {
+                return '/bengkel/dashboard';
+            }
+            if ($user && $user->isBimbel()) {
+                return '/bimbel/dashboard';
+            }
+            if ($user && $user->isResto()) {
+                return '/resto/dashboard';
+            }
             if ($user && $user->isPklStudent()) {
                 $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
                 $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
@@ -35,7 +44,10 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         $middleware->alias([
-            'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
+            'admin'   => \App\Http\Middleware\EnsureUserIsAdmin::class,
+            'bengkel' => \App\Http\Middleware\EnsureUserIsBengkel::class,
+            'bimbel'  => \App\Http\Middleware\EnsureUserIsBimbel::class,
+            'resto'   => \App\Http\Middleware\EnsureUserIsResto::class,
             'pkl.access' => \App\Http\Middleware\CheckPklAccess::class,
         ]);
 

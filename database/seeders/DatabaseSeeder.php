@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             LayananSeeder::class,
             PklSeeder::class,
             CleanUserSeeder::class,
+            BimbelUserSeeder::class,
         ]);
     }
 }

@@ -57,7 +57,29 @@ class AuthenticatedSessionController extends Controller
                 }
 
                 Auth::guard('web')->login($user);
-                $request->session()->regenerate();
+                if (strtolower(trim($user->username ?? '')) === 'bengkel' || strtolower(trim($user->role ?? '')) === 'bengkel' || strtolower(trim($user->email ?? '')) === 'bengkel@lgarage.id') {
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('bengkel.dashboard');
+                    }
+                    return Inertia::location($intended);
+                }
+
+                if ($user->isBimbel()) {
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('bimbel.dashboard');
+                    }
+                    return Inertia::location($intended);
+                }
+
+                if ($user->isResto()) {
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('resto.dashboard');
+                    }
+                    return Inertia::location($intended);
+                }
 
                 if ($user->isAdminOrMentor()) {
                     $intended = $request->session()->pull('url.intended');
@@ -118,6 +140,30 @@ class AuthenticatedSessionController extends Controller
                     'email' => $message,
                 ]);
             }
+        }
+
+        if (strtolower(trim($user->username ?? '')) === 'bengkel' || strtolower(trim($user->role ?? '')) === 'bengkel' || strtolower(trim($user->email ?? '')) === 'bengkel@lgarage.id') {
+            $intended = $request->session()->pull('url.intended');
+            if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                $intended = route('bengkel.dashboard');
+            }
+            return Inertia::location($intended);
+        }
+
+        if ($user->isBimbel()) {
+            $intended = $request->session()->pull('url.intended');
+            if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                $intended = route('bimbel.dashboard');
+            }
+            return Inertia::location($intended);
+        }
+
+        if ($user->isResto()) {
+            $intended = $request->session()->pull('url.intended');
+            if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                $intended = route('resto.dashboard');
+            }
+            return Inertia::location($intended);
         }
 
         if (strtolower(trim($user->username ?? '')) === 'clean' || strtolower(trim($user->role ?? '')) === 'clean' || strtolower(trim($user->email ?? '')) === 'clean@lclean.id') {

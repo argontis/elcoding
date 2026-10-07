@@ -44,6 +44,16 @@ class AuthController extends Controller
                 'green',
                 'fa-sign-in-alt'
             );
+            $user = Auth::user();
+            if ($user && (strtolower(trim($user->username ?? '')) === 'bengkel' || strtolower(trim($user->role ?? '')) === 'bengkel' || strtolower(trim($user->email ?? '')) === 'bengkel@lgarage.id')) {
+                return redirect()->intended('/bengkel/dashboard');
+            }
+            if ($user && ($user->isBimbel() || strtolower(trim($user->role ?? '')) === 'bimbel')) {
+                return redirect()->intended('/bimbel/dashboard');
+            }
+            if ($user && (strtolower(trim($user->username ?? '')) === 'clean' || strtolower(trim($user->role ?? '')) === 'clean' || strtolower(trim($user->email ?? '')) === 'clean@lclean.id')) {
+                return redirect()->intended('/clean/dashboard');
+            }
             
             return redirect()->intended('/admin/dashboard');
         }

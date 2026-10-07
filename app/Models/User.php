@@ -60,6 +60,11 @@ class User extends Authenticatable
             || $this->username === 'adminelcoding';
     }
 
+    public function isBengkel()
+    {
+        return strtolower(trim($this->role ?? '')) === 'bengkel';
+    }
+
     public function isMentor()
     {
         return strtolower(trim($this->role ?? '')) === 'mentor';
@@ -77,5 +82,40 @@ class User extends Authenticatable
             || $this->email === 'elcoding.id@gmail.com'
             || $this->email === 'admin@elcoding.id'
             || $this->username === 'adminelcoding';
+    }
+
+    public function isBengkelOrAdmin()
+    {
+        return $this->isBengkel() || $this->isAdminOrMentor();
+    }
+
+    public function isBimbel()
+    {
+        $role = strtolower(trim($this->role ?? ''));
+        $username = strtolower(trim($this->username ?? ''));
+        return in_array($role, ['bimbel', 'edupulse'])
+            || in_array($username, ['bimbel', 'edupulse', 'sarah'])
+            || $this->email === 'sarah@edupulse.id'
+            || $this->email === 'bimbel@edupulse.id';
+    }
+
+    public function isBimbelOrAdmin()
+    {
+        return $this->isBimbel() || $this->isAdminOrMentor();
+    }
+
+    public function isResto()
+    {
+        $role = strtolower(trim($this->role ?? ''));
+        $username = strtolower(trim($this->username ?? ''));
+        return in_array($role, ['resto', 'restohub', 'culinary'])
+            || in_array($username, ['resto', 'restohub', 'budi'])
+            || $this->email === 'budi@restohub.id'
+            || $this->email === 'resto@restohub.id';
+    }
+
+    public function isRestoOrAdmin()
+    {
+        return $this->isResto() || $this->isAdminOrMentor();
     }
 }

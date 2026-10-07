@@ -16,6 +16,9 @@ class DashboardController extends Controller
     {
         if (auth()->check()) {
             $user = auth()->user();
+            if (strtolower(trim($user->username ?? '')) === 'bengkel' || strtolower(trim($user->role ?? '')) === 'bengkel' || strtolower(trim($user->email ?? '')) === 'bengkel@lgarage.id') {
+                return redirect()->route('bengkel.dashboard');
+            }
             if (strtolower(trim($user->username ?? '')) === 'clean' || strtolower(trim($user->role ?? '')) === 'clean' || strtolower(trim($user->email ?? '')) === 'clean@lclean.id') {
                 return redirect()->route('clean.dashboard');
             }

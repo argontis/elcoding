@@ -118,4 +118,19 @@ class User extends Authenticatable
     {
         return $this->isResto() || $this->isAdminOrMentor();
     }
+
+    public function isTechfix()
+    {
+        $role = strtolower(trim($this->role ?? ''));
+        $username = strtolower(trim($this->username ?? ''));
+        return in_array($role, ['techfix', 'techfixpro', 'servicecenter', 'techfix_pro'])
+            || in_array($username, ['techfix', 'techfixpro', 'techfix_pro'])
+            || $this->email === 'admin@techfixpro.id'
+            || $this->email === 'techfix@techfixpro.id';
+    }
+
+    public function isTechfixOrAdmin()
+    {
+        return $this->isTechfix() || $this->isAdminOrMentor();
+    }
 }

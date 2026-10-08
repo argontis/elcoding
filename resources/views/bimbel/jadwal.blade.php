@@ -100,6 +100,17 @@
             <a href="{{ route('bimbel.pengaturan') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-indigo-600 hover:bg-slate-50 transition-all">
                 <i class="fas fa-gear text-slate-400 text-sm w-4 text-center"></i><span>Pengaturan</span>
             </a>
+
+            <!-- Keluar (Logout) -->
+            <div class="pt-2 mt-2 border-t border-slate-100">
+                <form action="{{ route('bimbel.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-rose-600 hover:text-rose-700 hover:bg-rose-50 transition-all group text-left">
+                        <i class="fas fa-arrow-right-from-bracket text-rose-400 group-hover:text-rose-600 text-sm w-4 text-center"></i>
+                        <span>Keluar (Logout)</span>
+                    </button>
+                </form>
+            </div>
         </nav>
 
         <div class="p-3 m-3 rounded-xl bg-slate-50 border border-slate-200/70 text-center">
@@ -133,13 +144,28 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <div class="flex items-center gap-2.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50">
-                    <div class="w-7 h-7 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-xs">
-                        {{ strtoupper(substr($user->name ?? 'A', 0, 1)) }}
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xs font-bold text-slate-800 leading-tight">{{ $user->name ?? 'EduPulse Admin' }}</div>
-                        <div class="text-[10px] text-slate-400">Bimbel Admin</div>
+                <div class="relative group">
+                    <button type="button" class="flex items-center gap-2.5 px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 transition">
+                        <div class="w-7 h-7 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-xs">
+                            {{ strtoupper(substr($user->name ?? 'Sarah Maharani', 0, 2)) }}
+                        </div>
+                        <div class="text-right hidden sm:block">
+                            <div class="text-xs font-bold text-slate-800 leading-tight">{{ $user->name ?? 'Sarah Maharani, M.Pd' }}</div>
+                            <div class="text-[10px] text-slate-400">Bimbel Admin</div>
+                        </div>
+                        <i class="fas fa-chevron-down text-[10px] text-slate-400 ml-1"></i>
+                    </button>
+                    <div class="absolute right-0 mt-1 w-48 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 hidden group-hover:block z-50 text-xs">
+                        <div class="px-3 py-1.5 border-b border-slate-100">
+                            <div class="font-bold text-slate-800">{{ $user->name ?? 'Sarah Maharani, M.Pd' }}</div>
+                            <div class="text-[10px] text-slate-400">Role: Bimbel Akademik</div>
+                        </div>
+                        <form action="{{ route('bimbel.logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 text-rose-600 hover:bg-rose-50 text-left font-semibold">
+                                <i class="fas fa-arrow-right-from-bracket w-4"></i> Keluar (Logout)
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

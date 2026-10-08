@@ -175,6 +175,17 @@
                     <i class="fas fa-gear text-slate-400 group-hover:text-indigo-600 text-sm w-4 text-center"></i>
                     <span>Pengaturan</span>
                 </a>
+
+                <!-- Keluar (Logout) -->
+                <div class="pt-2 mt-2 border-t border-slate-100">
+                    <form action="{{ route('bimbel.logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-rose-600 hover:text-rose-700 hover:bg-rose-50 transition-all group text-left">
+                            <i class="fas fa-arrow-right-from-bracket text-rose-400 group-hover:text-rose-600 text-sm w-4 text-center"></i>
+                            <span>Keluar (Logout)</span>
+                        </button>
+                    </form>
+                </div>
             </nav>
 
             <!-- Bottom Support Card -->
@@ -265,7 +276,7 @@
                                 <i class="fas fa-rotate-left text-amber-500 w-4"></i> Reset Data Kosong
                             </a>
                             <div class="my-1 border-t border-slate-100"></div>
-                            <form action="{{ route('logout') }}" method="POST">
+                            <form action="{{ route('bimbel.logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 text-xs text-rose-600 hover:bg-rose-50 rounded-lg font-semibold text-left">
                                     <i class="fas fa-arrow-right-from-bracket w-4"></i> Keluar (Logout)

@@ -200,6 +200,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return Inertia::location('/');
+        if ($request->header('X-Inertia')) {
+            return Inertia::location('/');
+        }
+
+        return redirect('/login');
     }
 }

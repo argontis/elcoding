@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             PklSeeder::class,
             CleanUserSeeder::class,
             BimbelUserSeeder::class,
+            TechfixUserSeeder::class,
         ]);
     }
 }

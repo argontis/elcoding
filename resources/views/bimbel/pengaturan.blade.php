@@ -118,6 +118,15 @@
             <a href="{{ route('bimbel.pengaturan') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-[#3b49df] text-white shadow-md shadow-indigo-200">
                 <i class="fas fa-gear text-sm w-4 text-center"></i><span>Pengaturan</span>
             </a>
+
+            <div class="pt-2 mt-2 border-t border-slate-100">
+                <form action="{{ route('bimbel.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-red-600 hover:bg-red-50 transition-all text-left">
+                        <i class="fas fa-right-from-bracket text-red-500 text-sm w-4 text-center"></i><span>Keluar (Logout)</span>
+                    </button>
+                </form>
+            </div>
         </nav>
 
         <div class="m-3 p-3 rounded-xl bg-indigo-50 border border-indigo-100">
@@ -153,6 +162,30 @@
                 <button onclick="showToast('Semua perubahan aktif tersimpan di sesi.','success')" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#3b49df] text-white text-xs font-bold shadow-md shadow-indigo-200 hover:bg-[#2e38b8] transition-all">
                     <i class="fas fa-floppy-disk"></i> Simpan Semua Perubahan
                 </button>
+                <div class="relative group">
+                    <button class="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+                        <div class="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold text-xs shrink-0">
+                            S
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs font-bold text-slate-800 leading-tight">Sarah Maharani, M.Pd</div>
+                            <div class="text-[10px] text-slate-400 font-medium">Admin Akademik</div>
+                        </div>
+                        <i class="fas fa-chevron-down text-slate-400 text-[10px]"></i>
+                    </button>
+                    <div class="absolute right-0 mt-1 w-48 bg-white rounded-xl shadow-lg border border-slate-200 py-1 hidden group-hover:block hover:block z-50">
+                        <div class="px-3 py-2 border-b border-slate-100">
+                            <p class="text-xs font-bold text-slate-800">Sarah Maharani</p>
+                            <p class="text-[10px] text-slate-500 truncate">bimbel@elcoding.com</p>
+                        </div>
+                        <form action="{{ route('bimbel.logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="w-full text-left px-3 py-2 text-xs text-red-600 hover:bg-red-50 font-semibold flex items-center">
+                                <i class="fas fa-right-from-bracket mr-2 text-red-500"></i>Keluar
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </header>
 

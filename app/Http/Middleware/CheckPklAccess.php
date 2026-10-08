@@ -6,8 +6,6 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
-use App\Models\Order;
-use App\Models\EventOrder;
 
 class CheckPklAccess
 {
@@ -20,6 +18,22 @@ class CheckPklAccess
     {
         if (!Auth::check()) {
             return redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        // Jika user memiliki role khusus SaaS, alihkan ke dashboard masing-masing
+        if ($user && $user->isTechfix()) {
+            return redirect('/techfix/dashboard');
+        }
+        if ($user && $user->isBengkel()) {
+            return redirect('/bengkel/dashboard');
+        }
+        if ($user && $user->isBimbel()) {
+            return redirect('/bimbel/dashboard');
+        }
+        if ($user && $user->isResto()) {
+            return redirect('/resto/dashboard');
         }
 
         return $next($request);

@@ -46,13 +46,20 @@ class AuthController extends Controller
             );
             $user = Auth::user();
             if ($user && (strtolower(trim($user->username ?? '')) === 'bengkel' || strtolower(trim($user->role ?? '')) === 'bengkel' || strtolower(trim($user->email ?? '')) === 'bengkel@lgarage.id')) {
-                return redirect()->intended('/bengkel/dashboard');
+                $request->session()->forget('url.intended');
+                return redirect('/bengkel/dashboard');
             }
             if ($user && ($user->isBimbel() || strtolower(trim($user->role ?? '')) === 'bimbel')) {
-                return redirect()->intended('/bimbel/dashboard');
+                $request->session()->forget('url.intended');
+                return redirect('/bimbel/dashboard');
             }
             if ($user && (strtolower(trim($user->username ?? '')) === 'clean' || strtolower(trim($user->role ?? '')) === 'clean' || strtolower(trim($user->email ?? '')) === 'clean@lclean.id')) {
-                return redirect()->intended('/clean/dashboard');
+                $request->session()->forget('url.intended');
+                return redirect('/clean/dashboard');
+            }
+            if ($user && $user->isTechfix()) {
+                $request->session()->forget('url.intended');
+                return redirect('/techfix/dashboard');
             }
             
             return redirect()->intended('/admin/dashboard');

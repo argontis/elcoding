@@ -90,6 +90,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/verifikasi/{id}', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'verifikasiPendaftaran'])->name('verifikasi');
         Route::post('/export-laporan', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'exportLaporan'])->name('export_laporan');
         Route::get('/reset', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'resetData'])->name('reset');
+        Route::post('/logout', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'logout'])->name('logout');
+        Route::get('/logout', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'logout'])->name('logout.get');
     });
 
     // ==========================================
@@ -128,6 +130,40 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/branch/switch', [\App\Http\Controllers\Resto\RestoDashboardController::class, 'switchBranch'])->name('branch.switch');
         Route::post('/shift/toggle', [\App\Http\Controllers\Resto\RestoDashboardController::class, 'toggleShift'])->name('shift.toggle');
         Route::get('/reset', [\App\Http\Controllers\Resto\RestoDashboardController::class, 'resetData'])->name('reset');
+    });
+
+    // ==========================================
+    // DASHBOARD TECHFIX PRO (Service Center & Hardware Repair OS)
+    // ==========================================
+    Route::prefix('techfix')->name('techfix.')->middleware('techfix')->group(function () {
+        Route::get('/dashboard', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/tracking-wa', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'trackingWa'])->name('tracking');
+        Route::post('/tracking-wa/estimasi', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'storeEstimasiWa'])->name('tracking.store');
+        Route::post('/tracking-wa/{id}/status', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'updateEstimasiStatus'])->name('tracking.status');
+        Route::get('/kasir', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'kasir'])->name('kasir');
+        Route::post('/kasir/transaksi', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'storeTransaksi'])->name('kasir.store');
+        Route::post('/kasir/garansi', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'storeGaransi'])->name('kasir.garansi.store');
+        Route::get('/kasir/reset', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'resetKasir'])->name('kasir.reset');
+        Route::get('/stok', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'stok'])->name('stok');
+        Route::post('/stok/part', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'storePartStok'])->name('stok.store');
+        Route::get('/stok/reset', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'resetStok'])->name('stok.reset');
+        Route::post('/tiket', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'storeTiket'])->name('tiket.store');
+        Route::post('/tiket/{id}/status', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'updateStatusTiket'])->name('tiket.status');
+        Route::post('/tiket/{id}/item', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'addItem'])->name('tiket.item.add');
+        Route::post('/branch/switch', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'switchBranch'])->name('branch.switch');
+        Route::post('/shift/toggle', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'toggleShift'])->name('shift.toggle');
+        Route::get('/reset', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'resetData'])->name('reset');
+        Route::get('/crm', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'crm'])->name('crm');
+        Route::post('/crm/customer', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'storeCustomer'])->name('crm.store');
+        Route::post('/crm/unit', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'storeUnit'])->name('crm.unit.store');
+        Route::get('/crm/reset', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'resetCrm'])->name('crm.reset');
+        Route::get('/laporan', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'laporan'])->name('laporan');
+        Route::post('/laporan/transaksi', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'storeLaporanTransaksi'])->name('laporan.transaksi.store');
+        Route::post('/laporan/tutup-buku', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'tutupBuku'])->name('laporan.tutup_buku');
+        Route::get('/laporan/reset', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'resetLaporan'])->name('laporan.reset');
+        Route::get('/pengaturan', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'pengaturan'])->name('pengaturan');
+        Route::post('/pengaturan/log', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'storePengaturanLog'])->name('pengaturan.log.store');
+        Route::get('/pengaturan/reset', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'resetPengaturan'])->name('pengaturan.reset');
     });
 
 });

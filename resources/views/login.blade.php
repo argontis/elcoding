@@ -85,6 +85,28 @@
             --label-text: #334155;
         }
 
+        body.theme-techfix {
+            --accent: #2563eb;
+            --accent-light: #eff6ff;
+            --accent-glow: rgba(37,99,235,0.25);
+            --bg-page: #0b1329;
+            --bg-blob1: rgba(37,99,235,0.2);
+            --bg-blob2: rgba(14,165,233,0.18);
+            --bg-blob3: rgba(59,130,246,0.12);
+            --card-bg: rgba(15,23,42,0.95);
+            --card-border: rgba(51,65,85,0.9);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --input-bg: rgba(30,41,59,0.85);
+            --input-border: rgba(51,65,85,0.9);
+            --badge-bg: rgba(37,99,235,0.2);
+            --badge-text: #60a5fa;
+            --badge-dot: #38bdf8;
+            --btn-grad: linear-gradient(135deg, #2563eb 0%, #0284c7 100%);
+            --btn-shadow: rgba(37,99,235,0.45);
+            --label-text: #cbd5e1;
+        }
+
         body {
             font-family: var(--font-main);
             background-color: var(--bg-page);
@@ -127,12 +149,12 @@
         body.theme-bengkel .grid-overlay { opacity: 1; }
 
         /* ---- Container ---- */
-        .container { position: relative; z-index: 10; width: 100%; max-width: 440px; }
+        .container { position: relative; z-index: 10; width: 100%; max-width: 490px; }
 
         /* ---- Portal Selector ---- */
         .portal-selector {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             margin-bottom: 20px;
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
@@ -145,13 +167,17 @@
             background: rgba(24,24,27,0.8);
             border-color: rgba(63,63,70,0.8);
         }
+        body.theme-techfix .portal-selector {
+            background: rgba(15,23,42,0.85);
+            border-color: rgba(51,65,85,0.8);
+        }
         .portal-btn {
             flex: 1;
-            padding: 10px 8px;
+            padding: 8px 4px;
             border: none;
             border-radius: 10px;
             font-family: var(--font-main);
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             cursor: pointer;
             display: flex;
@@ -457,6 +483,10 @@
                 <i class="fas fa-wrench"></i>
                 Bengkel
             </button>
+            <button class="portal-btn" id="btnPortalTechfix" onclick="setPortal('techfix')" type="button">
+                <i class="fas fa-microchip"></i>
+                TechFix
+            </button>
             <button class="portal-btn" id="btnPortalMember" onclick="setPortal('member')" type="button">
                 <i class="fas fa-id-card"></i>
                 Member
@@ -717,6 +747,79 @@
 
             </div>
 
+            <!-- ======== TECHFIX PRO PORTAL ======== -->
+            <div id="viewTechfix" class="form-view hidden">
+
+                <!-- TechFix Header -->
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <div style="display: inline-flex; align-items: center; justify-content: center; width: 68px; height: 68px; border-radius: 20px; background: linear-gradient(135deg, #2563eb, #0284c7); box-shadow: 0 8px 25px rgba(37,99,235,0.35); font-size: 28px; color: #fff; margin-bottom: 12px;">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div style="font-family: var(--font-heading); font-size: 26px; font-weight: 900; color: #f8fafc; letter-spacing: -0.5px;">TechFix <span style="color: #38bdf8;">Pro</span></div>
+                    <div style="color: #94a3b8; font-size: 12px; margin-top: 4px;">Hardware & Device Repair Center OS</div>
+                </div>
+
+                <!-- Credential Plate (info akun techfix) -->
+                <div class="cred-plate" style="background: rgba(30,41,59,0.7); border: 1px solid rgba(51,65,85,0.8); border-radius: 14px; padding: 16px; margin-bottom: 20px;">
+                    <div class="cred-plate-title" style="color: #38bdf8; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px;">
+                        <i class="fas fa-key" style="margin-right: 4px;"></i> Akun Login TechFix Pro
+                    </div>
+                    <div class="cred-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span class="cred-label" style="color: #94a3b8; font-size: 12px;">Username</span>
+                        <span class="cred-value" style="color: #f8fafc; font-size: 13px; font-weight: 700; font-family: monospace;">techfix</span>
+                    </div>
+                    <div class="cred-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span class="cred-label" style="color: #94a3b8; font-size: 12px;">Password</span>
+                        <span class="cred-value" style="color: #f8fafc; font-size: 13px; font-weight: 700; font-family: monospace;">techfix123</span>
+                    </div>
+                    <div class="cred-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0;">
+                        <span class="cred-label" style="color: #94a3b8; font-size: 12px;">Role Khusus</span>
+                        <span class="cred-badge" style="background: rgba(37,99,235,0.2); color: #60a5fa; border: 1px solid rgba(37,99,235,0.4); border-radius: 100px; padding: 2px 10px; font-size: 11px; font-weight: 700;">
+                            <i class="fas fa-screwdriver-wrench"></i> techfix (Service Center)
+                        </span>
+                    </div>
+                </div>
+
+                <form action="{{ url('/login') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="login_method" value="credential">
+
+                    <div class="form-group">
+                        <label for="techfix_username">Username Service Center</label>
+                        <div class="input-wrap">
+                            <span class="input-icon"><i class="fas fa-user-gear"></i></span>
+                            <input type="text" id="techfix_username" name="username"
+                                value="{{ old('username', 'techfix') }}"
+                                placeholder="Username techfix" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="techfix_password">Password</label>
+                        <div class="input-wrap">
+                            <span class="input-icon"><i class="fas fa-lock"></i></span>
+                            <input type="password" id="techfix_password" name="password"
+                                value="techfix123"
+                                placeholder="••••••••" required>
+                        </div>
+                        @error('username')
+                            <div class="field-error"><i class="fas fa-exclamation-circle"></i> {{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="margin-top: 4px; background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%);">
+                        <i class="fas fa-microchip"></i> Masuk ke TechFix Pro <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <!-- Status dot -->
+                <div style="display:flex; align-items:center; gap:8px; margin-top:18px; padding:10px 14px; background:rgba(37,99,235,0.08); border-radius:10px; border:1px solid rgba(37,99,235,0.2);">
+                    <span style="width:8px;height:8px;background:#22c55e;border-radius:50%;display:inline-block;box-shadow:0 0 6px #22c55e;animation:pulse-dot 1.8s infinite;"></span>
+                    <span style="font-size:12px;color:#94a3b8;">Sistem Siap · Data Kosong · Input Langsung di Dashboard</span>
+                </div>
+
+            </div>
+
             <!-- Back link (common) -->
             <div class="back-link" style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--input-border);">
                 <a href="{{ url('/') }}">
@@ -742,14 +845,17 @@
             const viewAdmin    = document.getElementById('viewAdmin');
             const viewBengkel  = document.getElementById('viewBengkel');
             const viewEdupulse = document.getElementById('viewEdupulse');
+            const viewTechfix  = document.getElementById('viewTechfix');
             const pageBody     = document.getElementById('pageBody');
 
             pageBody.classList.remove('theme-bengkel');
             pageBody.classList.remove('theme-edupulse');
+            pageBody.classList.remove('theme-techfix');
 
             hideEl(viewAdmin);
             hideEl(viewBengkel);
             hideEl(viewEdupulse);
+            if (viewTechfix) hideEl(viewTechfix);
 
             if (portal === 'admin') {
                 document.getElementById('btnPortalAdmin').classList.add('active');
@@ -763,6 +869,11 @@
                 pageBody.classList.add('theme-edupulse');
                 showEl(viewEdupulse);
                 document.title = 'EduPulse Academy SaaS - Login';
+            } else if (portal === 'techfix') {
+                document.getElementById('btnPortalTechfix').classList.add('active');
+                pageBody.classList.add('theme-techfix');
+                if (viewTechfix) showEl(viewTechfix);
+                document.title = 'TechFix Pro - Service Center Login';
             } else if (portal === 'bengkel') {
                 document.getElementById('btnPortalBengkel').classList.add('active');
                 pageBody.classList.add('theme-bengkel');

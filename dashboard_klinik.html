@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Klinik</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #eef2f7;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .phone {
+      width: 390px;
+      background: #f0f4f8;
+      min-height: 100vh;
+      position: relative;
+      padding-bottom: 80px;
+      overflow-x: hidden;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px 10px;
+      background: #fff;
+    }
+    .topbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-box {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #1e3a5f, #2563eb);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 13px;
+    }
+    .logo-sub { font-size: 11px; color: #94a3b8; }
+
+    .clinic-pill {
+      display: flex; align-items: center; gap: 6px;
+      background: #f1f5f9;
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 13px; font-weight: 600; color: #1e3a5f;
+    }
+    .clinic-pill .dot { width: 7px; height: 7px; background: #1e3a5f; border-radius: 50%; }
+    .clinic-pill .arrow { color: #94a3b8; font-size: 10px; }
+
+    .topbar-icons { display: flex; gap: 10px; align-items: center; }
+    .icon-btn {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: #f1f5f9;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; position: relative; cursor: pointer;
+    }
+    .icon-btn.avatar { background: #1e3a5f; }
+    .icon-btn .badge {
+      position: absolute; top: -3px; right: -3px;
+      background: #ef4444; color: #fff;
+      font-size: 9px; font-weight: 700;
+      width: 16px; height: 16px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 1.5px solid #fff;
+    }
+
+    /* ── PROFILE CARD ── */
+    .profile-card {
+      margin: 12px 16px;
+      background: linear-gradient(135deg, #0f2d52 0%, #1a4a7a 60%, #1e5fa0 100%);
+      border-radius: 20px;
+      padding: 18px 18px 0;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .profile-card::after {
+      content: '';
+      position: absolute;
+      width: 180px; height: 180px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      top: -60px; right: -40px;
+    }
+    .shift-label {
+      font-size: 11px; font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.4px;
+      margin-bottom: 12px;
+    }
+    .aktif-badge {
+      position: absolute; top: 16px; right: 16px;
+      background: rgba(74,222,128,0.2);
+      border: 1px solid rgba(74,222,128,0.4);
+      color: #4ade80;
+      font-size: 11px; font-weight: 700;
+      padding: 4px 10px; border-radius: 20px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .aktif-badge::before {
+      content: ''; width: 6px; height: 6px;
+      background: #4ade80; border-radius: 50%;
+    }
+    .profile-row {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 16px;
+    }
+    .profile-avatar {
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #cbd5e1;
+      border: 2.5px solid rgba(255,255,255,0.3);
+      overflow: hidden; flex-shrink: 0;
+    }
+    .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-name { font-size: 18px; font-weight: 800; margin-bottom: 3px; }
+    .profile-loc { font-size: 12px; color: rgba(255,255,255,0.75); }
+
+    .profile-footer {
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding: 10px 0;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12px;
+    }
+    .profile-footer .ops {
+      display: flex; align-items: center; gap: 6px;
+      color: rgba(255,255,255,0.8);
+    }
+    .profile-footer .poli-badge {
+      background: rgba(255,255,255,0.15);
+      padding: 3px 10px; border-radius: 12px;
+      font-size: 11px; font-weight: 700; color: #fff;
+    }
+
+    /* ── STAT CARDS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 12px 16px;
+    }
+    .stat-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px 14px;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .stat-card .sc-icon {
+      position: absolute; top: 14px; right: 14px;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+    .sc-blue { background: #dbeafe; }
+    .sc-amber { background: #fef3c7; }
+    .sc-green { background: #dcfce7; }
+    .sc-purple { background: #ede9fe; }
+    .stat-label { font-size: 11px; color: #64748b; font-weight: 500; margin-bottom: 8px; }
+    .stat-value { font-size: 30px; font-weight: 800; color: #0f172a; line-height: 1; margin-bottom: 4px; }
+    .stat-sub { font-size: 11px; color: #64748b; }
+    .stat-sub.green { color: #22c55e; font-weight: 600; }
+    .stat-sub.blue { color: #3b82f6; }
+    .progress-wrap { margin-top: 8px; }
+    .progress-bar {
+      height: 4px; background: #e2e8f0; border-radius: 4px; overflow: hidden;
+    }
+    .progress-fill { height: 100%; background: #3b82f6; border-radius: 4px; }
+    .omset-val { font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 2px; }
+    .target-badge {
+      display: inline-block;
+      background: #dcfce7; color: #16a34a;
+      font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 10px;
+      margin-top: 4px;
+    }
+
+    /* ── ALERT BOX ── */
+    .alert-row {
+      margin: 0 16px 12px;
+      background: #fff;
+      border-radius: 14px;
+      padding: 13px 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .alert-left { display: flex; align-items: center; gap: 10px; }
+    .alert-icon-wrap {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: #fef2f2;
+      display: flex; align-items: center; justify-content: center; font-size: 17px;
+      flex-shrink: 0;
+    }
+    .alert-title { font-size: 12px; font-weight: 700; color: #1e293b; margin-bottom: 2px; }
+    .alert-dot { color: #ef4444; }
+    .alert-desc { font-size: 11px; color: #94a3b8; }
+    .cek-btn {
+      background: #eff6ff; color: #2563eb;
+      border: none; padding: 7px 13px;
+      border-radius: 20px; font-size: 12px; font-weight: 700;
+      cursor: pointer; white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── ACTIONS ── */
+    .section-label {
+      padding: 14px 16px 10px;
+      font-size: 11px; font-weight: 700;
+      color: #64748b; letter-spacing: 0.6px;
+    }
+    .actions-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 10px; padding: 0 16px 4px;
+    }
+    .action-item {
+      display: flex; flex-direction: column; align-items: center; gap: 7px;
+    }
+    .action-circle {
+      width: 54px; height: 54px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+    .ac-dark { background: #1e3a5f; }
+    .ac-teal { background: #0ea5e9; }
+    .ac-white { background: #fff; }
+    .action-label { font-size: 11px; font-weight: 600; color: #1e293b; text-align: center; line-height: 1.3; }
+
+    /* ── SEDANG BERLANGSUNG ── */
+    .berlangsung-wrap { margin: 16px 16px 0; }
+    .berlangsung-header {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .bl-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; flex-shrink: 0; }
+    .bl-title { font-size: 11px; font-weight: 800; color: #1e293b; letter-spacing: 0.4px; }
+    .bl-room {
+      background: #1e3a5f; color: #fff;
+      font-size: 10px; font-weight: 700;
+      padding: 3px 9px; border-radius: 12px; margin-left: auto;
+    }
+
+    .patient-card {
+      background: #fff; border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .patient-top { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
+    .queue-box {
+      width: 58px; height: 62px;
+      background: #1e3a5f; border-radius: 12px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      flex-shrink: 0; color: #fff;
+    }
+    .queue-letter { font-size: 11px; font-weight: 700; opacity: 0.8; }
+    .queue-number { font-size: 28px; font-weight: 900; line-height: 1; }
+    .patient-name { font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 3px; }
+    .patient-rm { font-size: 11px; color: #64748b; margin-bottom: 4px; }
+    .patient-est { font-size: 11px; color: #3b82f6; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+
+    .patient-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .pa-btn {
+      padding: 11px 8px; border-radius: 10px;
+      font-size: 12px; font-weight: 700;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+    }
+    .pa-outline { background: #eff6ff; color: #2563eb; }
+    .pa-solid { background: #1e3a5f; color: #fff; }
+
+    /* ── DOKTER JAGA ── */
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 16px 10px;
+    }
+    .section-header .title { font-size: 13px; font-weight: 800; color: #0f172a; }
+    .section-header .link { font-size: 11px; color: #3b82f6; font-weight: 600; }
+
+    .dokter-list { padding: 0 16px; display: flex; flex-direction: column; gap: 1px; }
+    .dokter-item {
+      background: #fff; padding: 13px 14px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .dokter-item:first-child { border-radius: 14px 14px 0 0; }
+    .dokter-item:last-child { border-radius: 0 0 14px 14px; }
+    .dokter-item:only-child { border-radius: 14px; }
+    .dokter-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: #cbd5e1; flex-shrink: 0;
+      overflow: hidden;
+    }
+    .dokter-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .dokter-info { flex: 1; min-width: 0; }
+    .dokter-name {
+      font-size: 13px; font-weight: 700; color: #0f172a;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .dokter-poli { font-size: 11px; color: #64748b; margin-top: 2px; }
+    .dokter-right { text-align: right; flex-shrink: 0; }
+    .dokter-room { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+    .dpill {
+      font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 10px;
+      white-space: nowrap;
+    }
+    .dpill-blue { background: #eff6ff; color: #2563eb; }
+    .dpill-green { background: #dcfce7; color: #16a34a; }
+    .dpill-amber { background: #fef3c7; color: #b45309; }
+
+    /* ── AKTIVITAS ── */
+    .aktivitas-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 16px 10px;
+    }
+    .aktivitas-header .title { font-size: 13px; font-weight: 800; color: #0f172a; }
+    .aktivitas-header .sync { font-size: 11px; color: #94a3b8; display: flex; align-items: center; gap: 4px; }
+    .sync-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; }
+
+    .aktivitas-list { padding: 0 16px 10px; display: flex; flex-direction: column; gap: 1px; }
+    .akt-item {
+      background: #fff; padding: 13px 14px;
+      display: flex; align-items: flex-start; gap: 12px;
+    }
+    .akt-item:first-child { border-radius: 14px 14px 0 0; }
+    .akt-item:last-child { border-radius: 0 0 14px 14px; }
+    .akt-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: #eff6ff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0; margin-top: 2px;
+    }
+    .akt-body { flex: 1; }
+    .akt-title-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .akt-title { font-size: 12px; font-weight: 700; color: #0f172a; }
+    .akt-time { font-size: 10px; color: #94a3b8; white-space: nowrap; }
+    .akt-desc { font-size: 11px; color: #64748b; margin-top: 2px; line-height: 1.4; }
+    .akt-amount { font-size: 11px; color: #22c55e; font-weight: 700; margin-top: 3px; }
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav {
+      position: fixed; bottom: 0;
+      width: 390px;
+      background: #fff;
+      border-top: 1px solid #e2e8f0;
+      border-radius: 20px 20px 0 0;
+      display: flex; padding: 12px 10px 16px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+    }
+    .nav-item {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; gap: 4px;
+      font-size: 11px; font-weight: 600;
+      color: #94a3b8; cursor: pointer;
+    }
+    .nav-item.active { color: #1e3a5f; }
+    .nav-icon { font-size: 20px; position: relative; }
+    .nav-badge {
+      position: absolute; top: -4px; right: -8px;
+      background: #3b82f6; color: #fff;
+      font-size: 9px; font-weight: 800;
+      padding: 1px 4px; border-radius: 8px;
+      border: 1.5px solid #fff;
+    }
+
+    /* Credentials card */
+    .creds-card {
+      margin: 12px 16px;
+      background: #fefce8;
+      border: 1px solid #fde68a;
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .creds-title { font-size: 12px; font-weight: 700; color: #92400e; margin-bottom: 8px; }
+    .creds-row { display: flex; justify-content: space-between; margin-bottom: 4px; }
+    .creds-key { font-size: 11px; color: #78350f; }
+    .creds-val { font-size: 11px; font-weight: 700; color: #1e3a5f; font-family: monospace; }
+  </style>
+</head>
+<body>
+<div class="phone">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="logo-box">L</div>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:#1e293b;">by ...</div>
+        <div class="logo-sub">Dashboard</div>
+      </div>
+    </div>
+    <div class="clinic-pill">
+      <span class="dot"></span>
+      [Nama Klinik]
+      <span class="arrow">▾</span>
+    </div>
+    <div class="topbar-icons">
+      <div class="icon-btn">🔍</div>
+      <div class="icon-btn">
+        🔔
+        <div class="badge">0</div>
+      </div>
+      <div class="icon-btn avatar" style="color:#fff;">👤</div>
+    </div>
+  </div>
+
+  <!-- PROFILE CARD -->
+  <div class="profile-card">
+    <div class="shift-label">SHIFT [PAGI/SIANG/MALAM] • [08:00 - 15:00 WIB]</div>
+    <div class="aktif-badge">[Aktif]</div>
+    <div class="profile-row">
+      <div class="profile-avatar">
+        <!-- Foto dokter -->
+      </div>
+      <div>
+        <div class="profile-name">[Nama Dokter, Sp.X]</div>
+        <div class="profile-loc">[Nama Klinik] ([Lantai])</div>
+      </div>
+    </div>
+    <div class="profile-footer">
+      <div class="ops">🛡️ [Status Operasional]</div>
+      <div class="poli-badge">[0] Poli Aktif</div>
+    </div>
+  </div>
+
+  <!-- STATS GRID -->
+  <div class="stats-grid">
+    <!-- Pasien Hari Ini -->
+    <div class="stat-card">
+      <div class="sc-icon sc-blue">👥</div>
+      <div class="stat-label">Pasien Hari Ini</div>
+      <div class="stat-value">[0]</div>
+      <div class="stat-sub">pasien</div>
+      <div class="stat-sub green" style="margin-top:6px;">[+0%] vs kemarin</div>
+    </div>
+
+    <!-- Dalam Antrean -->
+    <div class="stat-card">
+      <div class="sc-icon sc-amber">⏳</div>
+      <div class="stat-label">Dalam Antrean</div>
+      <div class="stat-value">[0]</div>
+      <div class="stat-sub">menunggu</div>
+      <div class="stat-sub blue" style="margin-top:6px;">Avg [--] mnt</div>
+    </div>
+
+    <!-- Selesai Poli -->
+    <div class="stat-card">
+      <div class="sc-icon sc-green">✅</div>
+      <div class="stat-label">Selesai Poli</div>
+      <div class="stat-value">[0]</div>
+      <div class="stat-sub">/ [0] total</div>
+      <div class="progress-wrap">
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Omset Kasir -->
+    <div class="stat-card">
+      <div class="sc-icon sc-purple">💰</div>
+      <div class="stat-label">Omset Kasir</div>
+      <div class="omset-val">Rp [0]</div>
+      <div class="target-badge">[0%] Target</div>
+    </div>
+  </div>
+
+  <!-- FARMASI ALERT -->
+  <div class="alert-row">
+    <div class="alert-left">
+      <div class="alert-icon-wrap">💊</div>
+      <div>
+        <div class="alert-title">[0] Stok Farmasi Menipis <span class="alert-dot">●</span></div>
+        <div class="alert-desc">[Nama Obat 1], [Nama Obat 2], ...</div>
+      </div>
+    </div>
+    <button class="cek-btn">Cek Stok</button>
+  </div>
+
+  <!-- AKSI CEPAT -->
+  <div class="section-label">AKSI CEPAT TIM MEDIS</div>
+  <div class="actions-grid">
+    <div class="action-item">
+      <div class="action-circle ac-dark">📋</div>
+      <div class="action-label">Daftar<br>Pasien</div>
+    </div>
+    <div class="action-item">
+      <div class="action-circle ac-teal">📢</div>
+      <div class="action-label">Panggil<br>Antrean</div>
+    </div>
+    <div class="action-item">
+      <div class="action-circle ac-white">📅</div>
+      <div class="action-label">Janji<br>Temu</div>
+    </div>
+    <div class="action-item">
+      <div class="action-circle ac-white">🧾</div>
+      <div class="action-label">Kasir &<br>Billing</div>
+    </div>
+  </div>
+
+  <!-- SEDANG BERLANGSUNG -->
+  <div class="berlangsung-wrap">
+    <div class="berlangsung-header">
+      <div class="bl-dot"></div>
+      <div class="bl-title">SEDANG BERLANGSUNG</div>
+      <div class="bl-room">[Poli] • [Ruangan]</div>
+    </div>
+    <div class="patient-card">
+      <div class="patient-top">
+        <div class="queue-box">
+          <div class="queue-letter">[A]</div>
+          <div class="queue-number">[-]</div>
+        </div>
+        <div>
+          <div class="patient-name">[Nama Pasien Lengkap]</div>
+          <div class="patient-rm">[No RM] • [Keluhan Utama]</div>
+          <div class="patient-est">🕒 Est. selesai: [--:-- WIB]</div>
+        </div>
+      </div>
+      <div class="patient-actions">
+        <button class="pa-btn pa-outline">📝 Rekam Medis</button>
+        <button class="pa-btn pa-solid">🔔 Panggil Lanjut ([#A-00])</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- KETERSEDIAAN DOKTER JAGA -->
+  <div class="section-header">
+    <div class="title">KETERSEDIAAN DOKTER JAGA</div>
+    <div class="link">Lihat Jadwal Lengkap</div>
+  </div>
+  <div class="dokter-list">
+
+    <!-- Dokter 1 -->
+    <div class="dokter-item">
+      <div class="dokter-avatar"></div>
+      <div class="dokter-info">
+        <div class="dokter-name">[dr. Nama Dokter, Sp.X]</div>
+        <div class="dokter-poli">[Nama Poli] • [Status]</div>
+      </div>
+      <div class="dokter-right">
+        <div class="dpill dpill-blue">Pasien [#A-000]</div>
+        <div class="dokter-room">[Ruangan]</div>
+      </div>
+    </div>
+
+    <!-- Dokter 2 -->
+    <div class="dokter-item" style="border-top:1px solid #f1f5f9;">
+      <div class="dokter-avatar"></div>
+      <div class="dokter-info">
+        <div class="dokter-name">[dr. Nama Dokter, Sp.X]</div>
+        <div class="dokter-poli">[Nama Poli] • [Status]</div>
+      </div>
+      <div class="dokter-right">
+        <div class="dpill dpill-green">Tersedia ([#B-000])</div>
+        <div class="dokter-room">[Ruangan]</div>
+      </div>
+    </div>
+
+    <!-- Dokter 3 -->
+    <div class="dokter-item" style="border-top:1px solid #f1f5f9;">
+      <div class="dokter-avatar"></div>
+      <div class="dokter-info">
+        <div class="dokter-name">[drg. Nama Dokter]</div>
+        <div class="dokter-poli">[Nama Poli]</div>
+      </div>
+      <div class="dokter-right">
+        <div class="dpill dpill-amber">Istirahat [Siang]</div>
+        <div class="dokter-room">Mulai [--:--]</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- AKTIVITAS TERKINI -->
+  <div class="aktivitas-header">
+    <div class="title">AKTIVITAS TERKINI</div>
+    <div class="sync"><div class="sync-dot"></div> Real-time sync</div>
+  </div>
+  <div class="aktivitas-list">
+
+    <!-- Aktivitas 1 -->
+    <div class="akt-item">
+      <div class="akt-icon">🧾</div>
+      <div class="akt-body">
+        <div class="akt-title-row">
+          <div class="akt-title">Pembayaran Berhasil • [#INV-0000]</div>
+          <div class="akt-time">[0] mnt lalu</div>
+        </div>
+        <div class="akt-desc">[Nama Pasien] ([Layanan])</div>
+        <div class="akt-amount">Rp [0] • [Metode Bayar]</div>
+      </div>
+    </div>
+
+    <!-- Aktivitas 2 -->
+    <div class="akt-item" style="border-top:1px solid #f1f5f9;">
+      <div class="akt-icon">🏥</div>
+      <div class="akt-body">
+        <div class="akt-title-row">
+          <div class="akt-title">Pendaftaran Pasien Baru</div>
+          <div class="akt-time">[0] mnt lalu</div>
+        </div>
+        <div class="akt-desc">[Nama Pasien] • [Poli] ([#B-000])</div>
+        <div class="akt-desc" style="margin-top:2px;">Petugas [Meja X]: [Nama Petugas]</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CREDENTIALS (Demo) -->
+  <div class="creds-card">
+    <div class="creds-title">🔐 Demo Login Credentials</div>
+    <div class="creds-row">
+      <span class="creds-key">Username</span>
+      <span class="creds-val">testklinik</span>
+    </div>
+    <div class="creds-row">
+      <span class="creds-key">Password</span>
+      <span class="creds-val">password123</span>
+    </div>
+    <div class="creds-row">
+      <span class="creds-key">Role</span>
+      <span class="creds-val">klinik</span>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <div class="nav-item active">
+      <div class="nav-icon">🏠</div>
+      Beranda
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">
+        📋
+        <span class="nav-badge">0</span>
+      </div>
+      Antrean
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">👥</div>
+      Pasien
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">🧾</div>
+      Kasir
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

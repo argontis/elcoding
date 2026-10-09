@@ -20,6 +20,21 @@ class EnsureUserIsAdmin
         }
 
         if (!auth()->user()->isAdminOrMentor()) {
+            if (auth()->user()->isKlinik()) {
+                return redirect()->route('klinik.dashboard');
+            }
+            if (auth()->user()->isBengkel()) {
+                return redirect()->route('bengkel.dashboard');
+            }
+            if (auth()->user()->isBimbel()) {
+                return redirect()->route('bimbel.dashboard');
+            }
+            if (auth()->user()->isResto()) {
+                return redirect()->route('resto.dashboard');
+            }
+            if (auth()->user()->isTechfix()) {
+                return redirect()->route('techfix.dashboard');
+            }
             if (auth()->user()->isPklStudent()) {
                 return redirect()->route('pkl.dashboard')->with('error', 'Anda tidak memiliki akses ke halaman admin.');
             }

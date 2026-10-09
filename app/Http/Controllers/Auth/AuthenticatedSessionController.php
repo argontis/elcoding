@@ -81,6 +81,14 @@ class AuthenticatedSessionController extends Controller
                     return Inertia::location($intended);
                 }
 
+                if ($user->isKlinik() || strtolower(trim($user->role ?? '')) === 'klinik' || strtolower(trim($user->username ?? '')) === 'testklinik') {
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('klinik.dashboard');
+                    }
+                    return Inertia::location($intended);
+                }
+
                 if ($user->isAdminOrMentor()) {
                     $intended = $request->session()->pull('url.intended');
                     if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
@@ -170,6 +178,14 @@ class AuthenticatedSessionController extends Controller
             $intended = $request->session()->pull('url.intended');
             if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
                 $intended = route('clean.dashboard');
+            }
+            return Inertia::location($intended);
+        }
+
+        if ($user->isKlinik() || strtolower(trim($user->role ?? '')) === 'klinik' || strtolower(trim($user->username ?? '')) === 'testklinik') {
+            $intended = $request->session()->pull('url.intended');
+            if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                $intended = route('klinik.dashboard');
             }
             return Inertia::location($intended);
         }

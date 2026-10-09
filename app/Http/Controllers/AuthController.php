@@ -61,6 +61,10 @@ class AuthController extends Controller
                 $request->session()->forget('url.intended');
                 return redirect('/techfix/dashboard');
             }
+            if ($user && strtolower(trim($user->role ?? '')) === 'klinik') {
+                $request->session()->forget('url.intended');
+                return redirect('/klinik/dashboard');
+            }
             
             return redirect()->intended('/admin/dashboard');
         }

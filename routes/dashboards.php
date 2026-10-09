@@ -166,5 +166,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/pengaturan/reset', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'resetPengaturan'])->name('pengaturan.reset');
     });
 
+    // ==========================================
+    // DASHBOARD KLINIK (Sistem Manajemen Operasional Klinik)
+    // ==========================================
+    Route::prefix('klinik')->name('klinik.')->middleware('klinik')->group(function () {
+        Route::get('/dashboard', [\App\Http\Controllers\Klinik\KlinikDashboardController::class, 'index'])->name('dashboard');
+    });
+
 });
 

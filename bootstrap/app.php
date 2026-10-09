@@ -36,6 +36,9 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($user && $user->isTechfix()) {
                 return '/techfix/dashboard';
             }
+            if ($user && strtolower(trim($user->role ?? '')) === 'klinik') {
+                return '/klinik/dashboard';
+            }
             if ($user && $user->isPklStudent()) {
                 $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
                 $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
@@ -52,6 +55,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'bimbel'     => \App\Http\Middleware\EnsureUserIsBimbel::class,
             'resto'      => \App\Http\Middleware\EnsureUserIsResto::class,
             'techfix'    => \App\Http\Middleware\EnsureUserIsTechfix::class,
+            'klinik'     => \App\Http\Middleware\EnsureUserIsKlinik::class,
             'pkl.access' => \App\Http\Middleware\CheckPklAccess::class,
         ]);
 

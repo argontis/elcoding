@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Klinik</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --primary-color: #0c4a6e;
+            --primary-light: #e0f2fe;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --card-bg: #ffffff;
+            --accent-color: #38bdf8;
+            --danger-color: #ef4444;
+            --border-radius: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+        }
+
+        .mobile-container {
+            width: 100%;
+            max-width: 414px;
+            background-color: var(--bg-color);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            padding-bottom: 80px;
+        }
+
+        /* Header Area */
+        .header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .clinic-selector {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .clinic-selector::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+        }
+        .header-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background-color: var(--primary-color);
+            margin: 0 20px;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .profile-info {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            z-index: 1;
+            position: relative;
+        }
+        .profile-pic {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #cbd5e1;
+        }
+        .profile-text .shift {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 4px;
+        }
+        .profile-text .name {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+        }
+        .profile-text .clinic {
+            font-size: 13px;
+            opacity: 0.9;
+            margin: 0;
+        }
+        .status-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .status-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background-color: #4ade80;
+            border-radius: 50%;
+        }
+        .profile-footer {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 20px;
+        }
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            position: relative;
+        }
+        .stat-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 32px;
+            height: 32px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+        }
+        .stat-title {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+        }
+        .stat-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Alert Box */
+        .alert-box {
+            margin: 0 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .alert-content .title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .alert-content .desc {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .alert-btn {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        /* Actions Grid */
+        .section-title {
+            padding: 25px 20px 15px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 0 20px;
+        }
+        .action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            color: var(--primary-color);
+        }
+        .action-icon.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        .action-label {
+            font-size: 12px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* Current Session */
+        .current-session {
+            margin: 20px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        .session-status {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .session-status::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--primary-color);
+            border-radius: 50%;
+        }
+        .session-location {
+            background: var(--primary-light);
+            padding: 4px 10px;
+            border-radius: 12px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .patient-info {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .patient-queue {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .patient-details h4 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+        }
+        .patient-details p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .session-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .btn {
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            font-size: 13px;
+            text-align: center;
+        }
+        .btn-outline {
+            background: var(--primary-light);
+            color: var(--primary-color);
+        }
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 414px;
+            background: var(--card-bg);
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 20px;
+            box-sizing: border-box;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="clinic-selector">
+                [Nama Klinik]
+            </div>
+            <div class="header-icons">
+                <div class="icon-btn">🔍</div>
+                <div class="icon-btn">🔔</div>
+                <div class="icon-btn" style="background: var(--primary-color); color: white;">👤</div>
+            </div>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="status-badge">[Status]</div>
+            <div class="profile-info">
+                <div class="profile-pic"></div>
+                <div class="profile-text">
+                    <div class="shift">[Shift & Waktu]</div>
+                    <h2 class="name">[Nama Dokter]</h2>
+                    <p class="clinic">[Lokasi / Lantai]</p>
+                </div>
+            </div>
+            <div class="profile-footer">
+                <span>[Info Status Operasional]</span>
+                <span>[Jumlah Poli Aktif]</span>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-title">Pasien Hari Ini</div>
+                <h3 class="stat-value">[0]</h3>
+                <div class="stat-desc">[Data vs kemarin]</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-title">Dalam Antrean</div>
+                <h3 class="stat-value">[0]</h3>
+                <div class="stat-desc">[Avg waktu tunggu]</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-title">Selesai Poli</div>
+                <h3 class="stat-value">[0]</h3>
+                <div class="stat-desc">/ [Total] total</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-title">Omset Kasir</div>
+                <h3 class="stat-value">[Rp 0]</h3>
+                <div class="stat-desc">[Target %]</div>
+            </div>
+        </div>
+
+        <!-- Alert -->
+        <div class="alert-box">
+            <div style="display:flex; gap:15px; align-items:center;">
+                <div class="stat-icon" style="position:static; background: #fee2e2; color: #ef4444;">💊</div>
+                <div class="alert-content">
+                    <div class="title">[Info Peringatan / Stok]</div>
+                    <div class="desc">[Detail Peringatan]</div>
+                </div>
+            </div>
+            <button class="alert-btn">Cek Stok</button>
+        </div>
+
+        <!-- Actions -->
+        <div class="section-title">AKSI CEPAT TIM MEDIS</div>
+        <div class="actions-grid">
+            <div class="action-item">
+                <div class="action-icon active">📋</div>
+                <div class="action-label">Daftar<br>Pasien</div>
+            </div>
+            <div class="action-item">
+                <div class="action-icon">📢</div>
+                <div class="action-label">Panggil<br>Antrean</div>
+            </div>
+            <div class="action-item">
+                <div class="action-icon">📅</div>
+                <div class="action-label">Janji<br>Temu</div>
+            </div>
+            <div class="action-item">
+                <div class="action-icon">💳</div>
+                <div class="action-label">Kasir &<br>Billing</div>
+            </div>
+        </div>
+
+        <!-- Current Session -->
+        <div class="current-session">
+            <div class="session-header">
+                <div class="session-status">SEDANG BERLANGSUNG</div>
+                <div class="session-location">[Ruangan / Poli]</div>
+            </div>
+            <div class="patient-info">
+                <div class="patient-queue">[-<br>-]</div>
+                <div class="patient-details">
+                    <h4>[Nama Pasien]</h4>
+                    <p>[No RM] • [Keluhan]</p>
+                    <p style="color: var(--primary-color); margin-top:5px;">🕒 Est. selesai: [--:--]</p>
+                </div>
+            </div>
+            <div class="session-actions">
+                <button class="btn btn-outline">📝 Rekam Medis</button>
+                <button class="btn btn-primary">🔔 Panggil Lanjut</button>
+            </div>
+        </div>
+
+        <!-- Credentials Info Requested by User -->
+        <div style="margin: 20px; background: #fff8e6; padding: 15px; border-radius: 12px; border: 1px solid #fde68a;">
+            <h4 style="margin:0 0 10px 0; color: #b45309; font-size:14px;">Demo Credentials</h4>
+            <p style="margin:0; font-size: 13px; color: #78350f;">
+                <strong>Username:</strong> testklinik<br>
+                <strong>Password:</strong> password123<br>
+                <strong>Role:</strong> Administrator / Dokter Jaga
+            </p>
+        </div>
+
+        <!-- Bottom Nav -->
+        <div class="bottom-nav">
+            <div class="nav-item active">
+                <span style="font-size: 20px;">🏠</span>
+                Beranda
+            </div>
+            <div class="nav-item">
+                <span style="font-size: 20px; position:relative;">
+                    📋
+                    <span style="position:absolute; top:-5px; right:-10px; background:var(--primary-color); color:white; border-radius:50%; width:16px; height:16px; display:flex; align-items:center; justify-content:center; font-size:10px;">0</span>
+                </span>
+                Antrean
+            </div>
+            <div class="nav-item">
+                <span style="font-size: 20px;">👥</span>
+                Pasien
+            </div>
+            <div class="nav-item">
+                <span style="font-size: 20px;">💳</span>
+                Kasir
+            </div>
+        </div>
+    </div>
+</body>
+</html>

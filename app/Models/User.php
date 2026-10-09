@@ -133,4 +133,18 @@ class User extends Authenticatable
     {
         return $this->isTechfix() || $this->isAdminOrMentor();
     }
+
+    public function isKlinik()
+    {
+        $role = strtolower(trim($this->role ?? ''));
+        $username = strtolower(trim($this->username ?? ''));
+        return in_array($role, ['klinik', 'clinic'])
+            || in_array($username, ['testklinik', 'klinik', 'clinic'])
+            || $this->email === 'klinik@elcoding.id';
+    }
+
+    public function isKlinikOrAdmin()
+    {
+        return $this->isKlinik() || $this->isAdminOrMentor();
+    }
 }

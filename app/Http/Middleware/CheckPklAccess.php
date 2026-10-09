@@ -35,6 +35,9 @@ class CheckPklAccess
         if ($user && $user->isResto()) {
             return redirect('/resto/dashboard');
         }
+        if ($user && ($user->isKlinik() || strtolower(trim($user->role ?? '')) === 'klinik')) {
+            return redirect('/klinik/dashboard');
+        }
 
         return $next($request);
     }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Clean\CleanDashboardController;
 use App\Http\Controllers\Bengkel\BengkelDashboardController;
+use App\Http\Controllers\Barbershop\BarbershopDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,35 @@ use App\Http\Controllers\Bengkel\BengkelDashboardController;
 */
 
 Route::middleware(['auth', 'verified'])->group(function () {
+
+    // ==========================================
+    // DASHBOARD BARBERSHOP / ATELIER (L-Style Atelier Suite)
+    // ==========================================
+    Route::prefix('barbershop')->name('barbershop.')->group(function () {
+        Route::get('/dashboard', [BarbershopDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/booking', [BarbershopDashboardController::class, 'booking'])->name('booking');
+        Route::get('/pelanggan', [BarbershopDashboardController::class, 'pelanggan'])->name('pelanggan');
+        Route::get('/antrean', [BarbershopDashboardController::class, 'antrean'])->name('antrean');
+        Route::get('/membership', [BarbershopDashboardController::class, 'membership'])->name('membership');
+        Route::get('/treatment', [BarbershopDashboardController::class, 'treatment'])->name('treatment');
+        Route::get('/kasir', [BarbershopDashboardController::class, 'kasir'])->name('kasir');
+        Route::get('/komisi', [BarbershopDashboardController::class, 'komisi'])->name('komisi');
+        Route::get('/reminder', [BarbershopDashboardController::class, 'reminder'])->name('reminder');
+        Route::get('/whatsapp', [BarbershopDashboardController::class, 'reminder'])->name('whatsapp');
+    });
+
+    Route::prefix('atelier')->name('atelier.')->group(function () {
+        Route::get('/dashboard', [BarbershopDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/booking', [BarbershopDashboardController::class, 'booking'])->name('booking');
+        Route::get('/pelanggan', [BarbershopDashboardController::class, 'pelanggan'])->name('pelanggan');
+        Route::get('/antrean', [BarbershopDashboardController::class, 'antrean'])->name('antrean');
+        Route::get('/membership', [BarbershopDashboardController::class, 'membership'])->name('membership');
+        Route::get('/treatment', [BarbershopDashboardController::class, 'treatment'])->name('treatment');
+        Route::get('/kasir', [BarbershopDashboardController::class, 'kasir'])->name('kasir');
+        Route::get('/komisi', [BarbershopDashboardController::class, 'komisi'])->name('komisi');
+        Route::get('/reminder', [BarbershopDashboardController::class, 'reminder'])->name('reminder');
+        Route::get('/whatsapp', [BarbershopDashboardController::class, 'reminder'])->name('whatsapp');
+    });
 
     // ==========================================
     // DASHBOARD CLEAN (L-Clean SaaS Laundry Facility)

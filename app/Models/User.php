@@ -147,4 +147,34 @@ class User extends Authenticatable
     {
         return $this->isKlinik() || $this->isAdminOrMentor();
     }
+
+    public function isBarbershop()
+    {
+        $role = strtolower(trim($this->role ?? ''));
+        $username = strtolower(trim($this->username ?? ''));
+        return in_array($role, ['barbershop', 'atelier', 'barber'])
+            || in_array($username, ['barbershop', 'atelier', 'mario'])
+            || $this->email === 'admin@lstyle.id'
+            || $this->email === 'mario@lstyle.id';
+    }
+
+    public function isBarbershopOrAdmin()
+    {
+        return $this->isBarbershop() || $this->isAdminOrMentor();
+    }
+
+    public function isCleanUser()
+    {
+        $role = strtolower(trim($this->role ?? ''));
+        $username = strtolower(trim($this->username ?? ''));
+        return in_array($role, ['clean', 'laundry', 'lclean'])
+            || in_array($username, ['clean', 'lclean', 'elena'])
+            || $this->email === 'clean@lclean.id'
+            || $this->email === 'elena@lclean.id';
+    }
+
+    public function isCleanOrAdmin()
+    {
+        return $this->isCleanUser() || $this->isAdminOrMentor();
+    }
 }

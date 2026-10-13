@@ -202,8 +202,17 @@ Route::get('/artikel/{id}', function ($id) {
 // ==========================================
 Route::middleware(['auth', 'verified'])->group(function () {
     
-    // 1. Route Beranda / Dashboard
+    // 1. Route Beranda / Dashboard & Booking
     Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/booking', [\App\Http\Controllers\Barbershop\BarbershopDashboardController::class, 'booking'])->name('booking');
+    Route::get('/pelanggan', [\App\Http\Controllers\Barbershop\BarbershopDashboardController::class, 'pelanggan'])->name('pelanggan');
+    Route::get('/antrean', [\App\Http\Controllers\Barbershop\BarbershopDashboardController::class, 'antrean'])->name('antrean');
+    Route::get('/membership', [\App\Http\Controllers\Barbershop\BarbershopDashboardController::class, 'membership'])->name('membership');
+    Route::get('/treatment', [\App\Http\Controllers\Barbershop\BarbershopDashboardController::class, 'treatment'])->name('treatment');
+    Route::get('/kasir', [\App\Http\Controllers\Barbershop\BarbershopDashboardController::class, 'kasir'])->name('kasir');
+    Route::get('/komisi', [\App\Http\Controllers\Barbershop\BarbershopDashboardController::class, 'komisi'])->name('komisi');
+    Route::get('/reminder', [\App\Http\Controllers\Barbershop\BarbershopDashboardController::class, 'reminder'])->name('reminder');
+    Route::get('/promo-whatsapp', [\App\Http\Controllers\Barbershop\BarbershopDashboardController::class, 'reminder'])->name('promo-whatsapp');
 
     Route::prefix('admin')->middleware('admin')->group(function () {
         Route::redirect('/', '/dashboard');

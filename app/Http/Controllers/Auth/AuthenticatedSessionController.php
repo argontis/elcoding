@@ -81,6 +81,30 @@ class AuthenticatedSessionController extends Controller
                     return Inertia::location($intended);
                 }
 
+                if ($user->isCleanUser()) {
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('clean.dashboard');
+                    }
+                    return Inertia::location($intended);
+                }
+
+                if ($user->isBarbershop()) {
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('barbershop.dashboard');
+                    }
+                    return Inertia::location($intended);
+                }
+
+                if ($user->isTechfix()) {
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('techfix.dashboard');
+                    }
+                    return Inertia::location($intended);
+                }
+
                 if ($user->isKlinik() || strtolower(trim($user->role ?? '')) === 'klinik' || strtolower(trim($user->username ?? '')) === 'testklinik') {
                     $intended = $request->session()->pull('url.intended');
                     if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
@@ -92,7 +116,7 @@ class AuthenticatedSessionController extends Controller
                 if ($user->isAdminOrMentor()) {
                     $intended = $request->session()->pull('url.intended');
                     if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
-                        $intended = route('dashboard');
+                        $intended = route('barbershop.dashboard');
                     }
                     return Inertia::location($intended);
                 }
@@ -174,10 +198,26 @@ class AuthenticatedSessionController extends Controller
             return Inertia::location($intended);
         }
 
-        if (strtolower(trim($user->username ?? '')) === 'clean' || strtolower(trim($user->role ?? '')) === 'clean' || strtolower(trim($user->email ?? '')) === 'clean@lclean.id') {
+        if ($user->isCleanUser() || strtolower(trim($user->username ?? '')) === 'clean' || strtolower(trim($user->role ?? '')) === 'clean' || strtolower(trim($user->email ?? '')) === 'clean@lclean.id') {
             $intended = $request->session()->pull('url.intended');
             if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
                 $intended = route('clean.dashboard');
+            }
+            return Inertia::location($intended);
+        }
+
+        if ($user->isBarbershop()) {
+            $intended = $request->session()->pull('url.intended');
+            if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                $intended = route('barbershop.dashboard');
+            }
+            return Inertia::location($intended);
+        }
+
+        if ($user->isTechfix()) {
+            $intended = $request->session()->pull('url.intended');
+            if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                $intended = route('techfix.dashboard');
             }
             return Inertia::location($intended);
         }
@@ -193,7 +233,7 @@ class AuthenticatedSessionController extends Controller
         if ($user->isAdminOrMentor()) {
             $intended = $request->session()->pull('url.intended');
             if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
-                $intended = route('dashboard');
+                $intended = route('barbershop.dashboard');
             }
             return Inertia::location($intended);
         }

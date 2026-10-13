@@ -203,5 +203,28 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Klinik\KlinikDashboardController::class, 'index'])->name('dashboard');
     });
 
+    // ==========================================
+    // DASHBOARD AI CRM & LEAD MANAGEMENT (Nusantara Enterprise CRM)
+    // ==========================================
+    Route::prefix('crm')->name('crm.')->middleware('crm')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'dashboard'])->name('home');
+        Route::get('/dashboard', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'dashboard'])->name('dashboard');
+        Route::get('/leads', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'leads'])->name('leads');
+        Route::get('/pipeline', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'pipeline'])->name('pipeline');
+        Route::get('/tasks', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'tasks'])->name('tasks');
+        Route::get('/copilot', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'copilot'])->name('copilot');
+        Route::get('/otomasi', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'otomasi'])->name('otomasi');
+        Route::get('/laporan', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'laporan'])->name('laporan');
+        Route::get('/pengaturan', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'pengaturan'])->name('pengaturan');
+
+        // Interactive Handlers
+        Route::post('/copilot/ask', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'copilotAsk'])->name('copilot.ask');
+        Route::post('/leads/store', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'storeLead'])->name('leads.store');
+        Route::post('/pipeline/store', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'storeDeal'])->name('pipeline.store');
+        Route::post('/tasks/store', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'storeTask'])->name('tasks.store');
+        Route::post('/otomasi/toggle/{id}', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'toggleWorkflow'])->name('otomasi.toggle');
+        Route::post('/pengaturan/save', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'saveSettings'])->name('pengaturan.save');
+    });
+
 });
 

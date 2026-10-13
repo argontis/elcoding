@@ -177,4 +177,18 @@ class User extends Authenticatable
     {
         return $this->isCleanUser() || $this->isAdminOrMentor();
     }
+
+    public function isCrmLead()
+    {
+        $role = strtolower(trim($this->role ?? ''));
+        $username = strtolower(trim($this->username ?? ''));
+        return in_array($role, ['crmlead', 'crm', 'nusantaracrm', 'nusantaracri', 'crm_lead'])
+            || in_array($username, ['crmlead', 'crm'])
+            || $this->email === 'crmlead@elcoding.id';
+    }
+
+    public function isCrmLeadOrAdmin()
+    {
+        return $this->isCrmLead() || $this->isAdminOrMentor();
+    }
 }

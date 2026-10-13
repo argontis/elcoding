@@ -107,6 +107,28 @@
             --label-text: #cbd5e1;
         }
 
+        body.theme-crm {
+            --accent: #4c52f8;
+            --accent-light: #eef2ff;
+            --accent-glow: rgba(76,82,248,0.3);
+            --bg-page: #0a0e1a;
+            --bg-blob1: rgba(76,82,248,0.22);
+            --bg-blob2: rgba(139,92,246,0.18);
+            --bg-blob3: rgba(59,130,246,0.14);
+            --card-bg: rgba(15,23,42,0.95);
+            --card-border: rgba(99,102,241,0.4);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --input-bg: rgba(30,41,59,0.85);
+            --input-border: rgba(75,85,99,0.7);
+            --badge-bg: rgba(76,82,248,0.2);
+            --badge-text: #a5b4fc;
+            --badge-dot: #818cf8;
+            --btn-grad: linear-gradient(135deg, #4c52f8 0%, #6366f1 100%);
+            --btn-shadow: rgba(76,82,248,0.45);
+            --label-text: #cbd5e1;
+        }
+
         body {
             font-family: var(--font-main);
             background-color: var(--bg-page);
@@ -170,6 +192,10 @@
         body.theme-techfix .portal-selector {
             background: rgba(15,23,42,0.85);
             border-color: rgba(51,65,85,0.8);
+        }
+        body.theme-crm .portal-selector {
+            background: rgba(15,23,42,0.9);
+            border-color: rgba(99,102,241,0.5);
         }
         .portal-btn {
             flex: 1;
@@ -486,6 +512,10 @@
             <button class="portal-btn" id="btnPortalTechfix" onclick="setPortal('techfix')" type="button">
                 <i class="fas fa-microchip"></i>
                 TechFix
+            </button>
+            <button class="portal-btn" id="btnPortalCrm" onclick="setPortal('crm')" type="button">
+                <i class="fas fa-chart-line"></i>
+                AI CRM
             </button>
             <button class="portal-btn" id="btnPortalMember" onclick="setPortal('member')" type="button">
                 <i class="fas fa-id-card"></i>
@@ -820,6 +850,79 @@
 
             </div>
 
+            <!-- ======== AI CRM & LEAD MANAGEMENT PORTAL ======== -->
+            <div id="viewCrm" class="form-view hidden">
+
+                <!-- CRM Header -->
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <div style="display: inline-flex; align-items: center; justify-content: center; width: 68px; height: 68px; border-radius: 20px; background: linear-gradient(135deg, #4c52f8, #6366f1); box-shadow: 0 8px 25px rgba(76,82,248,0.4); font-size: 28px; color: #fff; margin-bottom: 12px;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div style="font-family: var(--font-heading); font-size: 26px; font-weight: 900; color: #f8fafc; letter-spacing: -0.5px;">Nusantara <span style="color: #818cf8;">CRM</span></div>
+                    <div style="color: #94a3b8; font-size: 12px; margin-top: 4px;">AI Enterprise Engine & Lead Management Suite</div>
+                </div>
+
+                <!-- Credential Plate (info akun CRM Lead) -->
+                <div class="cred-plate" style="background: rgba(30,41,59,0.7); border: 1px solid rgba(99,102,241,0.4); border-radius: 14px; padding: 16px; margin-bottom: 20px;">
+                    <div class="cred-plate-title" style="color: #a5b4fc; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px;">
+                        <i class="fas fa-key" style="margin-right: 4px;"></i> Akun Login AI CRM & Lead Management
+                    </div>
+                    <div class="cred-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span class="cred-label" style="color: #94a3b8; font-size: 12px;">Username</span>
+                        <span class="cred-value" style="color: #f8fafc; font-size: 13px; font-weight: 700; font-family: monospace;">crmlead</span>
+                    </div>
+                    <div class="cred-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span class="cred-label" style="color: #94a3b8; font-size: 12px;">Password</span>
+                        <span class="cred-value" style="color: #f8fafc; font-size: 13px; font-weight: 700; font-family: monospace;">password123</span>
+                    </div>
+                    <div class="cred-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0;">
+                        <span class="cred-label" style="color: #94a3b8; font-size: 12px;">Role Akses</span>
+                        <span class="cred-badge" style="background: rgba(76,82,248,0.25); color: #c7d2fe; border: 1px solid rgba(99,102,241,0.5); border-radius: 100px; padding: 2px 10px; font-size: 11px; font-weight: 700;">
+                            <i class="fas fa-brain"></i> crmlead (Enterprise CRM)
+                        </span>
+                    </div>
+                </div>
+
+                <form action="{{ url('/login') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="login_method" value="credential">
+
+                    <div class="form-group">
+                        <label for="crm_username">Username CRM</label>
+                        <div class="input-wrap">
+                            <span class="input-icon"><i class="fas fa-user-gear"></i></span>
+                            <input type="text" id="crm_username" name="username"
+                                value="{{ old('username', 'crmlead') }}"
+                                placeholder="Username CRM" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="crm_password">Password</label>
+                        <div class="input-wrap">
+                            <span class="input-icon"><i class="fas fa-lock"></i></span>
+                            <input type="password" id="crm_password" name="password"
+                                value="password123"
+                                placeholder="••••••••" required>
+                        </div>
+                        @error('username')
+                            <div class="field-error"><i class="fas fa-exclamation-circle"></i> {{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="margin-top: 4px; background: linear-gradient(135deg, #4c52f8 0%, #6366f1 100%); box-shadow: 0 4px 15px rgba(76,82,248,0.45);">
+                        <i class="fas fa-chart-line"></i> Masuk ke Nusantara CRM <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <!-- Status dot -->
+                <div style="display:flex; align-items:center; gap:8px; margin-top:18px; padding:10px 14px; background:rgba(76,82,248,0.08); border-radius:10px; border:1px solid rgba(76,82,248,0.25);">
+                    <span style="width:8px;height:8px;background:#22c55e;border-radius:50%;display:inline-block;box-shadow:0 0 6px #22c55e;animation:pulse-dot 1.8s infinite;"></span>
+                    <span style="font-size:12px;color:#a5b4fc;">Server Status: JKT-1 · AI Sync & WhatsApp Gateway Aktif</span>
+                </div>
+
+            </div>
+
             <!-- Back link (common) -->
             <div class="back-link" style="margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--input-border);">
                 <a href="{{ url('/') }}">
@@ -846,16 +949,19 @@
             const viewBengkel  = document.getElementById('viewBengkel');
             const viewEdupulse = document.getElementById('viewEdupulse');
             const viewTechfix  = document.getElementById('viewTechfix');
+            const viewCrm      = document.getElementById('viewCrm');
             const pageBody     = document.getElementById('pageBody');
 
             pageBody.classList.remove('theme-bengkel');
             pageBody.classList.remove('theme-edupulse');
             pageBody.classList.remove('theme-techfix');
+            pageBody.classList.remove('theme-crm');
 
             hideEl(viewAdmin);
             hideEl(viewBengkel);
             hideEl(viewEdupulse);
             if (viewTechfix) hideEl(viewTechfix);
+            if (viewCrm) hideEl(viewCrm);
 
             if (portal === 'admin') {
                 document.getElementById('btnPortalAdmin').classList.add('active');
@@ -874,6 +980,12 @@
                 pageBody.classList.add('theme-techfix');
                 if (viewTechfix) showEl(viewTechfix);
                 document.title = 'TechFix Pro - Service Center Login';
+            } else if (portal === 'crm') {
+                const btnCrm = document.getElementById('btnPortalCrm');
+                if (btnCrm) btnCrm.classList.add('active');
+                pageBody.classList.add('theme-crm');
+                if (viewCrm) showEl(viewCrm);
+                document.title = 'Nusantara Enterprise CRM - Login';
             } else if (portal === 'bengkel') {
                 document.getElementById('btnPortalBengkel').classList.add('active');
                 pageBody.classList.add('theme-bengkel');

@@ -39,6 +39,9 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($user && strtolower(trim($user->role ?? '')) === 'klinik') {
                 return '/klinik/dashboard';
             }
+            if ($user && ($user->isCrmLead() || strtolower(trim($user->role ?? '')) === 'crmlead')) {
+                return '/crm/dashboard';
+            }
             if ($user && $user->isPklStudent()) {
                 $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
                 $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
@@ -56,6 +59,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'resto'      => \App\Http\Middleware\EnsureUserIsResto::class,
             'techfix'    => \App\Http\Middleware\EnsureUserIsTechfix::class,
             'klinik'     => \App\Http\Middleware\EnsureUserIsKlinik::class,
+            'crm'        => \App\Http\Middleware\EnsureUserIsCrmLead::class,
+            'crmlead'    => \App\Http\Middleware\EnsureUserIsCrmLead::class,
             'pkl.access' => \App\Http\Middleware\CheckPklAccess::class,
         ]);
 

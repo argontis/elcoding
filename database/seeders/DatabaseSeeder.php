@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             BimbelUserSeeder::class,
             TechfixUserSeeder::class,
             BarbershopUserSeeder::class,
+            CrmLeadUserSeeder::class,
         ]);
     }
 }

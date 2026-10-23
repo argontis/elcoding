@@ -56,6 +56,19 @@ Route::get('/demo-resto', function () {
 });
 
 // ==========================================
+// ROUTE BENGKEL (LANDING PAGE & PORTAL BENGKEL MODERN)
+// ==========================================
+Route::get('/bengkel', [\App\Http\Controllers\Bengkel\BengkelLandingController::class, 'index'])->name('bengkel.landing');
+Route::get('/bengkel/booking-servis', [\App\Http\Controllers\Bengkel\BengkelLandingController::class, 'bookingPage'])->name('bengkel.booking.page');
+Route::get('/bengkel/live-tracking', [\App\Http\Controllers\Bengkel\BengkelLandingController::class, 'trackingPage'])->name('bengkel.tracking.page');
+Route::get('/bengkel/tracking', function () { return redirect()->route('bengkel.tracking.page'); });
+Route::post('/bengkel/lacak', [\App\Http\Controllers\Bengkel\BengkelLandingController::class, 'lacak'])->name('bengkel.lacak');
+Route::post('/bengkel/booking', [\App\Http\Controllers\Bengkel\BengkelLandingController::class, 'storeBooking'])->name('bengkel.booking.store');
+
+
+
+
+// ==========================================
 // ROUTE PUBLIC (LANDING PAGE - BLADE)
 // ==========================================
 Route::get('/', function () {

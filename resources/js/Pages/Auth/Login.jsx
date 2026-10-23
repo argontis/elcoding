@@ -2,12 +2,23 @@ import { useEffect, useState } from 'react';
 import Checkbox from '@/Components/Checkbox';
 import InputError from '@/Components/InputError';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { User, Lock, CreditCard } from 'lucide-react';
+import { User, Lock, CreditCard, ChevronDown } from 'lucide-react';
+
+const DEMO_ACCOUNTS = [
+    { role: 'Clean', username: 'clean', password: 'password123', target: '/clean/dashboard', color: '#10b981' },
+    { role: 'Barbershop', username: 'barbershop', password: 'barbershop123', target: '/barbershop/dashboard', color: '#8b5cf6' },
+    { role: 'Bengkel', username: 'bengkel', password: 'bengkel123', target: '/bengkel/dashboard', color: '#f59e0b' },
+    { role: 'Bimbel', username: 'edupulse', password: 'bimbel123', target: '/bimbel/dashboard', color: '#3b82f6' },
+    { role: 'Resto', username: 'resto', password: 'resto123', target: '/resto/dashboard', color: '#ef4444' },
+    { role: 'TechFix', username: 'techfix', password: 'techfix123', target: '/techfix/dashboard', color: '#06b6d4' },
+    { role: 'CRM', username: 'crmlead', password: 'password123', target: '/crm/dashboard', color: '#ec4899' },
+];
 
 export default function Login({ status, canResetPassword }) {
     const [showPassword, setShowPassword] = useState(false);
     // mode: 'credential' | 'kartu'
     const [mode, setMode] = useState('credential');
+    const [showAccounts, setShowAccounts] = useState(false);
 
     const credentialForm = useForm({
         email: '',
@@ -35,6 +46,12 @@ export default function Login({ status, canResetPassword }) {
     const submitKartu = (e) => {
         e.preventDefault();
         kartuForm.post(route('login'));
+    };
+
+    const fillCredential = (username, password) => {
+        credentialForm.setData({ ...credentialForm.data, email: username, password: password });
+        setMode('credential');
+        setShowAccounts(false);
     };
 
     return (
@@ -265,14 +282,69 @@ export default function Login({ status, canResetPassword }) {
                                         onClick={() => setMode('credential')}
                                         className="w-full py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold tracking-wide text-xs rounded-xl transition-all duration-200"
                                     >
-                                        &larr; Login dengan Username & Password
+                                        &larr; Login dengan Username &amp; Password
                                     </button>
                                 </form>
                             </>
                         )}
 
+                        {/* ====== DEMO ACCOUNTS PANEL ====== */}
+                        <div className="mt-5">
+                            <button
+                                type="button"
+                                onClick={() => setShowAccounts(!showAccounts)}
+                                className="w-full flex items-center justify-between px-4 py-3 rounded-xl bg-gradient-to-r from-slate-50 to-blue-50 border border-slate-200 hover:border-blue-300 transition-all duration-200 group"
+                            >
+                                <div className="flex items-center gap-2.5">
+                                    <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center shadow-sm">
+                                        <User className="w-3.5 h-3.5" />
+                                    </div>
+                                    <span className="text-[11px] font-bold text-slate-700">Demo Akun Dashboard</span>
+                                </div>
+                                <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${showAccounts ? 'rotate-180' : ''}`} />
+                            </button>
+
+                            {showAccounts && (
+                                <div className="mt-2 rounded-xl border border-slate-200 bg-white shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                                    <div className="px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600">
+                                        <p className="text-[10px] font-bold text-white/90 tracking-wide uppercase">Klik untuk auto-fill login</p>
+                                    </div>
+                                    <div className="divide-y divide-slate-100 max-h-[240px] overflow-y-auto">
+                                        {DEMO_ACCOUNTS.map((account) => (
+                                            <button
+                                                key={account.username}
+                                                type="button"
+                                                onClick={() => fillCredential(account.username, account.password)}
+                                                className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-blue-50/70 transition-colors text-left group"
+                                            >
+                                                <div
+                                                    className="w-2 h-2 rounded-full flex-shrink-0 shadow-sm"
+                                                    style={{ backgroundColor: account.color }}
+                                                />
+                                                <div className="flex-1 min-w-0">
+                                                    <div className="text-[11px] font-bold text-slate-800 group-hover:text-blue-700 transition-colors">
+                                                        {account.role}
+                                                    </div>
+                                                    <div className="text-[9px] text-slate-400 font-mono">
+                                                        {account.target}
+                                                    </div>
+                                                </div>
+                                                <div className="text-right flex-shrink-0">
+                                                    <div className="text-[10px] font-semibold text-slate-600 font-mono">{account.username}</div>
+                                                    <div className="text-[9px] text-slate-400 font-mono">{account.password}</div>
+                                                </div>
+                                                <span className="text-[9px] font-bold text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    ISI →
+                                                </span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
                         {/* RFID Quick Login Section */}
-                        <div className="mt-6 pt-4 border-t border-gray-100 text-center">
+                        <div className="mt-4 pt-4 border-t border-gray-100 text-center">
                             <div className="p-3 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 text-gray-800 flex items-center justify-between gap-2 shadow-xs">
                                 <div className="flex items-center gap-2.5 text-left">
                                     <div className="w-8 h-8 rounded-lg bg-emerald-500 text-white flex items-center justify-center font-bold shadow-xs">

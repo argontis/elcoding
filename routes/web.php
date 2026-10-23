@@ -49,6 +49,13 @@ Route::get('/sitemap.xml', function () {
 });
 
 // ==========================================
+// ROUTE DEMO RESTO (DEMO WEB RESTORAN)
+// ==========================================
+Route::get('/demo-resto', function () {
+    return response()->file(public_path('demo_resto.html'));
+});
+
+// ==========================================
 // ROUTE PUBLIC (LANDING PAGE - BLADE)
 // ==========================================
 Route::get('/', function () {

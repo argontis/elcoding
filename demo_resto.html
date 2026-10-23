@@ -1,0 +1,2717 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA Bistro &amp; Lounge — Fine Artisanal Dining &amp; Culinary Experience</title>
+    <meta name="description" content="Demo Website Restoran Modern AURA Bistro & Lounge: Menu Digital Interaktif, Reservasi Meja Online, Integrasi WhatsApp Checkout, dan Kitchen Display System.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            50: '#fffbf0',
+                            100: '#fef5d6',
+                            200: '#fde5a8',
+                            300: '#fad073',
+                            400: '#f6b83f',
+                            500: '#d97706',
+                            600: '#b45309',
+                            700: '#92400e',
+                            800: '#78350f',
+                            900: '#451a03',
+                        },
+                        amberGlow: '#f59e0b',
+                        darkObsidian: '#090d16',
+                        darkSurface: '#111827',
+                        cardSurface: '#161f30',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Outfit"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #090d16;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+        .font-heading { font-family: 'Outfit', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 7px; height: 7px; }
+        ::-webkit-scrollbar-track { background: #0c121e; }
+        ::-webkit-scrollbar-thumb { background: #2a374d; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d97706; }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(22, 31, 48, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(217, 119, 6, 0.15);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(217, 119, 6, 0.4);
+            box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.6), 0 0 20px -3px rgba(217, 119, 6, 0.2);
+        }
+
+        /* Gold Gradient Text */
+        .text-gold-gradient {
+            background: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glow effects */
+        .glow-gold {
+            box-shadow: 0 0 25px -4px rgba(217, 119, 6, 0.45);
+        }
+
+        /* Phone mockup view */
+        .phone-frame {
+            max-width: 420px;
+            margin: 20px auto;
+            border-radius: 44px;
+            border: 10px solid #222d3d;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            background: #090d16;
+            position: relative;
+        }
+        .phone-notch {
+            width: 140px;
+            height: 24px;
+            background: #222d3d;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-left-radius: 14px;
+            border-bottom-right-radius: 14px;
+            z-index: 60;
+        }
+
+        /* Badge pulse */
+        @keyframes pulseDot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.6; }
+        }
+        .pulse-live {
+            animation: pulseDot 2s infinite ease-in-out;
+        }
+
+        /* Print Receipt styling */
+        @media print {
+            body * { visibility: hidden; }
+            #receiptModal, #receiptModal * { visibility: visible; }
+            #receiptModal { position: absolute; left: 0; top: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body class="bg-[#090d16] text-slate-100 min-h-screen selection:bg-amber-600 selection:text-white">
+
+    <!-- ============================================================== -->
+    <!-- TOP NOTIFICATION & ROLE DEMO SWITCHER BAR                      -->
+    <!-- ============================================================== -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-amber-500/20 shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20">
+                
+                <!-- Logo & Status -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="switchView('customer')">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-amber-600 via-amber-500 to-yellow-300 p-0.5 shadow-lg shadow-amber-500/25">
+                        <div class="w-full h-full bg-[#0d1424] rounded-[14px] flex items-center justify-center">
+                            <i class="fas fa-crown text-amber-400 text-lg sm:text-xl"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-heading font-black text-lg sm:text-2xl tracking-wider text-white">AURA</span>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase tracking-widest hidden sm:inline-block">Bistro &amp; Lounge</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-[11px] text-emerald-400 font-medium">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-live"></span>
+                            <span>Buka Sekarang • 10:00 - 23:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Links (Customer Mode) -->
+                <nav id="customerNavLinks" class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+                    <a href="#hero" class="hover:text-amber-400 transition-colors">Beranda</a>
+                    <a href="#menuSection" class="hover:text-amber-400 transition-colors">Daftar Menu</a>
+                    <a href="#reservationSection" class="hover:text-amber-400 transition-colors">Reservasi Meja</a>
+                    <a href="#gallerySection" class="hover:text-amber-400 transition-colors">Ambience</a>
+                    <a href="#chefSection" class="hover:text-amber-400 transition-colors">Chef Story</a>
+                    <a href="#contactSection" class="hover:text-amber-400 transition-colors">Lokasi</a>
+                </nav>
+
+                <!-- Action Controls: Role Switcher & Cart Trigger -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    
+                    <!-- Mode Switcher Dropdown / Pills -->
+                    <div class="relative inline-block text-left">
+                        <button id="modeDropdownBtn" onclick="toggleModeDropdown()" class="flex items-center gap-2 px-3 py-1.5 sm:py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-xs sm:text-sm font-semibold text-amber-300 transition-all shadow-inner">
+                            <i id="currentModeIcon" class="fas fa-utensils text-amber-400"></i>
+                            <span id="currentModeLabel" class="hidden sm:inline">Mode Pelanggan</span>
+                            <i class="fas fa-chevron-down text-[10px] opacity-70"></i>
+                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div id="modeDropdownMenu" class="hidden absolute right-0 mt-2 w-56 rounded-2xl bg-[#111827] border border-amber-500/30 shadow-2xl z-50 py-2 divide-y divide-slate-800">
+                            <div class="px-3 py-1.5 text-[10px] font-bold uppercase text-slate-400 tracking-wider">Pilih Perspektif Demo:</div>
+                            <button onclick="switchView('customer')" class="w-full text-left px-3.5 py-2.5 text-xs font-semibold text-slate-200 hover:bg-amber-500/10 hover:text-amber-400 flex items-center gap-2.5">
+                                <i class="fas fa-utensils w-4 text-amber-400"></i>
+                                <div>
+                                    <div class="font-bold">Mode Pelanggan</div>
+                                    <div class="text-[10px] text-slate-400">Website, Menu &amp; Reservasi</div>
+                                </div>
+                            </button>
+                            <button onclick="switchView('qr')" class="w-full text-left px-3.5 py-2.5 text-xs font-semibold text-slate-200 hover:bg-amber-500/10 hover:text-amber-400 flex items-center gap-2.5">
+                                <i class="fas fa-qrcode w-4 text-emerald-400"></i>
+                                <div>
+                                    <div class="font-bold">QR Table Self-Order</div>
+                                    <div class="text-[10px] text-slate-400">Simulasi Meja 04 Dine-In</div>
+                                </div>
+                            </button>
+                            <button onclick="switchView('kds')" class="w-full text-left px-3.5 py-2.5 text-xs font-semibold text-slate-200 hover:bg-amber-500/10 hover:text-amber-400 flex items-center gap-2.5">
+                                <i class="fas fa-fire-burner w-4 text-orange-400"></i>
+                                <div>
+                                    <div class="font-bold">KDS (Kitchen Display)</div>
+                                    <div class="text-[10px] text-slate-400">Layar Antrean Masak Dapur</div>
+                                </div>
+                            </button>
+                            <button onclick="switchView('pos')" class="w-full text-left px-3.5 py-2.5 text-xs font-semibold text-slate-200 hover:bg-amber-500/10 hover:text-amber-400 flex items-center gap-2.5">
+                                <i class="fas fa-cash-register w-4 text-sky-400"></i>
+                                <div>
+                                    <div class="font-bold">POS &amp; Denah Meja</div>
+                                    <div class="text-[10px] text-slate-400">Kasir &amp; Billing 12 Meja</div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Device Frame Toggle (Desktop / Mobile Phone Simulator) -->
+                    <button id="deviceToggleBtn" onclick="toggleDeviceSimulator()" title="Toggle Simulasi Tampilan HP" class="p-2 sm:px-3 sm:py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-amber-400 text-xs sm:text-sm font-semibold transition-all">
+                        <i class="fas fa-mobile-screen-button"></i>
+                        <span class="hidden md:inline ml-1 text-xs">Simulasi HP</span>
+                    </button>
+
+                    <!-- Cart Trigger Button -->
+                    <button onclick="openCartDrawer()" class="relative flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-amber-600/30 transition-transform active:scale-95">
+                        <i class="fas fa-shopping-bag text-base"></i>
+                        <span class="hidden sm:inline">Pesanan</span>
+                        <span id="cartCountBadge" class="w-5 h-5 rounded-full bg-slate-950 text-amber-300 text-[11px] font-black flex items-center justify-center">0</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- WRAPPER CONTAINER (Allows toggling into mobile phone frame) -->
+    <div id="appContainer" class="w-full transition-all duration-300">
+
+        <!-- ============================================================== -->
+        <!-- VIEW 1: CUSTOMER VIEW (Full Luxury Resto Web Experience)       -->
+        <!-- ============================================================== -->
+        <main id="customerView" class="space-y-16 sm:space-y-24 pb-20">
+
+            <!-- HERO SECTION -->
+            <section id="hero" class="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-6">
+                <!-- Background Culinary Visual with Overlay -->
+                <div class="absolute inset-0 z-0">
+                    <img src="./resto_hero.jpg" alt="Aura Bistro Ambience" class="w-full h-full object-cover object-center filter brightness-[0.4] scale-105 transform hover:scale-100 transition-transform duration-1000">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#090d16] via-[#090d16]/70 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#090d16] via-transparent to-[#090d16]"></div>
+                </div>
+
+                <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-6 sm:space-y-8">
+                    
+                    <!-- Michelin / Award Badge -->
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-panel border border-amber-500/30 text-amber-300 text-xs sm:text-sm font-semibold tracking-wide shadow-lg">
+                        <i class="fas fa-award text-amber-400"></i>
+                        <span>MICHELIN-INSPIRED ARTISANAL GASTRONOMY • JAKARTA SELATAN</span>
+                    </div>
+
+                    <!-- Main Catchphrase -->
+                    <h1 class="text-4xl sm:text-6xl md:text-7xl font-serif font-black tracking-tight text-white leading-tight">
+                        Harmoni Rasa Otentik &amp; <br class="hidden sm:block"/>
+                        <span class="text-gold-gradient italic">Seni Kuliner Modern</span>
+                    </h1>
+
+                    <!-- Subtext -->
+                    <p class="max-w-2xl mx-auto text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+                        Nikmati perjalanan rasa tak terlupakan yang diracik langsung oleh <strong class="text-white font-semibold">Executive Chef Renjana</strong>. Bahan segar organik lokal, wagyu marble premium, dan racikan bumbu khas nusantara dalam atmosfer elegan.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-2">
+                        <a href="#menuSection" class="px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm sm:text-base shadow-xl shadow-amber-500/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                            <i class="fas fa-book-open"></i>
+                            <span>Buka Buku Menu</span>
+                        </a>
+                        <a href="#reservationSection" class="px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl glass-panel hover:bg-slate-800/80 border border-amber-500/30 text-white font-bold text-sm sm:text-base transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                            <i class="fas fa-calendar-check text-amber-400"></i>
+                            <span>Reservasi Meja VIP</span>
+                        </a>
+                        <button onclick="startQrDemoMode()" class="px-5 py-3.5 sm:py-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800 border border-emerald-500/40 text-emerald-400 font-bold text-sm sm:text-base transition-all flex items-center gap-2">
+                            <i class="fas fa-qrcode"></i>
+                            <span>Order di Meja (QR)</span>
+                        </button>
+                    </div>
+
+                    <!-- Feature Highlights Bar -->
+                    <div class="pt-8 sm:pt-12 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto text-left">
+                        <div class="glass-card p-3.5 sm:p-4 rounded-2xl flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg shrink-0">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm sm:text-base font-extrabold text-white">4.9 / 5.0</div>
+                                <div class="text-[11px] text-slate-400">1.850+ Ulasan Google</div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-3.5 sm:p-4 rounded-2xl flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg shrink-0">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm sm:text-base font-extrabold text-white">100% Halal</div>
+                                <div class="text-[11px] text-slate-400">LPPOM MUI Bersertifikat</div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-3.5 sm:p-4 rounded-2xl flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-lg shrink-0">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm sm:text-base font-extrabold text-white">&lt; 15 Menit</div>
+                                <div class="text-[11px] text-slate-400">Garansi Sajian Cepat</div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-3.5 sm:p-4 rounded-2xl flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-lg shrink-0">
+                                <i class="fas fa-square-parking"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm sm:text-base font-extrabold text-white">Free Valet</div>
+                                <div class="text-[11px] text-slate-400">Area Parkir Luas &amp; Aman</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- PROMO RUNNING TICKER -->
+            <div class="w-full bg-gradient-to-r from-amber-900/60 via-amber-800/40 to-amber-900/60 border-y border-amber-500/30 py-3 overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 flex items-center justify-between text-xs sm:text-sm font-semibold text-amber-200">
+                    <div class="flex items-center gap-2">
+                        <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-black text-[10px] uppercase">Promo Hari Ini</span>
+                        <span>Dapatkan Diskon 20% Dine-in &amp; Free Mocktail dengan Kode: <strong class="underline tracking-wider text-white">AURAVIP20</strong></span>
+                    </div>
+                    <button onclick="applyPromoCode('AURAVIP20')" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500 hover:text-slate-950 text-amber-300 text-xs transition-colors">
+                        <i class="fas fa-copy"></i> Klaim Voucher
+                    </button>
+                </div>
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- SECTION: INTERACTIVE DIGITAL MENU (THE SHOWCASE)                -->
+            <!-- ============================================================== -->
+            <section id="menuSection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center space-y-3 mb-10">
+                    <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Katalog Sajian Istimewa</span>
+                    <h2 class="text-3xl sm:text-5xl font-serif font-bold text-white">Menu Pilihan Executive Chef</h2>
+                    <p class="text-slate-400 max-w-xl mx-auto text-sm sm:text-base">
+                        Setiap sajian dibuat fresh dengan bahan impor grade-A dan rempah pilihan nusantara. Klik menu untuk detail bahan dan pilihan custom rasa.
+                    </p>
+                </div>
+
+                <!-- Controls: Category Pills & Search Bar -->
+                <div class="space-y-4 mb-8">
+                    
+                    <!-- Search & Dietary Filter Row -->
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+                        
+                        <!-- Search Box -->
+                        <div class="relative w-full sm:w-80">
+                            <i class="fas fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                            <input type="text" id="menuSearchInput" oninput="filterMenuItems()" placeholder="Cari nama menu, wagyu, pasta..." class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 focus:border-amber-500 focus:outline-none text-sm text-white placeholder-slate-500">
+                        </div>
+
+                        <!-- Dietary Badges Filter -->
+                        <div class="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
+                            <button onclick="setDietaryFilter('all')" class="dietary-btn active px-3 py-1.5 rounded-xl text-xs font-semibold bg-amber-500 text-slate-950 transition-colors shrink-0" data-diet="all">Semua</button>
+                            <button onclick="setDietaryFilter('chef')" class="dietary-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors shrink-0" data-diet="chef">⭐ Chef's Pick</button>
+                            <button onclick="setDietaryFilter('spicy')" class="dietary-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors shrink-0" data-diet="spicy">🌶️ Pedas</button>
+                            <button onclick="setDietaryFilter('vege')" class="dietary-btn px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors shrink-0" data-diet="vege">🌱 Vegetarian</button>
+                        </div>
+                    </div>
+
+                    <!-- Category Pills -->
+                    <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none" id="categoryPillsContainer">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Menu Grid -->
+                <div id="menuGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Populated by JS -->
+                </div>
+
+            </section>
+
+            <!-- ============================================================== -->
+            <!-- SECTION: TABLE RESERVATION SYSTEM                              -->
+            <!-- ============================================================== -->
+            <section id="reservationSection" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass-card rounded-3xl p-6 sm:p-10 border border-amber-500/30 relative overflow-hidden">
+                    <div class="absolute -right-20 -top-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        
+                        <!-- Left Info -->
+                        <div class="lg:col-span-5 space-y-5">
+                            <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Reservasi Meja Instan</span>
+                            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white">Amankan Meja Favorit Anda Hari Ini</h2>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Dapatkan pengalaman bersantap eksklusif tanpa perlu antre. Konfirmasi instan langsung tercatat di sistem POS meja dan terhubung via WhatsApp.
+                            </p>
+
+                            <div class="space-y-3 pt-2">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 mt-0.5">
+                                        <i class="fas fa-couch text-sm"></i>
+                                    </div>
+                                    <div class="text-xs text-slate-300">
+                                        <strong class="text-white block font-semibold">Pilihan Area Dining:</strong>
+                                        Indoor AC Mewah, Alfresco Garden Terrace, atau Private VIP Room (Meeting/Family).
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 mt-0.5">
+                                        <i class="fas fa-champagne-glasses text-sm"></i>
+                                    </div>
+                                    <div class="text-xs text-slate-300">
+                                        <strong class="text-white block font-semibold">Spesial Acara &amp; Dekorasi:</strong>
+                                        Ulang tahun, candlelight anniversary, reuni keluarga, atau pertemuan bisnis.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Form -->
+                        <div class="lg:col-span-7 bg-[#0d1424]/90 p-6 sm:p-8 rounded-2xl border border-slate-700/80 shadow-2xl">
+                            <form id="reservationForm" onsubmit="handleReservationSubmit(event)" class="space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Nama Lengkap *</label>
+                                        <input type="text" id="resName" required placeholder="Contoh: Raden Daniswara" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-amber-500 focus:outline-none text-sm text-white">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">No. WhatsApp *</label>
+                                        <input type="tel" id="resPhone" required placeholder="081234567890" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-amber-500 focus:outline-none text-sm text-white">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tanggal *</label>
+                                        <input type="date" id="resDate" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-amber-500 focus:outline-none text-sm text-white">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Sesi Waktu *</label>
+                                        <select id="resTime" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-amber-500 focus:outline-none text-sm text-white">
+                                            <option value="12:00">12:00 WIB (Lunch Awal)</option>
+                                            <option value="13:30">13:30 WIB (Lunch Break)</option>
+                                            <option value="17:00">17:00 WIB (Sunset Chill)</option>
+                                            <option value="19:00" selected>19:00 WIB (Prime Dinner)</option>
+                                            <option value="20:30">20:30 WIB (Late Dining)</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Jumlah Tamu *</label>
+                                        <select id="resGuests" required class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-amber-500 focus:outline-none text-sm text-white">
+                                            <option value="2">2 Orang (Couple)</option>
+                                            <option value="4" selected>4 Orang (Family)</option>
+                                            <option value="6">6 Orang (Group)</option>
+                                            <option value="8">8 Orang (VIP)</option>
+                                            <option value="12">12+ Orang (Rombongan)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Pilihan Area Meja</label>
+                                        <select id="resArea" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-amber-500 focus:outline-none text-sm text-white">
+                                            <option value="Indoor Main Dining">Indoor Dining (AC &amp; Musik Jazz)</option>
+                                            <option value="Alfresco Garden">Outdoor Garden (Asri &amp; Nyaman)</option>
+                                            <option value="Private VIP Room">Private VIP Room (Eksklusif)</option>
+                                            <option value="Chef Bar Counter">Chef's Table Counter</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">Tujuan Reservasi</label>
+                                        <select id="resOccasion" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 focus:border-amber-500 focus:outline-none text-sm text-white">
+                                            <option value="Santai / Makan Biasa">Santai / Makan Biasa</option>
+                                            <option value="Ulang Tahun (Free Dessert)">Ulang Tahun (Free Dessert 🎉)</option>
+                                            <option value="Anniversary / Kencan">Anniversary / Kencan Romantis 🕯️</option>
+                                            <option value="Meeting Bisnis">Meeting Bisnis 💼</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">Catatan Khusus (Alergi / Permintaan Meja)</label>
+                                    <input type="text" id="resNotes" placeholder="Contoh: Tolong siapkan baby chair, no kacang pada makanan" class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 focus:border-amber-500 focus:outline-none text-xs text-white">
+                                </div>
+
+                                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm shadow-xl shadow-amber-500/25 transition-transform active:scale-95 flex items-center justify-center gap-2">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Konfirmasi &amp; Amankan Reservasi</span>
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================== -->
+            <!-- SECTION: RESTAURANT AMBIENCE & GALLERY                         -->
+            <!-- ============================================================== -->
+            <section id="gallerySection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center space-y-3 mb-10">
+                    <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Atmosfer &amp; Ruangan</span>
+                    <h2 class="text-3xl sm:text-5xl font-serif font-bold text-white">Suasana Bersantap Berkelas</h2>
+                    <p class="text-slate-400 max-w-xl mx-auto text-sm sm:text-base">
+                        Setiap sudut dirancang untuk menciptakan kenangan indah, mulai dari interior temaram hingga lounge outdoor dengan pepohonan hijau.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card rounded-3xl overflow-hidden group">
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="./resto_hero.jpg" alt="Indoor Dining Hall" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute bottom-3 left-3 px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur text-xs font-bold text-amber-300 border border-amber-500/30">
+                                🏛️ Grand Indoor Hall
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-white text-lg">Main Dining Area</h3>
+                            <p class="text-xs text-slate-400 mt-1">Nuansa temaram dengan booth sofa kulit nyaman dan meja marmer elegan. Cocok untuk makan malam intim &amp; keluarga.</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-3xl overflow-hidden group">
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=700&auto=format&fit=crop&q=80" alt="Private VIP Room" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute bottom-3 left-3 px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur text-xs font-bold text-amber-300 border border-amber-500/30">
+                                👑 Private VIP Room
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-white text-lg">Executive Lounge &amp; VIP</h3>
+                            <p class="text-xs text-slate-400 mt-1">Kapasitas hingga 16 orang, dilengkapi smart TV presentation, private server, dan soundproofing kedap suara.</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-3xl overflow-hidden group">
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=700&auto=format&fit=crop&q=80" alt="Artisan Cocktail Bar" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute bottom-3 left-3 px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur text-xs font-bold text-amber-300 border border-amber-500/30">
+                                🍸 Mixology Bar &amp; Lounge
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-white text-lg">Artisanal Bar Counter</h3>
+                            <p class="text-xs text-slate-400 mt-1">Menyajikan smoked mocktail, single origin cold brew, dan seasonal fresh botanical drinks yang diracik barista ahli.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================== -->
+            <!-- SECTION: EXECUTIVE CHEF & PHILOSOPHY                           -->
+            <!-- ============================================================== -->
+            <section id="chefSection" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="glass-panel rounded-3xl p-6 sm:p-12 border border-slate-700/80 relative">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                        <div class="md:col-span-5 relative">
+                            <div class="rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-500/30 aspect-[4/5]">
+                                <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=700&auto=format&fit=crop&q=80" alt="Executive Chef Renjana" class="w-full h-full object-cover">
+                            </div>
+                            <div class="absolute -bottom-4 -right-4 glass-card px-4 py-2 rounded-xl text-center shadow-xl border border-amber-500/40">
+                                <div class="text-xs font-bold text-amber-300">18+ Tahun</div>
+                                <div class="text-[10px] text-slate-400">Pengalaman Gastronomi</div>
+                            </div>
+                        </div>
+                        <div class="md:col-span-7 space-y-4">
+                            <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Master of Culinary Arts</span>
+                            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white">Chef Renjana Adiputra</h2>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                "Memasak bukan sekadar menyajikan makanan di atas piring, melainkan membangkitkan memori rasa dan menghargai setiap tetes jerih payah petani lokal. Di AURA, kami memadukan teknik slow-cook klasik dengan eksplorasi tekstur modern."
+                            </p>
+                            <div class="grid grid-cols-2 gap-4 pt-3 border-t border-slate-800">
+                                <div>
+                                    <div class="text-sm font-bold text-white">Alumnus Le Cordon Bleu</div>
+                                    <div class="text-xs text-slate-400">Paris, Classical French Cuisine</div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold text-white">Farm-to-Table Ethos</div>
+                                    <div class="text-xs text-slate-400">100% Organik &amp; Sustainable</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================== -->
+            <!-- SECTION: GUEST TESTIMONIALS                                    -->
+            <!-- ============================================================== -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center space-y-3 mb-10">
+                    <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Suara Pelanggan</span>
+                    <h2 class="text-3xl sm:text-5xl font-serif font-bold text-white">Pengalaman Mereka di AURA</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card p-6 rounded-2xl space-y-3">
+                        <div class="flex text-amber-400 text-xs gap-1">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-300 italic">
+                            "Wagyu Rendang Melt 48-Hour beneran meleleh di lidah! Pelayanannya sangat ramah, suasana musik jazznya bikin betah. Tempat wajib untuk anniversary dinner."
+                        </p>
+                        <div class="flex items-center gap-3 pt-2">
+                            <div class="w-9 h-9 rounded-full bg-amber-500/30 flex items-center justify-center font-bold text-xs text-amber-300">AS</div>
+                            <div>
+                                <div class="text-xs font-bold text-white">Amanda Salsabila</div>
+                                <div class="text-[10px] text-slate-400">Food Blogger • Verified Visit</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl space-y-3">
+                        <div class="flex text-amber-400 text-xs gap-1">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-300 italic">
+                            "Pesan via QR langsung dari meja sangat responsif. Dalam 12 menit makanan sudah tersaji hangat. Private VIP Room-nya sangat representatif untuk meeting direksi."
+                        </p>
+                        <div class="flex items-center gap-3 pt-2">
+                            <div class="w-9 h-9 rounded-full bg-emerald-500/30 flex items-center justify-center font-bold text-xs text-emerald-300">HW</div>
+                            <div>
+                                <div class="text-xs font-bold text-white">Hendro Wicaksono</div>
+                                <div class="text-[10px] text-slate-400">Corporate Client • Verified Visit</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl space-y-3">
+                        <div class="flex text-amber-400 text-xs gap-1">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-300 italic">
+                            "Es Cendol Pannacotta Brulee itu genius culinary innovation! Kombinasi rasa manis legit gurih santan kelapa bakar luar biasa. Definitely coming back!"
+                        </p>
+                        <div class="flex items-center gap-3 pt-2">
+                            <div class="w-9 h-9 rounded-full bg-purple-500/30 flex items-center justify-center font-bold text-xs text-purple-300">DK</div>
+                            <div>
+                                <div class="text-xs font-bold text-white">dr. Kevin Prasetya</div>
+                                <div class="text-[10px] text-slate-400">Regular Member • Verified Visit</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================== -->
+            <!-- SECTION: CONTACT, HOURS & GOOGLE MAPS PREVIEW                  -->
+            <!-- ============================================================== -->
+            <section id="contactSection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                    
+                    <div class="lg:col-span-5 glass-card p-6 sm:p-8 rounded-3xl space-y-6">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Kunjungi Resto Kami</span>
+                            <h3 class="text-2xl sm:text-3xl font-serif font-bold text-white mt-1">AURA Bistro &amp; Lounge</h3>
+                        </div>
+
+                        <div class="space-y-4 text-xs sm:text-sm text-slate-300">
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-location-dot text-amber-400 text-base mt-1 shrink-0"></i>
+                                <div>
+                                    <strong class="text-white block font-semibold">Alamat Lengkap:</strong>
+                                    Jl. Senopati No. 88, Kebayoran Baru, Jakarta Selatan 12190 (Depan Senopati Suites)
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <i class="fas fa-clock text-amber-400 text-base mt-1 shrink-0"></i>
+                                <div>
+                                    <strong class="text-white block font-semibold">Jam Operasional:</strong>
+                                    Senin - Minggu: 10:00 - 23:00 WIB <br>
+                                    Bar &amp; Mocktail Lounge: Hingga 00:30 WIB
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <i class="fab fa-whatsapp text-emerald-400 text-base mt-1 shrink-0"></i>
+                                <div>
+                                    <strong class="text-white block font-semibold">Kontak &amp; Layanan Cepat:</strong>
+                                    WhatsApp: +62 812-9988-7766 <br>
+                                    Email: concierge@aurabistro.id
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 flex gap-3">
+                            <a href="https://wa.me/6281299887766?text=Halo%20AURA%20Bistro,%20saya%20ingin%20tanya%20reservasi" target="_blank" class="flex-1 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors">
+                                <i class="fab fa-whatsapp text-sm"></i>
+                                <span>Chat WhatsApp</span>
+                            </a>
+                            <a href="#reservationSection" class="flex-1 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition-colors">
+                                <i class="fas fa-calendar"></i>
+                                <span>Booking Online</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Map Preview Card -->
+                    <div class="lg:col-span-7 glass-card p-4 rounded-3xl overflow-hidden flex flex-col">
+                        <div class="w-full h-72 sm:h-full rounded-2xl bg-slate-800 relative overflow-hidden flex items-center justify-center">
+                            <!-- Simulated Styled Map Vector Background -->
+                            <div class="absolute inset-0 bg-[#162032] opacity-90">
+                                <svg class="w-full h-full opacity-30" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#475569" stroke-width="0.8"/>
+                                        </pattern>
+                                    </defs>
+                                    <rect width="100%" height="100%" fill="url(#grid)" />
+                                    <!-- Roads -->
+                                    <line x1="0" y1="120" x2="800" y2="120" stroke="#f59e0b" stroke-width="6" opacity="0.4"/>
+                                    <line x1="250" y1="0" x2="250" y2="600" stroke="#f59e0b" stroke-width="4" opacity="0.3"/>
+                                    <line x1="450" y1="0" x2="450" y2="600" stroke="#cbd5e1" stroke-width="3" opacity="0.2"/>
+                                    <circle cx="250" cy="120" r="16" fill="#f59e0b" opacity="0.3"/>
+                                </svg>
+                            </div>
+
+                            <!-- Map Pin Box -->
+                            <div class="relative z-10 glass-panel p-4 rounded-2xl border border-amber-500/50 shadow-2xl text-center max-w-xs space-y-2">
+                                <div class="w-12 h-12 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center text-xl mx-auto shadow-lg shadow-amber-500/40 animate-bounce">
+                                    <i class="fas fa-utensils"></i>
+                                </div>
+                                <div class="font-bold text-white text-sm">AURA Bistro &amp; Lounge</div>
+                                <div class="text-[11px] text-slate-300">Kawasan Kuliner Senopati, Jaksel</div>
+                                <div class="pt-1">
+                                    <span class="inline-block text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                        🟢 Akses Mudah • Valet Siap
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+
+        <!-- ============================================================== -->
+        <!-- VIEW 2: QR TABLE SELF-ORDER SIMULATOR (Dine-In Meja 04)         -->
+        <!-- ============================================================== -->
+        <main id="qrView" class="hidden max-w-3xl mx-auto px-4 py-8 space-y-6">
+            
+            <!-- Table Header Banner -->
+            <div class="glass-card p-5 rounded-2xl border-2 border-emerald-500/40 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-black">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-base font-extrabold text-white">QR Dine-In Active:</span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-xs">MEJA 04 (Indoor)</span>
+                        </div>
+                        <div class="text-xs text-slate-400">Pesanan langsung terhubung ke KDS Dapur &amp; Kasir POS</div>
+                    </div>
+                </div>
+                <button onclick="switchView('customer')" class="px-3 py-1.5 rounded-xl bg-slate-800 text-xs text-slate-300 hover:text-white">
+                    <i class="fas fa-arrow-left mr-1"></i> Kembali
+                </button>
+            </div>
+
+            <!-- Quick Info -->
+            <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 text-xs text-amber-200 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-bell text-amber-400 text-base"></i>
+                    <span>Butuh bantuan pramusaji? Klik tombol untuk panggil waiter ke Meja 04.</span>
+                </div>
+                <button onclick="ringWaiterAlert('Meja 04')" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shrink-0 transition-transform active:scale-95">
+                    🛎️ Panggil Waiter
+                </button>
+            </div>
+
+            <!-- QR Menu Filter and Items -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-bold text-white">Pilih Menu untuk Meja 04</h3>
+                    <span class="text-xs text-slate-400">Total item di keranjang: <strong id="qrCartCount" class="text-amber-400">0</strong></span>
+                </div>
+                
+                <!-- QR Menu List Container -->
+                <div id="qrMenuList" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <div class="sticky bottom-4 z-30">
+                <button onclick="openCartDrawer()" class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-base shadow-2xl flex items-center justify-between px-6 transition-transform active:scale-95">
+                    <span class="flex items-center gap-2">
+                        <i class="fas fa-utensils"></i>
+                        <span>Lihat Pesanan Meja 04</span>
+                    </span>
+                    <span id="qrCartSubtotal" class="bg-slate-950 text-emerald-400 px-3 py-1 rounded-xl text-sm font-black">Rp 0</span>
+                </button>
+            </div>
+        </main>
+
+        <!-- ============================================================== -->
+        <!-- VIEW 3: KITCHEN DISPLAY SYSTEM (KDS)                           -->
+        <!-- ============================================================== -->
+        <main id="kdsView" class="hidden max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+            
+            <!-- KDS Header Bar -->
+            <div class="glass-card p-4 sm:p-5 rounded-2xl border border-orange-500/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-xl font-black">
+                        <i class="fas fa-fire-burner"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-lg sm:text-xl font-bold text-white">KDS — Kitchen Display System</h2>
+                            <span class="px-2 py-0.5 rounded bg-orange-500 text-slate-950 text-[10px] font-black uppercase">LIVE COOKING</span>
+                        </div>
+                        <div class="text-xs text-slate-400">Sinkronisasi langsung dengan pesanan pelanggan &amp; kasir. Dilengkapi live order timer.</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button onclick="simulateCustomerOrder()" class="px-3 py-2 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 text-white text-xs font-bold shadow-md hover:brightness-110 flex items-center gap-1.5">
+                        <i class="fas fa-plus"></i>
+                        <span>+ Simulasi Pesanan Masuk</span>
+                    </button>
+                    <button onclick="switchView('customer')" class="px-3 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold">
+                        <i class="fas fa-arrow-left mr-1"></i> Kembali ke Web
+                    </button>
+                </div>
+            </div>
+
+            <!-- KDS Columns: Menunggu Masak, Sedang Dimasak, Siap Saji -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="kdsTicketColumns">
+                
+                <!-- Column 1: MENUNGGU -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between bg-slate-900/80 px-4 py-2.5 rounded-xl border border-slate-700">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                            <span class="text-xs font-bold text-slate-200 uppercase">Menunggu Dimasak</span>
+                        </div>
+                        <span id="kdsPendingCount" class="text-xs font-black px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">0</span>
+                    </div>
+                    <div id="kdsQueueWaiting" class="space-y-3 min-h-[300px]">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Column 2: SEDANG DIMASAK -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between bg-slate-900/80 px-4 py-2.5 rounded-xl border border-orange-500/40">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-orange-500 animate-ping"></span>
+                            <span class="text-xs font-bold text-orange-400 uppercase">Sedang Dimasak (Cooking)</span>
+                        </div>
+                        <span id="kdsCookingCount" class="text-xs font-black px-2 py-0.5 rounded bg-orange-500/20 text-orange-300">0</span>
+                    </div>
+                    <div id="kdsQueueCooking" class="space-y-3 min-h-[300px]">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Column 3: SIAP SAJI -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between bg-slate-900/80 px-4 py-2.5 rounded-xl border border-emerald-500/40">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                            <span class="text-xs font-bold text-emerald-400 uppercase">Siap Saji (Ready to Serve)</span>
+                        </div>
+                        <span id="kdsReadyCount" class="text-xs font-black px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">0</span>
+                    </div>
+                    <div id="kdsQueueReady" class="space-y-3 min-h-[300px]">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- ============================================================== -->
+        <!-- VIEW 4: POS CASHIER & FLOOR PLAN LAYOUT                         -->
+        <!-- ============================================================== -->
+        <main id="posView" class="hidden max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+            
+            <!-- POS Top Banner -->
+            <div class="glass-card p-4 sm:p-5 rounded-2xl border border-sky-500/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-xl font-black">
+                        <i class="fas fa-cash-register"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-lg sm:text-xl font-bold text-white">POS Cashier &amp; Table Floor Plan</h2>
+                            <span class="px-2 py-0.5 rounded bg-sky-500 text-slate-950 text-[10px] font-black uppercase">12 MEJA AKTIF</span>
+                        </div>
+                        <div class="text-xs text-slate-400">Monitor okupansi meja restoran, cetak struk billing, dan kelola pembayaran kasir.</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-3 text-xs bg-slate-900 px-3 py-2 rounded-xl border border-slate-700">
+                        <span class="flex items-center gap-1.5 text-emerald-400 font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Kosong</span>
+                        <span class="flex items-center gap-1.5 text-red-400 font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Terisi</span>
+                        <span class="flex items-center gap-1.5 text-amber-400 font-semibold"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Reservasi</span>
+                    </div>
+                    <button onclick="switchView('customer')" class="px-3 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold">
+                        <i class="fas fa-arrow-left mr-1"></i> Kembali
+                    </button>
+                </div>
+            </div>
+
+            <!-- Floor Plan Grid & Selected Table Inspector -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Floor Plan Tables (Meja 1-12) -->
+                <div class="lg:col-span-8 glass-card p-6 rounded-2xl space-y-5">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <h3 class="font-bold text-white text-sm">Denah Meja Restoran (Klik Meja untuk Periksa)</h3>
+                        <span class="text-xs text-slate-400">Area: Main Hall &amp; VIP Lounge</span>
+                    </div>
+
+                    <div class="grid grid-cols-3 sm:grid-cols-4 gap-4" id="tableGridContainer">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Table Inspector / Active Ticket Panel -->
+                <div class="lg:col-span-4 glass-card p-6 rounded-2xl flex flex-col justify-between space-y-4">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <div>
+                                <div class="text-[10px] text-slate-400 uppercase font-bold">Detail Tagihan Meja</div>
+                                <h3 id="posTableTitle" class="text-lg font-black text-amber-400">Meja 04</h3>
+                            </div>
+                            <span id="posTableStatusBadge" class="px-2.5 py-1 rounded-full text-[10px] font-black bg-red-500/20 text-red-300 border border-red-500/30">TERISI</span>
+                        </div>
+
+                        <div id="posTableItemsList" class="space-y-2 max-h-60 overflow-y-auto pr-1">
+                            <!-- Populated by JS -->
+                        </div>
+
+                        <div class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800 space-y-1.5 text-xs">
+                            <div class="flex justify-between text-slate-400">
+                                <span>Subtotal:</span>
+                                <span id="posSubtotal" class="font-semibold text-slate-200">Rp 0</span>
+                            </div>
+                            <div class="flex justify-between text-slate-400">
+                                <span>Pajak Resto (10%):</span>
+                                <span id="posTax" class="font-semibold text-slate-200">Rp 0</span>
+                            </div>
+                            <div class="flex justify-between text-slate-400">
+                                <span>Service Charge (5%):</span>
+                                <span id="posService" class="font-semibold text-slate-200">Rp 0</span>
+                            </div>
+                            <div class="flex justify-between text-sm font-black text-white pt-2 border-t border-slate-800">
+                                <span>Total Tagihan:</span>
+                                <span id="posTotal" class="text-amber-400">Rp 0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 pt-2">
+                        <button onclick="printTableReceipt()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center justify-center gap-2 transition-colors">
+                            <i class="fas fa-print"></i> Cetak Struk Billing
+                        </button>
+                        <button onclick="settleTableBill()" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 transition-transform active:scale-95">
+                            <i class="fas fa-cash-register"></i> Selesaikan Pembayaran (Clear Meja)
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- ============================================================== -->
+        <!-- FOOTER                                                         -->
+        <!-- ============================================================== -->
+        <footer class="border-t border-slate-800/80 bg-[#070b12] py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-center md:justify-start gap-2">
+                            <i class="fas fa-crown text-amber-400 text-lg"></i>
+                            <span class="font-heading font-black text-xl text-white">AURA BISTRO &amp; LOUNGE</span>
+                        </div>
+                        <p class="text-xs text-slate-500 max-w-sm">
+                            Platform Demo Web Restoran Terintegrasi: Frontend Elegan, Table QR Ordering, Reservasi Meja, WhatsApp Generator, &amp; Kitchen Display System.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center gap-4 text-slate-400 text-sm">
+                        <a href="https://instagram.com" target="_blank" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-amber-400 hover:border-amber-500/40 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/6281299887766" target="_blank" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-emerald-400 hover:border-emerald-500/40 transition-colors">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://tripadvisor.com" target="_blank" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-sky-400 hover:border-sky-500/40 transition-colors">
+                            <i class="fab fa-tripadvisor"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-slate-900 text-center text-[11px] text-slate-500">
+                    &copy; 2026 AURA Bistro &amp; Lounge. Dikembangkan untuk Demo Aplikasi Kuliner &amp; Manajemen Restoran Modern.
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- SLIDE-OVER CART DRAWER                                         -->
+    <!-- ============================================================== -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 pointer-events-none transition-all duration-300">
+        <!-- Backdrop -->
+        <div id="cartBackdrop" onclick="closeCartDrawer()" class="absolute inset-0 bg-black/70 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+
+        <!-- Drawer Content Panel -->
+        <div id="cartPanel" class="absolute top-0 right-0 bottom-0 w-full max-w-md bg-[#0e1626] border-l border-amber-500/20 shadow-2xl flex flex-col justify-between translate-x-full transition-transform duration-300 pointer-events-auto">
+            
+            <!-- Cart Header -->
+            <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-base">Keranjang Pesanan</h3>
+                        <span id="cartDrawerCountText" class="text-xs text-slate-400">0 Sajian Dipilih</span>
+                    </div>
+                </div>
+                <button onclick="closeCartDrawer()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-colors">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Order Type Selector: Dine-In vs Takeaway / Delivery -->
+            <div class="px-5 py-3 bg-slate-900/60 border-b border-slate-800">
+                <div class="grid grid-cols-3 gap-1 bg-slate-950 p-1 rounded-xl text-xs font-semibold">
+                    <button type="button" onclick="setOrderType('dine-in')" id="typeBtnDineIn" class="order-type-btn py-1.5 rounded-lg bg-amber-500 text-slate-950 transition-colors">
+                        🍽️ Dine-In
+                    </button>
+                    <button type="button" onclick="setOrderType('takeaway')" id="typeBtnTakeaway" class="order-type-btn py-1.5 rounded-lg text-slate-400 hover:text-white transition-colors">
+                        🥡 Bungkus
+                    </button>
+                    <button type="button" onclick="setOrderType('delivery')" id="typeBtnDelivery" class="order-type-btn py-1.5 rounded-lg text-slate-400 hover:text-white transition-colors">
+                        🛵 Delivery
+                    </button>
+                </div>
+
+                <!-- Table / Address Context Input -->
+                <div id="orderContextInputContainer" class="mt-2.5">
+                    <div id="dineInTableBox" class="flex items-center gap-2 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+                        <span class="text-xs text-slate-400">Nomor Meja:</span>
+                        <input type="text" id="orderTableNumber" value="Meja 04" class="bg-transparent text-xs font-bold text-amber-300 focus:outline-none w-24">
+                        <span class="text-[10px] text-emerald-400 ml-auto">🟢 Terhubung</span>
+                    </div>
+                    <div id="deliveryAddressBox" class="hidden mt-1">
+                        <input type="text" id="orderDeliveryAddress" placeholder="Alamat pengantaran &amp; patokan..." class="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-amber-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart Items List (Scrollable) -->
+            <div id="cartItemsList" class="flex-1 overflow-y-auto p-5 space-y-3">
+                <!-- Populated dynamically by JS -->
+            </div>
+
+            <!-- Cart Summary & Checkout -->
+            <div class="p-5 border-t border-slate-800 bg-[#090e18] space-y-3">
+                
+                <!-- Promo Code Input -->
+                <div class="flex gap-2">
+                    <input type="text" id="cartPromoInput" placeholder="Kode Promo (AURAVIP20)" class="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white uppercase tracking-wider focus:outline-none focus:border-amber-500">
+                    <button onclick="applyPromoCodeFromInput()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-bold transition-colors">
+                        Terapkan
+                    </button>
+                </div>
+                <div id="promoNotice" class="hidden text-[11px] text-emerald-400 font-medium"></div>
+
+                <!-- Cost Breakdown -->
+                <div class="space-y-1 text-xs text-slate-400 pt-1">
+                    <div class="flex justify-between">
+                        <span>Subtotal:</span>
+                        <span id="cartSubtotalText" class="text-slate-200 font-semibold">Rp 0</span>
+                    </div>
+                    <div id="cartDiscountRow" class="hidden justify-between text-emerald-400">
+                        <span>Diskon Promo:</span>
+                        <span id="cartDiscountText">- Rp 0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Pajak Restoran (PB1 10%):</span>
+                        <span id="cartTaxText" class="text-slate-200 font-semibold">Rp 0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Service Charge (5%):</span>
+                        <span id="cartServiceText" class="text-slate-200 font-semibold">Rp 0</span>
+                    </div>
+                    <div class="flex justify-between text-base font-extrabold text-white pt-2 border-t border-slate-800">
+                        <span>Total Pembayaran:</span>
+                        <span id="cartTotalText" class="text-amber-400">Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- Checkout Action Buttons -->
+                <div class="space-y-2 pt-2">
+                    <button onclick="handleCheckoutWhatsApp()" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 transition-transform active:scale-95">
+                        <i class="fab fa-whatsapp text-base"></i>
+                        <span>Pesan via WhatsApp (Otomatis)</span>
+                    </button>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="openQrisModal()" class="py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
+                            <i class="fas fa-qrcode"></i>
+                            <span>Bayar QRIS</span>
+                        </button>
+                        <button onclick="openReceiptModalFromCart()" class="py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors">
+                            <i class="fas fa-receipt"></i>
+                            <span>Lihat Struk</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- MODAL: DISH CUSTOMIZE & DETAILS                                -->
+    <!-- ============================================================== -->
+    <div id="dishModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div onclick="closeDishModal()" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+        <div class="relative z-10 w-full max-w-lg glass-panel rounded-3xl p-6 border border-amber-500/30 shadow-2xl max-h-[90vh] overflow-y-auto space-y-4">
+            <div class="flex items-start justify-between">
+                <div>
+                    <span id="modalDishCategory" class="text-[10px] font-bold uppercase tracking-widest text-amber-400">Signature</span>
+                    <h3 id="modalDishName" class="text-xl sm:text-2xl font-bold text-white mt-0.5">Nama Sajian</h3>
+                    <div id="modalDishPrice" class="text-base font-extrabold text-amber-400 mt-1">Rp 0</div>
+                </div>
+                <button onclick="closeDishModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center hover:bg-slate-700">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="rounded-2xl overflow-hidden h-48 sm:h-56 relative">
+                <img id="modalDishImage" src="" alt="Dish Preview" class="w-full h-full object-cover">
+            </div>
+
+            <p id="modalDishDesc" class="text-xs sm:text-sm text-slate-300 leading-relaxed"></p>
+
+            <!-- Customization: Spice Level -->
+            <div class="space-y-2 pt-2 border-t border-slate-800">
+                <label class="block text-xs font-semibold text-slate-200">Tingkat Kepedasan:</label>
+                <div class="grid grid-cols-3 gap-2 text-xs">
+                    <label class="flex items-center gap-2 p-2 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer">
+                        <input type="radio" name="modalSpice" value="Tidak Pedas" checked class="text-amber-500 focus:ring-0">
+                        <span>Tidak Pedas</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer">
+                        <input type="radio" name="modalSpice" value="Sedang" class="text-amber-500 focus:ring-0">
+                        <span>Sedang 🌶️</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 rounded-xl bg-slate-900 border border-slate-700 cursor-pointer">
+                        <input type="radio" name="modalSpice" value="Extra Pedas" class="text-amber-500 focus:ring-0">
+                        <span>Extra 🌶️🌶️</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div>
+                <label class="block text-xs font-semibold text-slate-200 mb-1">Catatan Tambahan untuk Chef:</label>
+                <input type="text" id="modalDishNotes" placeholder="Misal: Pisahkan saus, jangan pakai bawang goreng..." class="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none focus:border-amber-500">
+            </div>
+
+            <!-- Add to Cart CTA -->
+            <button onclick="confirmAddModalDishToCart()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm shadow-xl shadow-amber-500/25 transition-transform active:scale-95 flex items-center justify-center gap-2">
+                <i class="fas fa-cart-plus"></i>
+                <span>Tambahkan ke Pesanan</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- MODAL: RESERVATION SUCCESS CONFIRMATION                        -->
+    <!-- ============================================================== -->
+    <div id="reservationSuccessModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div onclick="closeResSuccessModal()" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+        <div class="relative z-10 w-full max-w-md glass-panel rounded-3xl p-6 sm:p-8 border border-emerald-500/40 shadow-2xl text-center space-y-4">
+            <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-3xl mx-auto shadow-lg shadow-emerald-500/30">
+                <i class="fas fa-circle-check"></i>
+            </div>
+            
+            <h3 class="text-2xl font-serif font-bold text-white">Reservasi Terkonfirmasi!</h3>
+            <p class="text-xs text-slate-300">
+                Terima kasih atas reservasi Anda di AURA Bistro. Meja Anda telah diamankan dan data telah terkirim ke staf operasional kami.
+            </p>
+
+            <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-700/80 text-left space-y-2 text-xs">
+                <div class="flex justify-between border-b border-slate-800 pb-2">
+                    <span class="text-slate-400">Kode Booking:</span>
+                    <strong id="resConfirmCode" class="text-amber-400 font-mono text-sm">RES-AURA-8921</strong>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Atas Nama:</span>
+                    <span id="resConfirmName" class="text-white font-semibold">-</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Jadwal:</span>
+                    <span id="resConfirmSchedule" class="text-white font-semibold">-</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400">Area &amp; Tamu:</span>
+                    <span id="resConfirmArea" class="text-white font-semibold">-</span>
+                </div>
+            </div>
+
+            <div class="space-y-2 pt-2">
+                <a id="resSendWaLink" href="#" target="_blank" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Kirim Bukti Reservasi ke WhatsApp</span>
+                </a>
+                <button onclick="closeResSuccessModal()" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- MODAL: QRIS DIGITAL PAYMENT SIMULATION                         -->
+    <!-- ============================================================== -->
+    <div id="qrisModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div onclick="closeQrisModal()" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+        <div class="relative z-10 w-full max-w-sm bg-white text-slate-900 rounded-3xl p-6 shadow-2xl text-center space-y-4">
+            
+            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="font-black text-lg text-slate-900 tracking-tight">QRIS</span>
+                    <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-100 text-slate-600">GPN</span>
+                </div>
+                <span class="text-xs font-bold text-emerald-600">AURA BISTRO JAKARTA</span>
+            </div>
+
+            <div class="space-y-1">
+                <div class="text-xs text-slate-500">Total Nominal Pembayaran:</div>
+                <div id="qrisAmountText" class="text-2xl font-black text-slate-900">Rp 0</div>
+            </div>
+
+            <!-- Stylized QR Barcode Container -->
+            <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 inline-block shadow-inner">
+                <div class="w-48 h-48 bg-white p-2 rounded-xl flex items-center justify-center border border-slate-300">
+                    <!-- SVG QR Code Representation -->
+                    <svg viewBox="0 0 100 100" class="w-full h-full">
+                        <rect width="100" height="100" fill="white"/>
+                        <!-- Top Left Corner -->
+                        <rect x="5" y="5" width="25" height="25" fill="#0f172a"/>
+                        <rect x="10" y="10" width="15" height="15" fill="white"/>
+                        <rect x="13" y="13" width="9" height="9" fill="#0f172a"/>
+                        <!-- Top Right Corner -->
+                        <rect x="70" y="5" width="25" height="25" fill="#0f172a"/>
+                        <rect x="75" y="10" width="15" height="15" fill="white"/>
+                        <rect x="78" y="13" width="9" height="9" fill="#0f172a"/>
+                        <!-- Bottom Left Corner -->
+                        <rect x="5" y="70" width="25" height="25" fill="#0f172a"/>
+                        <rect x="10" y="75" width="15" height="15" fill="white"/>
+                        <rect x="13" y="78" width="9" height="9" fill="#0f172a"/>
+                        <!-- Data Pattern Modules -->
+                        <rect x="35" y="10" width="5" height="15" fill="#0f172a"/>
+                        <rect x="45" y="5" width="15" height="5" fill="#0f172a"/>
+                        <rect x="40" y="25" width="20" height="5" fill="#0f172a"/>
+                        <rect x="35" y="35" width="30" height="30" fill="#0f172a"/>
+                        <rect x="42" y="42" width="16" height="16" fill="white"/>
+                        <rect x="46" y="46" width="8" height="8" fill="#d97706"/>
+                        <rect x="70" y="40" width="10" height="15" fill="#0f172a"/>
+                        <rect x="10" y="45" width="15" height="8" fill="#0f172a"/>
+                        <rect x="70" y="70" width="20" height="10" fill="#0f172a"/>
+                        <rect x="45" y="75" width="15" height="15" fill="#0f172a"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="text-[11px] text-slate-500">
+                Pindai menggunakan BCA, Mandiri, GoPay, OVO, atau ShopeePay.
+            </div>
+
+            <div class="space-y-2 pt-1">
+                <button onclick="simulateSuccessfulPayment()" class="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition-transform active:scale-95">
+                    Simulasikan Pembayaran Sukses ✅
+                </button>
+                <button onclick="closeQrisModal()" class="w-full py-2 text-slate-500 hover:text-slate-800 text-xs font-semibold">
+                    Batal
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- MODAL: DIGITAL RECEIPT / NOTA PEMBAYARAN                       -->
+    <!-- ============================================================== -->
+    <div id="receiptModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+        <div onclick="closeReceiptModal()" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+        <div class="relative z-10 w-full max-w-sm bg-[#fafafa] text-slate-800 rounded-2xl p-6 shadow-2xl font-mono text-xs space-y-3">
+            
+            <div class="text-center space-y-1 border-b border-dashed border-slate-400 pb-3">
+                <div class="font-black text-base text-slate-900 tracking-wider">AURA BISTRO &amp; LOUNGE</div>
+                <div class="text-[10px] text-slate-500">Jl. Senopati No. 88, Kebayoran Baru, Jaksel</div>
+                <div class="text-[10px] text-slate-500">Tel: (021) 7890-8888 • NPWP: 98.765.432.1-012.000</div>
+            </div>
+
+            <div class="space-y-1 text-[11px] text-slate-600 border-b border-dashed border-slate-400 pb-2">
+                <div class="flex justify-between">
+                    <span>No. Struk:</span>
+                    <strong id="receiptNo">INV-20261016-0042</strong>
+                </div>
+                <div class="flex justify-between">
+                    <span>Tanggal:</span>
+                    <span id="receiptDate">16-10-2026 19:45</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Kasir / Server:</span>
+                    <span>Budi Pratama (Shift 01)</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Tipe Pesanan:</span>
+                    <span id="receiptOrderType" class="font-bold text-slate-900">Dine-In (Meja 04)</span>
+                </div>
+            </div>
+
+            <!-- Items -->
+            <div id="receiptItemsContainer" class="space-y-1.5 py-1 border-b border-dashed border-slate-400">
+                <!-- Dynamically populated items -->
+            </div>
+
+            <!-- Total Calculation -->
+            <div class="space-y-1 text-[11px]">
+                <div class="flex justify-between text-slate-600">
+                    <span>Subtotal:</span>
+                    <span id="receiptSubtotal">Rp 0</span>
+                </div>
+                <div id="receiptDiscountRow" class="hidden justify-between text-emerald-700">
+                    <span>Diskon Promo:</span>
+                    <span id="receiptDiscount">- Rp 0</span>
+                </div>
+                <div class="flex justify-between text-slate-600">
+                    <span>PB1 Pajak Resto (10%):</span>
+                    <span id="receiptTax">Rp 0</span>
+                </div>
+                <div class="flex justify-between text-slate-600">
+                    <span>Service Charge (5%):</span>
+                    <span id="receiptService">Rp 0</span>
+                </div>
+                <div class="flex justify-between text-sm font-black text-slate-900 pt-2 border-t border-slate-400">
+                    <span>TOTAL:</span>
+                    <span id="receiptGrandTotal">Rp 0</span>
+                </div>
+            </div>
+
+            <div class="text-center pt-3 border-t border-dashed border-slate-400 text-[10px] text-slate-500 space-y-0.5">
+                <div>Terima kasih atas kunjungan Anda!</div>
+                <div>Layanan Konsumen: WA 0812-9988-7766</div>
+                <div>Wifi: AuraGuest / aura8888</div>
+            </div>
+
+            <div class="pt-2 flex gap-2">
+                <button onclick="window.print()" class="flex-1 py-2 rounded-lg bg-slate-900 text-white font-bold text-xs flex items-center justify-center gap-1.5">
+                    <i class="fas fa-print"></i> Print Struk
+                </button>
+                <button onclick="closeReceiptModal()" class="px-4 py-2 rounded-lg bg-slate-200 text-slate-700 font-semibold text-xs">
+                    Tutup
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toastNotification" class="fixed bottom-5 right-5 z-50 hidden items-center gap-3 px-4 py-3 rounded-2xl bg-slate-900 border border-amber-500/40 text-white shadow-2xl text-xs font-semibold animate-bounce">
+        <i id="toastIcon" class="fas fa-check-circle text-emerald-400 text-base"></i>
+        <span id="toastMessage">Pesan notifikasi</span>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- SCRIPT APPLICATION LOGIC                                       -->
+    <!-- ============================================================== -->
+    <script>
+        // -------------------------------------------------------------
+        // 1. DATA MASTER MENU & RESTAURANT
+        // -------------------------------------------------------------
+        const MENU_CATEGORIES = [
+            { id: 'all', name: 'Semua Menu', icon: 'fa-utensils' },
+            { id: 'signature', name: 'Signature & Wagyu', icon: 'fa-crown' },
+            { id: 'main', name: 'Main Course', icon: 'fa-bowl-rice' },
+            { id: 'appetizer', name: 'Appetizers & Tapas', icon: 'fa-bread-slice' },
+            { id: 'dessert', name: 'Artisan Desserts', icon: 'fa-cake-candles' },
+            { id: 'drinks', name: 'Mocktail & Coffee', icon: 'fa-martini-glass-citrus' },
+        ];
+
+        const MENU_ITEMS = [
+            {
+                id: 'menu-1',
+                name: 'A5 Wagyu Marble 9+ Tenderloin',
+                category: 'signature',
+                price: 285000,
+                rating: 4.9,
+                reviews: 420,
+                time: '15-18 mnt',
+                dietary: ['chef'],
+                badge: 'Chef Signature ⭐',
+                image: './resto_signature.jpg',
+                description: 'Daging wagyu melt-in-mouth dengan tingkat kematangan medium sear, disajikan bersama charred baby asparagus, truffle demi-glace infusion, dan edible 24k gold leaf.',
+            },
+            {
+                id: 'menu-2',
+                name: 'Bebek Crispy Ubud Sambal Matah Kecombrang',
+                category: 'signature',
+                price: 135000,
+                rating: 4.9,
+                reviews: 310,
+                time: '12-15 mnt',
+                dietary: ['spicy', 'chef'],
+                badge: 'Best Seller 🔥',
+                image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=700&auto=format&fit=crop&q=80',
+                description: 'Bebek muda ungkep 12 jam dengan bumbu rempah Bali, digoreng garing renyah keemasan, disajikan bersama nasi daun jeruk dan trio sambal matah kecombrang.',
+            },
+            {
+                id: 'menu-3',
+                name: 'Norwegian Salmon Lodeh Truffle Emulsion',
+                category: 'main',
+                price: 165000,
+                rating: 4.8,
+                reviews: 185,
+                time: '14-16 mnt',
+                dietary: ['chef'],
+                badge: 'Culinary Fusion',
+                image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=700&auto=format&fit=crop&q=80',
+                description: 'Pan-seared Norwegian salmon crispy skin di atas kuah lodeh kelapa muda artisan berpadu aroma white truffle oil dan sayuran organik segar.',
+            },
+            {
+                id: 'menu-4',
+                name: 'Nasi Goreng Kambing Kebon Sirih Rempah Heritage',
+                category: 'main',
+                price: 88000,
+                rating: 4.8,
+                reviews: 520,
+                time: '10-12 mnt',
+                dietary: ['spicy'],
+                badge: 'Heritage Recipe',
+                image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=700&auto=format&fit=crop&q=80',
+                description: 'Nasi beras basmati wangi aroma kapulaga, daging kambing muda empuk tanpa aroma prengus, emping melinjo renyah, dan acar nanas segar.',
+            },
+            {
+                id: 'menu-5',
+                name: 'Truffle Tagliolini with Wild Mushroom Ragout',
+                category: 'main',
+                price: 125000,
+                rating: 4.7,
+                reviews: 140,
+                time: '12-14 mnt',
+                dietary: ['vege'],
+                badge: 'Vegetarian Delicacy 🌱',
+                image: 'https://images.unsplash.com/photo-1621996346565-e3d5d6281699?w=700&auto=format&fit=crop&q=80',
+                description: 'Handmade fresh pasta tagliolini dengan reduction kaldu jamur morel, parmigiano reggiano 24 bulan, dan irisan black truffle aromatik.',
+            },
+            {
+                id: 'menu-6',
+                name: 'Crispy Calamari with Kaffir Lime Aioli',
+                category: 'appetizer',
+                price: 68000,
+                rating: 4.8,
+                reviews: 290,
+                time: '8-10 mnt',
+                dietary: [],
+                badge: 'Favorite Tapas',
+                image: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?w=700&auto=format&fit=crop&q=80',
+                description: 'Cumi segar bumbu rempah renyah gurih, disajikan dengan saus celup aioli daun jeruk purut khas Bali.',
+            },
+            {
+                id: 'menu-7',
+                name: 'Wagyu Beef Dim Sum Trio with Chili Oil',
+                category: 'appetizer',
+                price: 75000,
+                rating: 4.9,
+                reviews: 230,
+                time: '8-10 mnt',
+                dietary: ['chef', 'spicy'],
+                badge: 'Top Starter',
+                image: 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=700&auto=format&fit=crop&q=80',
+                description: 'Pangsit kukus kulit transparan dengan isian minced wagyu beef succulent dan scallion, ditemani artisan Sichuan chili oil.',
+            },
+            {
+                id: 'menu-8',
+                name: 'Es Cendol Pannacotta Brulee Pandan Suji',
+                category: 'dessert',
+                price: 55000,
+                rating: 5.0,
+                reviews: 380,
+                time: '5-7 mnt',
+                dietary: ['chef', 'vege'],
+                badge: 'Signature Dessert ✨',
+                image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=700&auto=format&fit=crop&q=80',
+                description: 'Pannacotta krim kelapa murni pandan suji dengan caramelized brown sugar brulee, butiran cendol kenyal, dan jackfruit coulis.',
+            },
+            {
+                id: 'menu-9',
+                name: 'Valrhona Molten Lava Cake with Bourbon Vanilla',
+                category: 'dessert',
+                price: 68000,
+                rating: 4.9,
+                reviews: 215,
+                time: '10-12 mnt',
+                dietary: ['vege'],
+                badge: 'Decadent Sweet',
+                image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=700&auto=format&fit=crop&q=80',
+                description: 'Kue cokelat leleh Valrhona 70% dark chocolate hangat dengan lelehan lava lava cair dan satu scoop Madagascar Bourbon vanilla gelato.',
+            },
+            {
+                id: 'menu-10',
+                name: 'Smoked Applewood Botanical Mocktail',
+                category: 'drinks',
+                price: 48000,
+                rating: 4.8,
+                reviews: 175,
+                time: '4-5 mnt',
+                dietary: ['chef'],
+                badge: 'Artisan Mixology 🍹',
+                image: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=700&auto=format&fit=crop&q=80',
+                description: 'Perpaduan apel fuji pressed juice, sirup kayu manis organik, tonic botanical, dan diasapkan dengan serpihan kayu apel pilihan.',
+            },
+            {
+                id: 'menu-11',
+                name: 'Dragonfruit Lychee Sparkling Herbal Cooler',
+                category: 'drinks',
+                price: 42000,
+                rating: 4.7,
+                reviews: 120,
+                time: '3-5 mnt',
+                dietary: [],
+                badge: 'Fresh & Cool',
+                image: 'https://images.unsplash.com/photo-1536935338788-846bb9981813?w=700&auto=format&fit=crop&q=80',
+                description: 'Minuman buah naga merah segar dengan ekstrak leci harum, daun mint segar, biji selasih, dan air sparkling soda dingin.',
+            },
+            {
+                id: 'menu-12',
+                name: 'Single Origin Aceh Gayo V60 Pour Over',
+                category: 'drinks',
+                price: 45000,
+                rating: 4.9,
+                reviews: 190,
+                time: '5-7 mnt',
+                dietary: [],
+                badge: 'Specialty Coffee ☕',
+                image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=700&auto=format&fit=crop&q=80',
+                description: 'Biji kopi arabika Grade-1 dari dataran tinggi Gayo, diseduh manual teknik V60 dengan notes floral, bergamot, dan clean finish.',
+            },
+        ];
+
+        // -------------------------------------------------------------
+        // 2. STATE MANAGEMENT
+        // -------------------------------------------------------------
+        let currentCategory = 'all';
+        let currentDietary = 'all';
+        let searchQuery = '';
+        let currentOrderType = 'dine-in'; // 'dine-in', 'takeaway', 'delivery'
+        let appliedPromo = null; // e.g. { code: 'AURAVIP20', discountPercent: 20 }
+        
+        let cart = [
+            // Sample initial items for ready demonstration
+            {
+                item: MENU_ITEMS[0],
+                qty: 1,
+                spice: 'Sedang',
+                notes: 'Medium well sear',
+            },
+            {
+                item: MENU_ITEMS[7],
+                qty: 2,
+                spice: 'Tidak Pedas',
+                notes: 'Sajikan setelah main course',
+            }
+        ];
+
+        // Real-time Kitchen Orders Queue (KDS)
+        let kdsOrders = [
+            {
+                id: 'KDS-101',
+                ticketNo: '#TK-042',
+                table: 'Meja 04',
+                type: 'Dine-In',
+                time: '19:35',
+                elapsedSec: 180,
+                status: 'cooking', // 'waiting', 'cooking', 'ready'
+                items: [
+                    { name: 'A5 Wagyu Marble 9+ Tenderloin', qty: 1, notes: 'Medium well' },
+                    { name: 'Es Cendol Pannacotta Brulee', qty: 2, notes: 'Dessert' }
+                ]
+            },
+            {
+                id: 'KDS-102',
+                ticketNo: '#TK-043',
+                table: 'Meja 07',
+                type: 'Dine-In',
+                time: '19:40',
+                elapsedSec: 60,
+                status: 'waiting',
+                items: [
+                    { name: 'Bebek Crispy Ubud Sambal Matah', qty: 2, notes: 'Extra sambal' },
+                    { name: 'Smoked Applewood Mocktail', qty: 2, notes: 'Less ice' }
+                ]
+            },
+            {
+                id: 'KDS-103',
+                ticketNo: '#TK-041',
+                table: 'Meja 02',
+                type: 'Dine-In',
+                time: '19:20',
+                elapsedSec: 420,
+                status: 'ready',
+                items: [
+                    { name: 'Nasi Goreng Kambing Kebon Sirih', qty: 1, notes: 'Pedas sedang' }
+                ]
+            }
+        ];
+
+        // Tables 1 - 12 State for Floor Plan POS
+        let tablesData = [
+            { id: '01', area: 'Indoor', status: 'available', guests: 2, bill: 0, items: [] },
+            { id: '02', area: 'Indoor', status: 'billing', guests: 3, bill: 88000, items: [{ name: 'Nasi Goreng Kambing', qty: 1, price: 88000 }] },
+            { id: '03', area: 'Indoor', status: 'reserved', guests: 4, bill: 0, items: [] },
+            { 
+                id: '04', 
+                area: 'Indoor', 
+                status: 'occupied', 
+                guests: 4, 
+                bill: 395000, 
+                items: [
+                    { name: 'A5 Wagyu Tenderloin', qty: 1, price: 285000 },
+                    { name: 'Es Cendol Pannacotta', qty: 2, price: 110000 }
+                ] 
+            },
+            { id: '05', area: 'Outdoor', status: 'available', guests: 2, bill: 0, items: [] },
+            { id: '06', area: 'Outdoor', status: 'available', guests: 4, bill: 0, items: [] },
+            { 
+                id: '07', 
+                area: 'Outdoor', 
+                status: 'occupied', 
+                guests: 2, 
+                bill: 366000, 
+                items: [
+                    { name: 'Bebek Crispy Ubud', qty: 2, price: 270000 },
+                    { name: 'Smoked Applewood Mocktail', qty: 2, price: 96000 }
+                ] 
+            },
+            { id: '08', area: 'Outdoor', status: 'reserved', guests: 6, bill: 0, items: [] },
+            { id: '09', area: 'VIP Room', status: 'available', guests: 8, bill: 0, items: [] },
+            { id: '10', area: 'VIP Room', status: 'occupied', guests: 10, bill: 1450000, items: [{ name: 'Chef Tasting Menu Set', qty: 10, price: 1450000 }] },
+            { id: '11', area: 'Bar Counter', status: 'available', guests: 1, bill: 0, items: [] },
+            { id: '12', area: 'Bar Counter', status: 'available', guests: 2, bill: 0, items: [] },
+        ];
+
+        let selectedPosTable = tablesData[3]; // Meja 04 default
+        let isDeviceFrameActive = false;
+        let selectedModalDish = null;
+
+        // -------------------------------------------------------------
+        // 3. SOUND SYNTHESIZER (Web Audio API)
+        // -------------------------------------------------------------
+        function playChime(type) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'add') {
+                    // Pleasant high chime
+                    osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
+                    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15); // A5
+                    gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                } else if (type === 'success') {
+                    // Fanfare gong
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
+                    osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2); // G5
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.5);
+                } else if (type === 'bell') {
+                    // Kitchen order bell
+                    osc.frequency.setValueAtTime(1046.50, ctx.currentTime); // C6
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.6);
+                }
+            } catch(e) {
+                // AudioContext blocked or not supported
+            }
+        }
+
+        // -------------------------------------------------------------
+        // 4. INITIALIZATION & RENDERING
+        // -------------------------------------------------------------
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCategoryPills();
+            renderMenuItems();
+            renderQrMenuItems();
+            renderCart();
+            renderKdsColumns();
+            renderPosTableGrid();
+            renderPosTableDetail();
+
+            // Set default date picker to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const dateInput = document.getElementById('resDate');
+            if (dateInput) {
+                dateInput.value = tomorrow.toISOString().split('T')[0];
+                dateInput.min = new Date().toISOString().split('T')[0];
+            }
+
+            // Start KDS order seconds timer tick
+            setInterval(() => {
+                kdsOrders.forEach(o => o.elapsedSec++);
+                renderKdsTimersOnly();
+            }, 1000);
+        });
+
+        // -------------------------------------------------------------
+        // 5. VIEW & MODE SWITCHER
+        // -------------------------------------------------------------
+        function toggleModeDropdown() {
+            const menu = document.getElementById('modeDropdownMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', (e) => {
+            const btn = document.getElementById('modeDropdownBtn');
+            const menu = document.getElementById('modeDropdownMenu');
+            if (btn && menu && !btn.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        function switchView(viewName) {
+            const customerView = document.getElementById('customerView');
+            const qrView = document.getElementById('qrView');
+            const kdsView = document.getElementById('kdsView');
+            const posView = document.getElementById('posView');
+            const customerNavLinks = document.getElementById('customerNavLinks');
+            const currentModeIcon = document.getElementById('currentModeIcon');
+            const currentModeLabel = document.getElementById('currentModeLabel');
+            const menu = document.getElementById('modeDropdownMenu');
+
+            if (menu) menu.classList.add('hidden');
+
+            customerView.classList.add('hidden');
+            qrView.classList.add('hidden');
+            kdsView.classList.add('hidden');
+            posView.classList.add('hidden');
+
+            if (viewName === 'customer') {
+                customerView.classList.remove('hidden');
+                customerNavLinks.classList.remove('hidden');
+                currentModeIcon.className = 'fas fa-utensils text-amber-400';
+                currentModeLabel.textContent = 'Mode Pelanggan';
+                showToast('Beralih ke Website Pelanggan & Pemesanan Online', 'info');
+            } else if (viewName === 'qr') {
+                qrView.classList.remove('hidden');
+                customerNavLinks.classList.add('hidden');
+                currentModeIcon.className = 'fas fa-qrcode text-emerald-400';
+                currentModeLabel.textContent = 'QR Meja 04';
+                showToast('Simulasi Pemesanan Mandiri di Meja 04', 'info');
+            } else if (viewName === 'kds') {
+                kdsView.classList.remove('hidden');
+                customerNavLinks.classList.add('hidden');
+                currentModeIcon.className = 'fas fa-fire-burner text-orange-400';
+                currentModeLabel.textContent = 'KDS Dapur';
+                renderKdsColumns();
+                showToast('Layar Kitchen Display Dapur Aktif', 'info');
+            } else if (viewName === 'pos') {
+                posView.classList.remove('hidden');
+                customerNavLinks.classList.add('hidden');
+                currentModeIcon.className = 'fas fa-cash-register text-sky-400';
+                currentModeLabel.textContent = 'POS & Kasir';
+                renderPosTableGrid();
+                renderPosTableDetail();
+                showToast('Panel Kasir & Billing Meja Aktif', 'info');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function startQrDemoMode() {
+            switchView('qr');
+        }
+
+        function toggleDeviceSimulator() {
+            const container = document.getElementById('appContainer');
+            const btn = document.getElementById('deviceToggleBtn');
+            isDeviceFrameActive = !isDeviceFrameActive;
+
+            if (isDeviceFrameActive) {
+                container.classList.add('phone-frame');
+                btn.classList.add('bg-amber-500', 'text-slate-950');
+                btn.classList.remove('bg-slate-800', 'text-slate-300');
+                showToast('Simulasi HP iPhone 16 Pro Diaktifkan', 'info');
+            } else {
+                container.classList.remove('phone-frame');
+                btn.classList.remove('bg-amber-500', 'text-slate-950');
+                btn.classList.add('bg-slate-800', 'text-slate-300');
+                showToast('Tampilan Fullscreen Desktop', 'info');
+            }
+        }
+
+        // -------------------------------------------------------------
+        // 6. MENU RENDERING & FILTERING
+        // -------------------------------------------------------------
+        function renderCategoryPills() {
+            const container = document.getElementById('categoryPillsContainer');
+            container.innerHTML = MENU_CATEGORIES.map(cat => `
+                <button onclick="setCategoryFilter('${cat.id}')" class="category-pill flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${currentCategory === cat.id ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-500/30' : 'bg-slate-900/90 text-slate-300 hover:text-amber-300 hover:bg-slate-800 border border-slate-800'}">
+                    <i class="fas ${cat.icon}"></i>
+                    <span>${cat.name}</span>
+                </button>
+            `).join('');
+        }
+
+        function setCategoryFilter(catId) {
+            currentCategory = catId;
+            renderCategoryPills();
+            renderMenuItems();
+        }
+
+        function setDietaryFilter(dietId) {
+            currentDietary = dietId;
+            document.querySelectorAll('.dietary-btn').forEach(btn => {
+                if (btn.dataset.diet === dietId) {
+                    btn.classList.add('bg-amber-500', 'text-slate-950');
+                    btn.classList.remove('bg-slate-800', 'text-slate-300');
+                } else {
+                    btn.classList.remove('bg-amber-500', 'text-slate-950');
+                    btn.classList.add('bg-slate-800', 'text-slate-300');
+                }
+            });
+            renderMenuItems();
+        }
+
+        function filterMenuItems() {
+            const input = document.getElementById('menuSearchInput');
+            searchQuery = input.value.toLowerCase().trim();
+            renderMenuItems();
+        }
+
+        function getFilteredDishes() {
+            return MENU_ITEMS.filter(item => {
+                const matchCategory = currentCategory === 'all' || item.category === currentCategory;
+                const matchDietary = currentDietary === 'all' || item.dietary.includes(currentDietary);
+                const matchSearch = !searchQuery || 
+                    item.name.toLowerCase().includes(searchQuery) || 
+                    item.description.toLowerCase().includes(searchQuery) ||
+                    item.category.toLowerCase().includes(searchQuery);
+                return matchCategory && matchDietary && matchSearch;
+            });
+        }
+
+        function formatRupiah(number) {
+            return 'Rp ' + number.toLocaleString('id-ID');
+        }
+
+        function renderMenuItems() {
+            const grid = document.getElementById('menuGrid');
+            const items = getFilteredDishes();
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center space-y-3 glass-card rounded-3xl p-8">
+                        <i class="fas fa-utensils text-4xl text-slate-600"></i>
+                        <h4 class="text-lg font-bold text-slate-300">Sajian Tidak Ditemukan</h4>
+                        <p class="text-xs text-slate-500">Coba kata kunci lain atau ubah kategori filter Anda.</p>
+                        <button onclick="resetMenuFilter()" class="px-4 py-2 rounded-xl bg-amber-500/20 text-amber-300 hover:bg-amber-500 hover:text-slate-950 text-xs font-semibold transition-colors">
+                            Reset Filter
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = items.map(dish => `
+                <div class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between group">
+                    <div>
+                        <!-- Dish Photo with Badge & Quick View Button -->
+                        <div class="relative h-48 sm:h-52 overflow-hidden bg-slate-900 cursor-pointer" onclick="openDishModal('${dish.id}')">
+                            <img src="${dish.image}" alt="${dish.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#090d16] via-transparent to-transparent opacity-80"></div>
+                            
+                            <!-- Badges -->
+                            <div class="absolute top-3 left-3 flex flex-col gap-1.5 items-start">
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-slate-900/90 text-amber-300 border border-amber-500/30 backdrop-blur shadow-md">
+                                    ${dish.badge}
+                                </span>
+                            </div>
+
+                            <div class="absolute top-3 right-3">
+                                <span class="px-2 py-1 rounded-lg bg-slate-900/80 backdrop-blur text-emerald-400 text-[10px] font-bold flex items-center gap-1">
+                                    <i class="fas fa-clock"></i> ${dish.time}
+                                </span>
+                            </div>
+
+                            <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs">
+                                <div class="flex items-center gap-1 text-amber-400 font-bold bg-slate-950/80 px-2 py-0.5 rounded-md backdrop-blur">
+                                    <i class="fas fa-star text-[10px]"></i>
+                                    <span>${dish.rating}</span>
+                                    <span class="text-slate-400 text-[10px] font-normal">(${dish.reviews})</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dish Info -->
+                        <div class="p-5 space-y-2">
+                            <h3 onclick="openDishModal('${dish.id}')" class="font-bold text-base text-white hover:text-amber-400 transition-colors cursor-pointer line-clamp-1">
+                                ${dish.name}
+                            </h3>
+                            <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                                ${dish.description}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Price & Add to Cart Action -->
+                    <div class="p-5 pt-0 border-t border-slate-800/80 flex items-center justify-between mt-2">
+                        <div>
+                            <div class="text-[10px] text-slate-400">Harga Satuan</div>
+                            <div class="text-base font-extrabold text-amber-400">${formatRupiah(dish.price)}</div>
+                        </div>
+                        <button onclick="quickAddToCart('${dish.id}')" class="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-all active:scale-95 border border-amber-500/30">
+                            <i class="fas fa-plus"></i>
+                            <span>Tambah</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function resetMenuFilter() {
+            currentCategory = 'all';
+            currentDietary = 'all';
+            searchQuery = '';
+            document.getElementById('menuSearchInput').value = '';
+            renderCategoryPills();
+            setDietaryFilter('all');
+        }
+
+        // Render QR Menu View Items
+        function renderQrMenuItems() {
+            const list = document.getElementById('qrMenuList');
+            if (!list) return;
+
+            list.innerHTML = MENU_ITEMS.slice(0, 6).map(dish => `
+                <div class="glass-card p-3.5 rounded-2xl flex items-center gap-3">
+                    <img src="${dish.image}" alt="${dish.name}" class="w-16 h-16 rounded-xl object-cover shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <div class="font-bold text-xs text-white truncate">${dish.name}</div>
+                        <div class="text-[11px] text-amber-400 font-extrabold mt-0.5">${formatRupiah(dish.price)}</div>
+                        <div class="text-[10px] text-slate-400">⏱️ ${dish.time}</div>
+                    </div>
+                    <button onclick="quickAddToCart('${dish.id}')" class="w-8 h-8 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 flex items-center justify-center font-bold text-xs shrink-0 transition-transform active:scale-90">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // -------------------------------------------------------------
+        // 7. DISH CUSTOMIZATION MODAL
+        // -------------------------------------------------------------
+        function openDishModal(dishId) {
+            const dish = MENU_ITEMS.find(d => d.id === dishId);
+            if (!dish) return;
+            selectedModalDish = dish;
+
+            document.getElementById('modalDishName').textContent = dish.name;
+            document.getElementById('modalDishCategory').textContent = dish.category.toUpperCase();
+            document.getElementById('modalDishPrice').textContent = formatRupiah(dish.price);
+            document.getElementById('modalDishDesc').textContent = dish.description;
+            document.getElementById('modalDishImage').src = dish.image;
+            document.getElementById('modalDishNotes').value = '';
+
+            document.getElementById('dishModal').classList.remove('hidden');
+        }
+
+        function closeDishModal() {
+            document.getElementById('dishModal').classList.add('hidden');
+            selectedModalDish = null;
+        }
+
+        function confirmAddModalDishToCart() {
+            if (!selectedModalDish) return;
+            const spiceRadios = document.getElementsByName('modalSpice');
+            let spiceVal = 'Tidak Pedas';
+            for (let r of spiceRadios) {
+                if (r.checked) { spiceVal = r.value; break; }
+            }
+            const notesVal = document.getElementById('modalDishNotes').value.trim();
+
+            addItemToCart(selectedModalDish, 1, spiceVal, notesVal);
+            closeDishModal();
+            showToast(`${selectedModalDish.name} ditambahkan ke pesanan!`, 'success');
+        }
+
+        // -------------------------------------------------------------
+        // 8. CART & CHECKOUT LOGIC
+        // -------------------------------------------------------------
+        function quickAddToCart(dishId) {
+            const dish = MENU_ITEMS.find(d => d.id === dishId);
+            if (!dish) return;
+            addItemToCart(dish, 1, 'Sedang', '');
+            showToast(`${dish.name} berhasil ditambahkan!`, 'success');
+        }
+
+        function addItemToCart(dish, qty = 1, spice = 'Sedang', notes = '') {
+            playChime('add');
+            const existing = cart.find(c => c.item.id === dish.id && c.spice === spice && c.notes === notes);
+            if (existing) {
+                existing.qty += qty;
+            } else {
+                cart.push({
+                    item: dish,
+                    qty: qty,
+                    spice: spice,
+                    notes: notes,
+                });
+            }
+            renderCart();
+        }
+
+        function updateCartQty(index, delta) {
+            if (cart[index]) {
+                cart[index].qty += delta;
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+                renderCart();
+            }
+        }
+
+        function removeCartItem(index) {
+            cart.splice(index, 1);
+            renderCart();
+            showToast('Item dihapus dari pesanan', 'info');
+        }
+
+        function setOrderType(type) {
+            currentOrderType = type;
+            document.querySelectorAll('.order-type-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-500', 'text-slate-950');
+                btn.classList.add('text-slate-400');
+            });
+
+            const dineInBox = document.getElementById('dineInTableBox');
+            const deliveryBox = document.getElementById('deliveryAddressBox');
+
+            if (type === 'dine-in') {
+                document.getElementById('typeBtnDineIn').classList.add('bg-amber-500', 'text-slate-950');
+                dineInBox.classList.remove('hidden');
+                deliveryBox.classList.add('hidden');
+            } else if (type === 'takeaway') {
+                document.getElementById('typeBtnTakeaway').classList.add('bg-amber-500', 'text-slate-950');
+                dineInBox.classList.add('hidden');
+                deliveryBox.classList.add('hidden');
+            } else if (type === 'delivery') {
+                document.getElementById('typeBtnDelivery').classList.add('bg-amber-500', 'text-slate-950');
+                dineInBox.classList.add('hidden');
+                deliveryBox.classList.remove('hidden');
+            }
+        }
+
+        function calculateCartTotals() {
+            let subtotal = 0;
+            let totalItemsCount = 0;
+
+            cart.forEach(c => {
+                subtotal += c.item.price * c.qty;
+                totalItemsCount += c.qty;
+            });
+
+            let discount = 0;
+            if (appliedPromo && appliedPromo.discountPercent) {
+                discount = Math.round((subtotal * appliedPromo.discountPercent) / 100);
+            }
+
+            const afterDiscount = Math.max(0, subtotal - discount);
+            const pb1Tax = Math.round(afterDiscount * 0.10); // 10% tax
+            const serviceCharge = currentOrderType === 'dine-in' ? Math.round(afterDiscount * 0.05) : 0; // 5% service for dine-in
+            const grandTotal = afterDiscount + pb1Tax + serviceCharge;
+
+            return {
+                subtotal,
+                discount,
+                pb1Tax,
+                serviceCharge,
+                grandTotal,
+                totalItemsCount
+            };
+        }
+
+        function renderCart() {
+            const totals = calculateCartTotals();
+            
+            // Update Badges
+            document.getElementById('cartCountBadge').textContent = totals.totalItemsCount;
+            document.getElementById('cartDrawerCountText').textContent = `${totals.totalItemsCount} Sajian Dipilih`;
+            
+            const qrCount = document.getElementById('qrCartCount');
+            if (qrCount) qrCount.textContent = totals.totalItemsCount;
+            const qrSubtotal = document.getElementById('qrCartSubtotal');
+            if (qrSubtotal) qrSubtotal.textContent = formatRupiah(totals.grandTotal);
+
+            // Update Summary Text
+            document.getElementById('cartSubtotalText').textContent = formatRupiah(totals.subtotal);
+            document.getElementById('cartTaxText').textContent = formatRupiah(totals.pb1Tax);
+            document.getElementById('cartServiceText').textContent = formatRupiah(totals.serviceCharge);
+            document.getElementById('cartTotalText').textContent = formatRupiah(totals.grandTotal);
+
+            const discountRow = document.getElementById('cartDiscountRow');
+            const discountText = document.getElementById('cartDiscountText');
+            if (totals.discount > 0) {
+                discountRow.classList.remove('hidden');
+                discountRow.classList.add('flex');
+                discountText.textContent = '- ' + formatRupiah(totals.discount);
+            } else {
+                discountRow.classList.add('hidden');
+                discountRow.classList.remove('flex');
+            }
+
+            // Render Items List in Drawer
+            const list = document.getElementById('cartItemsList');
+            if (cart.length === 0) {
+                list.innerHTML = `
+                    <div class="h-64 flex flex-col items-center justify-center text-center space-y-3 text-slate-500">
+                        <i class="fas fa-shopping-basket text-4xl text-slate-700"></i>
+                        <div class="text-sm font-semibold text-slate-400">Keranjang Masih Kosong</div>
+                        <p class="text-xs max-w-xs">Pilih hidangan favorit Anda dari buku menu untuk memulai pesanan.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            list.innerHTML = cart.map((c, idx) => `
+                <div class="glass-card p-3 rounded-2xl flex items-center gap-3">
+                    <img src="${c.item.image}" alt="${c.item.name}" class="w-14 h-14 rounded-xl object-cover shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <div class="font-bold text-xs text-white truncate">${c.item.name}</div>
+                        <div class="text-[11px] text-amber-400 font-extrabold mt-0.5">${formatRupiah(c.item.price)}</div>
+                        <div class="text-[10px] text-slate-400 flex items-center gap-2">
+                            <span>Level: ${c.spice}</span>
+                            ${c.notes ? `<span class="italic text-slate-400 truncate">"${c.notes}"</span>` : ''}
+                        </div>
+                    </div>
+                    
+                    <!-- Qty Stepper -->
+                    <div class="flex items-center gap-1.5 bg-slate-900 px-2 py-1 rounded-xl border border-slate-700 shrink-0">
+                        <button onclick="updateCartQty(${idx}, -1)" class="w-5 h-5 rounded text-slate-400 hover:text-white flex items-center justify-center text-xs">
+                            <i class="fas fa-minus text-[10px]"></i>
+                        </button>
+                        <span class="text-xs font-bold text-white px-1">${c.qty}</span>
+                        <button onclick="updateCartQty(${idx}, 1)" class="w-5 h-5 rounded text-slate-400 hover:text-white flex items-center justify-center text-xs">
+                            <i class="fas fa-plus text-[10px]"></i>
+                        </button>
+                    </div>
+
+                    <button onclick="removeCartItem(${idx})" class="text-slate-500 hover:text-red-400 text-xs p-1">
+                        <i class="fas fa-trash-can"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function openCartDrawer() {
+            const drawer = document.getElementById('cartDrawer');
+            const backdrop = document.getElementById('cartBackdrop');
+            const panel = document.getElementById('cartPanel');
+
+            drawer.classList.remove('pointer-events-none');
+            backdrop.classList.remove('opacity-0', 'pointer-events-none');
+            backdrop.classList.add('opacity-100', 'pointer-events-auto');
+            panel.classList.remove('translate-x-full');
+        }
+
+        function closeCartDrawer() {
+            const drawer = document.getElementById('cartDrawer');
+            const backdrop = document.getElementById('cartBackdrop');
+            const panel = document.getElementById('cartPanel');
+
+            backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+            backdrop.classList.add('opacity-0', 'pointer-events-none');
+            panel.classList.add('translate-x-full');
+
+            setTimeout(() => {
+                drawer.classList.add('pointer-events-none');
+            }, 300);
+        }
+
+        function applyPromoCode(code) {
+            document.getElementById('cartPromoInput').value = code;
+            applyPromoCodeFromInput();
+            openCartDrawer();
+        }
+
+        function applyPromoCodeFromInput() {
+            const code = document.getElementById('cartPromoInput').value.trim().toUpperCase();
+            const notice = document.getElementById('promoNotice');
+
+            if (code === 'AURAVIP20') {
+                appliedPromo = { code: 'AURAVIP20', discountPercent: 20 };
+                notice.textContent = '✅ Kupon AURAVIP20 Berhasil Digunakan (Diskon 20%)';
+                notice.classList.remove('hidden');
+                renderCart();
+                playChime('success');
+                showToast('Kupon diskon 20% aktif!', 'success');
+            } else {
+                appliedPromo = null;
+                notice.textContent = '❌ Kode voucher tidak valid atau kedaluwarsa.';
+                notice.classList.remove('hidden', 'text-emerald-400');
+                notice.classList.add('text-red-400');
+                renderCart();
+            }
+        }
+
+        // -------------------------------------------------------------
+        // 9. WHATSAPP DIRECT ORDER GENERATOR
+        // -------------------------------------------------------------
+        function handleCheckoutWhatsApp() {
+            if (cart.length === 0) {
+                showToast('Keranjang Anda masih kosong!', 'info');
+                return;
+            }
+
+            const totals = calculateCartTotals();
+            const tableNo = document.getElementById('orderTableNumber').value || 'Meja 04';
+            const address = document.getElementById('orderDeliveryAddress').value || '-';
+
+            let orderContext = `Tipe Pesanan: *${currentOrderType.toUpperCase()}*`;
+            if (currentOrderType === 'dine-in') {
+                orderContext += ` (${tableNo})`;
+            } else if (currentOrderType === 'delivery') {
+                orderContext += `\nAlamat: ${address}`;
+            }
+
+            let itemsText = cart.map((c, i) => 
+                `${i + 1}. *${c.item.name}* (${c.qty}x)\n   - Catatan: ${c.spice}${c.notes ? ' | ' + c.notes : ''}\n   - Subtotal: ${formatRupiah(c.item.price * c.qty)}`
+            ).join('\n');
+
+            let message = `*HALO AURA BISTRO, SAYA INGIN PESAN MAKANAN* 🍽️\n` +
+                `------------------------------------\n` +
+                `${orderContext}\n` +
+                `------------------------------------\n` +
+                `*DAFTAR PESANAN:*\n${itemsText}\n` +
+                `------------------------------------\n` +
+                `Subtotal: ${formatRupiah(totals.subtotal)}\n` +
+                (totals.discount > 0 ? `Diskon: -${formatRupiah(totals.discount)}\n` : '') +
+                `Pajak PB1 (10%): ${formatRupiah(totals.pb1Tax)}\n` +
+                `Service Charge (5%): ${formatRupiah(totals.serviceCharge)}\n` +
+                `*TOTAL BAYAR: ${formatRupiah(totals.grandTotal)}*\n` +
+                `------------------------------------\n` +
+                `Mohon segera diproses ke dapur. Terima kasih! ✨`;
+
+            const phone = '6281299887766';
+            const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+            // Also automatically push this order to KDS so user sees live sync!
+            pushOrderToKds({
+                table: currentOrderType === 'dine-in' ? tableNo : 'Delivery/Takeaway',
+                type: currentOrderType,
+                items: cart.map(c => ({ name: c.item.name, qty: c.qty, notes: c.notes || c.spice }))
+            });
+
+            playChime('bell');
+            window.open(waUrl, '_blank');
+            showToast('Pesanan dikirim ke WhatsApp & KDS Dapur!', 'success');
+        }
+
+        // -------------------------------------------------------------
+        // 10. QRIS MODAL & PAYMENT SIMULATION
+        // -------------------------------------------------------------
+        function openQrisModal() {
+            if (cart.length === 0) {
+                showToast('Keranjang Anda masih kosong!', 'info');
+                return;
+            }
+            const totals = calculateCartTotals();
+            document.getElementById('qrisAmountText').textContent = formatRupiah(totals.grandTotal);
+            document.getElementById('qrisModal').classList.remove('hidden');
+        }
+
+        function closeQrisModal() {
+            document.getElementById('qrisModal').classList.add('hidden');
+        }
+
+        function simulateSuccessfulPayment() {
+            closeQrisModal();
+            playChime('success');
+            
+            // Auto push to KDS
+            const tableNo = document.getElementById('orderTableNumber').value || 'Meja 04';
+            pushOrderToKds({
+                table: currentOrderType === 'dine-in' ? tableNo : 'QRIS Takeaway',
+                type: currentOrderType,
+                items: cart.map(c => ({ name: c.item.name, qty: c.qty, notes: c.notes || c.spice }))
+            });
+
+            showToast('Pembayaran QRIS Berhasil Diverifikasi! Struk diterbitkan.', 'success');
+            openReceiptModalFromCart();
+        }
+
+        // -------------------------------------------------------------
+        // 11. DIGITAL RECEIPT MODAL
+        // -------------------------------------------------------------
+        function openReceiptModalFromCart() {
+            const totals = calculateCartTotals();
+            const dateStr = new Date().toLocaleString('id-ID');
+            const randomInv = 'INV-' + Math.floor(100000 + Math.random() * 900000);
+
+            document.getElementById('receiptNo').textContent = randomInv;
+            document.getElementById('receiptDate').textContent = dateStr;
+            document.getElementById('receiptOrderType').textContent = `${currentOrderType.toUpperCase()} (${document.getElementById('orderTableNumber').value})`;
+
+            document.getElementById('receiptSubtotal').textContent = formatRupiah(totals.subtotal);
+            document.getElementById('receiptTax').textContent = formatRupiah(totals.pb1Tax);
+            document.getElementById('receiptService').textContent = formatRupiah(totals.serviceCharge);
+            document.getElementById('receiptGrandTotal').textContent = formatRupiah(totals.grandTotal);
+
+            const discountRow = document.getElementById('receiptDiscountRow');
+            if (totals.discount > 0) {
+                discountRow.classList.remove('hidden');
+                discountRow.classList.add('flex');
+                document.getElementById('receiptDiscount').textContent = '- ' + formatRupiah(totals.discount);
+            } else {
+                discountRow.classList.add('hidden');
+                discountRow.classList.remove('flex');
+            }
+
+            const itemsContainer = document.getElementById('receiptItemsContainer');
+            itemsContainer.innerHTML = cart.map(c => `
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="font-bold text-slate-800">${c.item.name}</div>
+                        <div class="text-[10px] text-slate-500">${c.qty}x @ ${formatRupiah(c.item.price)}</div>
+                    </div>
+                    <div class="font-bold text-slate-800">${formatRupiah(c.item.price * c.qty)}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('receiptModal').classList.remove('hidden');
+        }
+
+        function closeReceiptModal() {
+            document.getElementById('receiptModal').classList.add('hidden');
+        }
+
+        // -------------------------------------------------------------
+        // 12. TABLE RESERVATION FORM HANDLING
+        // -------------------------------------------------------------
+        function handleReservationSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('resName').value.trim();
+            const phone = document.getElementById('resPhone').value.trim();
+            const date = document.getElementById('resDate').value;
+            const time = document.getElementById('resTime').value;
+            const guests = document.getElementById('resGuests').value;
+            const area = document.getElementById('resArea').value;
+            const occasion = document.getElementById('resOccasion').value;
+            const notes = document.getElementById('resNotes').value.trim();
+
+            const code = 'RES-AURA-' + Math.floor(1000 + Math.random() * 9000);
+
+            // Populate Success Modal
+            document.getElementById('resConfirmCode').textContent = code;
+            document.getElementById('resConfirmName').textContent = name;
+            document.getElementById('resConfirmSchedule').textContent = `${date} Pukul ${time} WIB`;
+            document.getElementById('resConfirmArea').textContent = `${area} (${guests} Orang)`;
+
+            // WhatsApp Share Link
+            const waMsg = `*KONFIRMASI RESERVASI MEJA AURA BISTRO*\n` +
+                `Kode Booking: *${code}*\n` +
+                `Nama: ${name}\n` +
+                `No. HP: ${phone}\n` +
+                `Jadwal: ${date} @ ${time} WIB\n` +
+                `Area: ${area}\n` +
+                `Jumlah Tamu: ${guests} Orang\n` +
+                `Acara: ${occasion}\n` +
+                (notes ? `Catatan: ${notes}\n` : '') +
+                `Mohon disiapkan meja terbaik. Terima kasih! ✨`;
+
+            document.getElementById('resSendWaLink').href = `https://wa.me/6281299887766?text=${encodeURIComponent(waMsg)}`;
+
+            // Update POS Table reservation status
+            const freeTable = tablesData.find(t => t.status === 'available');
+            if (freeTable) {
+                freeTable.status = 'reserved';
+                freeTable.guests = parseInt(guests);
+                renderPosTableGrid();
+            }
+
+            playChime('success');
+            document.getElementById('reservationSuccessModal').classList.remove('hidden');
+            showToast('Reservasi Meja Berhasil Dikonfirmasi!', 'success');
+        }
+
+        function closeResSuccessModal() {
+            document.getElementById('reservationSuccessModal').classList.add('hidden');
+        }
+
+        function ringWaiterAlert(table) {
+            playChime('bell');
+            showToast(`Pramusaji sedang menuju ke ${table}! 🛎️`, 'success');
+        }
+
+        // -------------------------------------------------------------
+        // 13. KITCHEN DISPLAY SYSTEM (KDS) LOGIC
+        // -------------------------------------------------------------
+        function pushOrderToKds(orderData) {
+            const newTicket = {
+                id: 'KDS-' + Math.floor(100 + Math.random() * 900),
+                ticketNo: '#TK-0' + Math.floor(40 + Math.random() * 50),
+                table: orderData.table,
+                type: orderData.type,
+                time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+                elapsedSec: 0,
+                status: 'waiting',
+                items: orderData.items,
+            };
+
+            kdsOrders.unshift(newTicket);
+            renderKdsColumns();
+            playChime('bell');
+        }
+
+        function simulateCustomerOrder() {
+            const randomTable = 'Meja 0' + Math.floor(1 + Math.random() * 9);
+            pushOrderToKds({
+                table: randomTable,
+                type: 'Dine-In',
+                items: [
+                    { name: 'A5 Wagyu Marble 9+ Tenderloin', qty: 1, notes: 'Medium well' },
+                    { name: 'Norwegian Salmon Lodeh', qty: 1, notes: 'Hot serve' },
+                    { name: 'Smoked Applewood Mocktail', qty: 2, notes: 'Fresh' }
+                ]
+            });
+            showToast(`Pesanan Masuk dari ${randomTable}!`, 'success');
+        }
+
+        function setKdsOrderStatus(orderId, newStatus) {
+            const order = kdsOrders.find(o => o.id === orderId);
+            if (order) {
+                order.status = newStatus;
+                renderKdsColumns();
+                playChime('add');
+                showToast(`Status ${order.ticketNo} diubah menjadi: ${newStatus.toUpperCase()}`, 'info');
+            }
+        }
+
+        function finishKdsOrder(orderId) {
+            kdsOrders = kdsOrders.filter(o => o.id !== orderId);
+            renderKdsColumns();
+            playChime('success');
+            showToast(`Pesanan ${orderId} selesai diantar ke meja pelanggan!`, 'success');
+        }
+
+        function formatElapsed(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = seconds % 60;
+            return `${m}:${s < 10 ? '0' : ''}${s}`;
+        }
+
+        function renderKdsTimersOnly() {
+            kdsOrders.forEach(o => {
+                const el = document.getElementById(`kds-timer-${o.id}`);
+                if (el) el.textContent = formatElapsed(o.elapsedSec);
+            });
+        }
+
+        function renderKdsColumns() {
+            const waitingCol = document.getElementById('kdsQueueWaiting');
+            const cookingCol = document.getElementById('kdsQueueCooking');
+            const readyCol = document.getElementById('kdsQueueReady');
+
+            if (!waitingCol || !cookingCol || !readyCol) return;
+
+            const waitingOrders = kdsOrders.filter(o => o.status === 'waiting');
+            const cookingOrders = kdsOrders.filter(o => o.status === 'cooking');
+            const readyOrders = kdsOrders.filter(o => o.status === 'ready');
+
+            document.getElementById('kdsPendingCount').textContent = waitingOrders.length;
+            document.getElementById('kdsCookingCount').textContent = cookingOrders.length;
+            document.getElementById('kdsReadyCount').textContent = readyOrders.length;
+
+            const renderCard = (o) => `
+                <div class="glass-card p-4 rounded-2xl border ${o.status === 'cooking' ? 'border-orange-500/50' : o.status === 'ready' ? 'border-emerald-500/50' : 'border-slate-700'} space-y-3">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                        <div>
+                            <div class="font-mono text-xs font-black text-amber-400">${o.ticketNo}</div>
+                            <div class="text-sm font-bold text-white">${o.table}</div>
+                        </div>
+                        <div class="text-right">
+                            <span id="kds-timer-${o.id}" class="px-2 py-0.5 rounded font-mono text-xs font-black ${o.elapsedSec > 300 ? 'bg-red-500/20 text-red-400' : 'bg-slate-800 text-slate-300'}">
+                                ${formatElapsed(o.elapsedSec)}
+                            </span>
+                            <div class="text-[10px] text-slate-500 mt-0.5">${o.time} WIB</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5 text-xs text-slate-200">
+                        ${o.items.map(it => `
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <strong>${it.qty}x</strong> ${it.name}
+                                    ${it.notes ? `<div class="text-[10px] text-amber-300/80 italic">- ${it.notes}</div>` : ''}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="pt-2 border-t border-slate-800/80 flex gap-2">
+                        ${o.status === 'waiting' ? `
+                            <button onclick="setKdsOrderStatus('${o.id}', 'cooking')" class="w-full py-2 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs flex items-center justify-center gap-1.5">
+                                <i class="fas fa-fire"></i> Mulai Masak
+                            </button>
+                        ` : o.status === 'cooking' ? `
+                            <button onclick="setKdsOrderStatus('${o.id}', 'ready')" class="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5">
+                                <i class="fas fa-check"></i> Siap Saji
+                            </button>
+                        ` : `
+                            <button onclick="finishKdsOrder('${o.id}')" class="w-full py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5">
+                                <i class="fas fa-bowl-food"></i> Selesai Diantar
+                            </button>
+                        `}
+                    </div>
+                </div>
+            `;
+
+            waitingCol.innerHTML = waitingOrders.length ? waitingOrders.map(renderCard).join('') : '<div class="text-xs text-slate-600 text-center py-8">Antrean kosong</div>';
+            cookingCol.innerHTML = cookingOrders.length ? cookingOrders.map(renderCard).join('') : '<div class="text-xs text-slate-600 text-center py-8">Tidak ada yang sedang dimasak</div>';
+            readyCol.innerHTML = readyOrders.length ? readyOrders.map(renderCard).join('') : '<div class="text-xs text-slate-600 text-center py-8">Tidak ada sajian menunggu jemput</div>';
+        }
+
+        // -------------------------------------------------------------
+        // 14. POS & FLOOR PLAN LOGIC
+        // -------------------------------------------------------------
+        function renderPosTableGrid() {
+            const container = document.getElementById('tableGridContainer');
+            if (!container) return;
+
+            container.innerHTML = tablesData.map(t => {
+                let statusBg = 'bg-emerald-500/10 border-emerald-500/40 text-emerald-400';
+                let statusLabel = 'Kosong';
+                if (t.status === 'occupied') {
+                    statusBg = 'bg-red-500/10 border-red-500/50 text-red-400';
+                    statusLabel = 'Terisi';
+                } else if (t.status === 'reserved') {
+                    statusBg = 'bg-amber-500/10 border-amber-500/40 text-amber-400';
+                    statusLabel = 'Reservasi';
+                } else if (t.status === 'billing') {
+                    statusBg = 'bg-purple-500/10 border-purple-500/40 text-purple-400';
+                    statusLabel = 'Billing';
+                }
+
+                const isSelected = selectedPosTable && selectedPosTable.id === t.id;
+
+                return `
+                    <div onclick="selectPosTable('${t.id}')" class="p-4 rounded-2xl border ${statusBg} ${isSelected ? 'ring-2 ring-amber-400 shadow-xl scale-105' : 'hover:scale-102'} cursor-pointer transition-all flex flex-col justify-between h-28">
+                        <div class="flex items-center justify-between">
+                            <span class="font-black text-sm text-white">Meja ${t.id}</span>
+                            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-900/80">${statusLabel}</span>
+                        </div>
+                        <div class="text-[10px] text-slate-400">
+                            <div>${t.area} • ${t.guests} Pax</div>
+                            <div class="font-bold text-amber-300 mt-1">${t.bill > 0 ? formatRupiah(t.bill) : '-'}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectPosTable(tableId) {
+            const t = tablesData.find(tbl => tbl.id === tableId);
+            if (!t) return;
+            selectedPosTable = t;
+            renderPosTableGrid();
+            renderPosTableDetail();
+        }
+
+        function renderPosTableDetail() {
+            if (!selectedPosTable) return;
+            document.getElementById('posTableTitle').textContent = `Meja ${selectedPosTable.id} (${selectedPosTable.area})`;
+            
+            const badge = document.getElementById('posTableStatusBadge');
+            badge.textContent = selectedPosTable.status.toUpperCase();
+            if (selectedPosTable.status === 'occupied') {
+                badge.className = 'px-2.5 py-1 rounded-full text-[10px] font-black bg-red-500/20 text-red-300 border border-red-500/30';
+            } else if (selectedPosTable.status === 'available') {
+                badge.className = 'px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+            } else {
+                badge.className = 'px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/30';
+            }
+
+            const itemsContainer = document.getElementById('posTableItemsList');
+            if (!selectedPosTable.items || selectedPosTable.items.length === 0) {
+                itemsContainer.innerHTML = '<div class="text-xs text-slate-500 py-6 text-center">Belum ada pesanan aktif di meja ini</div>';
+            } else {
+                itemsContainer.innerHTML = selectedPosTable.items.map(it => `
+                    <div class="flex justify-between items-center bg-slate-900/60 p-2.5 rounded-xl text-xs">
+                        <div>
+                            <div class="font-bold text-white">${it.name}</div>
+                            <div class="text-[10px] text-slate-400">${it.qty}x @ ${formatRupiah(it.price)}</div>
+                        </div>
+                        <div class="font-bold text-amber-400">${formatRupiah(it.price * it.qty)}</div>
+                    </div>
+                `).join('');
+            }
+
+            const sub = selectedPosTable.bill;
+            const tax = Math.round(sub * 0.10);
+            const srv = Math.round(sub * 0.05);
+            const total = sub + tax + srv;
+
+            document.getElementById('posSubtotal').textContent = formatRupiah(sub);
+            document.getElementById('posTax').textContent = formatRupiah(tax);
+            document.getElementById('posService').textContent = formatRupiah(srv);
+            document.getElementById('posTotal').textContent = formatRupiah(total);
+        }
+
+        function settleTableBill() {
+            if (!selectedPosTable) return;
+            if (selectedPosTable.status === 'available') {
+                showToast('Meja ini sudah berstatus kosong.', 'info');
+                return;
+            }
+
+            selectedPosTable.status = 'available';
+            selectedPosTable.bill = 0;
+            selectedPosTable.items = [];
+
+            renderPosTableGrid();
+            renderPosTableDetail();
+            playChime('success');
+            showToast(`Tagihan Meja ${selectedPosTable.id} telah diselesaikan! Meja kini tersedia.`, 'success');
+        }
+
+        function printTableReceipt() {
+            if (!selectedPosTable || selectedPosTable.bill === 0) {
+                showToast('Tidak ada tagihan untuk dicetak di meja ini.', 'info');
+                return;
+            }
+            openReceiptModalFromCart();
+        }
+
+        // -------------------------------------------------------------
+        // 15. TOAST NOTIFICATION
+        // -------------------------------------------------------------
+        let toastTimeout = null;
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toastNotification');
+            const msgEl = document.getElementById('toastMessage');
+            const iconEl = document.getElementById('toastIcon');
+
+            msgEl.textContent = message;
+            if (type === 'success') {
+                iconEl.className = 'fas fa-check-circle text-emerald-400 text-base';
+            } else if (type === 'error') {
+                iconEl.className = 'fas fa-triangle-exclamation text-red-400 text-base';
+            } else {
+                iconEl.className = 'fas fa-circle-info text-amber-400 text-base';
+            }
+
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>

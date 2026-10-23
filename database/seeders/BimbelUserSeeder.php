@@ -19,7 +19,7 @@ class BimbelUserSeeder extends Seeder
             [
                 'name' => 'Sarah Maharani, M.Pd',
                 'email' => 'sarah@edupulse.id',
-                'password' => Hash::make('edupulse123'),
+                'password' => Hash::make('bimbel123'),
                 'role' => 'bimbel',
                 'email_verified_at' => now(),
             ]

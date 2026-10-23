@@ -56,6 +56,15 @@ Route::get('/demo-resto', function () {
 });
 
 // ==========================================
+// ROUTE L-CLEAN (PORTAL PENGUNJUNG LAUNDRY & BOOKING)
+// ==========================================
+Route::get('/clean', [\App\Http\Controllers\Clean\CleanLandingController::class, 'index'])->name('clean.landing');
+Route::post('/clean/order', [\App\Http\Controllers\Clean\CleanLandingController::class, 'storePublicOrder'])->name('clean.order.store');
+Route::get('/clean/layanan', function () { return redirect('/clean?tab=layanan'); });
+Route::get('/clean/status', function () { return redirect('/clean?tab=status'); });
+Route::get('/clean/pesan', function () { return redirect('/clean?tab=pesan'); });
+
+// ==========================================
 // ROUTE BENGKEL (LANDING PAGE & PORTAL BENGKEL MODERN)
 // ==========================================
 Route::get('/bengkel', [\App\Http\Controllers\Bengkel\BengkelLandingController::class, 'index'])->name('bengkel.landing');

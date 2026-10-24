@@ -137,7 +137,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4">
             
             <!-- Brand Logo -->
-            <a href="{{ url('/bengkel') }}" class="flex items-center gap-3 group">
+            <a href="{{ url('/bengkel') }}" class="flex items-center gap-3 group shrink-0">
                 <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:bg-blue-700 transition">
                     <i class="fa-solid fa-car-side text-lg"></i>
                 </div>
@@ -150,7 +150,7 @@
                 </div>
             </a>
 
-            <!-- Navigation Links (Desktop) -->
+            <!-- Navigation Links (Desktop Only) -->
             <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600">
                 <a href="{{ url('/bengkel#layanan') }}" class="hover:text-blue-600 transition flex items-center gap-1.5">
                     <span>Beranda &amp; Layanan</span>
@@ -161,20 +161,20 @@
                 <a href="{{ route('bengkel.tracking.page') }}" class="hover:text-blue-600 transition flex items-center gap-1.5">
                     <span>Live Tracking Servis</span>
                 </a>
-                <a href="#member-section" class="hover:text-blue-600 transition flex items-center gap-1.5">
-                    <span>Garansi Saya (Member)</span>
+                <a href="{{ route('bengkel.garasi.page') }}" class="hover:text-blue-600 transition flex items-center gap-1.5">
+                    <span>Garasi Saya (Member)</span>
                 </a>
             </nav>
 
-            <!-- Quick Plat Search & Action Buttons -->
+            <!-- Right Side: Actions + Hamburger -->
             <div class="flex items-center gap-2 sm:gap-3">
-                <!-- Stall Status Pill -->
-                <div class="hidden xl:flex items-center gap-1.5 bg-blue-50/80 text-blue-700 border border-blue-200/60 px-3 py-1.5 rounded-lg text-xs font-bold">
+                <!-- Stall Status Pill (Desktop Only) -->
+                <a href="{{ route('bengkel.stall.page') }}" class="hidden xl:flex items-center gap-1.5 bg-blue-50/80 hover:bg-blue-100 text-blue-700 border border-blue-200/60 px-3 py-1.5 rounded-lg text-xs font-bold transition">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>{{ $workshop['status_bengkel'] }}</span>
-                </div>
+                </a>
 
-                <!-- Quick Plate Search in Header -->
+                <!-- Quick Plate Search (Tablet+) -->
                 <form action="{{ route('bengkel.lacak') }}" method="POST" class="hidden md:flex items-center relative">
                     @csrf
                     <div class="relative">
@@ -185,20 +185,197 @@
                     </div>
                 </form>
 
-                <!-- Guest Access Button -->
+                <!-- Guest Access Button (sm+) -->
                 <button type="button" onclick="openBookingModal('Mode Tamu')" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition border border-slate-200">
                     <i class="fa-regular fa-user text-slate-500 text-xs"></i>
                     <span>AKSES TAMU</span>
                 </button>
 
-                <!-- Member / Garasi Login Button -->
-                <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-lg shadow-sm transition">
+                <!-- Member/Garasi Button (hidden on xs, shown sm+) -->
+                <a href="{{ route('bengkel.garasi.page') }}" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-lg shadow-sm transition">
                     <i class="fa-solid fa-shield-halved text-blue-400 text-xs"></i>
                     <span>Masuk / Daftar Garasi Member</span>
                 </a>
+
+                <!-- ====================================== -->
+                <!-- HAMBURGER BUTTON (Mobile & Tablet)    -->
+                <!-- ====================================== -->
+                <button id="bengkel-hamburger"
+                        onclick="toggleBengkelNav()"
+                        class="lg:hidden flex flex-col items-center justify-center w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 transition gap-1.5 shrink-0"
+                        aria-label="Buka menu navigasi">
+                    <span class="block w-5 h-0.5 bg-slate-700 rounded transition-all duration-300" id="bar1"></span>
+                    <span class="block w-5 h-0.5 bg-slate-700 rounded transition-all duration-300" id="bar2"></span>
+                    <span class="block w-5 h-0.5 bg-slate-700 rounded transition-all duration-300" id="bar3"></span>
+                </button>
             </div>
         </div>
     </header>
+
+    <!-- ========================================================= -->
+    <!-- MOBILE NAVIGATION DRAWER                                  -->
+    <!-- ========================================================= -->
+
+    <!-- Overlay / Backdrop -->
+    <div id="bengkel-nav-overlay"
+         onclick="closeBengkelNav()"
+         class="lg:hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm"
+         style="opacity:0; visibility:hidden; transition: opacity 0.25s ease, visibility 0.25s ease;"></div>
+
+    <!-- Drawer Panel (slides from right) -->
+    <div id="bengkel-nav-drawer"
+         class="lg:hidden fixed top-0 right-0 h-full w-[280px] z-50 bg-white shadow-2xl border-l border-slate-200"
+         style="transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);">
+
+        <!-- Drawer Header -->
+        <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center">
+                    <i class="fa-solid fa-car-side text-sm"></i>
+                </div>
+                <div>
+                    <div class="font-heading font-extrabold text-base text-slate-900 leading-none">MotoPro</div>
+                    <div class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Workshop</div>
+                </div>
+            </div>
+            <button onclick="closeBengkelNav()"
+                    class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 flex items-center justify-center transition">
+                <i class="fa-solid fa-times text-sm"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Navigation Links -->
+        <nav class="p-4 space-y-1">
+            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-3 mb-3">Menu Utama</p>
+
+            <a href="{{ url('/bengkel#layanan') }}" onclick="closeBengkelNav()"
+               class="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                <div class="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500">
+                    <i class="fa-solid fa-house text-xs"></i>
+                </div>
+                Beranda &amp; Layanan
+            </a>
+
+            <a href="{{ route('bengkel.booking.page') }}" onclick="closeBengkelNav()"
+               class="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                <div class="w-8 h-8 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600">
+                    <i class="fa-solid fa-calendar-check text-xs"></i>
+                </div>
+                Booking Servis Cepat
+            </a>
+
+            <a href="{{ route('bengkel.tracking.page') }}" onclick="closeBengkelNav()"
+               class="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                <div class="w-8 h-8 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600">
+                    <i class="fa-solid fa-location-dot text-xs"></i>
+                </div>
+                Live Tracking Servis
+            </a>
+
+            <a href="{{ route('bengkel.garasi.page') }}" onclick="closeBengkelNav()"
+               class="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                <div class="w-8 h-8 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-600">
+                    <i class="fa-solid fa-shield-halved text-xs"></i>
+                </div>
+                Garasi Saya (Member)
+            </a>
+
+            <a href="{{ route('bengkel.stall.page') }}" onclick="closeBengkelNav()"
+               class="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition">
+                <div class="w-8 h-8 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600">
+                    <i class="fa-solid fa-warehouse text-xs"></i>
+                </div>
+                Status Stall Bengkel
+            </a>
+
+            <!-- Divider -->
+            <div class="border-t border-slate-100 my-3"></div>
+
+            <!-- CTA Buttons -->
+            <button type="button" onclick="closeBengkelNav(); openBookingModal('Mode Tamu')"
+                    class="w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-semibold text-slate-700 bg-slate-50 hover:bg-slate-100 transition border border-slate-200">
+                <div class="w-8 h-8 rounded-xl bg-slate-200 flex items-center justify-center text-slate-600">
+                    <i class="fa-regular fa-user text-xs"></i>
+                </div>
+                Akses Tamu (Tanpa Login)
+            </button>
+
+            <a href="{{ route('bengkel.garasi.page') }}" onclick="closeBengkelNav()"
+               class="flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 transition shadow-md mt-2">
+                <div class="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-blue-400">
+                    <i class="fa-solid fa-shield-halved text-xs"></i>
+                </div>
+                Masuk / Daftar Member
+            </a>
+        </nav>
+
+        <!-- Stall live status at bottom of drawer -->
+        <div class="absolute bottom-0 left-0 right-0 px-5 py-4 border-t border-slate-100 bg-slate-50">
+            <a href="{{ route('bengkel.stall.page') }}"
+               class="flex items-center justify-between text-xs font-semibold text-slate-600 hover:text-blue-600 transition">
+                <span class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    {{ $workshop['status_bengkel'] }}
+                </span>
+                <span class="text-slate-400">Cek Stall &rarr;</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // Bengkel Mobile Navigation Drawer
+        // ============================================================
+        const bengkelDrawer  = document.getElementById('bengkel-nav-drawer');
+        const bengkelOverlay = document.getElementById('bengkel-nav-overlay');
+        const bar1 = document.getElementById('bar1');
+        const bar2 = document.getElementById('bar2');
+        const bar3 = document.getElementById('bar3');
+        let bengkelNavOpen = false;
+
+        function openBengkelNav() {
+            bengkelDrawer.style.transform = 'translateX(0)';
+            bengkelOverlay.style.opacity = '1';
+            bengkelOverlay.style.visibility = 'visible';
+            document.body.style.overflow = 'hidden';
+            // Animate bars to X
+            bar1.style.transform = 'translateY(6px) rotate(45deg)';
+            bar2.style.opacity = '0';
+            bar3.style.transform = 'translateY(-6px) rotate(-45deg)';
+            bengkelNavOpen = true;
+        }
+
+        function closeBengkelNav() {
+            bengkelDrawer.style.transform = 'translateX(100%)';
+            bengkelOverlay.style.opacity = '0';
+            bengkelOverlay.style.visibility = 'hidden';
+            document.body.style.overflow = '';
+            // Reset bars
+            bar1.style.transform = '';
+            bar2.style.opacity = '1';
+            bar3.style.transform = '';
+            bengkelNavOpen = false;
+        }
+
+        function toggleBengkelNav() {
+            bengkelNavOpen ? closeBengkelNav() : openBengkelNav();
+        }
+
+        // Close on ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && bengkelNavOpen) closeBengkelNav();
+        });
+
+        // Swipe-to-close (swipe right to close)
+        let touchStartX = null;
+        bengkelDrawer.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+        bengkelDrawer.addEventListener('touchmove', function(e) {
+            if (touchStartX === null) return;
+            if (e.touches[0].clientX - touchStartX > 60) closeBengkelNav();
+        }, { passive: true });
+    </script>
 
     <!-- Success Message / Alert Notifications -->
     @if(session('success_booking'))
@@ -676,9 +853,9 @@
                     </div>
 
                     <div class="mt-8 pt-6 border-t border-slate-800 relative z-10">
-                        <a href="{{ route('login') }}" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition text-center">
+                        <a href="{{ route('bengkel.garasi.page') }}" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-blue-600/30 transition text-center">
                             <i class="fa-solid fa-crown text-amber-300"></i>
-                            <span>Daftar Gratis Garasi Member</span>
+                            <span>Buka Garasi Saya (Member)</span>
                         </a>
                         <p class="text-[10px] text-slate-400 text-center mt-2.5">
                             Pendaftaran hanya butuh 30 detik menggunakan No. WhatsApp

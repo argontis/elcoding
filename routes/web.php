@@ -49,6 +49,22 @@ Route::get('/sitemap.xml', function () {
 });
 
 // ==========================================
+// ROUTE RESTAURANT (HOMEPAGE)
+// ==========================================
+Route::get('/restaurant', [\App\Http\Controllers\Resto\RestoLandingController::class, 'index'])->name('resto.landing');
+Route::get('/Restaurant', function () { return redirect()->route('resto.landing'); });
+
+Route::get('/restaurant/menu', [\App\Http\Controllers\Resto\RestoLandingController::class, 'menuPage'])->name('resto.menu');
+Route::get('/restaurant/menu-digital', function () { return redirect()->route('resto.menu'); });
+
+Route::get('/restaurant/reservasi', [\App\Http\Controllers\Resto\RestoLandingController::class, 'reservasiPage'])->name('resto.reservasi');
+Route::get('/restaurant/reservasi-meja', function () { return redirect()->route('resto.reservasi'); });
+
+Route::get('/restaurant/status-pesanan', [\App\Http\Controllers\Resto\RestoLandingController::class, 'statusPage'])->name('resto.status');
+Route::get('/restaurant/status', function () { return redirect()->route('resto.status'); });
+Route::get('/restaurant/kds', function () { return redirect()->route('resto.status'); });
+
+// ==========================================
 // ROUTE DEMO RESTO (DEMO WEB RESTORAN)
 // ==========================================
 Route::get('/demo-resto', function () {
@@ -71,10 +87,45 @@ Route::get('/bengkel', [\App\Http\Controllers\Bengkel\BengkelLandingController::
 Route::get('/bengkel/booking-servis', [\App\Http\Controllers\Bengkel\BengkelLandingController::class, 'bookingPage'])->name('bengkel.booking.page');
 Route::get('/bengkel/live-tracking', [\App\Http\Controllers\Bengkel\BengkelLandingController::class, 'trackingPage'])->name('bengkel.tracking.page');
 Route::get('/bengkel/tracking', function () { return redirect()->route('bengkel.tracking.page'); });
+Route::get('/bengkel/garasi', [\App\Http\Controllers\Bengkel\BengkelLandingController::class, 'garasiPage'])->name('bengkel.garasi.page');
+Route::get('/bengkel/garansi', function () { return redirect()->route('bengkel.garasi.page'); });
+Route::get('/bengkel/garasi-member', function () { return redirect()->route('bengkel.garasi.page'); });
+Route::get('/bengkel/member', function () { return redirect()->route('bengkel.garasi.page'); });
+Route::get('/bengkel/stall', [\App\Http\Controllers\Bengkel\BengkelLandingController::class, 'stallPage'])->name('bengkel.stall.page');
+Route::get('/bengkel/status-stall', function () { return redirect()->route('bengkel.stall.page'); });
+Route::get('/bengkel/stall-status', function () { return redirect()->route('bengkel.stall.page'); });
+Route::get('/bengkel/live-stall', function () { return redirect()->route('bengkel.stall.page'); });
+Route::get('/bengkel/kapasitas', function () { return redirect()->route('bengkel.stall.page'); });
+Route::get('/bengkel/bay', function () { return redirect()->route('bengkel.stall.page'); });
 Route::post('/bengkel/lacak', [\App\Http\Controllers\Bengkel\BengkelLandingController::class, 'lacak'])->name('bengkel.lacak');
 Route::post('/bengkel/booking', [\App\Http\Controllers\Bengkel\BengkelLandingController::class, 'storeBooking'])->name('bengkel.booking.store');
 
-
+// ==========================================
+// ROUTE BIMBEL (LANDING PAGE BIMBINGAN BELAJAR)
+// ==========================================
+Route::get('/bimbel', [\App\Http\Controllers\Bimbel\BimbelLandingController::class, 'index'])->name('bimbel.landing');
+Route::get('/bimbel/beranda', [\App\Http\Controllers\Bimbel\BimbelLandingController::class, 'berandaPage'])->name('bimbel.beranda');
+Route::get('/bimbel/program', [\App\Http\Controllers\Bimbel\BimbelLandingController::class, 'programPage'])->name('bimbel.program.page');
+Route::get('/bimbel/pendaftaran', [\App\Http\Controllers\Bimbel\BimbelLandingController::class, 'pendaftaranPage'])->name('bimbel.pendaftaran');
+Route::get('/bimbel/daftar-baru', function () { return redirect()->route('bimbel.pendaftaran'); });
+Route::get('/bimbel/pendaftaran-baru', function () { return redirect()->route('bimbel.pendaftaran'); });
+Route::get('/bimbel/registrasi', function () { return redirect()->route('bimbel.pendaftaran'); });
+Route::get('/bimbel/tryout', [\App\Http\Controllers\Bimbel\BimbelLandingController::class, 'tryoutPage'])->name('bimbel.tryout');
+Route::get('/bimbel/cek-nilai', function () { return redirect()->route('bimbel.tryout'); });
+Route::get('/bimbel/hasil-tryout', function () { return redirect()->route('bimbel.tryout'); });
+Route::get('/bimbel/portal', [\App\Http\Controllers\Bimbel\BimbelLandingController::class, 'portalPage'])->name('bimbel.portal');
+Route::get('/bimbel/portal-siswa', function () { return redirect()->route('bimbel.portal'); });
+Route::get('/bimbel/portal-ortu', function () { return redirect()->route('bimbel.portal'); });
+Route::get('/bimbel-dashboard', function () { return redirect()->route('bimbel.portal'); });
+Route::get('/bimbel/kontak', [\App\Http\Controllers\Bimbel\BimbelLandingController::class, 'kontakPage'])->name('bimbel.kontak');
+Route::get('/bimbel/kontak-cabang', function () { return redirect()->route('bimbel.kontak'); });
+Route::get('/bimbel/cabang', function () { return redirect()->route('bimbel.kontak'); });
+Route::get('/bimbel/hubungi-kami', function () { return redirect()->route('bimbel.kontak'); });
+Route::get('/bimbel/biaya', function () { return redirect()->route('bimbel.program.page'); });
+Route::get('/bimbel/paket', function () { return redirect()->route('bimbel.program.page'); });
+Route::get('/bimbel/program-biaya', function () { return redirect()->route('bimbel.program.page'); });
+Route::get('/bimbel/rincian-biaya', function () { return redirect()->route('bimbel.program.page'); });
+Route::post('/bimbel/daftar', [\App\Http\Controllers\Bimbel\BimbelLandingController::class, 'daftar'])->name('bimbel.daftar');
 
 
 // ==========================================

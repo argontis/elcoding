@@ -131,17 +131,17 @@
                 <a href="{{ route('bengkel.tracking.page') }}" class="bg-slate-900 text-white px-3.5 py-1.5 rounded-lg font-bold flex items-center gap-1.5 shadow-2xs">
                     <span>Live Tracking Servis</span>
                 </a>
-                <a href="{{ url('/bengkel#member-section') }}" class="hover:text-blue-600 transition flex items-center gap-1.5">
-                    <span>Garansi Saya (Member)</span>
+                <a href="{{ route('bengkel.garasi.page') }}" class="hover:text-blue-600 transition flex items-center gap-1.5">
+                    <span>Garasi Saya (Member)</span>
                 </a>
             </nav>
 
             <!-- Quick Plat Search & Action Buttons -->
-            <div class="flex items-center gap-2 sm:gap-3">
-                <div class="hidden xl:flex items-center gap-1.5 bg-blue-50/80 text-blue-700 border border-blue-200/60 px-3 py-1.5 rounded-lg text-xs font-bold">
+                <!-- Stall Status Pill -->
+                <a href="{{ route('bengkel.stall.page') }}" class="hidden xl:flex items-center gap-1.5 bg-blue-50/80 hover:bg-blue-100 text-blue-700 border border-blue-200/60 px-3 py-1.5 rounded-lg text-xs font-bold transition">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>{{ $workshop['status_bengkel'] }}</span>
-                </div>
+                </a>
 
                 <a href="{{ route('bengkel.booking.page') }}" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition border border-slate-200">
                     <i class="fa-regular fa-user text-slate-500 text-xs"></i>

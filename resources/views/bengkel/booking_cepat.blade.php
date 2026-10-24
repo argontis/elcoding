@@ -151,17 +151,18 @@
                 <a href="{{ route('bengkel.tracking.page') }}" class="hover:text-blue-600 transition flex items-center gap-1.5">
                     <span>Live Tracking Servis</span>
                 </a>
-                <a href="{{ url('/bengkel#member-section') }}" class="hover:text-blue-600 transition flex items-center gap-1.5">
-                    <span>Garansi Saya (Member)</span>
+                <a href="{{ route('bengkel.garasi.page') }}" class="hover:text-blue-600 transition flex items-center gap-1.5">
+                    <span>Garasi Saya (Member)</span>
                 </a>
             </nav>
 
             <!-- Quick Plat Search & Action Buttons -->
             <div class="flex items-center gap-2 sm:gap-3">
-                <div class="hidden xl:flex items-center gap-1.5 bg-blue-50/80 text-blue-700 border border-blue-200/60 px-3 py-1.5 rounded-lg text-xs font-bold">
+                <!-- Stall Status Pill -->
+                <a href="{{ route('bengkel.stall.page') }}" class="hidden xl:flex items-center gap-1.5 bg-blue-50/80 hover:bg-blue-100 text-blue-700 border border-blue-200/60 px-3 py-1.5 rounded-lg text-xs font-bold transition">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>{{ $workshop['status_bengkel'] }}</span>
-                </div>
+                </a>
 
                 <form action="{{ route('bengkel.lacak') }}" method="POST" class="hidden md:flex items-center relative">
                     @csrf
@@ -249,7 +250,7 @@
                 <span class="bg-slate-800 text-[10px] uppercase font-mono px-1.5 py-0.5 rounded text-amber-300">POPULER</span>
             </button>
 
-            <a href="{{ route('login') }}" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition">
+            <a href="{{ route('bengkel.garasi.page') }}" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-4 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition">
                 <i class="fa-solid fa-shield-halved text-blue-600"></i>
                 <span>Sudah Punya Akun Langganan? Masuk Garasi Saya</span>
                 <span class="bg-blue-50 text-[10px] uppercase font-mono px-1.5 py-0.5 rounded text-blue-700 font-extrabold border border-blue-200">HEMAT 5%</span>

@@ -623,4 +623,559 @@ class BengkelLandingController extends Controller
             'message'        => 'Tidak ditemukan unit dengan plat nomor "' . $rawPlate . '" dalam antrean pengerjaan hari ini. Silakan periksa kembali nomor plat atau jadwalkan booking baru.',
         ];
     }
+
+    /**
+     * Tampilkan Halaman Garasi Saya (Member) — Dashboard Telemetri & Rekam Medis Kendaraan.
+     * Secara default disajikan dengan DATA KOSONG sesuai request user,
+     * serta dilengkapi opsi pratinjau data demo (Agus Setiawan - Innova Zenix & HR-V) sesuai screenshot desain.
+     */
+    public function garasiPage(Request $request)
+    {
+        $workshop = [
+            'name'           => 'MotoPro Workshop',
+            'tagline'        => 'BENGKEL PRESISI MODERN BERSTANDAR OBD-II',
+            'jam_buka'       => '08:00 - 17:00 WIB',
+            'status_bengkel' => 'BENGKEL BUKA • 1 STALL SIAP',
+            'stall_terisi'   => 3,
+            'stall_kapasitas'=> 5,
+            'rata_durasi'    => '45 Menit',
+            'no_darurat'     => '0800-1-MOTOPRO',
+            'no_whatsapp'    => '6281234567890',
+            'alamat'         => 'Bengkel Utama: Jl. Otomotif Presisi No. 88, Kawasan Industri Modern',
+            'maps_url'       => 'https://maps.google.com',
+        ];
+
+        // Status demo: Default FALSE (Data Kosong sesuai instruksi)
+        $isDemo = $request->has('demo') && in_array(strtolower($request->query('demo')), ['1', 'true', 'yes', 'demo']);
+
+        // 1. Data Profil Member
+        $member = $isDemo ? [
+            'name'        => 'Agus Setiawan',
+            'initial'     => 'AS',
+            'tier'        => 'MEMBER GOLD MOTOPRO',
+            'since'       => 'Februari 2023',
+            'member_id'   => 'MP-JKT-88902',
+            'points'      => 1250,
+            'points_fmt'  => '1.250 Pts',
+            'discount_eq' => 'Rp 125.000 Diskon',
+            'phone'       => '0812-****-4491',
+        ] : null;
+
+        // 2. Voucher & Benefit Member
+        $vouchers = $isDemo ? [
+            [
+                'id'       => 'v-10',
+                'type'     => 'kupon',
+                'badge'    => 'VOUCHER KUPON',
+                'title'    => 'Diskon Servis 10%',
+                'desc'     => 'Berlaku untuk Jasa Servis & Tune Up • Exp: 30 Des 2025',
+                'button'   => 'Gunakan',
+                'btn_bg'   => 'bg-slate-900 hover:bg-slate-800 text-white',
+                'icon'     => 'fa-solid fa-percent',
+                'icon_bg'  => 'bg-slate-900 text-white',
+            ],
+            [
+                'id'       => 'v-spoor',
+                'type'     => 'benefit',
+                'badge'    => 'BENEFIT MEMBER',
+                'title'    => 'Gratis Spooring Roda 3D',
+                'desc'     => '1x penukaran garansi kalibrasi sudut suspensi',
+                'button'   => 'Klaim',
+                'btn_bg'   => 'bg-blue-600 hover:bg-blue-700 text-white',
+                'icon'     => 'fa-solid fa-gift',
+                'icon_bg'  => 'bg-blue-600 text-white',
+            ],
+        ] : [];
+
+        // 3. Armada Terdaftar (Garasi Unit Aktif)
+        $vehicles = $isDemo ? [
+            [
+                'id'            => 'zenix',
+                'is_selected'   => true,
+                'category'      => 'MPV PREMIUM • TRANSMISI CVT',
+                'brand'         => 'Toyota',
+                'name'          => 'Toyota Innova Zenix 2.0 V',
+                'chassis'       => 'Nomor Rangka: MHFA40G29P0021948',
+                'plate'         => 'B 1408 WKR',
+                'odometer'      => '39.850 KM',
+                'odometer_raw'  => 39850,
+                'year'          => '2023',
+                'last_service'  => '15 Jan 2025',
+                'status_action' => 'Dipantau Aktif →',
+                'obd_connected' => true,
+                'image'         => 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80',
+            ],
+            [
+                'id'            => 'hrv',
+                'is_selected'   => false,
+                'category'      => 'COMPACT SUV',
+                'brand'         => 'Honda',
+                'name'          => 'Honda HR-V 1.5 SE CVT',
+                'chassis'       => 'Nomor Rangka: MHRRU1870NP102941',
+                'plate'         => 'B 2099 JKP',
+                'odometer'      => '24.120 KM',
+                'odometer_raw'  => 24120,
+                'year'          => '2022',
+                'status_sensor' => 'Semua Sensor Normal (Siap Pakai)',
+                'image'         => 'https://images.unsplash.com/photo-1590362891988-f778047831d6?auto=format&fit=crop&w=800&q=80',
+            ],
+        ] : [];
+
+        $activeVehicle = $isDemo && !empty($vehicles) ? $vehicles[0] : null;
+
+        // 4. Telemetri Wear & Tear (Rekam Medis Komponen)
+        $telemetry = $isDemo ? [
+            'vehicle_summary' => 'Data kalkulasi berdasarkan kilometer berjalan aktual Innova Zenix (B 1408 WKR) • 39.850 KM',
+            'wa_reminder'     => [
+                'active'    => true,
+                'target_km' => '40.000 KM',
+                'est_time'  => 'Est. 3 Hari ke depan',
+                'phone'     => '0812-****-4491',
+                'trigger'   => 'Trigger: ODO >= 40.000 KM',
+            ],
+            'components'      => [
+                [
+                    'id'          => 'oli',
+                    'title'       => 'Oli Mesin (TMO Full Syn)',
+                    'spec'        => 'Viskositas SAE 0W-20 SN GF-5',
+                    'badge'       => 'PERLU GANTI SEGERA',
+                    'badge_color' => 'red',
+                    'progress_km' => '4.850 / 5.000 KM',
+                    'percentage'  => 97,
+                    'bar_color'   => 'bg-rose-500',
+                    'alert_text'  => 'Sisa 150 KM / Waktunya Ganti Oli!',
+                    'footer_info' => 'Stall Rekomendasi: PIT Bay Express 01',
+                    'icon'        => 'fa-solid fa-oil-can',
+                ],
+                [
+                    'id'          => 'filter',
+                    'title'       => 'Filter Udara & Kabin',
+                    'spec'        => 'Denso Air Clean Technology',
+                    'badge'       => 'CEK BERKALA',
+                    'badge_color' => 'blue',
+                    'progress_km' => '9.850 / 10.000 KM',
+                    'percentage'  => 98.5,
+                    'bar_color'   => 'bg-blue-600',
+                    'alert_text'  => 'Rekomendasi ganti pada servis berikutnya (Est. 40.000 KM)',
+                    'footer_info' => 'Kesiapan Part: Tersedia di Gudang (28 pcs)',
+                    'icon'        => 'fa-solid fa-wind',
+                ],
+                [
+                    'id'          => 'rem',
+                    'title'       => 'Kampas Rem Depan & Belakang',
+                    'spec'        => 'OEM Akebono High-Heat Friction',
+                    'badge'       => 'KONDISI PRIMA',
+                    'badge_color' => 'blue',
+                    'gauge_val'   => '7.2 mm',
+                    'gauge_text'  => 'Ketebalan: 7.2 mm (Batas minimum pabrikan: 2.0 mm)',
+                    'alert_text'  => 'Kondisi Baik • Aman hingga interval 60.000 KM',
+                    'footer_info' => 'Inspeksi Fisik: 15 Jan 2025',
+                    'icon'        => 'fa-solid fa-circle-dot',
+                ],
+                [
+                    'id'          => 'aki',
+                    'title'       => 'Aki Kering (MF Battery)',
+                    'spec'        => 'GS Astra MF 55D23L (12V 60Ah)',
+                    'badge'       => 'OPTIMAL',
+                    'badge_color' => 'blue',
+                    'gauge_val'   => '12.6 Volt',
+                    'age_text'    => 'Usia: 14 Bulan',
+                    'alert_text'  => 'Output alternator & CCA (Cold Cranking) stabil',
+                    'footer_info' => 'Garansi Aki: Aktif s/d Nov 2025',
+                    'icon'        => 'fa-solid fa-car-battery',
+                ],
+            ],
+        ] : null;
+
+        // 5. Riwayat Servis Lengkap (Audit Log • Cloud Verified)
+        $serviceHistory = $isDemo ? [
+            [
+                'id'          => 'SRV-20250115',
+                'date_day'    => '15',
+                'date_month'  => 'JAN',
+                'date_year'   => '2025',
+                'odometer'    => '35.000 KM',
+                'title'       => 'Servis Berkala 35.000 KM (Paket Gold)',
+                'stall'       => 'PIT Bay 02',
+                'job_details' => 'Ganti Oli Mesin TMO 0W-20 (4 Liter), Gasket Plug Karter, Filter Oli Denso OEM, Pembersihan Rem 4 Roda & OBD Scanning.',
+                'mechanic'    => 'Aris Subagjo',
+                'duration'    => '48 Menit',
+                'total_cost'  => 'Rp 890.000',
+                'payment'     => 'Lunas • Transfer QRIS',
+                'category'    => 'berkala',
+            ],
+            [
+                'id'          => 'SRV-20240812',
+                'date_day'    => '12',
+                'date_month'  => 'AGU',
+                'date_year'   => '2024',
+                'odometer'    => '29.400 KM',
+                'title'       => 'Tune Up & Penggantian Busi Iridium',
+                'stall'       => 'PIT Bay 04',
+                'job_details' => 'Tune Up Combustion Chamber Cleaner, Penggantian 4 pcs Busi Denso Iridium Tough, Pembersihan Throttle Body & Kalibrasi Idle ECU.',
+                'mechanic'    => 'Doni Kurniawan',
+                'duration'    => '1 Jam 15 Menit',
+                'total_cost'  => 'Rp 1.150.000',
+                'payment'     => 'Lunas • Debit BCA',
+                'category'    => 'berat',
+            ],
+            [
+                'id'          => 'SRV-20240204',
+                'date_day'    => '04',
+                'date_month'  => 'FEB',
+                'date_year'   => '2024',
+                'odometer'    => '20.150 KM',
+                'title'       => 'Servis Berkala 20.000 KM & Spooring 3D Hunter',
+                'stall'       => 'Bay Alignment 01',
+                'job_details' => 'Ganti Oli Mesin TMO, Filter AC Kabin, Kalibrasi Camber Caster Toe 3D Hunter Alignment, Rotasi 4 Roda & Balancing Dinamis.',
+                'mechanic'    => 'Bambang Tri',
+                'duration'    => '1 Jam 05 Menit',
+                'total_cost'  => 'Rp 980.000',
+                'payment'     => 'Lunas • Virtual Account',
+                'category'    => 'spooring',
+            ],
+        ] : [];
+
+        return view('bengkel.garasi', compact(
+            'workshop',
+            'isDemo',
+            'member',
+            'vouchers',
+            'vehicles',
+            'activeVehicle',
+            'telemetry',
+            'serviceHistory'
+        ));
+    }
+
+    /**
+     * Tampilkan Halaman Status Ketersediaan Stall & Antrean PIT Bay Hari Ini
+     * Route: /bengkel/stall
+     * Default: DATA KOSONG (clean state) sesuai request user,
+     * serta dilengkapi opsi pratinjau data demo (3 Stall Terisi, 1 Standby Fast-Lane, CCTV & Analitik).
+     */
+    public function stallPage(Request $request)
+    {
+        $isDemo = $request->has('demo') && in_array(strtolower($request->query('demo')), ['1', 'true', 'yes', 'demo']);
+
+        $workshop = [
+            'name'           => 'MotoPro Workshop',
+            'tagline'        => 'BENGKEL PRESISI MODERN BERSTANDAR OBD-II',
+            'jam_buka'       => '08:00 - 17:00 WIB',
+            'status_bengkel' => $isDemo ? 'BENGKEL BUKA • 1 STALL SIAP' : 'BENGKEL BUKA • 4 STALL TERSEDIA',
+            'stall_terisi'   => $isDemo ? 3 : 0,
+            'stall_kapasitas'=> 4,
+            'rata_durasi'    => '45 Menit',
+            'no_darurat'     => '0800-1-MOTOPRO',
+            'no_whatsapp'    => '6281234567890',
+            'alamat'         => 'Bengkel Utama: Jl. Otomotif Presisi No. 88, Kawasan Industri Modern',
+            'maps_url'       => 'https://maps.google.com',
+        ];
+
+        // 1. Top 4 Metric Cards
+        $metrics = $isDemo ? [
+            'stall_val'       => '1 / 4',
+            'stall_badge'     => 'SIAP PAKAI',
+            'stall_sub'       => '3 Lift aktif berjalan, 1 Lift siap masuk',
+            'wait_val'        => '0',
+            'wait_unit'       => 'Menit',
+            'wait_sub'        => 'Langsung masuk ke PIT 04 saat tiba',
+            'wait_badge'      => 'ZERO QUEUE GATE OPEN',
+            'tech_val'        => '2',
+            'tech_unit'       => 'Teknisi',
+            'tech_sub'        => 'Lead Fast-Track & Diagnostic Tech',
+            'tech_note'       => 'Siap inspeksi pra-servis',
+            'avg_val'         => '35–45',
+            'avg_unit'        => 'Menit',
+            'avg_sub'         => 'Standar servis berkala express',
+            'avg_note'        => 'Target SLA Turnaround 98.4%',
+        ] : [
+            'stall_val'       => '4 / 4',
+            'stall_badge'     => 'SEMUA TERSEDIA',
+            'stall_sub'       => '0 Lift berjalan, 4 Lift siap melayani',
+            'wait_val'        => '0',
+            'wait_unit'       => 'Menit',
+            'wait_sub'        => 'Seluruh stall siap menerima kendaraan',
+            'wait_badge'      => 'ZERO QUEUE • JALUR BEBAS',
+            'tech_val'        => '4',
+            'tech_unit'       => 'Teknisi',
+            'tech_sub'        => 'Seluruh tim teknisi siap bertugas',
+            'tech_note'       => 'Siap inspeksi pra-servis kilat',
+            'avg_val'         => '0',
+            'avg_unit'        => 'Menit',
+            'avg_sub'         => 'Belum ada antrean pengerjaan',
+            'avg_note'        => 'Target SLA Turnaround 100%',
+        ];
+
+        // 2. Data Live Floor Bay Monitor (Stall 01 - 04)
+        $stalls = $isDemo ? [
+            [
+                'id'              => 'pit-01',
+                'name'            => 'PIT 01',
+                'type'            => 'Two-Post Lift',
+                'status'          => 'TERISI',
+                'status_type'     => 'busy',
+                'plate'           => 'B 1982 SYZ',
+                'progress'        => 75,
+                'vehicle'         => 'Toyota Fortuner 2.8 VRZ',
+                'service'         => 'Servis Berkala & Ganti Kampas Rem Depan-Belakang',
+                'mechanic'        => 'Joko Pratama',
+                'est_remaining'   => '~18 Menit',
+                'stage'           => 'Bleeding Minyak Rem',
+                'duration'        => '38/50 Mnt',
+                'footer_sensor'   => 'Telemetry Lift Sensor',
+                'footer_status'   => 'LIFTED 1.85m',
+                'footer_badge'    => 'text-blue-600',
+            ],
+            [
+                'id'              => 'pit-02',
+                'name'            => 'PIT 02',
+                'type'            => 'Scissor Lift 3D',
+                'status'          => 'TERISI',
+                'status_type'     => 'busy',
+                'plate'           => 'B 9912 WQ',
+                'progress'        => 40,
+                'vehicle'         => 'Honda HR-V 1.5 RS Turbo',
+                'service'         => 'Spooring Computerized 3D & Balancing 4 Roda',
+                'mechanic'        => 'Rian Wahyudi',
+                'est_remaining'   => '~32 Menit',
+                'stage'           => 'Kalibrasi Sudut Camber',
+                'duration'        => '15/45 Mnt',
+                'footer_sensor'   => 'Laser Alignment',
+                'footer_status'   => 'CALIBRATING',
+                'footer_badge'    => 'text-blue-600',
+            ],
+            [
+                'id'              => 'pit-03',
+                'name'            => 'PIT 03',
+                'type'            => 'Four-Post Lift',
+                'status'          => 'SEGERA KOSONG',
+                'status_type'     => 'soon',
+                'plate'           => 'B 1408 WKR',
+                'progress'        => 85,
+                'vehicle'         => 'Innova Zenix 2.0 V',
+                'service'         => 'Tune Up Mesin & Penggantian Filter Udara/Kabin',
+                'mechanic'        => 'Budi Santoso',
+                'est_remaining'   => '~10 Menit',
+                'stage'           => 'Final Diagnostic Scan',
+                'duration'        => '42/50 Mnt',
+                'footer_sensor'   => 'Alur Lanjutan',
+                'footer_status'   => 'QC & CUCI MOBIL',
+                'footer_badge'    => 'text-slate-800 font-bold',
+            ],
+            [
+                'id'              => 'pit-04',
+                'name'            => 'PIT 04',
+                'type'            => 'Express Service Bay',
+                'status'          => 'STANDBY',
+                'status_type'     => 'standby',
+                'is_standby'      => true,
+                'badge_top'       => 'SIAP CHECK-IN SEKARANG',
+                'banner_title'    => 'FAST-LANE READY',
+                'banner_desc'     => 'Stall Kosong & Alat Dikalibrasi. Lift hidrolik turun level 0, OBD-II telemetry scanner terhubung, toolset lengkap.',
+                'mechanic'        => 'Dimas Prasetyo (Lead Fast-Track)',
+                'entry_time'      => 'Langsung (0 Menit)',
+                'hold_duration'   => '14:58 (Tahan Slot)',
+            ],
+        ] : [
+            [
+                'id'              => 'pit-01',
+                'name'            => 'PIT 01',
+                'type'            => 'Two-Post Lift',
+                'status'          => 'KOSONG',
+                'status_type'     => 'empty',
+                'is_empty'        => true,
+                'desc'            => 'Two-post hydraulic lift siap digunakan. Sensor posisi turun ke level 0. Belum ada antrean kendaraan.',
+                'sensor_status'   => 'LEVEL 0.00m • READY',
+            ],
+            [
+                'id'              => 'pit-02',
+                'name'            => 'PIT 02',
+                'type'            => 'Scissor Lift 3D',
+                'status'          => 'KOSONG',
+                'status_type'     => 'empty',
+                'is_empty'        => true,
+                'desc'            => 'Scissor lift & sensor Hunter 3D kamera siap kalibrasi geometri suspensi dan balancing roda.',
+                'sensor_status'   => 'OPTICAL CAM STANDBY',
+            ],
+            [
+                'id'              => 'pit-03',
+                'name'            => 'PIT 03',
+                'type'            => 'Four-Post Lift',
+                'status'          => 'KOSONG',
+                'status_type'     => 'empty',
+                'is_empty'        => true,
+                'desc'            => 'Four-post lift heavy-duty siap melayani inspeksi kaki-kaki, tune up, atau servis transmisi.',
+                'sensor_status'   => 'RUNWAYS LEVEL • READY',
+            ],
+            [
+                'id'              => 'pit-04',
+                'name'            => 'PIT 04',
+                'type'            => 'Express Service Bay',
+                'status'          => 'KOSONG',
+                'status_type'     => 'empty',
+                'is_empty'        => true,
+                'desc'            => 'Fast-lane pit bay siap menerima servis kilat tanpa antre: ganti oli, filter, atau scan OBD telemetri.',
+                'sensor_status'   => 'FAST-LANE OPEN',
+            ],
+        ];
+
+        // 3. Analisis Waktu Tunggu Real-Time (Grafik Kepadatan Jam Operasional)
+        $hourlyLoad = $isDemo ? [
+            [
+                'time'       => '08:00 – 10:00',
+                'badge'      => 'SEKARANG',
+                'status'     => 'SENGGANG (OPTIMAL)',
+                'desc'       => '1 Stall langsung siap tanpa antrean walk-in.',
+                'percent'    => 35,
+                'bar_color'  => 'bg-blue-600',
+                'status_col' => 'text-blue-700',
+            ],
+            [
+                'time'       => '10:00 – 12:00',
+                'badge'      => null,
+                'status'     => 'MULAI PADAT',
+                'desc'       => 'Unit booking pagi mulai masuk area lift inspeksi.',
+                'percent'    => 75,
+                'bar_color'  => 'bg-slate-700',
+                'status_col' => 'text-slate-800',
+            ],
+            [
+                'time'       => '12:00 – 13:00',
+                'badge'      => null,
+                'status'     => 'ISTIRAHAT BERGILIR',
+                'desc'       => '2 Stall fast-track tetap beroperasi secara rotasi.',
+                'percent'    => 50,
+                'bar_color'  => 'bg-blue-400',
+                'status_col' => 'text-slate-800',
+            ],
+            [
+                'time'       => '13:00 – 15:00',
+                'badge'      => null,
+                'status'     => 'KEPADATAN TINGGI',
+                'desc'       => 'Slot bay penuh, estimasi waktu tunggu walk-in 30–45 mnt.',
+                'percent'    => 95,
+                'bar_color'  => 'bg-rose-600',
+                'status_col' => 'text-rose-600',
+            ],
+            [
+                'time'       => '15:00 – 17:00',
+                'badge'      => null,
+                'status'     => 'MODERAT & DELIVERY',
+                'desc'       => 'Fase finishing, quality-check, cuci, & serah terima.',
+                'percent'    => 60,
+                'bar_color'  => 'bg-slate-700',
+                'status_col' => 'text-slate-800',
+            ],
+        ] : [
+            [
+                'time'       => '08:00 – 10:00',
+                'badge'      => 'SEKARANG',
+                'status'     => 'SENGGANG (OPTIMAL)',
+                'desc'       => 'Semua 4 stall kosong, pengerjaan dapat langsung dimulai.',
+                'percent'    => 0,
+                'bar_color'  => 'bg-blue-600',
+                'status_col' => 'text-blue-700',
+            ],
+            [
+                'time'       => '10:00 – 12:00',
+                'badge'      => null,
+                'status'     => 'TERSEDIA LEGA',
+                'desc'       => 'Jalur booking dan walk-in terbuka lebar.',
+                'percent'    => 0,
+                'bar_color'  => 'bg-slate-300',
+                'status_col' => 'text-slate-500',
+            ],
+            [
+                'time'       => '12:00 – 13:00',
+                'badge'      => null,
+                'status'     => 'OPERASIONAL AKTIF',
+                'desc'       => 'Teknisi standby melayani pergantian oli & servis kilat.',
+                'percent'    => 0,
+                'bar_color'  => 'bg-slate-300',
+                'status_col' => 'text-slate-500',
+            ],
+            [
+                'time'       => '13:00 – 15:00',
+                'badge'      => null,
+                'status'     => 'TERSEDIA LEGA',
+                'desc'       => 'Waktu tunggu nol menit untuk kedatangan saat ini.',
+                'percent'    => 0,
+                'bar_color'  => 'bg-slate-300',
+                'status_col' => 'text-slate-500',
+            ],
+            [
+                'time'       => '15:00 – 17:00',
+                'badge'      => null,
+                'status'     => 'TERSEDIA LEGA',
+                'desc'       => 'Slot bebas antrean untuk perawatan berkala sore.',
+                'percent'    => 0,
+                'bar_color'  => 'bg-slate-300',
+                'status_col' => 'text-slate-500',
+            ],
+        ];
+
+        // 4. Rekomendasi Paket Servis Langsung Jalan
+        $packages = [
+            [
+                'id'          => 'express-oil',
+                'badge'       => '30 MENIT KILAT',
+                'icon'        => 'fa-solid fa-oil-can',
+                'title'       => 'Ganti Oli Express & Filter',
+                'desc'        => 'Penggantian oli mesin full sintetis, filter oli baru OEM, ring baut carter, serta pembersihan filter udara.',
+                'features'    => [
+                    'Oli Fully Synthetic 4L (SN/SP)',
+                    'Pembersihan Filter Udara/Kompresor',
+                    'Cek Level Minyak Rem & Radiator Coolant',
+                ],
+                'price_label' => 'Estimasi Mulai',
+                'price'       => 'Rp 380.000',
+                'btn_text'    => 'Pilih & Masuk PIT 04 →',
+                'btn_style'   => 'bg-white hover:bg-slate-50 text-slate-800 border border-slate-200',
+            ],
+            [
+                'id'          => 'obd-check',
+                'badge'       => '20 MENIT SCAN',
+                'member_badge'=> 'GRATIS UTK MEMBER',
+                'icon'        => 'fa-solid fa-magnifying-glass',
+                'title'       => 'General Checkup 24 Titik OBD-II',
+                'desc'        => 'Pemeriksaan sensor komputer ECU mobil, kondisi baterai aki tester digital, ketebalan kampas rem, dan fluida.',
+                'features'    => [
+                    'Full OBD-II ECU Error Diagnostic',
+                    'Digital Battery State of Health (SOH)',
+                    'Inspeksi Kebocoran Kolong & Suspensi',
+                ],
+                'price_label' => 'Non-Member: Rp 150.000',
+                'price'       => 'FREE (Member)',
+                'is_free'     => true,
+                'btn_text'    => 'Klaim Servis Ini di PIT 04 →',
+                'btn_style'   => 'bg-blue-600 hover:bg-blue-700 text-white shadow-xs',
+            ],
+            [
+                'id'          => 'emisi-tuneup',
+                'badge'       => '40 MENIT PERFORMA',
+                'icon'        => 'fa-solid fa-sliders',
+                'title'       => 'Uji Emisi & Fast Tune-Up',
+                'desc'        => 'Pembersihan throttle body, ruang bakar injector foam cleaner, kalibrasi busi, dan sertifikat resmi uji emisi.',
+                'features'    => [
+                    'Pembersihan Throttle Body Cairan Khusus',
+                    'Pembersihan Busi & Ignition Coil',
+                    'Sertifikasi Lulus Uji Emisi DKI Terdaftar',
+                ],
+                'price_label' => 'Estimasi Mulai',
+                'price'       => 'Rp 350.000',
+                'btn_text'    => 'Pilih & Masuk PIT 04 →',
+                'btn_style'   => 'bg-white hover:bg-slate-50 text-slate-800 border border-slate-200',
+            ],
+        ];
+
+        return view('bengkel.stall', compact(
+            'workshop',
+            'isDemo',
+            'metrics',
+            'stalls',
+            'hourlyLoad',
+            'packages'
+        ));
+    }
 }

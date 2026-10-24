@@ -19,18 +19,15 @@ class DashboardController extends Controller
             if (strtolower(trim($user->username ?? '')) === 'bengkel' || strtolower(trim($user->role ?? '')) === 'bengkel' || strtolower(trim($user->email ?? '')) === 'bengkel@lgarage.id') {
                 return redirect()->route('bengkel.dashboard');
             }
+            if ($user->isBarbershop()) {
+                return redirect()->route('barbershop.dashboard');
+            }
             if (!$user->isAdminOrMentor()) {
                 if ($user->isPklStudent()) {
                     return redirect()->route('pkl.dashboard');
                 }
                 return redirect()->route('member.dashboard');
             }
-            // Return L-Style Atelier Suite Dashboard page for Admin / Atelier User
-            return \Inertia\Inertia::render('Atelier/Dashboard', [
-                'auth' => [
-                    'user' => $user,
-                ]
-            ]);
         }
 
         // 1. Ambil data dari 3 tabel (menggunakan Eloquent/DB Query Builder)

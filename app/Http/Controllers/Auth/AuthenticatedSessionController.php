@@ -124,7 +124,7 @@ class AuthenticatedSessionController extends Controller
                 if ($user->isAdminOrMentor()) {
                     $intended = $request->session()->pull('url.intended');
                     if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
-                        $intended = route('barbershop.dashboard');
+                        $intended = route('dashboard');
                     }
                     return Inertia::location($intended);
                 }
@@ -249,7 +249,7 @@ class AuthenticatedSessionController extends Controller
         if ($user->isAdminOrMentor()) {
             $intended = $request->session()->pull('url.intended');
             if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
-                $intended = route('barbershop.dashboard');
+                $intended = route('dashboard');
             }
             return Inertia::location($intended);
         }

@@ -76,23 +76,32 @@
         @endif
     </div>
 
+    <!-- Mobile Sidebar & Ticket Overlays -->
+    <div id="restoSidebarOverlay" onclick="toggleRestoSidebar()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+    <div id="restoTicketOverlay" onclick="toggleRestoTicket()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+
     <!-- MAIN APP WRAPPER -->
-    <div class="flex h-screen overflow-hidden w-full">
+    <div class="flex h-screen overflow-hidden w-full relative">
 
         <!-- ============================================================== -->
         <!-- 1. LEFT SIDEBAR                                                -->
         <!-- ============================================================== -->
-        <aside class="w-64 bg-white border-r border-slate-200/80 flex flex-col shrink-0 select-none z-30">
+        <aside id="restoSidebar" class="w-64 bg-white border-r border-slate-200/80 flex flex-col shrink-0 select-none z-50 fixed inset-y-0 left-0 -translate-x-full lg:translate-x-0 lg:static transition-transform duration-300 shadow-2xl lg:shadow-none">
             
             <!-- Logo Header -->
-            <div class="p-5 border-b border-slate-100 flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#a33315] to-[#c2410c] text-white flex items-center justify-center text-lg font-black shadow-md shadow-orange-950/20">
-                    <i class="fas fa-utensils"></i>
+            <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#a33315] to-[#c2410c] text-white flex items-center justify-center text-lg font-black shadow-md shadow-orange-950/20">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div>
+                        <div class="font-heading font-black text-xl tracking-tight text-slate-900 leading-none">RestoHub</div>
+                        <div class="text-[9px] font-extrabold tracking-widest text-[#a33315] uppercase mt-0.5">CULINARY OPERATIONS</div>
+                    </div>
                 </div>
-                <div>
-                    <div class="font-heading font-black text-xl tracking-tight text-slate-900 leading-none">RestoHub</div>
-                    <div class="text-[9px] font-extrabold tracking-widest text-[#a33315] uppercase mt-0.5">CULINARY OPERATIONS</div>
-                </div>
+                <button type="button" onclick="toggleRestoSidebar()" class="lg:hidden w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-sm transition">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
 
             <!-- Shift Status Card -->
@@ -176,32 +185,43 @@
             <!-- Top Header Bar -->
             <header class="bg-white border-b border-slate-200/80 px-6 py-3 shrink-0 flex flex-col gap-3 sticky top-0 z-20 shadow-sm">
                 
-                <!-- Row 1: Branch, Sync status, Profile -->
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
+                <!-- Row 1: Mobile Hamburger, Branch, Sync status, Profile & Mobile Ticket Button -->
+                <div class="flex items-center justify-between gap-3 flex-wrap">
+                    <div class="flex items-center gap-2">
+                        <!-- Mobile Hamburger Button -->
+                        <button type="button" onclick="toggleRestoSidebar()" class="lg:hidden w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 flex items-center justify-center text-sm shrink-0 transition" title="Menu Sidebar">
+                            <i class="fas fa-bars"></i>
+                        </button>
+
                         <div class="relative">
-                            <button type="button" onclick="toggleBranchModal()" class="flex items-center gap-2.5 px-3 py-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-left text-xs font-bold text-slate-800 transition">
+                            <button type="button" onclick="toggleBranchModal()" class="flex items-center gap-2 px-2.5 py-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-left text-xs font-bold text-slate-800 transition">
                                 <i class="fas fa-store text-[#8c280e]"></i>
-                                <span>{{ $currentBranch }}</span>
+                                <span class="truncate max-w-[110px] sm:max-w-none">{{ $currentBranch }}</span>
                                 <i class="fas fa-chevron-down text-[10px] text-slate-400"></i>
                             </button>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 pulse-subtle"></span>
                             Live Sync Kitchen &amp; POS
                         </span>
                     </div>
 
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2 sm:gap-4">
+                        <!-- Mobile Order Ticket Toggle Button -->
+                        <button type="button" onclick="toggleRestoTicket()" class="lg:hidden flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#8c280e] hover:bg-[#721f0a] text-white text-xs font-bold shadow-xs transition">
+                            <i class="fas fa-receipt text-xs"></i>
+                            <span>Meja {{ $activeTicket['meja_id'] }}</span>
+                        </button>
+
                         <button type="button" onclick="showToast('Tidak ada notifikasi sistem.', 'info')" class="w-8 h-8 rounded-xl border border-slate-200 text-slate-500 hover:text-slate-800 hover:bg-slate-50 flex items-center justify-center text-xs relative transition">
                             <i class="far fa-bell"></i>
                         </button>
                         
-                        <div class="flex items-center gap-2.5 pl-3 border-l border-slate-200">
+                        <div class="flex items-center gap-2.5 pl-2 sm:pl-3 border-l border-slate-200">
                             <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-[#8c280e] to-orange-500 text-white font-bold text-xs flex items-center justify-center shadow-sm">
                                 {{ strtoupper(substr($user->name ?? 'BP', 0, 2)) }}
                             </div>
-                            <div class="text-left">
+                            <div class="text-left hidden sm:block">
                                 <div class="text-xs font-black text-slate-900 leading-tight">{{ $user->name ?? 'Budi Pratama' }}</div>
                                 <div class="text-[10px] text-slate-400 font-semibold leading-tight">Store Manager</div>
                             </div>
@@ -480,7 +500,7 @@
         <!-- ============================================================== -->
         <!-- 3. RIGHT PANEL: ACTIVE ORDER TICKET                            -->
         <!-- ============================================================== -->
-        <aside class="w-96 bg-white border-l border-slate-200/80 flex flex-col shrink-0 select-none z-30 shadow-sm">
+        <aside id="restoTicketPanel" class="w-full sm:w-96 bg-white border-l border-slate-200/80 flex flex-col shrink-0 select-none z-50 fixed inset-y-0 right-0 translate-x-full lg:translate-x-0 lg:static transition-transform duration-300 shadow-2xl lg:shadow-none">
             
             <!-- Ticket Header -->
             <div class="p-4 border-b border-slate-100 flex items-center justify-between">
@@ -501,6 +521,10 @@
                 </div>
 
                 <div class="flex items-center gap-1.5">
+                    <!-- Close button on mobile -->
+                    <button type="button" onclick="toggleRestoTicket()" class="lg:hidden w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-xs transition" title="Tutup Tiket">
+                        <i class="fas fa-times"></i>
+                    </button>
                     <button type="button" onclick="showToast('Menu Meja & Tiket.', 'info')" class="w-8 h-8 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-500 hover:text-slate-800 flex items-center justify-center text-xs transition">
                         <i class="fas fa-arrow-right-arrow-left"></i>
                     </button>
@@ -783,8 +807,51 @@
         <input type="hidden" name="pax" id="selPax" value="4">
     </form>
 
+    <!-- Floating Mobile Ticket Toggle Button -->
+    <div class="lg:hidden fixed bottom-4 right-4 z-30">
+        <button type="button" onclick="toggleRestoTicket()" class="flex items-center gap-2 px-4 py-3 bg-[#8c280e] hover:bg-[#721f0a] text-white rounded-2xl font-black text-xs shadow-2xl shadow-orange-950/40 border border-amber-400/40 transition active:scale-95">
+            <i class="fas fa-receipt text-sm text-amber-300"></i>
+            <span>Tiket Meja {{ $activeTicket['meja_id'] }} ({{ count($activeTicket['items']) }})</span>
+        </button>
+    </div>
+
     <!-- Scripts -->
     <script>
+        // Responsive Sidebar & Ticket Toggle for Mobile
+        function toggleRestoSidebar() {
+            const sidebar = document.getElementById('restoSidebar');
+            const overlay = document.getElementById('restoSidebarOverlay');
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function toggleRestoTicket() {
+            const ticket = document.getElementById('restoTicketPanel');
+            const overlay = document.getElementById('restoTicketOverlay');
+            const isClosed = ticket.classList.contains('translate-x-full');
+            if (isClosed) {
+                ticket.classList.remove('translate-x-full');
+                ticket.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                ticket.classList.add('translate-x-full');
+                ticket.classList.remove('translate-x-0');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
         function showToast(message, type = 'info') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');

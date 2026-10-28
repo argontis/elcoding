@@ -93,10 +93,13 @@
 </head>
 <body class="min-h-screen flex antialiased selection:bg-garage-500 selection:text-white">
 
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="bengkelSidebarOverlay" onclick="toggleBengkelSidebar()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+
     <!-- ============================================================== -->
-    <!-- DESKTOP SIDEBAR -->
+    <!-- DESKTOP / MOBILE SIDEBAR -->
     <!-- ============================================================== -->
-    <aside class="w-64 bg-darkbase-900 border-r border-slate-800 text-slate-300 flex flex-col fixed inset-y-0 left-0 z-30 transition-all duration-300">
+    <aside id="bengkelSidebar" class="w-64 bg-darkbase-900 border-r border-slate-800 text-slate-300 flex flex-col fixed inset-y-0 left-0 z-50 -translate-x-full lg:translate-x-0 transition-transform duration-300 shadow-2xl lg:shadow-none">
         
         <!-- Logo & Brand Header -->
         <div class="h-20 px-6 flex items-center justify-between border-b border-slate-800/80 bg-darkbase-950/60">
@@ -114,6 +117,10 @@
                     </div>
                 </div>
             </a>
+            <!-- Close Button for Mobile -->
+            <button type="button" onclick="toggleBengkelSidebar()" class="lg:hidden w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center text-sm transition" title="Tutup Menu">
+                <i class="fa-solid fa-times"></i>
+            </button>
         </div>
 
         <!-- Workshop Info Plate -->
@@ -213,24 +220,28 @@
     </aside>
 
     <!-- ============================================================== -->
-    <!-- MAIN CONTENT AREA (WEBSITE DESKTOP FULL-WIDTH) -->
+    <!-- MAIN CONTENT AREA -->
     <!-- ============================================================== -->
-    <div class="flex-1 ml-64 flex flex-col min-h-screen">
+    <div class="flex-1 ml-0 lg:ml-64 flex flex-col min-h-screen min-w-0">
         
-        <!-- TOPBAR DESKTOP -->
-        <header class="h-20 bg-white border-b border-slate-200 sticky top-0 z-20 px-8 flex items-center justify-between shadow-xs">
+        <!-- TOPBAR -->
+        <header class="h-20 bg-white border-b border-slate-200 sticky top-0 z-20 px-4 sm:px-8 flex items-center justify-between shadow-xs">
             
             <!-- Breadcrumbs & Quick Search -->
-            <div class="flex items-center gap-6">
+            <div class="flex items-center gap-3 sm:gap-6">
+                <!-- Mobile Hamburger Toggle -->
+                <button type="button" onclick="toggleBengkelSidebar()" class="lg:hidden w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center text-base transition" title="Menu Sidebar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
                 <div>
                     <div class="flex items-center gap-2 text-xs font-semibold text-slate-400">
                         <a href="{{ route('bengkel.dashboard') }}" class="hover:text-garage-600 transition">L-Garage Workshop</a>
                         <i class="fa-solid fa-chevron-right text-[10px]"></i>
                         <span class="text-slate-700 font-bold">Faktur & Invoice Digital</span>
                     </div>
-                    <h1 class="text-lg font-heading font-black text-slate-900 mt-0.5 flex items-center gap-2.5">
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                        Faktur Pelunasan Servis & Kasir
+                    <h1 class="text-base sm:text-lg font-heading font-black text-slate-900 mt-0.5 flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
+                        <span class="truncate">Faktur Pelunasan Servis & Kasir</span>
                     </h1>
                 </div>
 
@@ -1214,9 +1225,23 @@
         }
 
         // Initialize preview on load
-        document.addEventListener('DOMContentLoaded', () => {
-            updateInvoicePreview();
-        });
+        // Toggle Sidebar Mobile
+        function toggleBengkelSidebar() {
+            const sidebar = document.getElementById('bengkelSidebar');
+            const overlay = document.getElementById('bengkelSidebarOverlay');
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
     </script>
 
 </body>

@@ -53,6 +53,7 @@ Route::get('/sitemap.xml', function () {
 // ==========================================
 Route::get('/restaurant', [\App\Http\Controllers\Resto\RestoLandingController::class, 'index'])->name('resto.landing');
 Route::get('/Restaurant', function () { return redirect()->route('resto.landing'); });
+Route::get('/restaurant/dashboard', function () { return redirect()->route('resto.dashboard'); });
 
 Route::get('/restaurant/menu', [\App\Http\Controllers\Resto\RestoLandingController::class, 'menuPage'])->name('resto.menu');
 Route::get('/restaurant/menu-digital', function () { return redirect()->route('resto.menu'); });
@@ -63,6 +64,10 @@ Route::get('/restaurant/reservasi-meja', function () { return redirect()->route(
 Route::get('/restaurant/status-pesanan', [\App\Http\Controllers\Resto\RestoLandingController::class, 'statusPage'])->name('resto.status');
 Route::get('/restaurant/status', function () { return redirect()->route('resto.status'); });
 Route::get('/restaurant/kds', function () { return redirect()->route('resto.status'); });
+
+Route::get('/restaurant/member-poin', [\App\Http\Controllers\Resto\RestoLandingController::class, 'memberInfoPage'])->name('resto.member.info');
+Route::get('/restaurant/member', function () { return redirect()->route('resto.member.info'); });
+Route::get('/restaurant/loyalty', function () { return redirect()->route('resto.member.info'); });
 
 // ==========================================
 // ROUTE DEMO RESTO (DEMO WEB RESTORAN)
@@ -126,6 +131,22 @@ Route::get('/bimbel/paket', function () { return redirect()->route('bimbel.progr
 Route::get('/bimbel/program-biaya', function () { return redirect()->route('bimbel.program.page'); });
 Route::get('/bimbel/rincian-biaya', function () { return redirect()->route('bimbel.program.page'); });
 Route::post('/bimbel/daftar', [\App\Http\Controllers\Bimbel\BimbelLandingController::class, 'daftar'])->name('bimbel.daftar');
+
+// ==========================================
+// ROUTE SERVICE CENTER (LANDING & INFORMASI PUBLIK)
+// ==========================================
+Route::get('/ServiceCenter', [\App\Http\Controllers\Techfix\ServiceCenterLandingController::class, 'index'])->name('servicecenter.landing');
+Route::get('/servicecenter', function () { return redirect()->route('servicecenter.landing'); });
+Route::get('/service-center', function () { return redirect()->route('servicecenter.landing'); });
+Route::get('/ServiceCenter/cek-tiket', [\App\Http\Controllers\Techfix\ServiceCenterLandingController::class, 'cekTiket'])->name('servicecenter.cek-tiket');
+Route::get('/ServiceCenter/booking-servis', [\App\Http\Controllers\Techfix\ServiceCenterLandingController::class, 'bookingServis'])->name('servicecenter.booking-servis');
+Route::get('/ServiceCenter/katalog-produk', [\App\Http\Controllers\Techfix\ServiceCenterLandingController::class, 'katalog'])->name('servicecenter.katalog');
+Route::get('/ServiceCenter/katalog', function () { return redirect()->route('servicecenter.katalog'); });
+Route::get('/ServiceCenter/cek-biaya', [\App\Http\Controllers\Techfix\ServiceCenterLandingController::class, 'cekBiaya'])->name('servicecenter.cek-biaya');
+Route::get('/ServiceCenter/biaya', function () { return redirect()->route('servicecenter.cek-biaya'); });
+Route::get('/ServiceCenter/estimasi', function () { return redirect()->route('servicecenter.cek-biaya'); });
+Route::get('/servicecenter/lacak', [\App\Http\Controllers\Techfix\ServiceCenterLandingController::class, 'trackTicket'])->name('servicecenter.track');
+Route::post('/servicecenter/booking', [\App\Http\Controllers\Techfix\ServiceCenterLandingController::class, 'storeBooking'])->name('servicecenter.booking');
 
 
 // ==========================================

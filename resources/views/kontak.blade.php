@@ -49,7 +49,7 @@
                                     <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
                                     <div class="info-text">
                                         <strong>Kantor Cabang</strong>
-                                        <span>{{ \App\Models\Setting::getValue('contact_address_bekasi', 'Jl. Alternatif Cibubur Ruko Kranggan Blok Rt16/27, Jatisampurna, Kota Bekasi, Jawa Barat') }}</span>
+                                        <span>{{ \App\Models\Setting::getValue('contact_address_bekasi', 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.') }}</span>
                                     </div>
                                 </li>
                             @endif

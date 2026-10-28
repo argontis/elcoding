@@ -50,16 +50,24 @@
     </style>
 </head>
 <body class="antialiased">
-<div class="flex h-screen overflow-hidden bg-slate-50">
+<!-- Mobile Sidebar Backdrop Overlay -->
+<div id="bimbelSidebarOverlay" onclick="toggleBimbelSidebar()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+
+<div class="flex h-screen overflow-hidden bg-slate-50 relative">
 
     {{-- ========================= SIDEBAR ========================= --}}
-    <aside class="w-[220px] bg-white border-r border-slate-200/80 flex flex-col shrink-0 shadow-sm z-30">
-        <div class="px-5 py-4 border-b border-slate-100 flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-[#3b49df] to-indigo-500 flex items-center justify-center text-white text-sm font-black shadow-md shadow-indigo-200">E</div>
-            <div>
-                <div class="font-heading font-black text-sm text-slate-900 leading-none">EduPulse</div>
-                <div class="text-[10px] font-bold text-indigo-600 tracking-wider uppercase mt-0.5">Academy SaaS</div>
+    <aside id="bimbelSidebar" class="w-64 bg-white border-r border-slate-200/80 flex flex-col shrink-0 select-none z-50 fixed inset-y-0 left-0 -translate-x-full lg:translate-x-0 lg:static transition-transform duration-300 min-h-screen shadow-2xl lg:shadow-none">
+        <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-[#3b49df] to-indigo-500 flex items-center justify-center text-white text-sm font-black shadow-md shadow-indigo-200">E</div>
+                <div>
+                    <div class="font-heading font-black text-sm text-slate-900 leading-none">EduPulse</div>
+                    <div class="text-[10px] font-bold text-indigo-600 tracking-wider uppercase mt-0.5">Academy SaaS</div>
+                </div>
             </div>
+            <button type="button" onclick="toggleBimbelSidebar()" class="lg:hidden w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-sm transition" title="Tutup Menu">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
 
         <div class="px-4 py-3 border-b border-slate-100">
@@ -116,12 +124,16 @@
     </aside>
 
     {{-- ========================= MAIN CONTENT ========================= --}}
-    <div class="flex-1 flex flex-col overflow-hidden">
+    <div class="flex-1 flex flex-col overflow-hidden min-w-0">
 
         {{-- TOP NAVBAR --}}
-        <header class="bg-white border-b border-slate-200/80 px-6 py-3.5 flex items-center justify-between shrink-0 shadow-sm">
+        <header class="bg-white border-b border-slate-200/80 px-4 sm:px-6 py-3.5 flex items-center justify-between shrink-0 shadow-sm">
             <div class="flex items-center gap-3">
-                <div class="relative">
+                <!-- Mobile Hamburger -->
+                <button type="button" onclick="toggleBimbelSidebar()" class="lg:hidden w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 flex items-center justify-center text-sm shrink-0 transition" title="Buka Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="relative hidden sm:block">
                     <i class="fas fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
                     <input type="text" placeholder="Cari siswa, kelas, guru, dll [Ctrl K]" class="pl-8 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600 focus:outline-none focus:border-indigo-500 w-72 placeholder-slate-400">
                 </div>
@@ -978,7 +990,21 @@
                 showToast(d.message, 'success');
             }
         })
-        .catch(() => showToast('Gagal mengirim rapor via WhatsApp.', 'error'));
+    function toggleBimbelSidebar() {
+        const sidebar = document.getElementById('bimbelSidebar');
+        const overlay = document.getElementById('bimbelSidebarOverlay');
+        const isClosed = sidebar.classList.contains('-translate-x-full');
+        if (isClosed) {
+            sidebar.classList.remove('-translate-x-full');
+            sidebar.classList.add('translate-x-0');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            sidebar.classList.remove('translate-x-0');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
     }
 </script>
 </body>

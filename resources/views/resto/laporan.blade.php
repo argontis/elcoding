@@ -65,22 +65,30 @@
         @endif
     </div>
 
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="restoSidebarOverlay" onclick="toggleRestoSidebar()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+
     <!-- MAIN APP WRAPPER -->
-    <div class="flex h-screen overflow-hidden w-full">
+    <div class="flex h-screen overflow-hidden w-full relative">
 
         <!-- ============================================================== -->
         <!-- 1. LEFT SIDEBAR                                                 -->
         <!-- ============================================================== -->
-        <aside class="w-64 bg-white border-r border-slate-200/80 flex flex-col shrink-0 select-none z-30">
+        <aside id="restoSidebar" class="w-64 bg-white border-r border-slate-200/80 flex flex-col shrink-0 select-none z-50 fixed inset-y-0 left-0 -translate-x-full lg:translate-x-0 lg:static transition-transform duration-300 shadow-2xl lg:shadow-none">
             <!-- Logo -->
-            <div class="p-5 border-b border-slate-100 flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-terracotta-500 to-terracotta-700 flex items-center justify-center shadow-md">
-                    <i class="fas fa-utensils text-white text-sm"></i>
+            <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-terracotta-500 to-terracotta-700 flex items-center justify-center shadow-md">
+                        <i class="fas fa-utensils text-white text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="font-heading font-bold text-slate-800 text-sm leading-tight">RestoHub OS</p>
+                        <p class="text-[10px] text-slate-400 font-medium">Culinary Operations</p>
+                    </div>
                 </div>
-                <div>
-                    <p class="font-heading font-bold text-slate-800 text-sm leading-tight">RestoHub OS</p>
-                    <p class="text-[10px] text-slate-400 font-medium">Culinary Operations</p>
-                </div>
+                <button type="button" onclick="toggleRestoSidebar()" class="lg:hidden w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-sm transition" title="Tutup Menu">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
 
             <!-- Branch Info -->
@@ -131,8 +139,11 @@
         <main class="flex-1 overflow-y-auto bg-[#f8fafc]">
 
             <!-- Top Header -->
-            <header class="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-slate-200/80 px-6 py-3.5 flex items-center justify-between">
+            <header class="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-6 py-3.5 flex items-center justify-between">
                 <div class="flex items-center gap-3">
+                    <button type="button" onclick="toggleRestoSidebar()" class="lg:hidden w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center text-sm transition" title="Menu Sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
                     <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-terracotta-500 to-terracotta-700 flex items-center justify-center">
                         <i class="fas fa-chart-bar text-white text-xs"></i>
                     </div>
@@ -654,7 +665,22 @@
             t.style.transition = 'opacity 0.5s'; t.style.opacity = '0';
             setTimeout(() => t.remove(), 500);
         });
-    }, 3500);
+    function toggleRestoSidebar() {
+        const sidebar = document.getElementById('restoSidebar');
+        const overlay = document.getElementById('restoSidebarOverlay');
+        const isClosed = sidebar.classList.contains('-translate-x-full');
+        if (isClosed) {
+            sidebar.classList.remove('-translate-x-full');
+            sidebar.classList.add('translate-x-0');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            sidebar.classList.remove('translate-x-0');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+    }
     </script>
 </body>
 </html>

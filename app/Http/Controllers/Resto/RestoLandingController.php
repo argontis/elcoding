@@ -583,6 +583,199 @@ class RestoLandingController extends Controller
 
         return view('resto.status', compact('restaurant', 'order', 'timelineSteps', 'orderItems', 'telemetry'));
     }
+
+    /**
+     * Halaman Pusat Informasi Member & Poin Loyalty (Public Info Page)
+     * URL: http://127.0.0.1:8000/restaurant/member-poin
+     */
+    public function memberInfoPage(Request $request)
+    {
+        $restaurant = [
+            'name'         => 'L-Coding Bistro',
+            'tagline'      => 'Artisanal Cafe & Specialty Coffee',
+            'branch'       => 'Cabang Clean Jakarta Selatan',
+            'branch_full'  => 'Cabang Clean (Jakarta Selatan)',
+            'full_address' => 'Jl. Senopati / Tebet Barat Culinary Park No. 18, Tebet Barat, Jakarta Selatan, DKI Jakarta 12820',
+            'phone'        => '+62 811-9233-889',
+            'whatsapp'     => '628119233889',
+            'wifi' => [
+                'ssid'     => 'L-Coding_Guest',
+                'password' => 'sedapnikmat2024',
+            ],
+            'hours' => [
+                'weekday'    => 'Senin - Jumat: 09.00 - 22.30 WIB',
+                'weekend'    => 'Sabtu - Minggu: 08.00 - 23.00 WIB',
+                'last_order' => 'Dapur Terakhir (Last Order): 21.45 WIB',
+            ],
+            'active_table' => [
+                'number' => '#04',
+                'area'   => 'Semi-Outdoor',
+                'status' => 'OPEN • 14 Meja / #04',
+            ],
+            'cart' => [
+                'count' => 0,
+                'total' => 'Rp 0',
+            ],
+        ];
+
+        // Tingkatan Keanggotaan
+        $memberTiers = [
+            [
+                'id'          => 'silver',
+                'name'        => 'Silver Member',
+                'subtitle'    => 'Mulai dari Rp 0',
+                'icon'        => 'fa-medal',
+                'color_from'  => '#94a3b8',
+                'color_to'    => '#64748b',
+                'badge_bg'    => 'bg-slate-100',
+                'badge_text'  => 'text-slate-600',
+                'border'      => 'border-slate-200',
+                'benefits'    => [
+                    '1 Poin per transaksi Rp 10.000',
+                    'Welcome drink artisan tea',
+                    'Akses Wi-Fi High-Speed bistro',
+                ],
+                'status'      => 'Terlevel ✓',
+                'is_current'  => false,
+            ],
+            [
+                'id'          => 'gold',
+                'name'        => 'Gold Gourmet',
+                'subtitle'    => 'Total Belanja > Rp 1.500.000',
+                'icon'        => 'fa-crown',
+                'color_from'  => '#d97706',
+                'color_to'    => '#b45309',
+                'badge_bg'    => 'bg-amber-100',
+                'badge_text'  => 'text-amber-800',
+                'border'      => 'border-amber-300',
+                'benefits'    => [
+                    'Bonus Poin 1.5x Lipat',
+                    'Free Birthday Basque Cheesecake',
+                    'Prioritas Reservasi Meja VIP',
+                    'Diskon 10% Merchandise Biji Kopi',
+                ],
+                'status'      => 'Level Menengah',
+                'is_current'  => true,
+                'level_badge' => 'LEVEL ANDA',
+            ],
+            [
+                'id'          => 'platinum',
+                'name'        => 'Platinum Epicurean',
+                'subtitle'    => 'Total Belanja > Rp 3.000.000',
+                'icon'        => 'fa-gem',
+                'color_from'  => '#7c3aed',
+                'color_to'    => '#4f46e5',
+                'badge_bg'    => 'bg-purple-100',
+                'badge_text'  => 'text-purple-800',
+                'border'      => 'border-purple-200',
+                'benefits'    => [
+                    'Bonus Poin 2.0x Lipat Tiap Pesanan',
+                    'Undangan Eksklusif Chef Tasting Table',
+                    'Bebas Biaya Reservasi Private Room',
+                    'Personal Barista Cupping Session',
+                ],
+                'status'      => 'Kurang Rp 550.000 Lagi',
+                'is_current'  => false,
+                'locked'      => true,
+            ],
+        ];
+
+        // Reward Penukaran Poin (Contoh Kosong)
+        $rewardItems = [
+            [
+                'id'          => 1,
+                'title'       => 'Diskon Rp 50.000 All Menu',
+                'desc'        => 'Potongan langsung tanpa syarat minimal pembelian. Dapat digabung dengan promo harian.',
+                'poin'        => 500,
+                'badge'       => 'Voucher Potongan',
+                'badge_color' => 'bg-amber-100 text-amber-800',
+                'note'        => 'Masa simpan 30 hari pasca tukar',
+                'icon'        => '🎟️',
+                'category'    => 'diskon',
+            ],
+            [
+                'id'          => 2,
+                'title'       => 'Gratis 1x Artisanal Aren Latte',
+                'desc'        => 'Single-origin espresso Aceh Gayo dipadu sirup aren organik cair dan susu/orim lembut.',
+                'poin'        => 350,
+                'badge'       => 'Best Seller Kopi',
+                'badge_color' => 'bg-orange-100 text-orange-800',
+                'note'        => 'Bisa Ice atau Hot (Dine-In/Takeaway)',
+                'icon'        => '☕',
+                'category'    => 'minuman',
+            ],
+            [
+                'id'          => 3,
+                'title'       => 'Gratis Basque Burnt Cheesecake',
+                'desc'        => 'Karamelisasi burnt crusted autentik dengan keju mascarpone meleleh di bagian tengah.',
+                'poin'        => 450,
+                'badge'       => 'Chef Recommendation',
+                'badge_color' => 'bg-rose-100 text-rose-800',
+                'note'        => 'Fresh daily baked setiap pagi pukul 10.00',
+                'icon'        => '🍰',
+                'category'    => 'dessert',
+            ],
+            [
+                'id'          => 4,
+                'title'       => 'Upgrade Ukuran Minuman ke Large',
+                'desc'        => 'Upgrade minuman pilihan dari Regular ke Large size secara gratis untuk 1 transaksi.',
+                'poin'        => 150,
+                'badge'       => 'Upgrade Spesial',
+                'badge_color' => 'bg-cyan-100 text-cyan-800',
+                'note'        => 'Berlaku untuk semua minuman panas/dingin',
+                'icon'        => '🥤',
+                'category'    => 'minuman',
+            ],
+            [
+                'id'          => 5,
+                'title'       => 'Diskon 10% Merchandise Kopi',
+                'desc'        => 'Potongan harga 10% untuk pembelian biji kopi, tumbler, atau merchandise L-Coding.',
+                'poin'        => 200,
+                'badge'       => 'Merchandise',
+                'badge_color' => 'bg-emerald-100 text-emerald-800',
+                'note'        => 'Tidak berlaku untuk item diskon',
+                'icon'        => '🛍️',
+                'category'    => 'merchandise',
+            ],
+            [
+                'id'          => 6,
+                'title'       => 'Free Dessert Pilihan Chef',
+                'desc'        => 'Dessert pilihan harian dari chef — bisa berupa macaron, cookies artisanal, atau mini cake.',
+                'poin'        => 300,
+                'badge'       => 'Daily Special',
+                'badge_color' => 'bg-pink-100 text-pink-800',
+                'note'        => 'Stok terbatas per hari, subject to availability',
+                'icon'        => '🍩',
+                'category'    => 'dessert',
+            ],
+        ];
+
+        // FAQ Membership
+        $faqs = [
+            [
+                'q' => 'Bagaimana cara bergabung menjadi Member L-Coding Gourmet Club?',
+                'a' => 'Pendaftaran gratis cukup dengan meminta barista atau kasir untuk mendaftarkan nomor telepon Anda saat transaksi pertama. Kartu member digital langsung aktif dan poin mulai dikumpulkan sejak transaksi hari itu.',
+            ],
+            [
+                'q' => 'Bagaimana cara mendapatkan dan mengumpulkan Poin Loyalty?',
+                'a' => 'Setiap transaksi senilai Rp 10.000 menghasilkan 1 Poin Loyalty. Poin dihitung otomatis oleh sistem POS saat pembayaran dikonfirmasi, baik dine-in maupun takeaway. Member Gold mendapat bonus 1.5x, Platinum 2x lipat.',
+            ],
+            [
+                'q' => 'Berapa lama masa berlaku Poin Loyalty saya?',
+                'a' => 'Poin aktif berlaku selama 12 bulan sejak tanggal perolehan. Poin hasil penukaran reward memiliki masa aktif 30 hari. Poin tidak hangus selama ada transaksi minimal 1x dalam 6 bulan terakhir.',
+            ],
+            [
+                'q' => 'Apakah poin bisa ditransfer ke akun lain atau digabungkan?',
+                'a' => 'Poin bersifat personal dan terikat pada nomor telepon terdaftar. Tidak dapat dipindahkan, digabungkan, atau diuangkan. Penukaran harus dilakukan langsung oleh pemilik akun di lokasi cabang.',
+            ],
+            [
+                'q' => 'Bagaimana cara naik ke level Gold atau Platinum?',
+                'a' => 'Level naik otomatis saat akumulasi belanja mencapai batas tier. Gold: total belanja kumulatif ≥ Rp 1.500.000. Platinum: ≥ Rp 3.000.000. Perhitungan belanja dimulai dari tanggal pendaftaran member.',
+            ],
+        ];
+
+        return view('resto.member-poin', compact('restaurant', 'memberTiers', 'rewardItems', 'faqs'));
+    }
 }
 
 

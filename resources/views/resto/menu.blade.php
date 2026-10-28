@@ -104,7 +104,8 @@
                 <a href="{{ route('resto.status') }}" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition">
                     Status Pesanan (Live KDS)
                 </a>
-                <a href="#footer-section" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition">
+                <a href="{{ route('resto.member.info') }}" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition flex items-center gap-1">
+                    <i class="fa-solid fa-crown text-amber-500 text-[10px]"></i>
                     Member &amp; Poin
                 </a>
             </nav>
@@ -167,8 +168,8 @@
                     <i class="fa-solid fa-display w-4 text-center text-emerald-600"></i>
                     <span>Status Pesanan (Live KDS)</span>
                 </a>
-                <a href="#footer-section" onclick="closeRestoNav()" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-700 hover:bg-stone-50">
-                    <i class="fa-solid fa-crown w-4 text-center text-purple-600"></i>
+                <a href="{{ route('resto.member.info') }}" onclick="closeRestoNav()" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-700 hover:bg-stone-50">
+                    <i class="fa-solid fa-crown w-4 text-center text-amber-500"></i>
                     <span>Member &amp; Poin</span>
                 </a>
             </nav>

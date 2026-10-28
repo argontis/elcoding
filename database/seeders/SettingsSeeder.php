@@ -19,7 +19,7 @@ class SettingsSeeder extends Seeder
             ['key' => 'contact_email', 'value' => 'elcoding.id@gmail.com'],
 
             //Kantor Bekasi
-            ['key' => 'contact_address_bekasi', 'value' => 'Jl. Alternatif Cibubur Ruko Kranggan Blok Rt16/27, Jatisampurna, Kota Bekasi, Jawa Barat'],
+            ['key' => 'contact_address_bekasi', 'value' => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.'],
             ['key' => 'contact_phone_bekasi', 'value' => '+62 877-6233-4232'],
             ['key' => 'contact_email_bekasi', 'value' => 'elcoding.id@gmail.com'],
 

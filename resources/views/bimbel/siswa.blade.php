@@ -79,12 +79,15 @@
     <!-- Toast Notification Banner -->
     <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <div class="flex min-h-screen w-full">
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="bimbelSidebarOverlay" onclick="toggleBimbelSidebar()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+
+    <div class="flex min-h-screen w-full relative">
         
         <!-- ============================================================== -->
-        <!-- SIDEBAR NAVIGATION                                            -->
+        <!-- SIDEBAR NAVIGATION (RESPONSIVE OFF-CANVAS)                     -->
         <!-- ============================================================== -->
-        <aside class="w-64 bg-white border-r border-slate-200/80 flex flex-col shrink-0 min-h-screen select-none">
+        <aside id="bimbelSidebar" class="w-64 bg-white border-r border-slate-200/80 flex flex-col shrink-0 select-none z-50 fixed inset-y-0 left-0 -translate-x-full lg:translate-x-0 lg:static transition-transform duration-300 min-h-screen shadow-2xl lg:shadow-none">
             
             <!-- Brand Logo Header -->
             <div class="p-5 border-b border-slate-100 flex items-center justify-between">
@@ -99,6 +102,9 @@
                         <div class="text-[10px] font-extrabold tracking-widest text-indigo-600 uppercase mt-0.5">ACADEMY SAAS</div>
                     </div>
                 </a>
+                <button type="button" onclick="toggleBimbelSidebar()" class="lg:hidden w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-sm transition" title="Tutup Menu">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
 
             <!-- Branch Selector Dropdown -->
@@ -217,12 +223,18 @@
         <div class="flex-1 flex flex-col min-w-0">
 
             <!-- Top Header Bar -->
-            <header class="bg-white border-b border-slate-200/80 px-6 py-3 flex items-center justify-between sticky top-0 z-30">
-                <!-- Search bar -->
-                <div class="relative w-80">
-                    <i class="fas fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                    <input type="text" id="topSearchInput" placeholder="Cari siswa, kelas, guru dll" class="w-full pl-9 pr-14 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:border-indigo-500 focus:bg-white transition-all placeholder-slate-400">
-                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded text-[10px] font-semibold text-slate-400 bg-slate-200/60 border border-slate-300/40">Ctrl K</span>
+            <header class="bg-white border-b border-slate-200/80 px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-30">
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <!-- Mobile Hamburger -->
+                    <button type="button" onclick="toggleBimbelSidebar()" class="lg:hidden w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 flex items-center justify-center text-sm shrink-0 transition" title="Buka Menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <!-- Search bar -->
+                    <div class="relative w-48 sm:w-80">
+                        <i class="fas fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="topSearchInput" placeholder="Cari siswa, kelas, guru dll" class="w-full pl-9 pr-4 sm:pr-14 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:outline-none focus:border-indigo-500 focus:bg-white transition-all placeholder-slate-400">
+                        <span class="hidden sm:inline absolute right-2.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded text-[10px] font-semibold text-slate-400 bg-slate-200/60 border border-slate-300/40">Ctrl K</span>
+                    </div>
                 </div>
 
                 <!-- Right topbar utilities -->
@@ -1013,6 +1025,24 @@
         function resetSemuaData() {
             if (confirm('Yakin ingin mereset seluruh data kembali ke kosong?')) {
                 window.location.href = "{{ route('bimbel.reset') }}";
+            }
+        }
+
+        // Toggle Mobile Sidebar
+        function toggleBimbelSidebar() {
+            const sidebar = document.getElementById('bimbelSidebar');
+            const overlay = document.getElementById('bimbelSidebarOverlay');
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
             }
         }
 

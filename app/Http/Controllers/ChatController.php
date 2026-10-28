@@ -41,7 +41,7 @@ PROJECT INFORMATION (USE THIS TO ANSWER QUESTIONS):
 - Instagram: elcoding.id
 - WhatsApp: 0814 7665 2656 atau 0877 6233 4232
 - Main Office / Training Center: CitraLand Tegal blok Belleza Plaza Lt.2, Kraton, Kota Tegal, Jawa Tengah.
-- Branch Office: Jl. Alternatif Cibubur Ruko Kranggan Blok Rt16/27, Jatisampurna, Kota Bekasi, Jawa Barat.
+- Branch Office: Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431. (Azzahra Computer – ASUS Authorized Service Center Cabang Cibubur)
 - Bootcamp price starts at Rp 1.500.000.
 
 ALLOWED TOPICS (ONLY THESE):

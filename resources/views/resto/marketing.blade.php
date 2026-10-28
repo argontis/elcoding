@@ -68,23 +68,31 @@
         @endif
     </div>
 
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="restoSidebarOverlay" onclick="toggleRestoSidebar()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+
     <!-- MAIN APP WRAPPER -->
-    <div class="flex h-screen overflow-hidden w-full">
+    <div class="flex h-screen overflow-hidden w-full relative">
 
         <!-- ============================================================== -->
         <!-- 1. LEFT SIDEBAR                                                -->
         <!-- ============================================================== -->
-        <aside class="w-64 bg-white border-r border-slate-200/80 flex flex-col shrink-0 select-none z-30">
+        <aside id="restoSidebar" class="w-64 bg-white border-r border-slate-200/80 flex flex-col shrink-0 select-none z-50 fixed inset-y-0 left-0 -translate-x-full lg:translate-x-0 lg:static transition-transform duration-300 shadow-2xl lg:shadow-none">
             
             <!-- Logo Header -->
-            <div class="p-5 border-b border-slate-100 flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#a33315] to-[#c2410c] text-white flex items-center justify-center text-lg font-black shadow-md shadow-orange-950/20">
-                    <i class="fas fa-utensils"></i>
+            <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#a33315] to-[#c2410c] text-white flex items-center justify-center text-lg font-black shadow-md shadow-orange-950/20">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div>
+                        <div class="font-heading font-black text-xl tracking-tight text-slate-900 leading-none">RestoHub</div>
+                        <div class="text-[9px] font-extrabold tracking-widest text-[#a33315] uppercase mt-0.5">CULINARY OPERATIONS</div>
+                    </div>
                 </div>
-                <div>
-                    <div class="font-heading font-black text-xl tracking-tight text-slate-900 leading-none">RestoHub</div>
-                    <div class="text-[9px] font-extrabold tracking-widest text-[#a33315] uppercase mt-0.5">CULINARY OPERATIONS</div>
-                </div>
+                <button type="button" onclick="toggleRestoSidebar()" class="lg:hidden w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-sm transition" title="Tutup Menu">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
 
             <!-- Shift Status Card -->
@@ -165,9 +173,12 @@
         <div class="flex-1 flex flex-col overflow-hidden bg-[#f8fafc]">
 
             <!-- TOP NAVBAR -->
-            <header class="bg-white border-b border-slate-200/80 px-6 py-3 flex items-center justify-between shrink-0 z-20">
-                <div class="flex items-center gap-4">
-                    <div class="flex items-center gap-2 text-xs">
+            <header class="bg-white border-b border-slate-200/80 px-4 sm:px-6 py-3 flex items-center justify-between shrink-0 z-20">
+                <div class="flex items-center gap-3">
+                    <button type="button" onclick="toggleRestoSidebar()" class="lg:hidden w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center text-sm transition" title="Menu Sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="hidden sm:flex items-center gap-2 text-xs">
                         <i class="fas fa-store text-[#a33315] text-xs"></i>
                         <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Cabang Aktif</span>
                     </div>
@@ -176,7 +187,7 @@
                         <span>{{ $currentBranch }}</span>
                         <i class="fas fa-chevron-down text-slate-400 text-[10px]"></i>
                     </div>
-                    <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-700">
+                    <div class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-700">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-subtle"></span>
                         Live Sync Kitchen &amp; POS
                     </div>
@@ -975,6 +986,22 @@
                 t.style.transform = 'translateX(20px)';
                 setTimeout(() => t.remove(), 300);
             }, 3500);
+        }
+        function toggleRestoSidebar() {
+            const sidebar = document.getElementById('restoSidebar');
+            const overlay = document.getElementById('restoSidebarOverlay');
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
         }
     </script>
 </body>

@@ -56,6 +56,22 @@
                 <i class="fas fa-cog w-6 text-center text-[15px]"></i> <span class="text-[14px] sidebar-text">Pengaturan Situs</span>
             </a>
             
+            <p class="px-6 text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-3 mt-6 sidebar-header">SaaS Vertikal</p>
+
+            <a href="{{ route('prosal.dashboard') }}" target="_blank" class="sidebar-item flex items-center justify-between font-medium">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-city w-6 text-center text-[15px] text-emerald-400"></i> <span class="text-[14px] sidebar-text">L-Prosal Properti</span>
+                </div>
+                <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full sidebar-text">SaaS</span>
+            </a>
+
+            <a href="{{ route('travel.dashboard') }}" target="_blank" class="sidebar-item flex items-center justify-between font-medium">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-plane-departure w-6 text-center text-[15px] text-sky-400"></i> <span class="text-[14px] sidebar-text">L-Travel Tour</span>
+                </div>
+                <span class="bg-sky-500/20 text-sky-400 text-[10px] font-bold px-2 py-0.5 rounded-full sidebar-text">Baru</span>
+            </a>
+
             <p class="px-6 text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-3 mt-6 sidebar-header">Operasional</p>
 
             @php

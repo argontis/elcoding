@@ -42,6 +42,12 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($user && ($user->isCrmLead() || strtolower(trim($user->role ?? '')) === 'crmlead')) {
                 return '/crm/dashboard';
             }
+            if ($user && ($user->isProsal() || strtolower(trim($user->role ?? '')) === 'prosal' || strtolower(trim($user->username ?? '')) === 'prosal')) {
+                return '/prosal/dashboard';
+            }
+            if ($user && ($user->isTravel() || strtolower(trim($user->role ?? '')) === 'travel' || strtolower(trim($user->username ?? '')) === 'travel')) {
+                return '/travel/dashboard';
+            }
             if ($user && $user->isPklStudent()) {
                 $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
                 $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
@@ -61,6 +67,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'klinik'     => \App\Http\Middleware\EnsureUserIsKlinik::class,
             'crm'        => \App\Http\Middleware\EnsureUserIsCrmLead::class,
             'crmlead'    => \App\Http\Middleware\EnsureUserIsCrmLead::class,
+            'prosal'     => \App\Http\Middleware\EnsureUserIsProsal::class,
+            'travel'     => \App\Http\Middleware\EnsureUserIsTravel::class,
             'pkl.access' => \App\Http\Middleware\CheckPklAccess::class,
         ]);
 

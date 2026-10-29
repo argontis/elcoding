@@ -228,3 +228,40 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 
+// ==========================================
+// DASHBOARD L-PROSAL (SaaS Manajemen Properti & Real Estate)
+// Akses Ganda: Bisa dengan Akun Langganan (Auth) maupun Tanpa Login (Demo Pratinjau)
+// ==========================================
+Route::prefix('prosal')->name('prosal.')->middleware('prosal')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Prosal\ProsalDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/unit', [\App\Http\Controllers\Prosal\ProsalDashboardController::class, 'unit'])->name('unit');
+    Route::post('/unit', [\App\Http\Controllers\Prosal\ProsalDashboardController::class, 'storeUnit'])->name('unit.store');
+    Route::get('/penyewa', [\App\Http\Controllers\Prosal\ProsalDashboardController::class, 'penyewa'])->name('penyewa');
+    Route::post('/penyewa', [\App\Http\Controllers\Prosal\ProsalDashboardController::class, 'storePenyewa'])->name('penyewa.store');
+    Route::get('/keuangan', [\App\Http\Controllers\Prosal\ProsalDashboardController::class, 'keuangan'])->name('keuangan');
+    Route::get('/maintenance', [\App\Http\Controllers\Prosal\ProsalDashboardController::class, 'maintenance'])->name('maintenance');
+    Route::post('/maintenance', [\App\Http\Controllers\Prosal\ProsalDashboardController::class, 'storeMaintenance'])->name('maintenance.store');
+    Route::get('/reset', [\App\Http\Controllers\Prosal\ProsalDashboardController::class, 'resetData'])->name('reset');
+});
+
+Route::get('/Prosal/dashboard', function () { return redirect()->route('prosal.dashboard'); });
+
+// ==========================================
+// DASHBOARD L-TRAVEL (SaaS Manajemen Tour, Travel & Umroh)
+// Akses Ganda: Bisa dengan Akun Langganan (Auth) maupun Tanpa Login (Demo Pratinjau)
+// ==========================================
+Route::prefix('travel')->name('travel.')->middleware('travel')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Travel\TravelDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/paket', [\App\Http\Controllers\Travel\TravelDashboardController::class, 'paket'])->name('paket');
+    Route::post('/paket', [\App\Http\Controllers\Travel\TravelDashboardController::class, 'storePaket'])->name('paket.store');
+    Route::get('/jamaah', [\App\Http\Controllers\Travel\TravelDashboardController::class, 'jamaah'])->name('jamaah');
+    Route::post('/jamaah', [\App\Http\Controllers\Travel\TravelDashboardController::class, 'storeJamaah'])->name('jamaah.store');
+    Route::get('/keuangan', [\App\Http\Controllers\Travel\TravelDashboardController::class, 'keuangan'])->name('keuangan');
+    Route::get('/armada', [\App\Http\Controllers\Travel\TravelDashboardController::class, 'armada'])->name('armada');
+    Route::post('/armada', [\App\Http\Controllers\Travel\TravelDashboardController::class, 'storeArmada'])->name('armada.store');
+    Route::get('/reset', [\App\Http\Controllers\Travel\TravelDashboardController::class, 'resetData'])->name('reset');
+});
+
+Route::get('/Travel/dashboard', function () { return redirect()->route('travel.dashboard'); });
+
+

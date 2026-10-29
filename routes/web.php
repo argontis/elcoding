@@ -133,6 +133,22 @@ Route::get('/bimbel/rincian-biaya', function () { return redirect()->route('bimb
 Route::post('/bimbel/daftar', [\App\Http\Controllers\Bimbel\BimbelLandingController::class, 'daftar'])->name('bimbel.daftar');
 
 // ==========================================
+// ROUTE L-PROSAL (SAAS PROPERTI - LANDING & INFORMASI PUBLIK)
+// ==========================================
+Route::get('/Prosal', [\App\Http\Controllers\Prosal\ProsalLandingController::class, 'index'])->name('prosal.landing');
+Route::get('/prosal', function () { return redirect()->route('prosal.landing'); });
+Route::get('/L-Prosal', function () { return redirect()->route('prosal.landing'); });
+Route::get('/l-prosal', function () { return redirect()->route('prosal.landing'); });
+
+// ==========================================
+// ROUTE L-TRAVEL (SAAS TOUR & TRAVEL - LANDING & INFORMASI PUBLIK)
+// ==========================================
+Route::get('/Travel', [\App\Http\Controllers\Travel\TravelLandingController::class, 'index'])->name('travel.landing');
+Route::get('/travel', function () { return redirect()->route('travel.landing'); });
+Route::get('/L-Travel', function () { return redirect()->route('travel.landing'); });
+Route::get('/l-travel', function () { return redirect()->route('travel.landing'); });
+
+// ==========================================
 // ROUTE SERVICE CENTER (LANDING & INFORMASI PUBLIK)
 // ==========================================
 Route::get('/ServiceCenter', [\App\Http\Controllers\Techfix\ServiceCenterLandingController::class, 'index'])->name('servicecenter.landing');

@@ -191,4 +191,34 @@ class User extends Authenticatable
     {
         return $this->isCrmLead() || $this->isAdminOrMentor();
     }
+
+    public function isProsal()
+    {
+        $role = strtolower(trim($this->role ?? ''));
+        $username = strtolower(trim($this->username ?? ''));
+        return in_array($role, ['prosal', 'property', 'properti', 'lprosal'])
+            || in_array($username, ['prosal', 'lprosal', 'l-prosal'])
+            || $this->email === 'prosal@elcoding.com'
+            || $this->email === 'prosal@elcoding.id';
+    }
+
+    public function isProsalOrAdmin()
+    {
+        return $this->isProsal() || $this->isAdminOrMentor();
+    }
+
+    public function isTravel()
+    {
+        $role = strtolower(trim($this->role ?? ''));
+        $username = strtolower(trim($this->username ?? ''));
+        return in_array($role, ['travel', 'tour', 'ltravel', 'wisata', 'umroh'])
+            || in_array($username, ['travel', 'ltravel', 'l-travel'])
+            || $this->email === 'travel@elcoding.com'
+            || $this->email === 'travel@elcoding.id';
+    }
+
+    public function isTravelOrAdmin()
+    {
+        return $this->isTravel() || $this->isAdminOrMentor();
+    }
 }

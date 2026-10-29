@@ -121,6 +121,22 @@ class AuthenticatedSessionController extends Controller
                     return Inertia::location($intended);
                 }
 
+                if ($user->isProsal() || strtolower(trim($user->role ?? '')) === 'prosal' || strtolower(trim($user->username ?? '')) === 'prosal') {
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('prosal.dashboard');
+                    }
+                    return Inertia::location($intended);
+                }
+
+                if ($user->isTravel() || strtolower(trim($user->role ?? '')) === 'travel' || strtolower(trim($user->username ?? '')) === 'travel') {
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('travel.dashboard');
+                    }
+                    return Inertia::location($intended);
+                }
+
                 if ($user->isAdminOrMentor()) {
                     $intended = $request->session()->pull('url.intended');
                     if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
@@ -242,6 +258,22 @@ class AuthenticatedSessionController extends Controller
             $intended = $request->session()->pull('url.intended');
             if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
                 $intended = route('crm.dashboard');
+            }
+            return Inertia::location($intended);
+        }
+
+        if ($user->isProsal() || strtolower(trim($user->role ?? '')) === 'prosal' || strtolower(trim($user->username ?? '')) === 'prosal') {
+            $intended = $request->session()->pull('url.intended');
+            if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                $intended = route('prosal.dashboard');
+            }
+            return Inertia::location($intended);
+        }
+
+        if ($user->isTravel() || strtolower(trim($user->role ?? '')) === 'travel' || strtolower(trim($user->username ?? '')) === 'travel') {
+            $intended = $request->session()->pull('url.intended');
+            if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                $intended = route('travel.dashboard');
             }
             return Inertia::location($intended);
         }

@@ -39,6 +39,8 @@ class DatabaseSeeder extends Seeder
             BengkelUserSeeder::class,
             RestoUserSeeder::class,
             CrmLeadUserSeeder::class,
+            ProsalUserSeeder::class,
+            TravelUserSeeder::class,
         ]);
     }
 }

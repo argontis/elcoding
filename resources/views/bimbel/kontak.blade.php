@@ -86,8 +86,8 @@
             </div>
         </a>
 
-        <!-- Desktop Nav Links -->
-        <nav class="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-5 text-xs xl:text-[13px] font-semibold text-slate-600 whitespace-nowrap">
+        <!-- Desktop Nav Links (Selalu Kesamping / No-Wrap) -->
+        <nav class="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-5 text-xs xl:text-[13px] font-semibold text-slate-600 whitespace-nowrap shrink-0">
             <a href="{{ route('bimbel.landing') }}" class="px-2 py-1 hover:text-blue-600 transition whitespace-nowrap">Beranda</a>
             <a href="{{ route('bimbel.program.page') }}" class="px-2 py-1 hover:text-blue-600 transition whitespace-nowrap">Program &amp; Biaya</a>
             <a href="{{ route('bimbel.pendaftaran') }}" class="px-2 py-1 hover:text-blue-600 transition whitespace-nowrap">Pendaftaran Baru</a>
@@ -162,13 +162,13 @@
         </a>
     </nav>
     <div class="px-5 py-4 border-t border-slate-100 bg-slate-50 text-xs text-slate-500">
-        <p class="font-bold text-slate-700">Apex Edu Hotline</p>
+        <p class="font-bold text-slate-700">EduPulse Academy Hotline</p>
         <p>{{ $institution['hotline'] ?? '(021) 8370-1920' }}</p>
     </div>
 </div>
 
 {{-- ===================================================================
-     3. HERO SECTION — HUBUNGI APEX EDU CABANG TEBET (Sesuai Foto Persis)
+     3. HERO SECTION — HUBUNGI EduPulse Academy CABANG TEBET (Sesuai Foto Persis)
      =================================================================== --}}
 <section class="py-10 px-4 sm:px-8 bg-gradient-to-b from-blue-50/60 via-white to-slate-50 border-b border-slate-200/60">
     <div class="max-w-6xl mx-auto space-y-4">
@@ -629,7 +629,7 @@
         </div>
 
         {{-- ===================================================================
-             8. JARINGAN CABANG APEX EDU DI JABODETABEK (Sesuai Foto Persis)
+             8. JARINGAN CABANG EduPulse Academy DI JABODETABEK (Sesuai Foto Persis)
              =================================================================== --}}
         <div class="bg-slate-50 rounded-3xl border border-slate-200 p-6 sm:p-7 space-y-4">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -842,7 +842,7 @@
 
     <!-- Bottom Copyright -->
     <div class="max-w-7xl mx-auto pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-400 text-[11px]">
-        <p>&copy; {{ date('Y') }} Bimbel Apex Edu Cabang Jakarta Selatan. Seluruh Hak Cipta Dilindungi Undang-Undang.</p>
+        <p>&copy; {{ date('Y') }} Bimbel EduPulse Academy Cabang Jakarta Selatan. Seluruh Hak Cipta Dilindungi Undang-Undang.</p>
         <div class="flex items-center gap-4">
             <a href="#" class="hover:text-slate-600">Syarat &amp; Ketentuan</a>
             <span>&bull;</span>
@@ -899,7 +899,7 @@
         const slot = document.getElementById('k-slot').value;
         const catatan = document.getElementById('k-catatan').value;
 
-        const pesan = `Halo Front Office Apex Edu Tebet, saya ingin konfirmasi jadwal kunjungan tatap muka:
+        const pesan = `Halo Front Office EduPulse Academy Tebet, saya ingin konfirmasi jadwal kunjungan tatap muka:
 - Nama: ${nama}
 - WhatsApp: ${wa}
 - Asal Sekolah: ${sekolah}

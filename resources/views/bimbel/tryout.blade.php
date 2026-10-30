@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pusat Pengecekan Hasil Tryout &amp; Asesmen Terbuka — {{ $institution['name'] ?? 'Apex Edu' }}</title>
-    <meta name="description" content="Cek skor tryout, analisis kelemahan materi (IRT Score), dan ranking nasional Apex Edu Cabang Tebet.">
+    <title>Pusat Pengecekan Hasil Tryout &amp; Asesmen Terbuka — {{ $institution['name'] ?? 'EduPulse Academy' }}</title>
+    <meta name="description" content="Cek skor tryout, analisis kelemahan materi (IRT Score), dan ranking nasional EduPulse Academy Cabang Tebet.">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,15 +79,15 @@
             </div>
             <div>
                 <div class="flex items-center gap-1.5">
-                    <span class="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-blue-700">Apex Edu</span>
+                    <span class="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-blue-700">EduPulse Academy</span>
                     <span class="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full border border-blue-200 whitespace-nowrap">Cabang Tebet Clean</span>
                 </div>
                 <p class="text-[9px] text-slate-400 font-mono -mt-0.5">localhost:8000/clean</p>
             </div>
         </a>
 
-        <!-- Desktop Nav Links -->
-        <nav class="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-5 text-xs xl:text-[13px] font-semibold text-slate-600 whitespace-nowrap">
+        <!-- Desktop Nav Links (Selalu Kesamping / No-Wrap) -->
+        <nav class="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-5 text-xs xl:text-[13px] font-semibold text-slate-600 whitespace-nowrap shrink-0">
             <a href="{{ route('bimbel.landing') }}" class="px-2 py-1 hover:text-blue-600 transition whitespace-nowrap">Beranda</a>
             <a href="{{ route('bimbel.program.page') }}" class="px-2 py-1 hover:text-blue-600 transition whitespace-nowrap">Program &amp; Biaya</a>
             <a href="{{ route('bimbel.pendaftaran') }}" class="px-2 py-1 hover:text-blue-600 transition whitespace-nowrap">Pendaftaran Baru</a>
@@ -128,7 +128,7 @@
         <div class="flex items-center gap-2.5">
             <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center"><i class="fa-solid fa-graduation-cap text-sm"></i></div>
             <div>
-                <div class="font-heading font-extrabold text-base text-blue-700 leading-none">Apex Edu</div>
+                <div class="font-heading font-extrabold text-base text-blue-700 leading-none">EduPulse Academy</div>
                 <div class="text-[10px] text-slate-400">Cabang Tebet Clean</div>
             </div>
         </div>
@@ -162,7 +162,7 @@
         </a>
     </nav>
     <div class="px-5 py-4 border-t border-slate-100 bg-slate-50 text-xs text-slate-500">
-        <p class="font-bold text-slate-700">Apex Edu Hotline</p>
+        <p class="font-bold text-slate-700">EduPulse Academy Hotline</p>
         <p>{{ $institution['hotline'] ?? '(021) 8370-1920' }}</p>
     </div>
 </div>
@@ -532,7 +532,7 @@
                             <span>Ganti Simulasi Jurusan?</span>
                         </div>
                         <p class="text-slate-600 text-[11px] leading-relaxed">
-                            Ingin cek jurusan ITB, UGM, atau UNAIR? Konsultasikan rasionalisasi jurusan lengkap bersama Master Tutor Apex Edu Tebet.
+                            Ingin cek jurusan ITB, UGM, atau UNAIR? Konsultasikan rasionalisasi jurusan lengkap bersama Master Tutor EduPulse Academy Tebet.
                         </p>
                         <a href="https://wa.me/{{ $institution['whatsapp'] ?? '6281299003420' }}?text=Halo+Apex+Edu%2C+saya+ingin+konsultasi+rasionalisasi+jurusan+SNBT."
                            target="_blank"
@@ -598,12 +598,12 @@
         </div>
 
         {{-- ===================================================================
-             7. SINKRONISASI BASIS DATA AKADEMIK APEX EDU (Sesuai Foto Persis)
+             7. SINKRONISASI BASIS DATA AKADEMIK EduPulse Academy (Sesuai Foto Persis)
              =================================================================== --}}
         <div class="bg-blue-50/50 rounded-2xl border border-blue-100 p-4 flex items-start gap-3 text-xs text-slate-500">
             <i class="fa-solid fa-database text-blue-600 text-sm mt-0.5 shrink-0"></i>
             <div class="leading-relaxed text-[11px]">
-                <strong class="text-slate-800">Sinkronisasi Basis Data Akademik Apex Edu:</strong> Data nilai ini bersumber langsung dari modul Akademik &amp; Tryout CBT di Dashboard Admin Bimbel. Hasil tryout bersifat terbuka untuk monitoring progres siswa dan orang tua. Pembaruan peringkat nasional dilakukan otomatis setiap 60 menit saat sesi ujian regional selesai.
+                <strong class="text-slate-800">Sinkronisasi Basis Data Akademik EduPulse Academy:</strong> Data nilai ini bersumber langsung dari modul Akademik &amp; Tryout CBT di Dashboard Admin Bimbel. Hasil tryout bersifat terbuka untuk monitoring progres siswa dan orang tua. Pembaruan peringkat nasional dilakukan otomatis setiap 60 menit saat sesi ujian regional selesai.
             </div>
         </div>
 
@@ -622,7 +622,7 @@
                 <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold">
                     <i class="fa-solid fa-graduation-cap text-sm"></i>
                 </div>
-                <span class="font-heading font-extrabold text-lg text-slate-900">Apex Edu</span>
+                <span class="font-heading font-extrabold text-lg text-slate-900">EduPulse Academy</span>
             </div>
             <p class="text-xs text-slate-500 leading-relaxed">
                 Lembaga bimbingan belajar intensif berfokus pada kelulusan PTN Impian (UTBK-SNBT, SIMAK UI, UTUL UGM) &amp; Peringkat Paralel Sekolah dengan kurikulum Adaptif-Presisi.
@@ -684,7 +684,7 @@
 
     <!-- Bottom Copyright -->
     <div class="max-w-7xl mx-auto pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-400 text-[11px]">
-        <p>&copy; {{ date('Y') }} Bimbel Apex Edu Cabang Jakarta Selatan. Seluruh Hak Cipta Dilindungi Undang-Undang.</p>
+        <p>&copy; {{ date('Y') }} Bimbel EduPulse Academy Cabang Jakarta Selatan. Seluruh Hak Cipta Dilindungi Undang-Undang.</p>
         <div class="flex items-center gap-4">
             <a href="#" class="hover:text-slate-600">Syarat &amp; Ketentuan</a>
             <span>&bull;</span>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pusat Informasi Member &amp; Poin Loyalty — {{ $restaurant['name'] }}</title>
-    <meta name="description" content="Pusat informasi resmi program keanggotaan, poin loyalty, tingkatan member, dan panduan penukaran reward di L-Coding Bistro Cabang Clean.">
+    <meta name="description" content="Pusat informasi resmi program keanggotaan, poin loyalty, tingkatan member, dan panduan penukaran reward di RestoHub Bistro Cabang Clean.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -84,7 +84,7 @@
                         <i class="fa-solid fa-utensils text-sm"></i>
                     </div>
                     <div>
-                        <div class="font-heading font-extrabold text-base text-slate-900 leading-none">L-Coding Bistro</div>
+                        <div class="font-heading font-extrabold text-base text-slate-900 leading-none">RestoHub Bistro</div>
                         <div class="flex items-center gap-1.5 mt-1">
                             <span class="inline-flex items-center gap-1 text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -101,13 +101,13 @@
                 </div>
             </div>
 
-            {{-- Desktop Nav --}}
-            <nav class="hidden lg:flex items-center gap-1.5 text-xs xl:text-sm font-semibold text-slate-600">
-                <a href="{{ url('/restaurant') }}" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition">Beranda</a>
-                <a href="{{ route('resto.menu') }}" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition">Menu Digital &amp; Order</a>
-                <a href="{{ route('resto.reservasi') }}" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition">Reservasi Meja</a>
-                <a href="{{ route('resto.status') }}" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition">Status Pesanan (Live KDS)</a>
-                <a href="{{ route('resto.member.info') }}" class="bg-[#b84221] text-white px-4 py-2 rounded-xl font-bold shadow-xs flex items-center gap-1.5">
+            {{-- Desktop Nav (Selalu Kesamping / No-Wrap) --}}
+            <nav class="hidden lg:flex items-center gap-1 xl:gap-2 text-xs xl:text-sm font-semibold text-slate-600 whitespace-nowrap shrink-0">
+                <a href="{{ url('/restaurant') }}" class="hover:text-[#b84221] px-2.5 xl:px-3 py-2 rounded-xl hover:bg-stone-50 transition whitespace-nowrap">Beranda</a>
+                <a href="{{ route('resto.menu') }}" class="hover:text-[#b84221] px-2.5 xl:px-3 py-2 rounded-xl hover:bg-stone-50 transition whitespace-nowrap">Menu Digital &amp; Order</a>
+                <a href="{{ route('resto.reservasi') }}" class="hover:text-[#b84221] px-2.5 xl:px-3 py-2 rounded-xl hover:bg-stone-50 transition whitespace-nowrap">Reservasi Meja</a>
+                <a href="{{ route('resto.status') }}" class="hover:text-[#b84221] px-2.5 xl:px-3 py-2 rounded-xl hover:bg-stone-50 transition whitespace-nowrap">Status Pesanan (Live KDS)</a>
+                <a href="{{ route('resto.member.info') }}" class="bg-[#b84221] text-white px-3.5 xl:px-4 py-2 rounded-xl font-bold shadow-xs flex items-center gap-1.5 whitespace-nowrap">
                     <i class="fa-solid fa-crown text-amber-300 text-xs"></i>
                     Member &amp; Poin
                 </a>
@@ -115,11 +115,11 @@
 
             {{-- Right action --}}
             <div class="flex items-center gap-2">
-                <button type="button" onclick="alert('Hubungi kasir atau barista untuk mendaftarkan nomor Anda sebagai member L-Coding Gourmet Club. Gratis!')"
+                <button type="button" onclick="alert('Hubungi kasir atau barista untuk mendaftarkan nomor Anda sebagai member RestoHub Gourmet Club. Gratis!')"
                         class="bg-[#b84221] hover:bg-[#a33315] text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-xs transition flex items-center gap-2">
                     <i class="fa-solid fa-crown text-amber-300"></i>
                     <div class="text-left leading-tight hidden sm:block">
-                        <div class="text-[10px] font-medium text-amber-100">L-Coding Club</div>
+                        <div class="text-[10px] font-medium text-amber-100">RestoHub Club</div>
                         <div class="text-xs font-black">Daftar Gratis</div>
                     </div>
                 </button>
@@ -139,7 +139,7 @@
             <div class="flex items-center justify-between px-5 py-4 border-b border-stone-100">
                 <div class="flex items-center gap-2">
                     <div class="w-8 h-8 rounded-lg bg-[#b84221] text-white flex items-center justify-center"><i class="fa-solid fa-utensils text-sm"></i></div>
-                    <span class="font-heading font-extrabold text-base text-slate-900">L-Coding Bistro</span>
+                    <span class="font-heading font-extrabold text-base text-slate-900">RestoHub Bistro</span>
                 </div>
                 <button onclick="closeRestoNav()" class="w-8 h-8 rounded-lg bg-stone-100 text-slate-600 flex items-center justify-center"><i class="fa-solid fa-times text-sm"></i></button>
             </div>
@@ -169,12 +169,12 @@
             <div class="space-y-1">
                 <div class="flex items-center gap-2 flex-wrap">
                     <span class="font-heading font-extrabold text-sm sm:text-base text-slate-900 tracking-tight">
-                        Pusat Informasi Resmi Program Member &amp; Poin Loyalty L-Coding Gourmet Club
+                        Pusat Informasi Resmi Program Member &amp; Poin Loyalty RestoHub Gourmet Club
                     </span>
                     <span class="text-[9px] font-extrabold bg-amber-200/80 text-amber-900 px-2 py-0.5 rounded-full border border-amber-300">Informasi Publik Bersih</span>
                 </div>
                 <p class="text-xs text-slate-600 leading-relaxed">
-                    Halaman ini berfungsi sebagai <strong>Pusat Informasi Terbuka</strong> program keanggotaan, mekanisme pengumpulan poin loyalty, tingkatan member, katalog penukaran reward, dan FAQ resmi di <strong>L-Coding Bistro Cabang Clean</strong>. Data poin pribadi Anda hanya bisa dilihat saat login atau melalui kasir.
+                    Halaman ini berfungsi sebagai <strong>Pusat Informasi Terbuka</strong> program keanggotaan, mekanisme pengumpulan poin loyalty, tingkatan member, katalog penukaran reward, dan FAQ resmi di <strong>RestoHub Bistro Cabang Clean</strong>. Data poin pribadi Anda hanya bisa dilihat saat login atau melalui kasir.
                 </p>
             </div>
         </div>
@@ -187,7 +187,7 @@
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-5">
             <div class="space-y-1.5 max-w-2xl">
                 <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-100/70 border border-amber-200 rounded-full text-[11px] font-extrabold text-[#b84221] tracking-wider uppercase">
-                    <i class="fa-solid fa-crown text-amber-500"></i> L-CODING GOURMET CLUB &bull; 3 TINGKATAN MEMBER
+                    <i class="fa-solid fa-crown text-amber-500"></i> RestoHub Gourmet Club &bull; 3 TINGKATAN MEMBER
                 </div>
                 <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 font-heading tracking-tight">
                     Program Member &amp; Poin Loyalty
@@ -244,7 +244,7 @@
                     </div>
                     {{-- CTA --}}
                     <div class="shrink-0">
-                        <button onclick="alert('Hubungi kasir atau barista untuk mendaftarkan nomor Anda sebagai member L-Coding Gourmet Club. Gratis!')"
+                        <button onclick="alert('Hubungi kasir atau barista untuk mendaftarkan nomor Anda sebagai member RestoHub Gourmet Club. Gratis!')"
                                 class="bg-amber-400 hover:bg-amber-300 text-amber-950 px-5 py-2.5 rounded-xl text-xs font-black shadow-lg transition flex items-center gap-2">
                             <i class="fa-solid fa-crown"></i> Daftar Member Gratis
                         </button>
@@ -357,7 +357,7 @@
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
             <div>
                 <div class="text-[10px] font-extrabold text-[#b84221] uppercase tracking-widest mb-1">PRIVILESE KEANGGOTAAN</div>
-                <h2 class="text-xl sm:text-2xl font-black text-slate-900 font-heading">Tingkatan Level L-Coding Gourmet Club</h2>
+                <h2 class="text-xl sm:text-2xl font-black text-slate-900 font-heading">Tingkatan Level RestoHub Gourmet Club</h2>
             </div>
             <p class="text-xs text-slate-500 max-w-xs">Kumpulkan poin di setiap cangkir kopi dan hidangan santap hangat untuk membuka benefit eksklusif.</p>
         </div>
@@ -480,7 +480,7 @@
         <div class="rounded-3xl overflow-hidden text-white text-center" style="background: linear-gradient(135deg, #3e1708 0%, #7c2d12 55%, #b84221 100%);">
             <div class="px-6 py-10 sm:py-12 space-y-4">
                 <div class="text-4xl mb-2">👑</div>
-                <h2 class="font-heading font-black text-2xl sm:text-3xl">Bergabung ke L-Coding Gourmet Club</h2>
+                <h2 class="font-heading font-black text-2xl sm:text-3xl">Bergabung ke RestoHub Gourmet Club</h2>
                 <p class="text-sm text-white/70 max-w-md mx-auto leading-relaxed">
                     Daftar gratis dan mulai kumpulkan poin dari pesanan pertama Anda. Nikmati benefit eksklusif member dan reward yang terus bertambah.
                 </p>
@@ -507,10 +507,10 @@
                 <div class="md:col-span-1 space-y-3">
                     <div class="flex items-center gap-2">
                         <div class="w-8 h-8 rounded-xl bg-[#b84221] text-white flex items-center justify-center"><i class="fa-solid fa-utensils text-sm"></i></div>
-                        <div><div class="font-heading font-black text-base text-slate-900">L-Coding Bistro</div><div class="text-[10px] text-slate-400">Artisanal Cafe</div></div>
+                        <div><div class="font-heading font-black text-base text-slate-900">RestoHub Bistro</div><div class="text-[10px] text-slate-400">Artisanal Cafe</div></div>
                     </div>
-                    <p class="text-xs text-slate-500 leading-relaxed">Sinergi kehangatan cita rasa bistro kontemporer dengan presisi racikan kopi artisanal khas L-Coding. Tempat bertemunya ide, aroma, dan keapuan kuliner hangat.</p>
-                    <div class="text-xs text-slate-500"><i class="fa-solid fa-wifi text-[#b84221] mr-1"></i> <span class="font-semibold">WiFi:</span> L-Coding_Guest &bull; sedapnikmat2025</div>
+                    <p class="text-xs text-slate-500 leading-relaxed">Sinergi kehangatan cita rasa bistro kontemporer dengan presisi racikan kopi artisanal khas RestoHub. Tempat bertemunya ide, aroma, dan keapuan kuliner hangat.</p>
+                    <div class="text-xs text-slate-500"><i class="fa-solid fa-wifi text-[#b84221] mr-1"></i> <span class="font-semibold">WiFi:</span> RestoHub_Guest &bull; sedapnikmat2025</div>
                 </div>
                 <div class="space-y-2">
                     <div class="font-bold text-slate-900 text-sm mb-3">Lokasi &amp; Jam Operasional</div>
@@ -533,12 +533,12 @@
                 <div class="space-y-2">
                     <div class="font-bold text-slate-900 text-sm mb-3">Keanggotaan &amp; Media</div>
                     <p class="text-xs text-slate-500 leading-relaxed">Kumpulkan L-Beans tiap transaksi, dapatkan hidangan penutup gratis di awal tahun Anda.</p>
-                    <div class="flex items-center gap-2 text-xs text-slate-600"><i class="fa-brands fa-instagram text-pink-600"></i><span>@lcodingbistro</span><span class="text-slate-300">|</span><span class="font-bold text-[#b84221]">#SedapNikmat</span></div>
+                    <div class="flex items-center gap-2 text-xs text-slate-600"><i class="fa-brands fa-instagram text-pink-600"></i><span>@restohub_bistro</span><span class="text-slate-300">|</span><span class="font-bold text-[#b84221]">#SedapNikmat</span></div>
                     <div class="text-xs text-slate-500">Pembayaran didukung: QRIS, Visa/Mastercard, GoPay, OVO, ShopeePay</div>
                 </div>
             </div>
             <div class="pt-6 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-400">
-                <div>&copy; {{ date('Y') }} L-Coding Bistro &amp; Coffee. All rights reserved. Clean Branch Edition.</div>
+                <div>&copy; {{ date('Y') }} RestoHub Bistro &amp; Cafe. All rights reserved. Clean Branch Edition.</div>
                 <div class="flex items-center gap-4">
                     <a href="javascript:void(0)" class="hover:text-slate-600">Ketentuan Layanan</a>
                     <a href="javascript:void(0)" class="hover:text-slate-600">Kebijakan Privasi</a>

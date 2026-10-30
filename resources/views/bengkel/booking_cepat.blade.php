@@ -133,54 +133,38 @@
                 </div>
                 <div>
                     <div class="flex items-center gap-1.5">
-                        <span class="font-heading font-extrabold text-xl sm:text-2xl tracking-tight text-slate-900">MotoPro</span>
-                        <span class="text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded border border-slate-200">Workshop</span>
+                        <span class="font-heading font-extrabold text-lg sm:text-xl xl:text-2xl tracking-tight text-slate-900">L-GARAGE</span>
+                        <span class="text-[9px] font-bold uppercase tracking-wider bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded border border-blue-200 whitespace-nowrap">Pusat Informasi</span>
                     </div>
-                    <p class="text-[10px] text-slate-500 font-semibold tracking-wider uppercase -mt-0.5">Automotive Precision Care</p>
+                    <p class="text-[9px] text-slate-500 font-semibold tracking-wider uppercase -mt-0.5">Automotive Precision Care</p>
                 </div>
             </a>
 
-            <!-- Navigation Links (Desktop) -->
-            <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600">
-                <a href="{{ url('/bengkel') }}" class="hover:text-blue-600 transition flex items-center gap-1.5">
+            <!-- Navigation Links (Desktop - Selalu Kesamping / No-Wrap) -->
+            <nav class="hidden lg:flex items-center gap-2.5 xl:gap-4 2xl:gap-6 text-xs xl:text-[13px] font-semibold text-slate-600 whitespace-nowrap shrink-0">
+                <a href="{{ url('/bengkel') }}" class="hover:text-blue-600 transition flex items-center gap-1 whitespace-nowrap px-1 py-0.5">
                     <span>Beranda &amp; Layanan</span>
                 </a>
-                <a href="{{ route('bengkel.booking.page') }}" class="bg-slate-900 text-white px-3.5 py-1.5 rounded-lg font-bold flex items-center gap-1.5 shadow-2xs">
+                <a href="{{ route('bengkel.booking.page') }}" class="bg-slate-900 text-white px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow-2xs whitespace-nowrap">
                     <span>Booking Servis Cepat</span>
                 </a>
-                <a href="{{ route('bengkel.tracking.page') }}" class="hover:text-blue-600 transition flex items-center gap-1.5">
+                <a href="{{ route('bengkel.tracking.page') }}" class="hover:text-blue-600 transition flex items-center gap-1 whitespace-nowrap px-1 py-0.5">
                     <span>Live Tracking Servis</span>
                 </a>
-                <a href="{{ route('bengkel.garasi.page') }}" class="hover:text-blue-600 transition flex items-center gap-1.5">
+                <a href="{{ route('bengkel.garasi.page') }}" class="hover:text-blue-600 transition flex items-center gap-1 whitespace-nowrap px-1 py-0.5">
                     <span>Garasi Saya (Member)</span>
                 </a>
             </nav>
 
             <!-- Quick Plat Search & Action Buttons -->
-            <div class="flex items-center gap-2 sm:gap-3">
-                <!-- Stall Status Pill -->
-                <a href="{{ route('bengkel.stall.page') }}" class="hidden xl:flex items-center gap-1.5 bg-blue-50/80 hover:bg-blue-100 text-blue-700 border border-blue-200/60 px-3 py-1.5 rounded-lg text-xs font-bold transition">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>{{ $workshop['status_bengkel'] }}</span>
-                </a>
-
-                <form action="{{ route('bengkel.lacak') }}" method="POST" class="hidden md:flex items-center relative">
-                    @csrf
-                    <div class="relative">
-                        <input type="text" name="plat_nomor" placeholder="Cek Plat (B 1234 CD)..." 
-                            class="w-44 lg:w-48 bg-slate-100/90 text-slate-800 placeholder-slate-400 text-xs font-mono font-semibold py-2 pl-8 pr-3 rounded-lg border border-slate-200 focus:bg-white focus:border-blue-500 focus:outline-none transition-all">
-                        <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                    </div>
-                </form>
-
-                <a href="{{ route('bengkel.booking.page') }}" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition border border-slate-200">
+            <div class="flex items-center gap-2 shrink-0 whitespace-nowrap">
+                <a href="{{ route('bengkel.booking.page') }}" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition border border-slate-200 whitespace-nowrap">
                     <i class="fa-regular fa-user text-slate-500 text-xs"></i>
                     <span>AKSES TAMU</span>
                 </a>
-
-                <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-lg shadow-sm transition">
+                <a href="{{ route('login') }}" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-lg shadow-sm transition whitespace-nowrap">
                     <i class="fa-solid fa-shield-halved text-blue-400 text-xs"></i>
-                    <span>Masuk / Daftar Garasi Member</span>
+                    <span>Masuk Member</span>
                 </a>
             </div>
         </div>
@@ -216,7 +200,7 @@
             <div>
                 <div class="flex items-center gap-2 text-xs font-bold font-mono tracking-wider text-blue-600 uppercase mb-1">
                     <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                    <span>MOTOPRO FAST LANE RESERVATION • ID #BK-{{ date('ym') }}-7892</span>
+                    <span>L-GARAGE FAST LANE RESERVATION • ID #BK-{{ date('ym') }}-7892</span>
                 </div>
                 <h1 class="font-heading font-extrabold text-2xl sm:text-3xl lg:text-4xl text-slate-900 tracking-tight">
                     Booking Servis Kendaraan
@@ -268,7 +252,7 @@
                     <span class="text-[10px] font-bold uppercase bg-blue-100 text-blue-700 px-2 py-0.5 rounded font-mono">Instan &amp; Transparan</span>
                 </div>
                 <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                    Cukup cantumkan nomor WhatsApp dan data plat kendaraan. Sistem telemetry MotoPro langsung mengirimkan tiket barcode QR, link live-tracking CCTV mekanik, dan rincian estimasi pengerjaan.
+                    Cukup cantumkan nomor WhatsApp dan data plat kendaraan. Sistem telemetry L-Garage langsung mengirimkan tiket barcode QR, link live-tracking CCTV mekanik, dan rincian estimasi pengerjaan.
                 </p>
             </div>
         </div>
@@ -443,7 +427,7 @@
                                 <span class="w-7 h-7 rounded-lg bg-slate-900 text-white font-bold text-xs flex items-center justify-center">3</span>
                                 <div>
                                     <h2 class="font-heading font-extrabold text-base text-slate-900">Lokasi Cabang &amp; Jadwal Stall</h2>
-                                    <p class="text-xs text-slate-500">Pilih workshop MotoPro dan slot waktu yang tidak padat antrean</p>
+                                    <p class="text-xs text-slate-500">Pilih workshop L-Garage dan slot waktu yang tidak padat antrean</p>
                                 </div>
                             </div>
                             <i class="fa-solid fa-calendar-days text-slate-300 text-xl"></i>
@@ -657,7 +641,7 @@
                         </button>
 
                         <!-- WhatsApp Advisor Button -->
-                        <a href="https://api.whatsapp.com/send?phone={{ $workshop['no_whatsapp'] }}&text=Halo%20MotoPro%20Workshop,%20saya%20butuh%20bantuan%20jadwal%20servis%20darurat" target="_blank" class="w-full mt-2.5 text-slate-600 hover:text-blue-600 text-center py-1.5 text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+                        <a href="https://api.whatsapp.com/send?phone={{ $workshop['no_whatsapp'] }}&text=Halo%20L-Garage%20Workshop,%20saya%20butuh%20bantuan%20jadwal%20servis%20darurat" target="_blank" class="w-full mt-2.5 text-slate-600 hover:text-blue-600 text-center py-1.5 text-xs font-semibold flex items-center justify-center gap-1.5 transition">
                             <i class="fa-brands fa-whatsapp text-emerald-600"></i>
                             <span>Butuh bantuan jadwal darurat? Chat Tim Advisor</span>
                         </a>
@@ -702,7 +686,7 @@
     </main>
 
     <!-- ========================================================= -->
-    <!-- 4. FOOTER (Matching MotoPro) -->
+    <!-- 4. FOOTER (Matching L-Garage) -->
     <!-- ========================================================= -->
     <footer class="bg-slate-100/90 border-t border-slate-200 mt-12 text-xs text-slate-600">
         <div class="max-w-7xl mx-auto px-4 sm:px-8 py-10 sm:py-12">
@@ -757,7 +741,7 @@
                         Tanya estimasi servis, suku cadang OEM, atau konsultasi kendala transmisi/mesin.
                     </p>
                     <a href="https://api.whatsapp.com/send?phone={{ $workshop['no_whatsapp'] }}" target="_blank" class="font-bold text-emerald-700 hover:underline flex items-center gap-1">
-                        <span>Chat Advisor MotoPro</span>
+                        <span>Chat Advisor L-Garage</span>
                         <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </a>
                 </div>

@@ -14,7 +14,7 @@ class ServiceCenterLandingController extends Controller
     {
         // 1. Data Profil Service Center
         $center = [
-            'name'           => 'L-Coding Service Center',
+            'name'           => 'TechFix Pro Service Center',
             'branch'         => 'Cabang Cibubur',
             'tagline'        => 'SPESIALIS REPARASI HARDWARE & PCB TINGKAT KOMPONEN',
             'headline'       => 'Pusat Servis Laptop, PC & Hardware Terpercaya di Cabang Cibubur',
@@ -182,7 +182,7 @@ class ServiceCenterLandingController extends Controller
                 'rating'  => 5,
                 'avatar'  => 'RH',
                 'color'   => 'bg-blue-600',
-                'content' => 'Laptop ASUS ROG Strix mati total gara-gara kena tumpahan kopi. Dibawa ke service center resmi katanya harus ganti motherboard 12 juta. Di L-Coding Clean beres cuma 700 ribu karena cuma kapasitor short. Teknisi ramah & transparan banget!',
+                'content' => 'Laptop ASUS ROG Strix mati total gara-gara kena tumpahan kopi. Dibawa ke service center resmi katanya harus ganti motherboard 12 juta. Di TechFix Pro beres cuma 700 ribu karena cuma kapasitor short. Teknisi ramah & transparan banget!',
             ],
             [
                 'name'    => 'Siti Wardani',
@@ -250,7 +250,7 @@ class ServiceCenterLandingController extends Controller
     public function bookingServis(Request $request)
     {
         $center = [
-            'name'            => 'L-Coding Service Center',
+            'name'            => 'TechFix Pro Service Center',
             'branch'          => 'Cabang Cibubur',
             'alamat'          => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'store_full'      => 'Azzahra Computer – ASUS Authorized Service Center (Cabang Cibubur)',
@@ -383,7 +383,7 @@ class ServiceCenterLandingController extends Controller
         $faqs_booking = [
             [
                 'q' => 'Apakah reservasi atau booking jadwal servis dikenakan biaya pendaftaran?',
-                'a' => 'Sama sekali tidak ada biaya pendaftaran. Booking jadwal di L-Coding Service Center 100% GRATIS. Biaya hanya dikenakan apabila Anda menyetujui penawaran jasa dan sparepart setelah diagnosa selesai dilakukan.',
+                'a' => 'Sama sekali tidak ada biaya pendaftaran. Booking jadwal di TechFix Pro Service Center 100% GRATIS. Biaya hanya dikenakan apabila Anda menyetujui penawaran jasa dan sparepart setelah diagnosa selesai dilakukan.',
             ],
             [
                 'q' => 'Bisakah saya langsung datang tanpa reservasi (Walk-In)?',
@@ -391,7 +391,7 @@ class ServiceCenterLandingController extends Controller
             ],
             [
                 'q' => 'Bagaimana jika setelah diagnosa saya memutuskan untuk tidak melanjutkan servis?',
-                'a' => 'Tidak masalah. Diagnosa awal di L-Coding Service Center bersifat transparan dan tidak mengikat. Jika Anda memutuskan membatalkan perbaikan, unit akan dirakit kembali rapi seperti semula tanpa ada paksaan servis.',
+                'a' => 'Tidak masalah. Diagnosa awal di TechFix Pro Service Center bersifat transparan dan tidak mengikat. Jika Anda memutuskan membatalkan perbaikan, unit akan dirakit kembali rapi seperti semula tanpa ada paksaan servis.',
             ],
             [
                 'q' => 'Berapa lama garansi yang diberikan untuk perbaikan?',
@@ -415,7 +415,7 @@ class ServiceCenterLandingController extends Controller
     public function katalog(Request $request)
     {
         $center = [
-            'name'            => 'L-Coding Service Center',
+            'name'            => 'TechFix Pro Service Center',
             'branch'          => 'Cabang Cibubur',
             'alamat'          => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'store_full'      => 'Azzahra Computer – ASUS Authorized Service Center (Cabang Cibubur)',
@@ -657,7 +657,7 @@ class ServiceCenterLandingController extends Controller
     public function cekBiaya(Request $request)
     {
         $center = [
-            'name'            => 'L-Coding Service Center',
+            'name'            => 'TechFix Pro Service Center',
             'branch'          => 'Cabang Cibubur',
             'alamat'          => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'store_full'      => 'Azzahra Computer – ASUS Authorized Service Center (Cabang Cibubur)',
@@ -834,7 +834,7 @@ class ServiceCenterLandingController extends Controller
     public function cekTiket(Request $request)
     {
         $center = [
-            'name'        => 'L-Coding Service Center',
+            'name'        => 'TechFix Pro Service Center',
             'branch'      => 'Cabang Cibubur',
             'jam_buka'    => '08:00 – 21:00 WIB',
             'status'      => 'Buka & Melayani',

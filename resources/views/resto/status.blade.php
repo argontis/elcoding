@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Status Pesanan (Live KDS) — {{ $restaurant['name'] }}</title>
-    <meta name="description" content="Pantau progres pesanan secara real-time melalui Kitchen Display System (KDS) L-Coding Bistro Meja #04 Cabang Clean.">
+    <meta name="description" content="Pantau progres pesanan secara real-time melalui Kitchen Display System (KDS) RestoHub Bistro Meja #04 Cabang Clean.">
 
     <!-- Google Fonts & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,7 +70,7 @@
                     </div>
                     <div>
                         <div class="font-heading font-extrabold text-base text-slate-900 leading-none">
-                            L-Coding Bistro
+                            RestoHub Bistro
                         </div>
                         <div class="text-[9px] font-bold text-amber-900 tracking-wider uppercase mt-0.5">
                             ARTISANAL KITCHEN
@@ -97,21 +97,21 @@
                 </div>
             </div>
 
-            <!-- Desktop Nav Links (Status Pesanan Active Solid Terracotta Pill) -->
-            <nav class="hidden lg:flex items-center gap-1.5 text-xs xl:text-sm font-semibold text-slate-600">
-                <a href="{{ url('/restaurant') }}" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition">
+            <!-- Desktop Nav Links (Selalu Kesamping / No-Wrap) -->
+            <nav class="hidden lg:flex items-center gap-1 xl:gap-2 text-xs xl:text-sm font-semibold text-slate-600 whitespace-nowrap shrink-0">
+                <a href="{{ url('/restaurant') }}" class="hover:text-[#b84221] px-2.5 xl:px-3 py-2 rounded-xl hover:bg-stone-50 transition whitespace-nowrap">
                     Beranda
                 </a>
-                <a href="{{ route('resto.menu') }}" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition">
+                <a href="{{ route('resto.menu') }}" class="hover:text-[#b84221] px-2.5 xl:px-3 py-2 rounded-xl hover:bg-stone-50 transition whitespace-nowrap">
                     Menu Digital &amp; Order
                 </a>
-                <a href="{{ route('resto.reservasi') }}" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition">
+                <a href="{{ route('resto.reservasi') }}" class="hover:text-[#b84221] px-2.5 xl:px-3 py-2 rounded-xl hover:bg-stone-50 transition whitespace-nowrap">
                     Reservasi Meja
                 </a>
-                <a href="{{ route('resto.status') }}" class="bg-[#b84221] text-white px-4 py-2 rounded-xl font-bold shadow-xs flex items-center gap-1.5">
+                <a href="{{ route('resto.status') }}" class="bg-[#b84221] text-white px-3.5 xl:px-4 py-2 rounded-xl font-bold shadow-xs flex items-center gap-1.5 whitespace-nowrap">
                     <span>Status Pesanan (Live KDS)</span>
                 </a>
-                <a href="{{ route('resto.member.info') }}" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition flex items-center gap-1">
+                <a href="{{ route('resto.member.info') }}" class="hover:text-[#b84221] px-2.5 xl:px-3 py-2 rounded-xl hover:bg-stone-50 transition flex items-center gap-1 whitespace-nowrap">
                     <i class="fa-solid fa-crown text-amber-500 text-[10px]"></i>
                     Member &amp; Poin
                 </a>
@@ -150,7 +150,7 @@
                     <div class="w-8 h-8 rounded-lg bg-[#b84221] text-white flex items-center justify-center">
                         <i class="fa-solid fa-utensils text-sm"></i>
                     </div>
-                    <span class="font-heading font-extrabold text-base text-slate-900">L-Coding Bistro</span>
+                    <span class="font-heading font-extrabold text-base text-slate-900">RestoHub Bistro</span>
                 </div>
                 <button onclick="closeRestoNav()" class="w-8 h-8 rounded-lg bg-stone-100 text-slate-600 flex items-center justify-center">
                     <i class="fa-solid fa-times text-sm"></i>
@@ -761,7 +761,7 @@
     </div>
 
     <!-- ===================================================================
-         8. FOOTER RESMI (Identik Sesuai Standar L-Coding Bistro)
+         8. FOOTER RESMI (Identik Sesuai Standar RestoHub Bistro)
          =================================================================== -->
     <footer id="footer-section" class="bg-[#f5efe9] border-t border-stone-200/80 pt-12 pb-8 mt-12 text-slate-700 text-xs">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -771,14 +771,14 @@
                 <div class="space-y-3">
                     <div class="flex items-center gap-2">
                         <span class="font-heading font-black text-base text-[#b84221] tracking-tight">
-                            L-Coding Bistro
+                            RestoHub Bistro
                         </span>
                         <span class="text-[9px] font-bold bg-orange-100 text-[#b84221] px-2 py-0.5 rounded-full border border-orange-200">
                             Artisanal Cafe
                         </span>
                     </div>
                     <p class="text-xs text-slate-600 leading-relaxed">
-                        Sinergi kehangatan cita rasa bistro kontemporer dengan presisi racikan kopi artisanal khas L-Coding. Tempat bertemunya ide, aroma, dan kepuasan kuliner hangat.
+                        Sinergi kehangatan cita rasa bistro kontemporer dengan presisi racikan kopi artisanal khas RestoHub. Tempat bertemunya ide, aroma, dan kepuasan kuliner hangat.
                     </p>
                     <div class="text-xs font-bold text-slate-800 flex items-center gap-2 pt-1">
                         <i class="fa-solid fa-wifi text-emerald-600"></i>
@@ -829,7 +829,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="mailto:halo@lcodingbistro.com" class="hover:text-[#b84221] flex items-center gap-2 transition">
+                            <a href="mailto:halo@restohub_bistro.com" class="hover:text-[#b84221] flex items-center gap-2 transition">
                                 <i class="fa-regular fa-envelope text-slate-500"></i>
                                 <span>Kritik, Saran &amp; Faktur Elektronik</span>
                             </a>
@@ -850,7 +850,7 @@
                         Kumpulkan L-Beans tiap transaksi, dapatkan hidangan penutup gratis saat ulang tahun Anda.
                     </p>
                     <div class="flex items-center gap-2 pt-1 font-bold text-xs text-[#b84221]">
-                        <span>@lcodingbistro</span>
+                        <span>@restohub_bistro</span>
                         <span>&bull;</span>
                         <span>#SedapNikmat</span>
                     </div>
@@ -864,7 +864,7 @@
             <!-- Bottom Copyright & Links -->
             <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500">
                 <div>
-                    &copy; 2025 L-Coding Bistro &amp; Coffee. All rights reserved. Clean Branch Edition.
+                    &copy; 2025 RestoHub Bistro &amp; Cafe. All rights reserved. Clean Branch Edition.
                 </div>
                 <div class="flex items-center gap-4">
                     <a href="#" class="hover:text-[#b84221] transition">Ketentuan Layanan</a>

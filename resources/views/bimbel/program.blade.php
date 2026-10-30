@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pilihan Program Belajar & Estimasi Investasi Pendidikan 2025/2026 — Apex Edu</title>
+    <title>Pilihan Program Belajar & Estimasi Investasi Pendidikan 2025/2026 — EduPulse Academy</title>
     <meta name="description" content="Kurikulum adaptif, bimbingan personal mentor, serta simulasi tryout berstandar komputer untuk memperbesar peluang lolos PTN negeri dan sekolah favorit impian.">
 
     <!-- Google Fonts -->
@@ -100,22 +100,22 @@
     <header class="bg-white sticky top-0 z-40 border-b border-slate-200/90 shadow-xs w-full">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-3">
             
-            <!-- Brand Logo: Apex Edu + Cabang Tebet Clean -->
+            <!-- Brand Logo: EduPulse Academy + Cabang Tebet Clean -->
             <a href="{{ url('/bimbel') }}" class="flex items-center gap-2.5 group shrink-0">
                 <div class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:bg-blue-700 transition shrink-0">
                     <i class="fa-solid fa-graduation-cap text-base"></i>
                 </div>
                 <div>
                     <div class="flex items-center gap-1.5">
-                        <span class="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-blue-700">Apex Edu</span>
+                        <span class="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-blue-700">EduPulse Academy</span>
                         <span class="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full border border-blue-200 whitespace-nowrap">Cabang Tebet Clean</span>
                     </div>
                     <p class="text-[9px] text-slate-400 font-mono -mt-0.5">localhost:8000/clean</p>
                 </div>
             </a>
 
-            <!-- Navigation Links (Sesuai Foto Persis) -->
-            <nav class="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-5 text-xs xl:text-[13px] font-semibold text-slate-600 whitespace-nowrap">
+            <!-- Navigation Links (Selalu Kesamping / No-Wrap) -->
+            <nav class="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-5 text-xs xl:text-[13px] font-semibold text-slate-600 whitespace-nowrap shrink-0">
                 <a href="{{ route('bimbel.landing') }}" class="px-2 py-1 hover:text-blue-600 transition whitespace-nowrap">Beranda</a>
                 <a href="{{ route('bimbel.program.page') }}" class="px-3 py-1.5 bg-blue-600 text-white font-bold rounded-xl shadow-sm transition whitespace-nowrap">Program &amp; Biaya</a>
                 <a href="{{ route('bimbel.pendaftaran') }}" class="px-2 py-1 hover:text-blue-600 transition whitespace-nowrap">Pendaftaran Baru</a>
@@ -160,7 +160,7 @@
                     <i class="fa-solid fa-graduation-cap text-sm"></i>
                 </div>
                 <div>
-                    <div class="font-heading font-extrabold text-base text-slate-900 leading-none">Apex Edu</div>
+                    <div class="font-heading font-extrabold text-base text-slate-900 leading-none">EduPulse Academy</div>
                     <div class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Program &amp; Biaya</div>
                 </div>
             </div>
@@ -692,7 +692,7 @@
         <div class="max-w-7xl mx-auto">
             
             <div class="text-center max-w-2xl mx-auto mb-10">
-                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">STANDAR FASILITAS APEX EDU</span>
+                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">STANDAR FASILITAS EduPulse Academy</span>
                 <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight mt-2">
                     Semua Program Sudah Termasuk Fasilitas Modern Ini
                 </h2>
@@ -824,7 +824,7 @@
                             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                         </div>
                         <p class="text-xs sm:text-sm text-slate-600 leading-relaxed italic mb-6">
-                            "Investasi di kelas UTBK Kilat Apex Edu adalah keputusan terbaik saya. Soal-soal tryoutnya persis polanya dan bimbingan mentornya sangat terstruktur."
+                            "Investasi di kelas UTBK Kilat EduPulse Academy adalah keputusan terbaik saya. Soal-soal tryoutnya persis polanya dan bimbingan mentornya sangat terstruktur."
                         </p>
                     </div>
                     <div class="pt-4 border-t border-slate-100 flex items-center gap-3">
@@ -925,7 +925,7 @@
                     <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold">
                         <i class="fa-solid fa-graduation-cap text-sm"></i>
                     </div>
-                    <span class="font-heading font-extrabold text-lg text-slate-900">Apex Edu</span>
+                    <span class="font-heading font-extrabold text-lg text-slate-900">EduPulse Academy</span>
                 </div>
                 <p class="text-xs text-slate-500 leading-relaxed mb-4">
                     Pusat bimbingan belajar dan persiapan masuk PTN, kedinasan, dan sekolah unggulan terkemuka di Indonesia.
@@ -962,7 +962,7 @@
         </div>
 
         <div class="max-w-7xl mx-auto pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-400 text-[11px]">
-            <p>&copy; 2025 Apex Edu &bull; elc.my.id. Seluruh hak cipta dilindungi.</p>
+            <p>&copy; 2025 EduPulse Academy &bull; elc.my.id. Seluruh hak cipta dilindungi.</p>
         </div>
     </footer>
 
@@ -1028,7 +1028,7 @@
                 <i class="fa-solid fa-times"></i>
             </button>
             <h3 class="font-heading font-extrabold text-base text-slate-900 mb-3 flex items-center gap-2">
-                <i class="fa-solid fa-location-dot text-blue-600"></i> Pilih Cabang Apex Edu
+                <i class="fa-solid fa-location-dot text-blue-600"></i> Pilih Cabang EduPulse Academy
             </h3>
             <div class="space-y-2 text-xs">
                 <div class="p-3 bg-blue-50 border border-blue-200 rounded-xl font-bold text-blue-700 flex items-center justify-between">

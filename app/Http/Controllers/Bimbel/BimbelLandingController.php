@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class BimbelLandingController extends Controller
 {
     /**
-     * Tampilkan Landing Page Utama Bimbel (Apex Edu / EduPulse Bimbel).
+     * Tampilkan Landing Page Utama Bimbel (EduPulse Academy Bimbel).
      * Sesuai request user: Secara default disajikan dengan DATA KOSONG (clean state),
      * serta dilengkapi tombol switch "Pratinjau Data Demo" (?demo=1) untuk melihat visual penuh.
      */
@@ -41,17 +41,17 @@ class BimbelLandingController extends Controller
 
         // 1. Profil & Konfigurasi Lembaga Bimbel
         $institution = [
-            'name'           => 'Apex Edu',
+            'name'           => 'EduPulse Academy',
             'subname'        => 'WORKSHOP & BIMBEL PRESTASI',
             'tagline'        => 'BIMBINGAN BELAJAR TERAKREDITASI A',
             'headline'       => 'Raih Kampus & Sekolah Impian Bersama',
-            'headline_accent'=> 'Apex Edu',
+            'headline_accent'=> 'EduPulse Academy',
             'subheadline'    => 'Pendampingan belajar privat & semi-privat terpadu dengan kurikulum personal, bank latihan UTBK-SNBT/Kedinasan, dan jaminan bimbingan sampai lolos ujian secara maksimal.',
             'announcement'   => 'PENGUMUMAN SNBT 2026: Pendaftaran Program Intensif Gelombang 2 Telah Dibuka • Kuota Terbatas!',
             'hotline'        => '0812-9988-7711',
             'whatsapp'       => '6281299887711',
             'jam_layanan'    => 'Senin - Sabtu: 08:00 - 20:00 WIB',
-            'alamat'         => 'Jl. Pendidikan Prestasi No. 45, Jakarta Selatan',
+            'alamat'         => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'branch'         => 'Cabang Jakarta Selatan (Pusat)',
         ];
 
@@ -207,7 +207,7 @@ class BimbelLandingController extends Controller
             [
                 'name'        => 'Aditya Pratama',
                 'school'      => 'Siswa SMA 8 Jakarta → Lolos Kedokteran UI',
-                'quote'       => 'Metode drill soal CBT di Apex Edu benar-benar mirip dengan UTBK asli. Tutornya ramah dan selalu siap jawab pertanyaan PR sampai tuntas jam berapa pun.',
+                'quote'       => 'Metode drill soal CBT di EduPulse Academy benar-benar mirip dengan UTBK asli. Tutornya ramah dan selalu siap jawab pertanyaan PR sampai tuntas jam berapa pun.',
                 'rating'      => 5,
             ],
             [
@@ -286,7 +286,7 @@ class BimbelLandingController extends Controller
         $pendaftarList[] = $newPendaftar;
         session(['bimbel_pendaftar' => $pendaftarList]);
 
-        $waText = "Halo Admin Bimbel Apex Edu, saya ingin konsultasi pendaftaran atas nama *{$newPendaftar['nama']}* (Jenjang: {$newPendaftar['jenjang']}). Mohon info jadwal asesmen gratis.";
+        $waText = "Halo Admin Bimbel EduPulse Academy, saya ingin konsultasi pendaftaran atas nama *{$newPendaftar['nama']}* (Jenjang: {$newPendaftar['jenjang']}). Mohon info jadwal asesmen gratis.";
         $waUrl  = "https://wa.me/6281299887711?text=" . urlencode($waText);
 
         return redirect()->route('bimbel.landing')
@@ -304,7 +304,7 @@ class BimbelLandingController extends Controller
         $isDemo = $request->has('demo') && in_array(strtolower($request->query('demo')), ['1', 'true', 'yes', 'demo']);
 
         $institution = [
-            'name'           => 'Apex Edu',
+            'name'           => 'EduPulse Academy',
             'subname'        => 'WORKSHOP & BIMBEL PRESTASI',
             'tagline'        => 'BIMBINGAN BELAJAR TERAKREDITASI A',
             'headline'       => 'Pilihan Program Belajar & Estimasi Investasi Pendidikan 2025/2026',
@@ -313,7 +313,7 @@ class BimbelLandingController extends Controller
             'hotline'        => '0812-9988-7711',
             'whatsapp'       => '6281299887711',
             'jam_layanan'    => 'Senin - Sabtu: 08:00 - 20:00 WIB',
-            'alamat'         => 'Jl. Pendidikan Prestasi No. 45, Jakarta Selatan',
+            'alamat'         => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'branch'         => 'Cabang Jakarta Selatan (Pusat)',
         ];
 
@@ -509,7 +509,7 @@ class BimbelLandingController extends Controller
             [
                 'name'   => 'Farel Ramadhan',
                 'school' => 'Lolos STEI ITB 2024 (Alumni SMAN 28)',
-                'quote'  => 'Investasi di kelas UTBK Kilat Apex Edu adalah keputusan terbaik saya. Soal-soal tryoutnya persis polanya dan bimbingan mentornya sangat terstruktur.',
+                'quote'  => 'Investasi di kelas UTBK Kilat EduPulse Academy adalah keputusan terbaik saya. Soal-soal tryoutnya persis polanya dan bimbingan mentornya sangat terstruktur.',
                 'rating' => 5,
             ],
             [
@@ -540,7 +540,7 @@ class BimbelLandingController extends Controller
     }
 
     /**
-     * Halaman Pendaftaran Siswa Baru Online (Apex Edu Cabang Tebet Clean)
+     * Halaman Pendaftaran Siswa Baru Online (EduPulse Academy Cabang Tebet Clean)
      * Sesuai request: data default KOSONG, dengan form lengkap sesuai screenshot
      * serta fitur interaktif realtime kalkulasi dan toggle demo jika diinginkan.
      */
@@ -550,13 +550,13 @@ class BimbelLandingController extends Controller
         $isDemo = $request->query('demo') == '1';
 
         $institution = [
-            'name'               => 'Apex Edu',
+            'name'               => 'EduPulse Academy',
             'subname'            => 'WORKSHOP & BIMBEL PRESTASI',
-            'branch'             => 'Apex Edu Tebet Clean (Jakarta Selatan)',
-            'branch_name'        => 'Apex Edu Tebet Barat',
-            'branch_short'       => 'Tebet Barat (Clean)',
-            'branch_address'     => 'Jl. Tebet Barat Dalam Raya 42B',
-            'branch_full_address'=> 'Jl. Tebet Barat Dalam Raya No. 42B, RT.06 / RW.02, Tebet Barat, Jakarta Selatan, DKI Jakarta 12810',
+            'branch'             => 'Azzahra Computer – ASUS Authorized Service Center (Cabang Cibubur)',
+            'branch_name'        => 'Azzahra Computer Cabang Cibubur',
+            'branch_short'       => 'Cabang Cibubur',
+            'branch_address'     => 'Ruko Kranggan Permai Blok RT 16 No. 27',
+            'branch_full_address'=> 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'front_office_phone' => '+62 812-9900-3420',
             'hotline'            => '(021) 8370-1920',
             'sisa_kuota'         => 18,
@@ -684,18 +684,18 @@ class BimbelLandingController extends Controller
     public function tryoutPage(Request $request)
     {
         $institution = [
-            'name'                => 'Apex Edu',
+            'name'                => 'EduPulse Academy',
             'subname'             => 'WORKSHOP & BIMBEL PRESTASI',
-            'branch'              => 'Apex Edu Tebet Clean (Jakarta Selatan)',
-            'branch_name'         => 'Apex Edu Tebet Barat',
-            'branch_short'        => 'Tebet Barat (Clean)',
-            'branch_address'      => 'Jl. Tebet Barat Dalam Raya 42B',
-            'branch_full_address' => 'Jl. Tebet Barat Dalam Raya No. 42B, RT.06 / RW.02, Tebet Barat, Jakarta Selatan, DKI Jakarta 12810',
-            'front_office_phone'  => '+62 812-9900-3420',
-            'hotline'             => '(021) 8370-1920',
+            'branch'              => 'Azzahra Computer – ASUS Authorized Service Center (Cabang Cibubur)',
+            'branch_name'         => 'Azzahra Computer Cabang Cibubur',
+            'branch_short'        => 'Cabang Cibubur',
+            'branch_address'      => 'Ruko Kranggan Permai Blok RT 16 No. 27',
+            'branch_full_address' => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
+            'front_office_phone'  => '+62 814-7665-2656',
+            'hotline'             => '(021) 8430-8910',
             'tahun_ajaran'        => '2025/2026',
-            'jam_buka'            => 'Senin - Sabtu: 08.00 - 20.30 WIB',
-            'whatsapp'            => '6281299003420',
+            'jam_buka'            => 'Senin - Sabtu: 08.00 - 17.00 WIB',
+            'whatsapp'            => '6281476652656',
             'sisa_kuota'          => 18,
         ];
 
@@ -708,18 +708,18 @@ class BimbelLandingController extends Controller
     public function portalPage(Request $request)
     {
         $institution = [
-            'name'                => 'Apex Edu',
+            'name'                => 'EduPulse Academy',
             'subname'             => 'WORKSHOP & BIMBEL PRESTASI',
-            'branch'              => 'Apex Edu Tebet Clean (Jakarta Selatan)',
-            'branch_name'         => 'Apex Edu Tebet Barat',
-            'branch_short'        => 'Tebet Barat (Clean)',
-            'branch_address'      => 'Jl. Tebet Barat Dalam Raya 42B',
-            'branch_full_address' => 'Jl. Tebet Barat Dalam Raya No. 42B, RT.06 / RW.02, Tebet Barat, Jakarta Selatan, DKI Jakarta 12810',
-            'front_office_phone'  => '+62 812-9900-3420',
-            'hotline'             => '(021) 8370-1920',
+            'branch'              => 'Azzahra Computer – ASUS Authorized Service Center (Cabang Cibubur)',
+            'branch_name'         => 'Azzahra Computer Cabang Cibubur',
+            'branch_short'        => 'Cabang Cibubur',
+            'branch_address'      => 'Ruko Kranggan Permai Blok RT 16 No. 27',
+            'branch_full_address' => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
+            'front_office_phone'  => '+62 814-7665-2656',
+            'hotline'             => '(021) 8430-8910',
             'tahun_ajaran'        => '2025/2026',
-            'jam_buka'            => 'Senin - Sabtu: 08.00 - 20.30 WIB',
-            'whatsapp'            => '6281299003420',
+            'jam_buka'            => 'Senin - Sabtu: 08.00 - 17.00 WIB',
+            'whatsapp'            => '6281476652656',
             'sisa_kuota'          => 18,
         ];
 
@@ -732,13 +732,13 @@ class BimbelLandingController extends Controller
     public function kontakPage(Request $request)
     {
         $institution = [
-            'name'                => 'Apex Edu',
+            'name'                => 'EduPulse Academy',
             'subname'             => 'WORKSHOP & BIMBEL PRESTASI',
             'branch'              => 'Azzahra Computer – ASUS Authorized Service Center (Cabang Cibubur)',
             'branch_name'         => 'Azzahra Computer Cabang Cibubur',
             'branch_short'        => 'Cabang Cibubur',
             'branch_address'      => 'Ruko Kranggan Permai Blok RT 16 No. 27',
-            'branch_full_address' => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431',
+            'branch_full_address' => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'front_office_phone'  => '+62 814-7665-2656',
             'hotline'             => '(021) 8430-8910',
             'tahun_ajaran'        => '2025/2026',

@@ -14,14 +14,14 @@ class RestoLandingController extends Controller
     public function index(Request $request)
     {
         $restaurant = [
-            'name'         => 'L-Coding Bistro',
+            'name'         => 'RestoHub Bistro',
             'tagline'      => 'Artisanal Cafe & Specialty Coffee',
             'branch'       => 'Cabang Clean Jakarta Selatan',
-            'full_address' => 'Jl. Senopati / Tebet Barat Culinary Park No. 18, Tebet Barat, Jakarta Selatan, DKI Jakarta 12820',
+            'full_address' => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'phone'        => '+62 811-9233-889',
             'whatsapp'     => '628119233889',
             'wifi' => [
-                'ssid'     => 'L-Coding_Guest',
+                'ssid'     => 'RestoHub_Guest',
                 'password' => 'sedapnikmat2024',
             ],
             'hours' => [
@@ -151,14 +151,14 @@ class RestoLandingController extends Controller
     public function menuPage(Request $request)
     {
         $restaurant = [
-            'name'         => 'L-Coding Bistro',
+            'name'         => 'RestoHub Bistro',
             'tagline'      => 'Artisanal Cafe & Specialty Coffee',
             'branch'       => 'Cabang Clean Jakarta Selatan',
-            'full_address' => 'Jl. Senopati / Tebet Barat Culinary Park No. 18, Tebet Barat, Jakarta Selatan, DKI Jakarta 12820',
+            'full_address' => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'phone'        => '+62 811-9233-889',
             'whatsapp'     => '628119233889',
             'wifi' => [
-                'ssid'     => 'L-Coding_Guest',
+                'ssid'     => 'RestoHub_Guest',
                 'password' => 'sedapnikmat2024',
             ],
             'hours' => [
@@ -346,14 +346,14 @@ class RestoLandingController extends Controller
     public function reservasiPage(Request $request)
     {
         $restaurant = [
-            'name'         => 'L-Coding Bistro',
+            'name'         => 'RestoHub Bistro',
             'tagline'      => 'Artisanal Cafe & Specialty Coffee',
             'branch'       => 'Cabang Clean Jakarta Selatan',
-            'full_address' => 'Jl. Senopati / Tebet Barat Culinary Park No. 18, Tebet Barat, Jakarta Selatan, DKI Jakarta 12820',
+            'full_address' => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'phone'        => '+62 811-9233-889',
             'whatsapp'     => '628119233889',
             'wifi' => [
-                'ssid'     => 'L-Coding_Guest',
+                'ssid'     => 'RestoHub_Guest',
                 'password' => 'sedapnikmat2024',
             ],
             'hours' => [
@@ -453,15 +453,15 @@ class RestoLandingController extends Controller
     public function statusPage(Request $request)
     {
         $restaurant = [
-            'name'         => 'L-Coding Bistro',
+            'name'         => 'RestoHub Bistro',
             'tagline'      => 'Artisanal Cafe & Specialty Coffee',
             'branch'       => 'Cabang Clean Jakarta Selatan',
             'branch_full'  => 'Cabang Clean (Jakarta Selatan)',
-            'full_address' => 'Jl. Senopati / Tebet Barat Culinary Park No. 18, Tebet Barat, Jakarta Selatan, DKI Jakarta 12820',
+            'full_address' => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'phone'        => '+62 811-9233-889',
             'whatsapp'     => '628119233889',
             'wifi' => [
-                'ssid'     => 'LCoding_Guest',
+                'ssid'     => 'RestoHub_Guest',
                 'password' => 'sedapnikmat2024',
             ],
             'hours' => [
@@ -591,15 +591,15 @@ class RestoLandingController extends Controller
     public function memberInfoPage(Request $request)
     {
         $restaurant = [
-            'name'         => 'L-Coding Bistro',
+            'name'         => 'RestoHub Bistro',
             'tagline'      => 'Artisanal Cafe & Specialty Coffee',
             'branch'       => 'Cabang Clean Jakarta Selatan',
             'branch_full'  => 'Cabang Clean (Jakarta Selatan)',
-            'full_address' => 'Jl. Senopati / Tebet Barat Culinary Park No. 18, Tebet Barat, Jakarta Selatan, DKI Jakarta 12820',
+            'full_address' => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'phone'        => '+62 811-9233-889',
             'whatsapp'     => '628119233889',
             'wifi' => [
-                'ssid'     => 'L-Coding_Guest',
+                'ssid'     => 'RestoHub_Guest',
                 'password' => 'sedapnikmat2024',
             ],
             'hours' => [
@@ -729,7 +729,7 @@ class RestoLandingController extends Controller
             [
                 'id'          => 5,
                 'title'       => 'Diskon 10% Merchandise Kopi',
-                'desc'        => 'Potongan harga 10% untuk pembelian biji kopi, tumbler, atau merchandise L-Coding.',
+                'desc'        => 'Potongan harga 10% untuk pembelian biji kopi, tumbler, atau merchandise RestoHub.',
                 'poin'        => 200,
                 'badge'       => 'Merchandise',
                 'badge_color' => 'bg-emerald-100 text-emerald-800',
@@ -753,7 +753,7 @@ class RestoLandingController extends Controller
         // FAQ Membership
         $faqs = [
             [
-                'q' => 'Bagaimana cara bergabung menjadi Member L-Coding Gourmet Club?',
+                'q' => 'Bagaimana cara bergabung menjadi Member RestoHub Gourmet Club?',
                 'a' => 'Pendaftaran gratis cukup dengan meminta barista atau kasir untuk mendaftarkan nomor telepon Anda saat transaksi pertama. Kartu member digital langsung aktif dan poin mulai dikumpulkan sejak transaksi hari itu.',
             ],
             [

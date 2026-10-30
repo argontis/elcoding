@@ -15,7 +15,7 @@ class BengkelLandingController extends Controller
     {
         // 1. Profil & Pengaturan Bengkel (Dapat diubah atau dihubungkan ke tabel settings/database)
         $workshop = [
-            'name'           => 'MotoPro Workshop',
+            'name'           => 'L-GARAGE Workshop',
             'tagline'        => 'BENGKEL PRESISI MODERN BERSTANDAR OBD-II',
             'headline'       => 'Servis Mobil Cepat, Transparan, & Terpercaya',
             'headline_accent'=> 'Tanpa Antre Lama',
@@ -25,9 +25,9 @@ class BengkelLandingController extends Controller
             'stall_terisi'   => 3,
             'stall_kapasitas'=> 4,
             'rata_durasi'    => '45 Menit',
-            'no_darurat'     => '0800-1-MOTOPRO',
+            'no_darurat'     => '0800-1-LGARAGE',
             'no_whatsapp'    => '6281234567890',
-            'alamat'         => 'Bengkel Utama: Jl. Otomotif Presisi No. 88, Kawasan Industri Modern',
+            'alamat'         => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'maps_url'       => 'https://maps.google.com',
         ];
 
@@ -248,7 +248,7 @@ class BengkelLandingController extends Controller
 
         // Format pesan WhatsApp ke admin bengkel
         $waAdmin = '6281234567890';
-        $pesanWa = "Halo Tim MotoPro Workshop,%0A"
+        $pesanWa = "Halo Tim L-Garage Workshop,%0A"
             . "Saya ingin mengonfirmasi booking servis berikut:%0A%0A"
             . "Kode Booking: " . $bookingCode . "%0A"
             . "Nama: " . urlencode($validated['nama']) . "%0A"
@@ -278,22 +278,22 @@ class BengkelLandingController extends Controller
     }
 
     /**
-     * Tampilkan Halaman Penuh "Booking Servis Cepat" (Sesuai Desain Motopro Fast Lane)
+     * Tampilkan Halaman Penuh "Booking Servis Cepat" (Sesuai Desain L-Garage Fast Lane)
      * Semua input dan form dibiarkan KOSONG agar dapat diisi sendiri oleh pengguna.
      */
     public function bookingPage(Request $request)
     {
         $workshop = [
-            'name'           => 'MotoPro Workshop',
+            'name'           => 'L-GARAGE Workshop',
             'tagline'        => 'BENGKEL PRESISI MODERN BERSTANDAR OBD-II',
             'jam_buka'       => '08:00 - 17:00 WIB',
             'status_bengkel' => 'BENGKEL BUKA • 1 STALL SIAP',
             'stall_terisi'   => 3,
             'stall_kapasitas'=> 5,
             'rata_durasi'    => '45 Menit',
-            'no_darurat'     => '0800-1-MOTOPRO',
+            'no_darurat'     => '0800-1-LGARAGE',
             'no_whatsapp'    => '6281234567890',
-            'alamat'         => 'Bengkel Utama: Jl. Otomotif Presisi No. 88, Kawasan Industri Modern',
+            'alamat'         => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'maps_url'       => 'https://maps.google.com',
         ];
 
@@ -380,22 +380,22 @@ class BengkelLandingController extends Controller
     }
 
     /**
-     * Tampilkan Halaman Penuh "Live Tracking Servis" (Sesuai Desain Motopro Workshop Telemetri)
+     * Tampilkan Halaman Penuh "Live Tracking Servis" (Sesuai Desain L-Garage Workshop Telemetri)
      * Form pencarian dan status awal dibiarkan KOSONG agar pengguna dapat mengisi sendiri plat nomornya.
      */
     public function trackingPage(Request $request)
     {
         $workshop = [
-            'name'           => 'MotoPro Workshop',
+            'name'           => 'L-GARAGE Workshop',
             'tagline'        => 'BENGKEL PRESISI MODERN BERSTANDAR OBD-II',
             'jam_buka'       => '08:00 - 17:00 WIB',
             'status_bengkel' => 'BENGKEL BUKA • 1 STALL SIAP',
             'stall_terisi'   => 3,
             'stall_kapasitas'=> 5,
             'rata_durasi'    => '45 Menit',
-            'no_darurat'     => '0800-1-MOTOPRO',
+            'no_darurat'     => '0800-1-LGARAGE',
             'no_whatsapp'    => '6281234567890',
-            'alamat'         => 'Bengkel Utama: Jl. Otomotif Presisi No. 88, Kawasan Industri Modern',
+            'alamat'         => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'maps_url'       => 'https://maps.google.com',
         ];
 
@@ -632,16 +632,16 @@ class BengkelLandingController extends Controller
     public function garasiPage(Request $request)
     {
         $workshop = [
-            'name'           => 'MotoPro Workshop',
+            'name'           => 'L-GARAGE Workshop',
             'tagline'        => 'BENGKEL PRESISI MODERN BERSTANDAR OBD-II',
             'jam_buka'       => '08:00 - 17:00 WIB',
             'status_bengkel' => 'BENGKEL BUKA • 1 STALL SIAP',
             'stall_terisi'   => 3,
             'stall_kapasitas'=> 5,
             'rata_durasi'    => '45 Menit',
-            'no_darurat'     => '0800-1-MOTOPRO',
+            'no_darurat'     => '0800-1-LGARAGE',
             'no_whatsapp'    => '6281234567890',
-            'alamat'         => 'Bengkel Utama: Jl. Otomotif Presisi No. 88, Kawasan Industri Modern',
+            'alamat'         => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'maps_url'       => 'https://maps.google.com',
         ];
 
@@ -652,9 +652,9 @@ class BengkelLandingController extends Controller
         $member = $isDemo ? [
             'name'        => 'Agus Setiawan',
             'initial'     => 'AS',
-            'tier'        => 'MEMBER GOLD MOTOPRO',
+            'tier'        => 'MEMBER GOLD L-GARAGE',
             'since'       => 'Februari 2023',
-            'member_id'   => 'MP-JKT-88902',
+            'member_id'   => 'LG-JKT-88902',
             'points'      => 1250,
             'points_fmt'  => '1.250 Pts',
             'discount_eq' => 'Rp 125.000 Diskon',
@@ -859,16 +859,16 @@ class BengkelLandingController extends Controller
         $isDemo = $request->has('demo') && in_array(strtolower($request->query('demo')), ['1', 'true', 'yes', 'demo']);
 
         $workshop = [
-            'name'           => 'MotoPro Workshop',
+            'name'           => 'L-GARAGE Workshop',
             'tagline'        => 'BENGKEL PRESISI MODERN BERSTANDAR OBD-II',
             'jam_buka'       => '08:00 - 17:00 WIB',
             'status_bengkel' => $isDemo ? 'BENGKEL BUKA • 1 STALL SIAP' : 'BENGKEL BUKA • 4 STALL TERSEDIA',
             'stall_terisi'   => $isDemo ? 3 : 0,
             'stall_kapasitas'=> 4,
             'rata_durasi'    => '45 Menit',
-            'no_darurat'     => '0800-1-MOTOPRO',
+            'no_darurat'     => '0800-1-LGARAGE',
             'no_whatsapp'    => '6281234567890',
-            'alamat'         => 'Bengkel Utama: Jl. Otomotif Presisi No. 88, Kawasan Industri Modern',
+            'alamat'         => 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.',
             'maps_url'       => 'https://maps.google.com',
         ];
 

@@ -113,44 +113,38 @@
                 </div>
                 <div>
                     <div class="flex items-center gap-1.5">
-                        <span class="font-heading font-extrabold text-xl sm:text-2xl tracking-tight text-slate-900">MotoPro</span>
-                        <span class="text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded border border-slate-200">Workshop</span>
+                        <span class="font-heading font-extrabold text-lg sm:text-xl xl:text-2xl tracking-tight text-slate-900">L-GARAGE</span>
+                        <span class="text-[9px] font-bold uppercase tracking-wider bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded border border-blue-200 whitespace-nowrap">Pusat Informasi</span>
                     </div>
-                    <p class="text-[10px] text-slate-500 font-semibold tracking-wider uppercase -mt-0.5">Automotive Precision Care</p>
+                    <p class="text-[9px] text-slate-500 font-semibold tracking-wider uppercase -mt-0.5">Automotive Precision Care</p>
                 </div>
             </a>
 
-            <!-- Navigation Links (Desktop) -->
-            <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600">
-                <a href="{{ url('/bengkel') }}" class="hover:text-blue-600 transition flex items-center gap-1.5">
+            <!-- Navigation Links (Desktop - Selalu Kesamping / No-Wrap) -->
+            <nav class="hidden lg:flex items-center gap-2.5 xl:gap-4 2xl:gap-6 text-xs xl:text-[13px] font-semibold text-slate-600 whitespace-nowrap shrink-0">
+                <a href="{{ url('/bengkel') }}" class="hover:text-blue-600 transition flex items-center gap-1 whitespace-nowrap px-1 py-0.5">
                     <span>Beranda &amp; Layanan</span>
                 </a>
-                <a href="{{ route('bengkel.booking.page') }}" class="hover:text-blue-600 transition flex items-center gap-1.5">
+                <a href="{{ route('bengkel.booking.page') }}" class="hover:text-blue-600 transition flex items-center gap-1 whitespace-nowrap px-1 py-0.5">
                     <span>Booking Servis Cepat</span>
                 </a>
-                <a href="{{ route('bengkel.tracking.page') }}" class="bg-slate-900 text-white px-3.5 py-1.5 rounded-lg font-bold flex items-center gap-1.5 shadow-2xs">
+                <a href="{{ route('bengkel.tracking.page') }}" class="bg-slate-900 text-white px-3 py-1.5 rounded-lg font-bold flex items-center gap-1 shadow-2xs whitespace-nowrap">
                     <span>Live Tracking Servis</span>
                 </a>
-                <a href="{{ route('bengkel.garasi.page') }}" class="hover:text-blue-600 transition flex items-center gap-1.5">
+                <a href="{{ route('bengkel.garasi.page') }}" class="hover:text-blue-600 transition flex items-center gap-1 whitespace-nowrap px-1 py-0.5">
                     <span>Garasi Saya (Member)</span>
                 </a>
             </nav>
 
             <!-- Quick Plat Search & Action Buttons -->
-                <!-- Stall Status Pill -->
-                <a href="{{ route('bengkel.stall.page') }}" class="hidden xl:flex items-center gap-1.5 bg-blue-50/80 hover:bg-blue-100 text-blue-700 border border-blue-200/60 px-3 py-1.5 rounded-lg text-xs font-bold transition">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>{{ $workshop['status_bengkel'] }}</span>
-                </a>
-
-                <a href="{{ route('bengkel.booking.page') }}" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition border border-slate-200">
+            <div class="flex items-center gap-2 shrink-0 whitespace-nowrap">
+                <a href="{{ route('bengkel.booking.page') }}" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition border border-slate-200 whitespace-nowrap">
                     <i class="fa-regular fa-user text-slate-500 text-xs"></i>
                     <span>AKSES TAMU</span>
                 </a>
-
-                <a href="{{ route('login') }}" class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-lg shadow-sm transition">
+                <a href="{{ route('login') }}" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 rounded-lg shadow-sm transition whitespace-nowrap">
                     <i class="fa-solid fa-shield-halved text-blue-400 text-xs"></i>
-                    <span>Masuk / Daftar Garasi Member</span>
+                    <span>Masuk Member</span>
                 </a>
             </div>
         </div>
@@ -652,7 +646,7 @@
                 </div>
                 <div>
                     <h4 class="font-heading font-bold text-sm text-slate-900">Butuh Bantuan atau Ingin Ubah Permintaan Servis?</h4>
-                    <p class="text-xs text-slate-500">Customer Support Frontline MotoPro siap melayani konsultasi teknis selama servis berlangsung.</p>
+                    <p class="text-xs text-slate-500">Customer Support Frontline L-Garage siap melayani konsultasi teknis selama servis berlangsung.</p>
                 </div>
             </div>
 
@@ -661,7 +655,7 @@
                     <i class="fa-solid fa-phone text-blue-600 text-[10px]"></i>
                     <span>Hotline Bebas Pulsa</span>
                 </a>
-                <a href="https://api.whatsapp.com/send?phone={{ $workshop['no_whatsapp'] }}&text=Halo%20Front%20Office%20MotoPro,%20saya%20ingin%20konsultasi%20mengenai%20unit%20yang%20sedang%20diservis" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl text-xs flex items-center gap-1.5 shadow-sm transition">
+                <a href="https://api.whatsapp.com/send?phone={{ $workshop['no_whatsapp'] }}&text=Halo%20Front%20Office%20L-Garage,%20saya%20ingin%20konsultasi%20mengenai%20unit%20yang%20sedang%20diservis" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl text-xs flex items-center gap-1.5 shadow-sm transition">
                     <i class="fa-brands fa-whatsapp text-emerald-400"></i>
                     <span>Hubungi Front Office</span>
                 </a>
@@ -671,7 +665,7 @@
     </main>
 
     <!-- ========================================================= -->
-    <!-- 5. FOOTER (Matching MotoPro) -->
+    <!-- 5. FOOTER (Matching L-Garage) -->
     <!-- ========================================================= -->
     <footer class="bg-slate-100/90 border-t border-slate-200 mt-12 text-xs text-slate-600">
         <div class="max-w-7xl mx-auto px-4 sm:px-8 py-10 sm:py-12">
@@ -726,7 +720,7 @@
                         Tanya estimasi servis, suku cadang OEM, atau konsultasi kendala transmisi/mesin.
                     </p>
                     <a href="https://api.whatsapp.com/send?phone={{ $workshop['no_whatsapp'] }}" target="_blank" class="font-bold text-emerald-700 hover:underline flex items-center gap-1">
-                        <span>Chat Advisor MotoPro</span>
+                        <span>Chat Advisor L-Garage</span>
                         <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </a>
                 </div>

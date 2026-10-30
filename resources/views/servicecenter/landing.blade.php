@@ -96,7 +96,7 @@
                         <i class="fa-solid fa-microchip"></i>
                     </div>
                     <div>
-                        <div class="font-heading font-black text-sm text-slate-900 leading-tight">L-Coding</div>
+                        <div class="font-heading font-black text-sm text-slate-900 leading-tight">TechFix Pro</div>
                         <div class="text-[9px] font-extrabold text-brand-600 uppercase tracking-wider">Service Center</div>
                     </div>
                 </div>
@@ -189,7 +189,7 @@
                 </div>
                 <div class="whitespace-nowrap">
                     <div class="font-heading font-black text-base lg:text-lg text-slate-900 tracking-tight leading-none group-hover:text-brand-600 transition-colors whitespace-nowrap">
-                        L-Coding Service Center
+                        TechFix Pro Service Center
                     </div>
                     <div class="text-[9px] font-extrabold tracking-widest text-brand-600 uppercase mt-0.5 whitespace-nowrap">
                         {{ $center['branch'] }}
@@ -319,7 +319,7 @@
                         <span>Booking Servis Sekarang</span>
                     </button>
                     
-                    <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo%20L-Coding%20Service%20Center%20Cabang%20Clean,%20saya%20ingin%20konsultasi%20masalah%20hardware%20laptop/PC." target="_blank" class="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 font-heading font-bold text-sm text-slate-700 transition flex items-center justify-center gap-2 text-center shadow-xs">
+                    <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo%20TechFix%20Pro%20Service%20Center%20Cabang%20Clean,%20saya%20ingin%20konsultasi%20masalah%20hardware%20laptop/PC." target="_blank" class="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 font-heading font-bold text-sm text-slate-700 transition flex items-center justify-center gap-2 text-center shadow-xs">
                         <i class="fa-brands fa-whatsapp text-emerald-500 text-base"></i>
                         <span>Konsultasi WhatsApp CS</span>
                     </a>
@@ -402,7 +402,7 @@
                     </div>
 
                     <!-- WhatsApp Button -->
-                    <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo%20L-Coding%20Service%20Center,%20saya%20ingin%20cek%20status%20tiket%20servis%20unit%20saya." target="_blank"
+                    <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo%20TechFix%20Pro%20Service%20Center,%20saya%20ingin%20cek%20status%20tiket%20servis%20unit%20saya." target="_blank"
                        class="mt-4 w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-heading font-extrabold text-xs shadow-md shadow-emerald-600/20 transition">
                         <i class="fa-brands fa-whatsapp text-sm"></i>
                         <span>Cek Status Tiket via WhatsApp</span>
@@ -469,7 +469,7 @@
 
                 <!-- Card Action Button -->
                 <div class="mt-5 pt-3 border-t border-slate-100">
-                    <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo%20L-Coding%20Service%20Center,%20saya%20ingin%20konsultasi%20layanan%20{{ urlencode($cat['action_tag']) }}." target="_blank"
+                    <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo%20TechFix%20Pro%20Service%20Center,%20saya%20ingin%20konsultasi%20layanan%20{{ urlencode($cat['action_tag']) }}." target="_blank"
                        class="w-full py-2 px-3 rounded-xl bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 font-bold text-xs border border-slate-200 hover:border-emerald-200 transition flex items-center justify-between">
                         <span>Konsultasi via WhatsApp</span>
                         <i class="fa-brands fa-whatsapp text-emerald-500"></i>
@@ -606,7 +606,7 @@
 
                 <!-- Select Button -->
                 <div class="mt-5 pt-3 border-t border-slate-100">
-                    <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo%20L-Coding%20Service%20Center,%20saya%20ingin%20konsultasi%20layanan%20{{ urlencode($p['title']) }}." target="_blank"
+                    <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo%20TechFix%20Pro%20Service%20Center,%20saya%20ingin%20konsultasi%20layanan%20{{ urlencode($p['title']) }}." target="_blank"
                        class="w-full py-2.5 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-600 text-emerald-700 hover:text-white font-bold text-xs transition duration-200 text-center flex items-center justify-center gap-2">
                         <i class="fa-brands fa-whatsapp"></i>
                         Konsultasi via WhatsApp
@@ -760,7 +760,7 @@
                     <i class="fa-brands fa-whatsapp text-emerald-400"></i>
                     <span>Chat Teknisi</span>
                 </a>
-                <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo%20L-Coding%20Service%20Center,%20saya%20ingin%20reservasi%20kedatangan%20untuk%20servis%20unit." target="_blank" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-heading font-extrabold text-xs shadow-md shadow-brand-600/30 transition flex items-center gap-2">
+                <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo%20TechFix%20Pro%20Service%20Center,%20saya%20ingin%20reservasi%20kedatangan%20untuk%20servis%20unit." target="_blank" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-heading font-extrabold text-xs shadow-md shadow-brand-600/30 transition flex items-center gap-2">
                     <i class="fa-brands fa-whatsapp"></i>
                     <span>Reservasi via WhatsApp</span>
                 </a>
@@ -781,7 +781,7 @@
                         <i class="fa-solid fa-microchip"></i>
                     </div>
                     <div>
-                        <div class="font-heading font-black text-sm text-slate-900 leading-none">L-Coding Clean</div>
+                        <div class="font-heading font-black text-sm text-slate-900 leading-none">TechFix Pro</div>
                         <div class="text-[9px] font-bold text-brand-600 uppercase">Hardware &amp; IT Lab</div>
                     </div>
                 </div>
@@ -815,7 +815,7 @@
                 <ul class="space-y-2 text-[11px] text-slate-500">
                     <li><i class="fa-solid fa-phone text-slate-400 mr-1.5"></i> {{ $center['no_telepon'] }}</li>
                     <li><i class="fa-brands fa-whatsapp text-emerald-500 mr-1.5"></i> +62 811-9234-5555</li>
-                    <li><i class="fa-solid fa-envelope text-slate-400 mr-1.5"></i> service@elcoding.com</li>
+                    <li><i class="fa-solid fa-envelope text-slate-400 mr-1.5"></i> service@techfixpro.com</li>
                     <li><i class="fa-solid fa-headset text-slate-400 mr-1.5"></i> Customer Helpdesk 24 Jam</li>
                 </ul>
             </div>
@@ -836,7 +836,7 @@
 
         <div class="max-w-7xl mx-auto pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-2">
             <div>
-                &copy; {{ date('Y') }} L-Coding Service Center Cabang Clean. Hak cipta dilindungi undang-undang.
+                &copy; {{ date('Y') }} TechFix Pro Service Center Cabang Clean. Hak cipta dilindungi undang-undang.
             </div>
             <div class="flex items-center gap-4">
                 <span>Ketentuan Layanan</span>
@@ -847,7 +847,7 @@
     </footer>
 
 
-    <!-- JAVASCRIPT: Drawer Toggle Only -->
+    <!-- JAVASCRIPT: Drawer Toggle & Info Actions -->
     <script>
         function toggleMobileDrawer() {
             const drawer = document.getElementById('mobileDrawer');
@@ -862,6 +862,12 @@
                 overlay.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
             }
+        }
+
+        function openBookingModal() {
+            const waNumber = '{{ $center['no_whatsapp'] ?? "6281192345555" }}';
+            const message = encodeURIComponent('Halo TechFix Pro Service Center, saya ingin informasi konsultasi diagnosa & booking antrean servis.');
+            window.open('https://wa.me/' + waNumber + '?text=' + message, '_blank');
         }
     </script>
 </body>

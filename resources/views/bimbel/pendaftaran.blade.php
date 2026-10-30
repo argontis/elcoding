@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran Siswa Baru TA {{ $institution['tahun_ajaran'] ?? '2025/2026' }} — {{ $institution['name'] ?? 'Apex Edu' }}</title>
-    <meta name="description" content="Daftar sekarang sebagai siswa baru Bimbel Apex Edu Cabang Tebet. Pilihan program Reguler, UTBK Intensif Garansi, dan Privat 1-on-1 dengan diskon Early Bird s.d 25%.">
+    <title>Pendaftaran Siswa Baru TA {{ $institution['tahun_ajaran'] ?? '2025/2026' }} — {{ $institution['name'] ?? 'EduPulse Academy' }}</title>
+    <meta name="description" content="Daftar sekarang sebagai siswa baru Bimbel EduPulse Academy Cabang Tebet. Pilihan program Reguler, UTBK Intensif Garansi, dan Privat 1-on-1 dengan diskon Early Bird s.d 25%.">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -84,15 +84,15 @@
             </div>
             <div>
                 <div class="flex items-center gap-1.5">
-                    <span class="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-blue-700">Apex Edu</span>
+                    <span class="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-blue-700">EduPulse Academy</span>
                     <span class="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full border border-blue-200 whitespace-nowrap">Cabang Tebet Clean</span>
                 </div>
                 <p class="text-[9px] text-slate-400 font-mono -mt-0.5">localhost:8000/clean</p>
             </div>
         </a>
 
-        <!-- Desktop Nav -->
-        <nav class="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-5 text-xs xl:text-[13px] font-semibold text-slate-600 whitespace-nowrap">
+        <!-- Desktop Nav (Selalu Kesamping / No-Wrap) -->
+        <nav class="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-5 text-xs xl:text-[13px] font-semibold text-slate-600 whitespace-nowrap shrink-0">
             <a href="{{ route('bimbel.landing') }}" class="px-2 py-1 hover:text-blue-600 transition whitespace-nowrap">Beranda</a>
             <a href="{{ route('bimbel.program.page') }}" class="px-2 py-1 hover:text-blue-600 transition whitespace-nowrap">Program &amp; Biaya</a>
             <a href="{{ route('bimbel.pendaftaran') }}" class="px-3 py-1.5 bg-blue-600 text-white font-bold rounded-xl shadow-sm transition hover:bg-blue-700 whitespace-nowrap">Pendaftaran Baru</a>
@@ -133,7 +133,7 @@
         <div class="flex items-center gap-2.5">
             <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center"><i class="fa-solid fa-graduation-cap text-sm"></i></div>
             <div>
-                <div class="font-heading font-extrabold text-base text-blue-700 leading-none">Apex Edu</div>
+                <div class="font-heading font-extrabold text-base text-blue-700 leading-none">EduPulse Academy</div>
                 <div class="text-[10px] text-slate-400">Cabang Tebet Clean</div>
             </div>
         </div>
@@ -167,7 +167,7 @@
         </a>
     </nav>
     <div class="px-5 py-4 border-t border-slate-100 bg-slate-50 text-xs text-slate-500">
-        <p class="font-bold text-slate-700">Apex Edu Hotline</p>
+        <p class="font-bold text-slate-700">EduPulse Academy Hotline</p>
         <p>{{ $institution['hotline'] ?? '(021) 8370-1920' }}</p>
     </div>
 </div>
@@ -205,7 +205,7 @@
                         <span class="text-blue-200">Tahun Ajaran {{ $institution['tahun_ajaran'] ?? '2025/2026' }}</span>
                     </h1>
                     <p class="mt-4 text-base text-blue-100 leading-relaxed max-w-lg">
-                        Bergabung dengan lebih dari <strong class="text-white">1.200+ alumni</strong> yang telah berhasil masuk PTN dan sekolah unggulan favoritnya bersama Apex Edu Tebet.
+                        Bergabung dengan lebih dari <strong class="text-white">1.200+ alumni</strong> yang telah berhasil masuk PTN dan sekolah unggulan favoritnya bersama EduPulse Academy Tebet.
                     </p>
                 </div>
 
@@ -257,7 +257,7 @@
                             <div class="w-6 h-6 rounded-full bg-white text-blue-700 font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">1</div>
                             <div>
                                 <div class="text-sm font-bold text-white">Login / Buat Akun</div>
-                                <div class="text-[11px] text-blue-200 leading-relaxed">Daftar gratis atau masuk ke Portal Siswa Apex Edu</div>
+                                <div class="text-[11px] text-blue-200 leading-relaxed">Daftar gratis atau masuk ke Portal Siswa EduPulse Academy</div>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">
@@ -307,7 +307,7 @@
             <div class="flex-1 min-w-0">
                 <div class="font-bold text-amber-900 text-sm mb-1">Pendaftaran Dilakukan Melalui Portal Akun Siswa</div>
                 <p class="text-[13px] text-amber-800 leading-relaxed">
-                    Proses pendaftaran resmi Apex Edu Tebet dilakukan melalui <strong>Portal Akun Siswa</strong> agar data Anda tersimpan dengan aman dan terhubung langsung ke sistem akademik. Silakan login atau buat akun baru terlebih dahulu.
+                    Proses pendaftaran resmi EduPulse Academy Tebet dilakukan melalui <strong>Portal Akun Siswa</strong> agar data Anda tersimpan dengan aman dan terhubung langsung ke sistem akademik. Silakan login atau buat akun baru terlebih dahulu.
                 </p>
             </div>
             <a href="{{ url('/bimbel-dashboard') }}"
@@ -331,7 +331,7 @@
                 <span>Pilihan Program Bimbingan</span>
             </div>
             <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 font-heading">Pilih Paket yang Sesuai Target Kamu</h2>
-            <p class="text-sm text-slate-500 max-w-xl mx-auto">Dari bimbingan reguler hingga paket intensif garansi UTBK &amp; privat 1-on-1 — semua tersedia di Apex Edu Tebet.</p>
+            <p class="text-sm text-slate-500 max-w-xl mx-auto">Dari bimbingan reguler hingga paket intensif garansi UTBK &amp; privat 1-on-1 — semua tersedia di EduPulse Academy Tebet.</p>
         </div>
 
         <!-- 3 Paket Cards -->
@@ -480,7 +480,7 @@
                     <i class="fa-solid fa-building-columns"></i>
                 </div>
                 <div>
-                    <h3 class="text-base font-bold text-slate-900 font-heading">Apex Edu Cabang Tebet</h3>
+                    <h3 class="text-base font-bold text-slate-900 font-heading">EduPulse Academy Cabang Tebet</h3>
                     <p class="text-[11px] text-slate-500">{{ $institution['branch_name'] ?? 'Tebet Barat (Jakarta Selatan)' }}</p>
                 </div>
             </div>
@@ -592,7 +592,7 @@
             <span class="text-blue-200">Daftar Sekarang Lewat Portal Akun</span>
         </h2>
         <p class="text-base text-blue-100 max-w-xl mx-auto leading-relaxed">
-            Masuk ke akun Apex Edu Anda dan selesaikan proses pendaftaran siswa baru dalam waktu kurang dari 10 menit.
+            Masuk ke akun EduPulse Academy Anda dan selesaikan proses pendaftaran siswa baru dalam waktu kurang dari 10 menit.
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="{{ url('/bimbel-dashboard') }}"
@@ -621,7 +621,7 @@
                 <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold">
                     <i class="fa-solid fa-graduation-cap text-sm"></i>
                 </div>
-                <span class="font-heading font-extrabold text-lg text-slate-900">Apex Edu</span>
+                <span class="font-heading font-extrabold text-lg text-slate-900">EduPulse Academy</span>
             </div>
             <p class="text-xs text-slate-500 leading-relaxed mb-4">
                 Lembaga bimbingan belajar dan persiapan masuk PTN, kedinasan, dan sekolah unggulan terkemuka di Jakarta Selatan.
@@ -666,7 +666,7 @@
     </div>
 
     <div class="max-w-7xl mx-auto pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-400 text-[11px]">
-        <p>&copy; {{ date('Y') }} Bimbel Apex Edu Cabang Jakarta Selatan &bull; elc.my.id. Seluruh hak cipta dilindungi.</p>
+        <p>&copy; {{ date('Y') }} Bimbel EduPulse Academy Cabang Jakarta Selatan &bull; elc.my.id. Seluruh hak cipta dilindungi.</p>
         <div class="flex items-center gap-4">
             <a href="#" class="hover:text-slate-600">Kebijakan Privasi</a>
             <span>&bull;</span>

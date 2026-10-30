@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cek Tiket Servis — {{ $center['name'] }}</title>
-    <meta name="description" content="Pusat informasi tiket servis L-Coding Service Center Cabang Clean. Pelajari cara lacak tiket, status pengerjaan, produk tersedia, dan FAQ layanan.">
+    <meta name="description" content="Pusat informasi tiket servis TechFix Pro Service Center Cabang Clean. Pelajari cara lacak tiket, status pengerjaan, produk tersedia, dan FAQ layanan.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,8 +56,7 @@
                         <i class="fa-solid fa-microchip text-sm"></i>
                     </div>
                     <div>
-                        <div class="font-heading font-extrabold text-sm text-slate-900 leading-tight">L-Coding</div>
-                        <div class="text-[9px] font-extrabold text-brand-600 uppercase tracking-wider">Service Center</div>
+                        <div class="font-heading font-extrabold text-sm text-slate-900 leading-tight">TechFix Pro</div>`r`n                        <div class="text-[9px] font-extrabold text-brand-600 uppercase tracking-wider">Service Center</div>
                     </div>
                 </div>
                 <button onclick="toggleMobileDrawer()" class="w-8 h-8 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center">
@@ -127,7 +126,7 @@
                     <i class="fa-solid fa-microchip"></i>
                 </div>
                 <div class="whitespace-nowrap">
-                    <div class="font-heading font-black text-base lg:text-lg text-slate-900 tracking-tight leading-none group-hover:text-brand-600 transition-colors whitespace-nowrap">L-Coding Service Center</div>
+                    <div class="font-heading font-black text-base lg:text-lg text-slate-900 tracking-tight leading-none group-hover:text-brand-600 transition-colors whitespace-nowrap">TechFix Pro Service Center</div>
                     <div class="text-[9px] font-extrabold tracking-widest text-brand-600 uppercase mt-0.5 whitespace-nowrap">{{ $center['branch'] }}</div>
                 </div>
             </a>
@@ -179,7 +178,7 @@
                         Info Lengkap<br><span class="text-blue-200">Cek Tiket Servis</span>
                     </h1>
                     <p class="text-blue-100 text-sm sm:text-base leading-relaxed max-w-lg">
-                        Panduan lengkap cara memantau tiket servis, legenda status, katalog produk &amp; sparepart toko, serta kontak dan FAQ layanan L-Coding Service Center Cabang Clean.
+                        Panduan lengkap cara memantau tiket servis, legenda status, katalog produk &amp; sparepart toko, serta kontak dan FAQ layanan TechFix Pro Service Center Cabang Clean.
                     </p>
                     <div class="flex flex-wrap gap-3 pt-2">
                         <a href="{{ url('/ServiceCenter') }}#lacak-tiket" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white text-brand-700 text-sm font-bold shadow-lg hover:bg-blue-50 transition">
@@ -245,7 +244,7 @@
                 <a href="{{ url('/ServiceCenter') }}#lacak-tiket" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-sm font-bold shadow-md shadow-brand-600/20 transition">
                     <i class="fa-solid fa-magnifying-glass"></i> Buka Pelacak Tiket Servis
                 </a>
-                <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo+L-Coding,+saya+ingin+cek+status+servis+unit+saya" target="_blank" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold transition">
+                <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo+TechFix+Pro,+saya+ingin+cek+status+servis+unit+saya" target="_blank" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold transition">
                     <i class="fa-brands fa-whatsapp"></i> Tanya Langsung via WhatsApp
                 </a>
             </div>
@@ -298,7 +297,7 @@
                     <i class="fa-solid fa-store text-indigo-500"></i> Toko Komputer &amp; Sparepart
                 </div>
                 <h2 class="font-heading font-black text-2xl sm:text-3xl text-slate-900 tracking-tight">Produk Unggulan Toko Kami</h2>
-                <p class="text-slate-500 text-sm mt-2 max-w-xl mx-auto">L-Coding Service Center juga merupakan toko komputer &amp; sparepart terlengkap di Cabang Clean. Semua produk original &amp; bergaransi resmi.</p>
+                <p class="text-slate-500 text-sm mt-2 max-w-xl mx-auto">TechFix Pro Service Center juga merupakan toko komputer &amp; sparepart terlengkap di Cabang Clean. Semua produk original &amp; bergaransi resmi.</p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -338,7 +337,7 @@
                         <div class="text-xs text-slate-400 mt-0.5">Kami dapat membantu pengadaan spesifik. Hubungi tim kami untuk pengecekan stok dan harga terbaik.</div>
                     </div>
                 </div>
-                <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo+L-Coding,+saya+butuh+suku+cadang+khusus" target="_blank" class="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white text-sm font-bold transition">
+                <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo+TechFix+Pro,+saya+butuh+suku+cadang+khusus" target="_blank" class="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-white text-sm font-bold transition">
                     <i class="fa-brands fa-whatsapp"></i> Tanya Stok Sekarang
                 </a>
             </div>
@@ -496,7 +495,7 @@
 
             <div class="mt-8 text-center">
                 <p class="text-sm text-slate-500 mb-3">Masih punya pertanyaan lain?</p>
-                <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo+L-Coding,+saya+ingin+bertanya" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold shadow-md shadow-emerald-600/20 transition">
+                <a href="https://wa.me/{{ $center['no_whatsapp'] }}?text=Halo+TechFix+Pro,+saya+ingin+bertanya" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold shadow-md shadow-emerald-600/20 transition">
                     <i class="fa-brands fa-whatsapp text-base"></i>
                     Hubungi Tim CS via WhatsApp
                 </a>
@@ -513,7 +512,7 @@
                         <i class="fa-solid fa-microchip"></i>
                     </div>
                     <div>
-                        <div class="font-heading font-black text-sm text-white">L-Coding Service Center</div>
+                        <div class="font-heading font-black text-sm text-white">TechFix Pro Service Center</div>
                         <div class="text-[9px] text-brand-400 font-bold uppercase tracking-wider">{{ $center['branch'] }}</div>
                     </div>
                 </div>
@@ -540,7 +539,7 @@
             </div>
         </div>
         <div class="border-t border-slate-800 px-4 sm:px-8 py-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] text-slate-600">
-            <span>&copy; {{ date('Y') }} L-Coding Service Center. All rights reserved.</span>
+            <span>&copy; {{ date('Y') }} TechFix Pro Service Center. All rights reserved.</span>
             <span class="flex items-center gap-1">Node: SC-CLEAN-HQ &bull; <span class="text-emerald-500 font-bold">● Live</span></span>
         </div>
     </footer>

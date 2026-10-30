@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $restaurant['name'] }} — {{ $restaurant['tagline'] }}</title>
-    <meta name="description" content="Sajian Kuliner Artisanal & Specialty Coffee dalam Sentuhan Hangat. Pesan langsung dari meja tanpa antre di L-Coding Bistro Cabang Clean.">
+    <meta name="description" content="Sajian Kuliner Artisanal & Specialty Coffee dalam Sentuhan Hangat. Pesan langsung dari meja tanpa antre di RestoHub Bistro Cabang Clean.">
 
     <!-- Google Fonts & Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -71,7 +71,7 @@
                     </div>
                     <div>
                         <div class="font-heading font-extrabold text-base text-slate-900 leading-none">
-                            L-Coding Bistro
+                            RestoHub Bistro
                         </div>
                         <div class="flex items-center gap-1.5 mt-1">
                             <span class="inline-flex items-center gap-1 text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
@@ -83,48 +83,46 @@
                     </div>
                 </a>
                 
-                <div class="hidden xl:flex items-center gap-1.5 pl-3 border-l border-stone-200 text-xs">
+                <div class="hidden 2xl:flex items-center gap-1.5 pl-3 border-l border-stone-200 text-xs">
                     <span class="font-bold text-slate-700">{{ $restaurant['branch'] }}</span>
-                    <span class="text-[10px] bg-stone-100 text-slate-600 px-1.5 py-0.5 rounded border border-stone-200 font-semibold">Dine-in</span>
-                    <span class="text-[10px] bg-amber-50 text-amber-800 px-1.5 py-0.5 rounded border border-amber-200 font-bold">{{ $restaurant['active_table']['number'] }}</span>
+                    <span id="topNavOrderType" class="text-[10px] bg-stone-100 text-slate-600 px-1.5 py-0.5 rounded border border-stone-200 font-semibold">Dine-in</span>
+                    <span id="topNavTableNumber" class="text-[10px] bg-amber-50 text-amber-800 px-1.5 py-0.5 rounded border border-amber-200 font-bold">{{ $restaurant['active_table']['number'] }}</span>
                 </div>
             </div>
 
-            <!-- Desktop Nav Links (Sesuai Foto: Beranda Active Terracotta Pill) -->
-            <nav class="hidden lg:flex items-center gap-1.5 text-xs xl:text-sm font-semibold text-slate-600">
-                <a href="{{ url('/restaurant') }}" class="bg-[#b84221] text-white px-4 py-2 rounded-xl font-bold shadow-xs flex items-center gap-1">
+            <!-- Desktop Nav Links (Selalu Kesamping / No-Wrap) -->
+            <nav class="hidden lg:flex items-center gap-1 xl:gap-2 text-xs xl:text-sm font-semibold text-slate-600 whitespace-nowrap shrink-0">
+                <a href="{{ url('/restaurant') }}" class="bg-[#b84221] text-white px-3.5 xl:px-4 py-2 rounded-xl font-bold shadow-xs flex items-center gap-1 whitespace-nowrap">
                     Beranda
                 </a>
-                <a href="{{ route('resto.menu') }}" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition">
+                <a href="{{ route('resto.menu') }}" class="hover:text-[#b84221] px-2.5 xl:px-3 py-2 rounded-xl hover:bg-stone-50 transition whitespace-nowrap">
                     Menu Digital &amp; Order
                 </a>
-                <a href="{{ route('resto.reservasi') }}" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition">
+                <a href="{{ route('resto.reservasi') }}" class="hover:text-[#b84221] px-2.5 xl:px-3 py-2 rounded-xl hover:bg-stone-50 transition whitespace-nowrap">
                     Reservasi Meja
                 </a>
-                <a href="{{ route('resto.status') }}" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition">
+                <a href="{{ route('resto.status') }}" class="hover:text-[#b84221] px-2.5 xl:px-3 py-2 rounded-xl hover:bg-stone-50 transition whitespace-nowrap">
                     Status Pesanan (Live KDS)
                 </a>
-                <a href="{{ route('resto.member.info') }}" class="hover:text-[#b84221] px-3 py-2 rounded-xl hover:bg-stone-50 transition flex items-center gap-1">
+                <a href="{{ route('resto.member.info') }}" class="hover:text-[#b84221] px-2.5 xl:px-3 py-2 rounded-xl hover:bg-stone-50 transition flex items-center gap-1 whitespace-nowrap">
                     <i class="fa-solid fa-crown text-amber-500 text-[10px]"></i>
                     Member &amp; Poin
                 </a>
             </nav>
 
-            <!-- Right: Keranjang Button & Mobile Menu Toggle -->
+            <!-- Right: Pusat Layanan / Hotline & Mobile Menu Toggle -->
             <div class="flex items-center gap-2">
-                <button type="button" onclick="alert('Keranjang Meja #04: {{ $restaurant['cart']['count'] }} Item ({{ $restaurant['cart']['total'] }}). Siap untuk dikonfirmasi.')" 
-                        class="bg-[#b84221] hover:bg-[#a33315] text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-xs transition flex items-center gap-2.5">
+                <a href="https://wa.me/{{ $restaurant['whatsapp'] }}?text=Halo%20RestoHub%20Bistro,%20saya%20ingin%20informasi%20layanan%20dan%20pemesanan" target="_blank"
+                   class="bg-[#b84221] hover:bg-[#a33315] text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-xs transition flex items-center gap-2.5">
                     <div class="relative">
-                        <i class="fa-solid fa-basket-shopping text-sm"></i>
-                        <span class="absolute -top-2 -right-2 bg-amber-400 text-slate-900 w-4 h-4 rounded-full text-[9px] font-black flex items-center justify-center">
-                            {{ $restaurant['cart']['count'] }}
-                        </span>
+                        <i class="fa-brands fa-whatsapp text-base"></i>
+                        <span class="absolute -top-1 -right-1 bg-emerald-400 w-2 h-2 rounded-full animate-ping"></span>
                     </div>
                     <div class="text-left leading-tight hidden sm:block">
-                        <div class="text-[10px] font-medium text-amber-100">Keranjang</div>
-                        <div class="text-xs font-black">{{ $restaurant['cart']['count'] }} Item &bull; {{ $restaurant['cart']['total'] }}</div>
+                        <div class="text-[10px] font-medium text-amber-100">Pusat Layanan</div>
+                        <div class="text-xs font-black">Hotline &bull; {{ $restaurant['phone'] }}</div>
                     </div>
-                </button>
+                </a>
 
                 <!-- Mobile Hamburger Button -->
                 <button id="resto-hamburger" onclick="toggleRestoNav()" class="lg:hidden w-9 h-9 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-200 flex flex-col items-center justify-center gap-1 transition">
@@ -145,7 +143,7 @@
                     <div class="w-8 h-8 rounded-lg bg-[#b84221] text-white flex items-center justify-center">
                         <i class="fa-solid fa-utensils text-sm"></i>
                     </div>
-                    <span class="font-heading font-extrabold text-base text-slate-900">L-Coding Bistro</span>
+                    <span class="font-heading font-extrabold text-base text-slate-900">RestoHub Bistro</span>
                 </div>
                 <button onclick="closeRestoNav()" class="w-8 h-8 rounded-lg bg-stone-100 text-slate-600 flex items-center justify-center">
                     <i class="fa-solid fa-times text-sm"></i>
@@ -236,45 +234,45 @@
                 </div>
             </div>
 
-            <!-- Right Column: Portal Tamu Langsung Card -->
+            <!-- Right Column: Pusat Informasi Pemesanan Card -->
             <div class="lg:col-span-5">
                 <div class="bg-white rounded-3xl border border-stone-200 shadow-sm p-6 space-y-4">
                     <div class="flex items-center justify-between pb-3 border-b border-stone-100">
                         <div class="flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                            <span class="font-bold text-xs text-slate-800">Portal Tamu Langsung</span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span class="font-bold text-xs text-slate-800">Pusat Informasi Pemesanan</span>
                         </div>
-                        <span class="text-[10px] font-bold text-amber-900 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
-                            Meja #04 Terhubung
+                        <span id="guestPortalBadge" class="text-[10px] font-bold text-amber-900 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
+                            Pusat Informasi Meja {{ $restaurant['active_table']['number'] }}
                         </span>
                     </div>
 
                     <!-- Lokasi Duduk Anda Box -->
                     <div class="bg-stone-50 border border-stone-200/90 rounded-2xl p-4 flex items-center justify-between">
                         <div>
-                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Lokasi Duduk Anda:</div>
-                            <div class="font-extrabold text-sm sm:text-base text-slate-900 mt-0.5 flex items-center gap-2">
-                                <span>🪑 Meja {{ $restaurant['active_table']['number'] }} &bull; {{ $restaurant['active_table']['area'] }}</span>
+                            <div id="orderLocationLabel" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Informasi Layanan Meja:</div>
+                            <div id="orderLocationValue" class="font-extrabold text-sm sm:text-base text-slate-900 mt-0.5 flex items-center gap-2">
+                                <span>🪑 Meja {{ $restaurant['active_table']['number'] }} &bull; {{ $restaurant['active_table']['area'] }} (Pesan di Meja / Kasir)</span>
                             </div>
                         </div>
-                        <button type="button" onclick="alert('Silakan scan barcode pada meja pilihan Anda untuk berpindah meja.')" class="text-xs font-bold text-[#b84221] hover:underline">
-                            Ganti
+                        <button type="button" onclick="openLocationModal()" class="text-xs font-bold text-[#b84221] hover:underline cursor-pointer">
+                            Info Meja
                         </button>
                     </div>
 
                     <!-- Tipe Pemesanan Tabs -->
                     <div class="space-y-1.5">
-                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Pilih Tipe Pemesanan:</label>
+                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Pilih Informasi Layanan:</label>
                         <div class="grid grid-cols-3 gap-2">
-                            <button type="button" class="py-2 px-3 rounded-xl bg-orange-50 border-2 border-[#b84221] text-[#b84221] font-bold text-xs flex items-center justify-center gap-1.5 shadow-2xs">
+                            <button type="button" id="btnTypeDineIn" onclick="setOrderType('dinein')" class="py-2 px-3 rounded-xl bg-orange-50 border-2 border-[#b84221] text-[#b84221] font-bold text-xs flex items-center justify-center gap-1.5 shadow-2xs transition cursor-pointer">
                                 <i class="fa-solid fa-utensils text-[11px]"></i>
                                 <span>Dine-In</span>
                             </button>
-                            <button type="button" class="py-2 px-3 rounded-xl bg-stone-50 border border-stone-200 text-slate-600 font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-stone-100 transition">
+                            <button type="button" id="btnTypeTakeaway" onclick="setOrderType('takeaway')" class="py-2 px-3 rounded-xl bg-stone-50 border border-stone-200 text-slate-600 font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-stone-100 transition cursor-pointer">
                                 <i class="fa-solid fa-bag-shopping text-[11px]"></i>
                                 <span>Takeaway</span>
                             </button>
-                            <button type="button" class="py-2 px-3 rounded-xl bg-stone-50 border border-stone-200 text-slate-600 font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-stone-100 transition">
+                            <button type="button" id="btnTypeDelivery" onclick="setOrderType('delivery')" class="py-2 px-3 rounded-xl bg-stone-50 border border-stone-200 text-slate-600 font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-stone-100 transition cursor-pointer">
                                 <i class="fa-solid fa-motorcycle text-[11px]"></i>
                                 <span>Antar</span>
                             </button>
@@ -283,20 +281,20 @@
 
                     <!-- Action Buttons -->
                     <div class="space-y-2 pt-1">
-                        <a href="{{ route('resto.menu') }}" class="w-full py-3.5 px-4 bg-[#b84221] hover:bg-[#a33315] text-white font-extrabold text-xs sm:text-sm rounded-2xl shadow-sm shadow-orange-950/20 flex items-center justify-center gap-2 transition">
+                        <a href="{{ route('resto.menu') }}" id="btnActionOrder" class="w-full py-3.5 px-4 bg-[#b84221] hover:bg-[#a33315] text-white font-extrabold text-xs sm:text-sm rounded-2xl shadow-sm shadow-orange-950/20 flex items-center justify-center gap-2 transition">
                             <i class="fa-solid fa-book-open"></i>
-                            <span>Buka Menu &amp; Pesan Meja #04</span>
+                            <span id="btnActionOrderText">Lihat Buku Menu &amp; Pesan di Meja</span>
                         </a>
                         <a href="#status-dapur-section" class="w-full py-2.5 px-4 bg-stone-100 hover:bg-stone-200 text-slate-700 font-bold text-xs rounded-2xl border border-stone-200 flex items-center justify-center gap-2 transition">
                             <i class="fa-solid fa-clock-rotate-left text-amber-700"></i>
-                            <span>Lacak Status Pesanan Dapur Live</span>
+                            <span>Informasi Status Operasional Dapur</span>
                         </a>
                     </div>
 
                     <div class="flex items-center justify-between pt-2 border-t border-stone-100 text-[10px] text-slate-400">
                         <div class="flex items-center gap-1">
-                            <i class="fa-solid fa-lock text-emerald-600"></i>
-                            <span>Enkripsi Pesanan Kasir Otomatis</span>
+                            <i class="fa-solid fa-circle-info text-emerald-600"></i>
+                            <span>Pusat Informasi Resmi Terhubung</span>
                         </div>
                         <span class="font-mono">{{ $restaurant['status']['node'] }}</span>
                     </div>
@@ -504,7 +502,7 @@
                     </p>
                 </div>
 
-                <form onsubmit="event.preventDefault(); alert('Permintaan reservasi meja telah diteruskan ke WhatsApp Concierge L-Coding Bistro.');" class="space-y-4">
+                <form onsubmit="event.preventDefault(); alert('Permintaan reservasi meja telah diteruskan ke WhatsApp Concierge RestoHub Bistro.');" class="space-y-4">
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                         <div class="space-y-1">
                             <label class="font-bold text-slate-600 block text-[11px]">Tanggal Kunjungan</label>
@@ -557,7 +555,7 @@
                 Dipercaya Ratusan Penikmat Kopi &amp; Gastronomi
             </h2>
             <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                Pengalaman bersantap nyata dari pelanggan setia L-Coding Bistro Cabang Clean.
+                Pengalaman bersantap nyata dari pelanggan setia RestoHub Bistro Cabang Clean.
             </p>
         </div>
 
@@ -600,11 +598,11 @@
                     <div class="w-8 h-8 rounded-xl bg-[#b84221] text-white flex items-center justify-center font-bold">
                         <i class="fa-solid fa-utensils text-sm"></i>
                     </div>
-                    <span class="font-heading font-extrabold text-base text-slate-900">L-Coding Bistro</span>
+                    <span class="font-heading font-extrabold text-base text-slate-900">RestoHub Bistro</span>
                     <span class="text-[10px] font-bold bg-amber-50 text-[#b84221] px-2 py-0.5 rounded-full border border-amber-200">Artisanal Cafe</span>
                 </div>
                 <p class="text-xs text-slate-500 leading-relaxed">
-                    Sinergikan kehangatan cita rasa bistro kontemporer dengan presisi racikan kopi artisanal khas L-Coding. Tempat bertemunya ide, aroma, dan kepuasan kuliner hangat.
+                    Sinergikan kehangatan cita rasa bistro kontemporer dengan presisi racikan kopi artisanal khas RestoHub. Tempat bertemunya ide, aroma, dan kepuasan kuliner hangat.
                 </p>
                 <div class="p-3 bg-stone-50 rounded-xl border border-stone-200 text-[11px] font-mono text-slate-600 flex items-center gap-2">
                     <i class="fa-solid fa-wifi text-amber-600"></i>
@@ -665,7 +663,7 @@
                     Kumpulkan L-Beans tiap transaksi, dapatkan hidangan penutup gratis saat ulang tahun Anda.
                 </p>
                 <div class="flex items-center gap-2 text-xs font-bold text-[#b84221]">
-                    <span>@lcodingbistro</span>
+                    <span>@restohub_bistro</span>
                     <span>&bull;</span>
                     <span>#SedapNikmat</span>
                 </div>
@@ -677,7 +675,7 @@
 
         <div class="max-w-7xl mx-auto pt-6 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-400">
             <div>
-                &copy; {{ date('Y') }} L-Coding Bistro &amp; Coffee. All rights reserved. Clean Branch Edition.
+                &copy; {{ date('Y') }} RestoHub Bistro &amp; Cafe. All rights reserved. Clean Branch Edition.
             </div>
             <div class="flex items-center gap-4">
                 <a href="javascript:void(0)" class="hover:text-slate-600">Ketentuan Layanan</a>
@@ -725,6 +723,60 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && navOpen) closeRestoNav();
         });
+
+        // ============================================================
+        // Order Type & Information Switcher (Pusat Informasi)
+        // ============================================================
+        const INACTIVE_BTN = 'py-2 px-3 rounded-xl bg-stone-50 border border-stone-200 text-slate-600 font-semibold text-xs flex items-center justify-center gap-1.5 hover:bg-stone-100 transition cursor-pointer';
+        const ACTIVE_BTN   = 'py-2 px-3 rounded-xl bg-orange-50 border-2 border-[#b84221] text-[#b84221] font-bold text-xs flex items-center justify-center gap-1.5 shadow-2xs transition cursor-pointer';
+
+        function setOrderType(type) {
+            // Reset all buttons to inactive
+            document.getElementById('btnTypeDineIn').className    = INACTIVE_BTN;
+            document.getElementById('btnTypeTakeaway').className  = INACTIVE_BTN;
+            document.getElementById('btnTypeDelivery').className  = INACTIVE_BTN;
+
+            const label    = document.getElementById('orderLocationLabel');
+            const value    = document.getElementById('orderLocationValue');
+            const action   = document.getElementById('btnActionOrderText');
+            const actionBtn = document.getElementById('btnActionOrder');
+            const badge    = document.getElementById('guestPortalBadge');
+            const navType  = document.getElementById('topNavOrderType');
+            const waNumber = '{{ $restaurant["whatsapp"] ?? "628119233889" }}';
+
+            if (type === 'dinein') {
+                document.getElementById('btnTypeDineIn').className = ACTIVE_BTN;
+                label.textContent      = 'Informasi Layanan Meja:';
+                value.innerHTML        = '<span>🪑 Meja #04 • Pesan di Meja / Kasir</span>';
+                action.textContent     = 'Lihat Buku Menu & Pesan di Meja';
+                badge.textContent      = 'Pusat Informasi Meja #04';
+                navType.textContent    = 'Dine-in';
+                actionBtn.href         = '{{ route("resto.menu") }}';
+                actionBtn.target       = '_self';
+            } else if (type === 'takeaway') {
+                document.getElementById('btnTypeTakeaway').className = ACTIVE_BTN;
+                label.textContent      = 'Informasi Ambil Sendiri (Takeaway):';
+                value.innerHTML        = '<span>🛍️ Ambil di Kasir • Pesan via WhatsApp / Kasir</span>';
+                action.textContent     = 'Pesan Takeaway via WhatsApp Kasir';
+                badge.textContent      = 'Pusat Informasi Takeaway';
+                navType.textContent    = 'Takeaway';
+                actionBtn.href         = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent('Halo RestoHub Bistro, saya ingin pesan takeaway.');
+                actionBtn.target       = '_blank';
+            } else if (type === 'delivery') {
+                document.getElementById('btnTypeDelivery').className = ACTIVE_BTN;
+                label.textContent      = 'Informasi Pesan Antar (Delivery):';
+                value.innerHTML        = '<span>🛵 Pesan Antar • Hubungi Hotline / WhatsApp</span>';
+                action.textContent     = 'Hubungi WhatsApp Pesan Antar';
+                badge.textContent      = 'Pusat Informasi Pesan Antar';
+                navType.textContent    = 'Delivery';
+                actionBtn.href         = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent('Halo RestoHub Bistro, saya ingin pesan antar (delivery).');
+                actionBtn.target       = '_blank';
+            }
+        }
+
+        function openLocationModal() {
+            alert('Pusat Informasi RestoHub Bistro: Untuk pindah meja atau cek ketersediaan ruangan, silakan sampaikan ke pramusaji terdekat atau hubungi kasir.');
+        }
     </script>
 </body>
 </html>

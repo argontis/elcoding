@@ -100,22 +100,22 @@
     <header class="bg-white sticky top-0 z-40 border-b border-slate-200/90 shadow-xs w-full">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-3">
             
-            <!-- Brand Logo: Apex Edu + Cabang Tebet Clean -->
+            <!-- Brand Logo: EduPulse Academy + Cabang Tebet Clean -->
             <a href="{{ url('/bimbel') }}" class="flex items-center gap-2.5 group shrink-0">
                 <div class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:bg-blue-700 transition shrink-0">
                     <i class="fa-solid fa-graduation-cap text-base"></i>
                 </div>
                 <div>
                     <div class="flex items-center gap-1.5">
-                        <span class="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-blue-700">Apex Edu</span>
-                        <span class="text-[10px] font-bold bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full border border-blue-200 whitespace-nowrap">Cabang Tebet Clean</span>
+                        <span class="font-heading font-extrabold text-lg sm:text-xl tracking-tight text-blue-700">EduPulse Academy</span>
+                        <span class="text-[9px] font-bold bg-blue-50 text-blue-700 px-1.5 py-0.5 rounded-full border border-blue-200 whitespace-nowrap">Pusat Informasi</span>
                     </div>
                     <p class="text-[9px] text-slate-400 font-mono -mt-0.5">localhost:8000/clean</p>
                 </div>
             </a>
 
-            <!-- Navigation Links (Sesuai Foto Persis) -->
-            <nav class="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-5 text-xs xl:text-[13px] font-semibold text-slate-600 whitespace-nowrap">
+            <!-- Navigation Links (Selalu Kesamping / No-Wrap) -->
+            <nav class="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-5 text-xs xl:text-[13px] font-semibold text-slate-600 whitespace-nowrap shrink-0">
                 <a href="{{ route('bimbel.landing') }}" class="px-3 py-1.5 bg-blue-600 text-white font-bold rounded-xl shadow-sm transition whitespace-nowrap">Beranda</a>
                 <a href="{{ route('bimbel.program.page') }}" class="px-2 py-1 hover:text-blue-600 transition whitespace-nowrap">Program &amp; Biaya</a>
                 <a href="{{ route('bimbel.pendaftaran') }}" class="px-2 py-1 hover:text-blue-600 transition whitespace-nowrap">Pendaftaran Baru</a>
@@ -250,7 +250,7 @@
 
         <!-- Drawer Footer Info -->
         <div class="absolute bottom-0 left-0 right-0 px-5 py-4 border-t border-slate-100 bg-slate-50 text-xs text-slate-500">
-            <p class="font-bold text-slate-700">Apex Edu Hotline</p>
+            <p class="font-bold text-slate-700">EduPulse Academy Hotline</p>
             <p>{{ $institution['hotline'] }} &bull; {{ $institution['jam_layanan'] }}</p>
         </div>
     </div>
@@ -338,10 +338,10 @@
                 <!-- Action Buttons -->
                 <div class="flex flex-wrap items-center gap-3 mb-6">
                     <button type="button" onclick="openRegistrationModal()" class="px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm rounded-xl shadow-md shadow-blue-500/20 transition flex items-center gap-2">
-                        <span>Daftar Bimbingan Sekarang</span>
+                        <span>Informasi &amp; Pendaftaran Bimbel</span>
                         <i class="fa-solid fa-arrow-right text-xs"></i>
                     </button>
-                    <a href="https://wa.me/{{ $institution['whatsapp'] }}?text={{ urlencode('Halo Apex Edu, saya ingin konsultasi program bimbel & biaya.') }}" target="_blank"
+                    <a href="https://wa.me/{{ $institution['whatsapp'] }}?text={{ urlencode('Halo EduPulse Academy, saya ingin konsultasi program bimbel & biaya.') }}" target="_blank"
                        class="px-5 py-3.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold text-sm rounded-xl transition flex items-center gap-2">
                         <i class="fa-brands fa-whatsapp text-emerald-600 text-base"></i>
                         <span>Konsultasi Gratis via WhatsApp</span>
@@ -375,8 +375,8 @@
                     <!-- Header Inside Card -->
                     <div class="flex items-center justify-between pb-4 border-b border-slate-100">
                         <div>
-                            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">PORTAL SISWA &amp; TAMU</span>
-                            <h3 class="font-heading font-extrabold text-lg text-slate-900 mt-1">Akses Cepat Siswa &amp; Tamu</h3>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">PUSAT INFORMASI AKADEMIK</span>
+                            <h3 class="font-heading font-extrabold text-lg text-slate-900 mt-1">Pusat Informasi &amp; Layanan Siswa</h3>
                         </div>
                         <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
                             <i class="fa-solid fa-id-card text-sm"></i>
@@ -911,8 +911,8 @@
                     <i class="fa-solid fa-graduation-cap"></i>
                 </div>
                 <div>
-                    <h3 class="font-heading font-extrabold text-lg text-slate-900 leading-tight">Daftar Bimbingan Belajar</h3>
-                    <p class="text-xs text-slate-500">Konsultasi jadwal &amp; tes diagnostik gratis</p>
+                    <h3 class="font-heading font-extrabold text-lg text-slate-900 leading-tight">Pusat Informasi &amp; Pendaftaran</h3>
+                    <p class="text-xs text-slate-500">Konsultasi program belajar, jadwal &amp; tes diagnostik gratis</p>
                 </div>
             </div>
 
@@ -945,7 +945,7 @@
                 <div class="pt-2">
                     <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm rounded-xl transition shadow-sm flex items-center justify-center gap-2">
                         <i class="fa-solid fa-paper-plane text-xs"></i>
-                        <span>Kirim Pendaftaran</span>
+                        <span>Kirim Permintaan Konsultasi &amp; Pendaftaran</span>
                     </button>
                 </div>
             </form>

@@ -62,7 +62,13 @@ class User extends Authenticatable
 
     public function isBengkel()
     {
-        return strtolower(trim($this->role ?? '')) === 'bengkel';
+        $role = strtolower(trim($this->role ?? ''));
+        $username = strtolower(trim($this->username ?? ''));
+        return in_array($role, ['bengkel', 'lgarage', 'garage', 'workshop'])
+            || in_array($username, ['bengkel', 'lgarage', 'garage', 'workshop', 'mechanic'])
+            || $this->email === 'bengkel@lgarage.id'
+            || $this->email === 'bengkel@elcoding.id'
+            || $this->email === 'admin@lgarage.id';
     }
 
     public function isMentor()

@@ -70,6 +70,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/pelanggan', [BengkelDashboardController::class, 'pelanggan'])->name('pelanggan');
         Route::get('/servis', [BengkelDashboardController::class, 'servis'])->name('servis');
         Route::get('/antrean', [BengkelDashboardController::class, 'antrean'])->name('antrean');
+
+        // Endpoints Interaktif Manajemen Servis & Operasional Bengkel
+        Route::post('/work-orders', [BengkelDashboardController::class, 'storeWorkOrder'])->name('work_orders.store');
+        Route::post('/work-orders/{id}/status', [BengkelDashboardController::class, 'updateStatusWorkOrder'])->name('work_orders.update_status');
+        Route::post('/work-orders/{id}/delete', [BengkelDashboardController::class, 'destroyWorkOrder'])->name('work_orders.destroy');
+        Route::post('/demo-data', [BengkelDashboardController::class, 'loadDemoData'])->name('demo_data');
+        Route::post('/reset-data', [BengkelDashboardController::class, 'resetData'])->name('reset_data');
+        Route::get('/reset-data', [BengkelDashboardController::class, 'resetData'])->name('reset_data_get');
+        Route::post('/cek-status-json', [BengkelDashboardController::class, 'cekStatusJson'])->name('cek_status_json');
     });
 
     // ==========================================
@@ -99,6 +108,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/materi/generate-soal', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'generateAiSoal'])->name('materi.generate_soal');
         Route::post('/materi/distribusi', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'distribusiMateri'])->name('materi.distribusi');
         Route::get('/materi/reset', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'resetMateri'])->name('materi.reset');
+        Route::post('/materi/demo', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'loadDemoMateri'])->name('materi.demo');
+        Route::post('/materi/{id}/delete', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'destroyMateri'])->name('materi.destroy');
         Route::get('/ai-tutor', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'aiTutor'])->name('ai_tutor');
         Route::post('/ai-tutor/chat', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'sendChatAiTutor'])->name('ai_tutor.chat');
         Route::post('/ai-tutor/sesi', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'storeSesiAiTutor'])->name('ai_tutor.sesi.store');
@@ -117,9 +128,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/pengaturan/reset', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'resetPengaturan'])->name('pengaturan.reset');
         Route::post('/blast-wa', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'blastWa'])->name('blast_wa');
         Route::post('/pendaftaran', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'storePendaftaran'])->name('pendaftaran.store');
+        Route::post('/pendaftaran/{id}/delete', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'destroyPendaftaran'])->name('pendaftaran.destroy');
         Route::post('/verifikasi/{id}', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'verifikasiPendaftaran'])->name('verifikasi');
+        Route::post('/switch-branch', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'switchBranch'])->name('switch_branch');
+        Route::post('/kelas', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'storeKelas'])->name('kelas.store');
+        Route::post('/kelas/{id}/delete', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'destroyKelas'])->name('kelas.destroy');
+        Route::post('/agenda', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'storeAgenda'])->name('agenda.store');
+        Route::post('/agenda/{id}/delete', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'destroyAgenda'])->name('agenda.destroy');
+        Route::post('/demo-data', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'loadDemoDashboard'])->name('demo_data');
+        Route::post('/generate-soal-dashboard', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'generateSoalDashboard'])->name('generate_soal_dashboard');
         Route::post('/export-laporan', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'exportLaporan'])->name('export_laporan');
         Route::get('/reset', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'resetData'])->name('reset');
+        Route::post('/reset', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'resetData'])->name('reset.post');
         Route::post('/logout', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'logout'])->name('logout');
         Route::get('/logout', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'logout'])->name('logout.get');
     });

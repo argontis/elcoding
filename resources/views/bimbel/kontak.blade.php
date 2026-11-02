@@ -263,7 +263,7 @@
                         <span class="text-[10px] font-bold bg-amber-50 text-amber-700 px-2 py-0.2 rounded border border-amber-200">ASUS Authorized Service Center</span>
                     </div>
                     <p class="text-xs text-slate-500 mt-0.5">
-                        {{ $institution['branch_full_address'] ?? 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431' }}
+                        {{ $institution['branch_full_address'] ?? 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.' }}
                     </p>
                 </div>
             </div>
@@ -800,7 +800,7 @@
             <h4 class="font-heading font-bold text-slate-900 text-sm mb-3">Cabang Cibubur (Bekasi)</h4>
             <div class="flex items-start gap-2 text-xs">
                 <i class="fa-solid fa-location-dot text-blue-600 mt-0.5 shrink-0"></i>
-                <p class="leading-relaxed">{{ $institution['branch_full_address'] ?? 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431' }}</p>
+                <p class="leading-relaxed">{{ $institution['branch_full_address'] ?? 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.' }}</p>
             </div>
             <div class="flex items-center gap-2 text-xs pt-1">
                 <i class="fa-solid fa-phone text-blue-600 shrink-0"></i>

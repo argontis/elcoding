@@ -934,8 +934,8 @@
 
             <!-- Cabang & Kontak -->
             <div>
-                <h4 class="font-heading font-bold text-slate-900 text-sm mb-3">Cabang Jakarta Selatan</h4>
-                <p class="leading-relaxed">Jl. Pendidikan Prestasi No. 45, Kebayoran Baru, Jakarta Selatan 12150</p>
+                <h4 class="font-heading font-bold text-slate-900 text-sm mb-3">Cabang Cibubur</h4>
+                <p class="leading-relaxed">Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.</p>
                 <p class="mt-2"><strong class="text-slate-700">Hotline CS:</strong> 0812-9988-7711</p>
                 <p class="mt-1"><strong class="text-slate-700">Jam Layanan:</strong> 08:00 - 20:00 WIB</p>
             </div>

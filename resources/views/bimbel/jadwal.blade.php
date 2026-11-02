@@ -647,6 +647,9 @@
                 setTimeout(() => location.reload(), 1000);
             }
         })
+        .catch(() => showToast('Gagal menandai hadir semua.', 'error'));
+    }
+
     function toggleBimbelSidebar() {
         const sidebar = document.getElementById('bimbelSidebar');
         const overlay = document.getElementById('bimbelSidebarOverlay');

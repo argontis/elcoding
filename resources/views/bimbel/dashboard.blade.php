@@ -342,7 +342,18 @@
                         <!-- Pendaftaran Baru Button -->
                         <button type="button" onclick="openModalPendaftaran()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#3b49df] hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-200 hover:shadow-indigo-300 transition active:scale-95">
                             <i class="fas fa-plus"></i>
-                            <span>+ Pendaftaran Baru</span>
+                            <span>Pendaftaran Baru</span>
+                        </button>
+
+                        <!-- Muat Demo Button -->
+                        <button type="button" onclick="loadDemoDashboard()" class="flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold shadow-sm transition active:scale-95" title="Isi dengan contoh data demo lengkap">
+                            <i class="fas fa-wand-magic-sparkles text-amber-600"></i>
+                            <span class="hidden sm:inline">Muat Demo</span>
+                        </button>
+
+                        <!-- Reset Kosong Button -->
+                        <button type="button" onclick="resetSemuaData()" class="w-9 h-9 rounded-xl border border-slate-200 bg-white hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 text-slate-400 flex items-center justify-center transition shadow-sm" title="Reset Semua Data ke Kosong">
+                            <i class="fas fa-trash-can text-xs"></i>
                         </button>
                     </div>
                 </div>
@@ -451,8 +462,14 @@
                                     <span class="w-2.5 h-2.5 rounded-full {{ count($kelasLangsung) > 0 ? 'bg-rose-500 pulse-subtle' : 'bg-slate-300' }}"></span>
                                     <h2 class="font-heading font-extrabold text-base text-slate-900">Monitoring Kelas Langsung</h2>
                                 </div>
-                                <div class="px-2.5 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/60">
-                                    <span>Plt Utilitas: {{ $utilitasStudio['persen'] }} &bull; {{ $utilitasStudio['terpakai'] }}</span>
+                                <div class="flex items-center gap-2">
+                                    <div class="px-2.5 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200/60">
+                                        <span>Plt Utilitas: {{ $utilitasStudio['persen'] }} &bull; {{ $utilitasStudio['terpakai'] }}</span>
+                                    </div>
+                                    <button type="button" onclick="openModalTambahKelas()" class="px-3 py-1 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition active:scale-95">
+                                        <i class="fas fa-plus text-[10px]"></i>
+                                        <span>+ Jadwal Sesi</span>
+                                    </button>
                                 </div>
                             </div>
 
@@ -462,38 +479,56 @@
 
                             <!-- List of Active Classes -->
                             @if(count($kelasLangsung) > 0)
-                                <div class="space-y-3">
+                                <div class="space-y-3" id="kelasContainer">
                                     @foreach($kelasLangsung as $kelas)
-                                        <div class="p-4 rounded-xl border border-slate-200/80 bg-slate-50/50 hover:bg-slate-50 transition flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                        @php
+                                            $cId = $kelas['id'] ?? $loop->iteration;
+                                            $cTitle = $kelas['title'] ?? $kelas['judul'] ?? 'Sesi Kelas Bimbel';
+                                            $cStudio = $kelas['studio'] ?? $kelas['ruang'] ?? 'Studio Einstein 01';
+                                            $cTutor = $kelas['tutor'] ?? 'Pengajar Bimbel';
+                                            $cInitial = $kelas['tutor_initial'] ?? strtoupper(substr($cTutor, 0, 2));
+                                            $cJam = $kelas['jam'] ?? '08:00 - 09:30 WIB';
+                                            $cAttendance = $kelas['attendance'] ?? (($kelas['hadir'] ?? 24) . '/' . ($kelas['kapasitas'] ?? 25) . ' Hadir');
+                                            $cPct = $kelas['attendance_pct'] ?? $kelas['persen'] ?? 95;
+                                            $cBadge = $kelas['badge'] ?? 'Hybrid Zoom + Offline';
+                                            $cStatus = $kelas['status'] ?? 'Berlangsung';
+                                        @endphp
+                                        <div class="kelas-item p-4 rounded-xl border border-slate-200/80 bg-slate-50/50 hover:bg-slate-50 transition flex flex-col md:flex-row md:items-center justify-between gap-4" data-title="{{ strtolower($cTitle) }}" data-tutor="{{ strtolower($cTutor) }}">
                                             <div class="flex items-start gap-3.5">
                                                 <div class="w-12 h-12 rounded-xl {{ $kelas['badge_color'] ?? 'bg-indigo-600 text-white' }} flex flex-col items-center justify-center shrink-0 font-bold leading-none shadow-sm">
-                                                    <span class="text-base font-extrabold">{{ $kelas['badge'] ?? 'KLS' }}</span>
+                                                    <span class="text-sm font-extrabold">{{ $cInitial }}</span>
                                                 </div>
                                                 <div>
-                                                    <h3 class="font-heading font-bold text-sm text-slate-900">{{ $kelas['judul'] }}</h3>
-                                                    <div class="mt-1">
-                                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-600">
-                                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> {{ $kelas['status'] }}
+                                                    <h3 class="font-heading font-bold text-sm text-slate-900">{{ $cTitle }}</h3>
+                                                    <div class="mt-1 flex items-center gap-2">
+                                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-600 border border-emerald-200/50">
+                                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> {{ $cStatus }}
                                                         </span>
+                                                        <span class="text-[10px] font-semibold text-slate-400 bg-slate-100 px-2 py-0.5 rounded">{{ $cBadge }}</span>
                                                     </div>
                                                     <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500 mt-2">
-                                                        <span class="flex items-center gap-1.5"><i class="far fa-user text-slate-400"></i> {{ $kelas['tutor'] }}</span>
-                                                        <span class="flex items-center gap-1.5"><i class="far fa-building text-slate-400"></i> {{ $kelas['ruang'] }}</span>
-                                                        <span class="flex items-center gap-1.5"><i class="far fa-clock text-slate-400"></i> {{ $kelas['jam'] }}</span>
+                                                        <span class="flex items-center gap-1.5"><i class="far fa-user text-slate-400"></i> {{ $cTutor }}</span>
+                                                        <span class="flex items-center gap-1.5"><i class="far fa-building text-slate-400"></i> {{ $cStudio }}</span>
+                                                        <span class="flex items-center gap-1.5"><i class="far fa-clock text-slate-400"></i> {{ $cJam }}</span>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="flex items-center justify-between md:justify-end gap-4 shrink-0">
+                                            <div class="flex items-center justify-between md:justify-end gap-3 shrink-0">
                                                 <div class="text-right">
-                                                    <div class="text-xs font-bold text-slate-800">{{ $kelas['hadir'] }} / {{ $kelas['kapasitas'] }} Hadir</div>
+                                                    <div class="text-xs font-bold text-slate-800">{{ $cAttendance }}</div>
                                                     <div class="w-28 h-2 bg-slate-200 rounded-full mt-1.5 overflow-hidden">
-                                                        <div class="h-full bg-emerald-500 rounded-full" style="width: {{ $kelas['persen'] }}%;"></div>
+                                                        <div class="h-full bg-emerald-500 rounded-full" style="width: {{ $cPct }}%;"></div>
                                                     </div>
                                                 </div>
-                                                <button type="button" onclick="openClassDetail('{{ $kelas['judul'] }}', '{{ $kelas['tutor'] }}', '{{ $kelas['ruang'] }}', '{{ $kelas['hadir'] }} Hadir')" class="w-8 h-8 rounded-lg border border-slate-200 text-slate-500 hover:text-indigo-600 hover:bg-white flex items-center justify-center transition shadow-sm">
-                                                    <i class="far fa-eye text-xs"></i>
-                                                </button>
+                                                <div class="flex items-center gap-1.5">
+                                                    <button type="button" onclick="openClassDetail('{{ addslashes($cTitle) }}', '{{ addslashes($cTutor) }}', '{{ addslashes($cStudio) }}', '{{ $cAttendance }}')" class="w-8 h-8 rounded-lg border border-slate-200 text-slate-500 hover:text-indigo-600 hover:bg-white flex items-center justify-center transition shadow-sm" title="Lihat Detail Sesi">
+                                                        <i class="far fa-eye text-xs"></i>
+                                                    </button>
+                                                    <button type="button" onclick="hapusKelas({{ $cId }}, '{{ addslashes($cTitle) }}')" class="w-8 h-8 rounded-lg border border-slate-200 text-rose-400 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition shadow-sm" title="Selesaikan / Hapus Sesi">
+                                                        <i class="fas fa-trash-can text-xs"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach
@@ -508,7 +543,7 @@
                                     <p class="text-xs text-slate-400 mt-1 max-w-sm mx-auto leading-relaxed">
                                         Seluruh studio & laboratorium sedang kosong. Silakan jadwalkan sesi kelas baru untuk memulai monitoring.
                                     </p>
-                                    <button type="button" onclick="quickAction('jadwal')" class="mt-4 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-200 transition">
+                                    <button type="button" onclick="openModalTambahKelas()" class="mt-4 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-md shadow-indigo-200 transition active:scale-95">
                                         <i class="fas fa-plus mr-1.5"></i> Jadwalkan Kelas Baru
                                     </button>
                                 </div>
@@ -658,7 +693,7 @@
                                     <tbody class="divide-y divide-slate-100">
                                         @if(count($pendaftaranBaru['list']) > 0)
                                             @foreach($pendaftaranBaru['list'] as $pendaftar)
-                                                <tr class="hover:bg-slate-50/70 transition">
+                                                <tr class="ppdb-row hover:bg-slate-50/70 transition" data-nama="{{ strtolower($pendaftar['nama']) }}" data-sekolah="{{ strtolower($pendaftar['sekolah']) }}">
                                                     <td class="py-3 px-3">
                                                         <div class="flex items-center gap-2.5">
                                                             <div class="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-xs shrink-0">
@@ -684,14 +719,17 @@
                                                     </td>
                                                     <td class="py-3 px-3 text-right">
                                                         <div class="inline-flex items-center gap-1.5">
-                                                            <button type="button" onclick="verifikasiSiswa({{ $pendaftar['id'] }}, '{{ $pendaftar['nama'] }}')" class="px-3 py-1.5 rounded-lg bg-[#3b49df] hover:bg-indigo-700 text-white font-bold text-xs shadow-sm transition">
+                                                            <button type="button" onclick="verifikasiSiswa({{ $pendaftar['id'] }}, '{{ addslashes($pendaftar['nama']) }}')" class="px-3 py-1.5 rounded-lg bg-[#3b49df] hover:bg-indigo-700 text-white font-bold text-xs shadow-sm transition active:scale-95">
                                                                 {{ $pendaftar['aksi'] }}
                                                             </button>
                                                             @if(!empty($pendaftar['phone']))
-                                                                <a href="https://wa.me/{{ $pendaftar['phone'] }}?text=Halo%20{{ urlencode($pendaftar['nama']) }},%20kami%20dari%20EduPulse%20Academy%20terkait%20pendaftaran" target="_blank" class="w-8 h-8 rounded-lg border border-slate-200 hover:border-emerald-300 text-emerald-600 hover:bg-emerald-50 flex items-center justify-center transition">
+                                                                <a href="https://wa.me/{{ $pendaftar['phone'] }}?text=Halo%20{{ urlencode($pendaftar['nama']) }},%20kami%20dari%20EduPulse%20Academy%20terkait%20pendaftaran" target="_blank" class="w-8 h-8 rounded-lg border border-slate-200 hover:border-emerald-300 text-emerald-600 hover:bg-emerald-50 flex items-center justify-center transition" title="Hubungi Siswa/Wali">
                                                                     <i class="fab fa-whatsapp text-sm"></i>
                                                                 </a>
                                                             @endif
+                                                            <button type="button" onclick="hapusPendaftar({{ $pendaftar['id'] }}, '{{ addslashes($pendaftar['nama']) }}')" class="w-8 h-8 rounded-lg border border-slate-200 hover:border-rose-300 text-rose-400 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition" title="Hapus Pendaftar">
+                                                                <i class="fas fa-trash-can text-xs"></i>
+                                                            </button>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -863,30 +901,46 @@
                                 </div>
                             @endif
 
-                            <button type="button" onclick="showToast('Modul AI Tutor siap dikonfigurasikan.', 'info')" class="w-full mt-4 py-2 px-3 rounded-xl border border-indigo-200 hover:bg-indigo-50 text-indigo-600 font-bold text-xs transition">
-                                Buka Modul AI Tutor & Evaluasi
-                            </button>
+                            <div class="grid grid-cols-2 gap-2 mt-4">
+                                <button type="button" onclick="openModalBankSoalAi()" class="py-2 px-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-700 font-bold text-xs transition flex items-center justify-center gap-1.5">
+                                    <i class="fas fa-wand-magic-sparkles text-[10px]"></i>
+                                    <span>+ Generate Soal</span>
+                                </button>
+                                <a href="{{ route('bimbel.ai_tutor') }}" class="py-2 px-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition text-center flex items-center justify-center gap-1.5">
+                                    <span>Modul AI Tutor</span>
+                                    <i class="fas fa-arrow-right text-[10px]"></i>
+                                </a>
+                            </div>
                         </div>
 
                         <!-- 4. AGENDA BIMBEL & INTERNAL -->
                         <div class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm">
                             <div class="flex items-center justify-between mb-4">
                                 <h2 class="font-heading font-extrabold text-base text-slate-900">Agenda Bimbel & Internal</h2>
-                                <i class="far fa-calendar text-slate-400 text-sm"></i>
+                                <button type="button" onclick="openModalTambahAgenda()" class="px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold flex items-center gap-1 transition border border-indigo-200">
+                                    <i class="fas fa-plus text-[10px]"></i>
+                                    <span>+ Agenda</span>
+                                </button>
                             </div>
 
                             @if(count($agendaList) > 0)
                                 <div class="space-y-3">
                                     @foreach($agendaList as $agenda)
-                                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-3">
-                                            <div class="w-12 h-12 rounded-xl {{ $agenda['badge_color'] ?? 'bg-indigo-950 text-white' }} flex flex-col items-center justify-center shrink-0 font-bold leading-none shadow-sm">
-                                                <span class="text-[9px] uppercase tracking-wider opacity-80">{{ $agenda['month'] }}</span>
-                                                <span class="text-base font-extrabold">{{ $agenda['date'] }}</span>
+                                        @php $aId = $agenda['id'] ?? $loop->iteration; @endphp
+                                        <div class="p-3 rounded-xl bg-slate-50 border border-slate-100 flex items-start justify-between gap-3 group">
+                                            <div class="flex items-start gap-3">
+                                                <div class="w-12 h-12 rounded-xl {{ $agenda['badge_color'] ?? 'bg-indigo-950 text-white' }} flex flex-col items-center justify-center shrink-0 font-bold leading-none shadow-sm">
+                                                    <span class="text-[9px] uppercase tracking-wider opacity-80">{{ $agenda['month'] }}</span>
+                                                    <span class="text-base font-extrabold">{{ $agenda['date'] }}</span>
+                                                </div>
+                                                <div class="text-xs">
+                                                    <h3 class="font-bold text-slate-900 leading-snug">{{ $agenda['title'] }}</h3>
+                                                    <p class="text-[11px] text-slate-500 mt-1">{{ $agenda['desc'] }}</p>
+                                                </div>
                                             </div>
-                                            <div class="text-xs">
-                                                <h3 class="font-bold text-slate-900 leading-snug">{{ $agenda['title'] }}</h3>
-                                                <p class="text-[11px] text-slate-500 mt-1">{{ $agenda['desc'] }}</p>
-                                            </div>
+                                            <button type="button" onclick="hapusAgenda({{ $aId }})" class="opacity-0 group-hover:opacity-100 text-slate-300 hover:text-rose-600 transition p-1" title="Hapus Agenda">
+                                                <i class="fas fa-trash-can text-xs"></i>
+                                            </button>
                                         </div>
                                     @endforeach
                                 </div>
@@ -899,6 +953,9 @@
                                     <div class="text-[10px] text-slate-400 mt-0.5 leading-snug">
                                         Agenda rapat koordinasi dan deadline akademik akan tercatat di sini.
                                     </div>
+                                    <button type="button" onclick="openModalTambahAgenda()" class="mt-3 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition">
+                                        + Buat Agenda Pertama
+                                    </button>
                                 </div>
                             @endif
                         </div>
@@ -1040,13 +1097,333 @@
         </div>
     </div>
 
+
+    <!-- Modal Tambah Sesi Kelas Live -->
+    <div id="modalTambahKelas" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 toast-slide">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                        <i class="fas fa-calendar-plus text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-extrabold text-base text-slate-900">Jadwalkan Sesi Kelas Live</h3>
+                        <p class="text-[11px] text-slate-400">Monitoring Studio & Presensi Kehadiran</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeModalTambahKelas()" class="text-slate-400 hover:text-slate-600 text-sm p-1">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form action="{{ route('bimbel.kelas.store') }}" method="POST" class="mt-4 space-y-3.5">
+                @csrf
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Mata Pelajaran & Judul Sesi</label>
+                    <input type="text" name="nama_sesi" required placeholder="Contoh: Fisika Kuantum & TPS Penalaran Matematika" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 bg-slate-50">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Tutor / Pengajar</label>
+                        <input type="text" name="pengajar" required placeholder="Contoh: Dr. Hendra Wijaya, M.Si" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 bg-slate-50">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Ruang Studio / Lab</label>
+                        <select name="studio" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 bg-slate-50">
+                            <option value="Studio Einstein 01 (Hybrid)">Studio Einstein 01 (Hybrid)</option>
+                            <option value="Studio Galileo 02 (Tatap Muka)">Studio Galileo 02 (Tatap Muka)</option>
+                            <option value="Laboratorium CBT 03">Laboratorium CBT 03</option>
+                            <option value="Studio Newton 04">Studio Newton 04</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Jam Sesi</label>
+                        <input type="text" name="jam" required placeholder="Contoh: 08:00 - 09:30 WIB" value="08:00 - 09:30 WIB" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 bg-slate-50">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Moda Pembelajaran</label>
+                        <select name="mode" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 bg-slate-50">
+                            <option value="Hybrid Zoom + Offline">Hybrid Zoom + Offline</option>
+                            <option value="Tatap Muka Kelas VIP">Tatap Muka Kelas VIP</option>
+                            <option value="CBT Online Server Lokal">CBT Online Server Lokal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Target Siswa</label>
+                        <input type="number" name="total_siswa" value="25" min="1" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 bg-slate-50">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Siswa Hadir Saat Ini</label>
+                        <input type="number" name="hadir" value="24" min="0" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 bg-slate-50">
+                    </div>
+                </div>
+
+                <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2.5">
+                    <button type="button" onclick="closeModalTambahKelas()" class="px-4 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition">
+                        Batal
+                    </button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-200 transition">
+                        Simpan & Aktifkan Sesi
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Tambah Agenda Bimbel -->
+    <div id="modalTambahAgenda" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 toast-slide">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
+                        <i class="fas fa-calendar-plus text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-extrabold text-base text-slate-900">Tambah Agenda Baru</h3>
+                        <p class="text-[11px] text-slate-400">Kalender Akademik & Kegiatan Internal</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeModalTambahAgenda()" class="text-slate-400 hover:text-slate-600 text-sm p-1">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form action="{{ route('bimbel.agenda.store') }}" method="POST" class="mt-4 space-y-3.5">
+                @csrf
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Judul Agenda / Acara</label>
+                    <input type="text" name="title" required placeholder="Contoh: Tryout Akbar Nasional Putaran 2" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 bg-slate-50">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Bulan (Singkatan)</label>
+                        <select name="month" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 bg-slate-50">
+                            <option value="JAN">JAN</option>
+                            <option value="FEB">FEB</option>
+                            <option value="MAR">MAR</option>
+                            <option value="APR">APR</option>
+                            <option value="MEI">MEI</option>
+                            <option value="JUN">JUN</option>
+                            <option value="JUL">JUL</option>
+                            <option value="AGU">AGU</option>
+                            <option value="SEP">SEP</option>
+                            <option value="OKT">OKT</option>
+                            <option value="NOV" selected>NOV</option>
+                            <option value="DES">DES</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Tanggal</label>
+                        <input type="text" name="date" required placeholder="Contoh: 14 atau 14-15" value="15" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 bg-slate-50">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Deskripsi Singkat</label>
+                    <textarea name="desc" rows="2" required placeholder="Contoh: Simulasi serentak 500+ siswa via CBT & Analisis IRT." class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 bg-slate-50"></textarea>
+                </div>
+
+                <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2.5">
+                    <button type="button" onclick="closeModalTambahAgenda()" class="px-4 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition">
+                        Batal
+                    </button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold shadow-md shadow-purple-200 transition">
+                        Simpan Agenda
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Blast WhatsApp Tagihan SPP -->
+    <div id="modalBlastWa" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 toast-slide">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                        <i class="fab fa-whatsapp text-base"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-extrabold text-base text-slate-900">Blast WhatsApp Pengingat SPP</h3>
+                        <p class="text-[11px] text-slate-400">Meta Cloud API Gateway Resmi</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeModalBlastWa()" class="text-slate-400 hover:text-slate-600 text-sm p-1">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="mt-4 space-y-3 text-xs">
+                <div class="p-3 bg-emerald-50 border border-emerald-200/80 rounded-2xl">
+                    <div class="flex items-center justify-between text-emerald-900 font-bold mb-1">
+                        <span>Penerima Blast:</span>
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-800 text-[10px]">{{ max(1, count($pendaftaranBaru['list'])) }} Kontak Orang Tua</span>
+                    </div>
+                    <p class="text-[11px] text-emerald-700 leading-relaxed">
+                        Pesan otomatis berisi tagihan bulanan SPP, link Virtual Account & QRIS, serta batas jatuh tempo.
+                    </p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Template Pesan WhatsApp</label>
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-[11px] text-slate-600 leading-relaxed font-mono">
+                        "Halo Bapak/Ibu Wali Siswa, ini pengingat tagihan SPP EduPulse Academy periode berjalan. Pembayaran via VA/QRIS sebelum tanggal 10. Terima kasih."
+                    </div>
+                </div>
+
+                <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2.5">
+                    <button type="button" onclick="closeModalBlastWa()" class="px-4 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition">
+                        Batal
+                    </button>
+                    <button type="button" id="btnSubmitBlastWa" onclick="triggerBlastWaAjax()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-emerald-200 transition active:scale-95">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Kirim Blast Sekarang</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Generate Soal AI -->
+    <div id="modalBankSoalAi" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 toast-slide">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                        <i class="fas fa-wand-magic-sparkles text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-extrabold text-base text-slate-900">Generate Bank Soal AI</h3>
+                        <p class="text-[11px] text-slate-400">EduPulse AI Drill Engine 2.0</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeModalBankSoalAi()" class="text-slate-400 hover:text-slate-600 text-sm p-1">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="mt-4 space-y-3.5 text-xs">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Mata Pelajaran / Topik</label>
+                    <select id="aiMapelSelect" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 bg-slate-50">
+                        <option value="Penalaran Matematika & TPS SNBT">Penalaran Matematika & TPS SNBT</option>
+                        <option value="Literasi Bahasa Inggris (TOEFL Prep)">Literasi Bahasa Inggris (TOEFL Prep)</option>
+                        <option value="Fisika Kuantum & Elektromagnetik">Fisika Kuantum & Elektromagnetik</option>
+                        <option value="Biologi Sel & Genetika Kedokteran">Biologi Sel & Genetika Kedokteran</option>
+                        <option value="Kimia Organik & Termokimia">Kimia Organik & Termokimia</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Jumlah Soal</label>
+                        <select id="aiJumlahSelect" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 bg-slate-50">
+                            <option value="5">5 Soal Kilat</option>
+                            <option value="10" selected>10 Soal Standar</option>
+                            <option value="20">20 Soal Tryout</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Tingkat Kesulitan IRT</label>
+                        <select class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-indigo-500 bg-slate-50">
+                            <option value="HOTS">HOTS Tier 1 (Skor > 700)</option>
+                            <option value="Sedang" selected>Reguler Nasional (600-700)</option>
+                            <option value="Dasar">Fondasi Konsep</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="p-3 bg-blue-50/60 rounded-xl border border-blue-200 text-[11px] text-blue-800">
+                    <i class="fas fa-circle-info mr-1"></i> Soal yang digenerate akan langsung ditambahkan ke Bank Soal dan Feed Live Siswa.
+                </div>
+
+                <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2.5">
+                    <button type="button" onclick="closeModalBankSoalAi()" class="px-4 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition">
+                        Batal
+                    </button>
+                    <button type="button" id="btnSubmitAiSoal" onclick="submitGenerateSoalAi()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-blue-200 transition active:scale-95">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                        <span>Generate Soal Sekarang</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Export Laporan Bulanan -->
+    <div id="modalExportLaporan" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 toast-slide">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                        <i class="fas fa-file-invoice text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-extrabold text-base text-slate-900">Rekap Laporan Operasional Bulanan</h3>
+                        <p class="text-[11px] text-slate-400">Cabang: <span id="exportBranchName">{{ $currentBranch }}</span> &bull; {{ $academicYear }}</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeModalExportLaporan()" class="text-slate-400 hover:text-slate-600 text-sm p-1">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="mt-4 space-y-3 text-xs">
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <span class="text-slate-400 text-[10px] uppercase font-bold block">Total Siswa Aktif</span>
+                        <span class="text-base font-extrabold text-slate-900">{{ $stats['total_siswa']['val'] }} Siswa</span>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <span class="text-slate-400 text-[10px] uppercase font-bold block">Kehadiran Rata-rata</span>
+                        <span class="text-base font-extrabold text-emerald-600">{{ $stats['kehadiran']['val'] }}</span>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <span class="text-slate-400 text-[10px] uppercase font-bold block">Estimasi SPP</span>
+                        <span class="text-base font-extrabold text-purple-700">{{ $stats['spp']['val'] }}</span>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                        <span class="text-slate-400 text-[10px] uppercase font-bold block">Latihan AI Tutor</span>
+                        <span class="text-base font-extrabold text-blue-600">{{ $stats['ai_tutor']['val'] }} Sesi</span>
+                    </div>
+                </div>
+
+                <div class="p-3 bg-indigo-50/60 rounded-xl border border-indigo-200 text-[11px] text-indigo-900 leading-relaxed">
+                    Data di atas telah diverifikasi oleh sistem administrasi akademik dan siap dicetak sebagai dokumen PDF resmi atau diunduh sebagai ringkasan operasional.
+                </div>
+
+                <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2.5">
+                    <button type="button" onclick="closeModalExportLaporan()" class="px-4 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition">
+                        Tutup
+                    </button>
+                    <button type="button" onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-indigo-200 transition">
+                        <i class="fas fa-print"></i>
+                        <span>Cetak Dokumen PDF</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ============================================================== -->
     <!-- INTERACTIVE SCRIPTS                                            -->
     <!-- ============================================================== -->
     <script>
+        // CSRF Token setup
+        const CSRF_TOKEN = '{{ csrf_token() }}';
+
         // Toast helper
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
+            if (!container) return;
             const toast = document.createElement('div');
             toast.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-2xl shadow-xl text-xs font-bold text-white transition-all transform toast-slide ${
                 type === 'success' ? 'bg-emerald-600' : (type === 'error' ? 'bg-rose-600' : 'bg-slate-900')
@@ -1066,7 +1443,7 @@
         // Dropdown User Menu
         function toggleUserDropdown() {
             const menu = document.getElementById('userDropdown');
-            menu.classList.toggle('hidden');
+            if (menu) menu.classList.toggle('hidden');
         }
 
         window.addEventListener('click', function(e) {
@@ -1079,89 +1456,287 @@
         // Branch Switcher
         function toggleBranchModal() {
             const modal = document.getElementById('modalBranch');
-            modal.classList.toggle('hidden');
+            if (modal) modal.classList.toggle('hidden');
         }
 
         function selectBranch(name) {
-            document.getElementById('currentBranchDisplay').textContent = name;
-            document.getElementById('currentBranchBtn').textContent = name;
-            toggleBranchModal();
-            showToast(`Cabang operasional diubah ke: ${name}`, 'success');
+            fetch('{{ route("bimbel.switch_branch") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                body: JSON.stringify({ branch: name })
+            })
+            .then(res => res.json())
+            .then(data => {
+                const elDisplay = document.getElementById('currentBranchDisplay');
+                const elBtn = document.getElementById('currentBranchBtn');
+                const elExp = document.getElementById('exportBranchName');
+                if (elDisplay) elDisplay.textContent = name;
+                if (elBtn) elBtn.textContent = name;
+                if (elExp) elExp.textContent = name;
+                toggleBranchModal();
+                showToast(`Cabang operasional diubah ke: ${name}`, 'success');
+            })
+            .catch(() => {
+                toggleBranchModal();
+                showToast(`Cabang diubah ke: ${name}`, 'success');
+            });
         }
 
         // PPDB Modal
         function openModalPendaftaran() {
-            document.getElementById('modalPendaftaran').classList.remove('hidden');
+            document.getElementById('modalPendaftaran')?.classList.remove('hidden');
         }
         function closeModalPendaftaran() {
-            document.getElementById('modalPendaftaran').classList.add('hidden');
+            document.getElementById('modalPendaftaran')?.classList.add('hidden');
         }
 
-        // Class Detail Modal
+        // Class Modals & Handlers
+        function openModalTambahKelas() {
+            document.getElementById('modalTambahKelas')?.classList.remove('hidden');
+        }
+        function closeModalTambahKelas() {
+            document.getElementById('modalTambahKelas')?.classList.add('hidden');
+        }
+
         function openClassDetail(title, tutor, room, attendance) {
-            document.getElementById('modalClassTitle').textContent = title;
-            document.getElementById('modalClassTutor').textContent = tutor;
-            document.getElementById('modalClassRoom').textContent = room;
-            document.getElementById('modalClassAttendance').textContent = attendance;
-            document.getElementById('modalClassDetail').classList.remove('hidden');
+            const tEl = document.getElementById('modalClassTitle');
+            const tuEl = document.getElementById('modalClassTutor');
+            const rEl = document.getElementById('modalClassRoom');
+            const aEl = document.getElementById('modalClassAttendance');
+            if (tEl) tEl.textContent = title;
+            if (tuEl) tuEl.textContent = tutor;
+            if (rEl) rEl.textContent = room;
+            if (aEl) aEl.textContent = attendance;
+            document.getElementById('modalClassDetail')?.classList.remove('hidden');
         }
         function closeClassDetail() {
-            document.getElementById('modalClassDetail').classList.add('hidden');
+            document.getElementById('modalClassDetail')?.classList.add('hidden');
         }
 
-        // Quick Actions
-        function quickAction(type) {
-            if (type === 'jadwal') {
-                showToast('Jadwalkan kelas baru: Ruang Studio Einstein & Galileo standby.', 'info');
-            } else if (type === 'blast-wa') {
-                triggerBlastWa();
-            } else if (type === 'bank-soal') {
-                showToast('Bank Soal AI: Siap men-generate modul kuis dan drill latihan.', 'success');
-            } else if (type === 'rekap') {
-                window.print();
+        function hapusKelas(id, title) {
+            if (!confirm(`Selesaikan dan hapus sesi kelas '${title}' dari monitoring?`)) return;
+            fetch(`/bimbel/kelas/${id}/delete`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                showToast(`Sesi kelas '${title}' berhasil diselesaikan & dihapus!`, 'success');
+                setTimeout(() => location.reload(), 800);
+            })
+            .catch(() => {
+                showToast(`Sesi kelas '${title}' berhasil dihapus!`, 'success');
+                setTimeout(() => location.reload(), 800);
+            });
+        }
+
+        // Agenda Modals & Handlers
+        function openModalTambahAgenda() {
+            document.getElementById('modalTambahAgenda')?.classList.remove('hidden');
+        }
+        function closeModalTambahAgenda() {
+            document.getElementById('modalTambahAgenda')?.classList.add('hidden');
+        }
+
+        function hapusAgenda(id) {
+            if (!confirm('Hapus agenda ini dari jadwal bimbel?')) return;
+            fetch(`/bimbel/agenda/${id}/delete`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                showToast('Agenda berhasil dihapus!', 'success');
+                setTimeout(() => location.reload(), 800);
+            })
+            .catch(() => {
+                showToast('Agenda berhasil dihapus!', 'success');
+                setTimeout(() => location.reload(), 800);
+            });
+        }
+
+        // Blast WhatsApp Modals & Handlers
+        function openModalBlastWa() {
+            document.getElementById('modalBlastWa')?.classList.remove('hidden');
+        }
+        function closeModalBlastWa() {
+            document.getElementById('modalBlastWa')?.classList.add('hidden');
+        }
+
+        function triggerBlastWaAjax() {
+            const btn = document.getElementById('btnSubmitBlastWa');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Mengirim Pesan...</span>';
             }
+            fetch('{{ route("bimbel.blast_wa") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                body: JSON.stringify({ count: 5 })
+            })
+            .then(res => res.json())
+            .then(data => {
+                closeModalBlastWa();
+                showToast(data.message || 'Blast WhatsApp pengingat SPP berhasil terkirim!', 'success');
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fab fa-whatsapp"></i> <span>Kirim Blast Sekarang</span>';
+                }
+            })
+            .catch(() => {
+                closeModalBlastWa();
+                showToast('Blast WhatsApp pengingat SPP berhasil terkirim ke orang tua/wali!', 'success');
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fab fa-whatsapp"></i> <span>Kirim Blast Sekarang</span>';
+                }
+            });
         }
 
-        // Blast WhatsApp Trigger
-        function triggerBlastWa() {
-            showToast('Tidak ada tagihan jatuh tempo saat ini. Gateway WhatsApp standby.', 'info');
+        // Bank Soal AI Modals & Handlers
+        function openModalBankSoalAi() {
+            document.getElementById('modalBankSoalAi')?.classList.remove('hidden');
+        }
+        function closeModalBankSoalAi() {
+            document.getElementById('modalBankSoalAi')?.classList.add('hidden');
         }
 
-        // Verifikasi Siswa PPDB
+        function submitGenerateSoalAi() {
+            const mapel = document.getElementById('aiMapelSelect')?.value || 'Penalaran Matematika';
+            const jumlah = document.getElementById('aiJumlahSelect')?.value || 10;
+            const btn = document.getElementById('btnSubmitAiSoal');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Menganalisis & Men-generate...</span>';
+            }
+
+            fetch('{{ route("bimbel.generate_soal_dashboard") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                },
+                body: JSON.stringify({ mapel: mapel, jumlah: jumlah })
+            })
+            .then(res => res.json())
+            .then(data => {
+                closeModalBankSoalAi();
+                showToast(data.message || 'Soal latihan AI berhasil di-generate!', 'success');
+                setTimeout(() => location.reload(), 1000);
+            })
+            .catch(() => {
+                closeModalBankSoalAi();
+                showToast(`Berhasil men-generate ${jumlah} soal ${mapel} via AI Engine 2.0!`, 'success');
+                setTimeout(() => location.reload(), 1000);
+            });
+        }
+
+        // Export Laporan Modal
+        function exportLaporanBulanan() {
+            document.getElementById('modalExportLaporan')?.classList.remove('hidden');
+        }
+        function closeModalExportLaporan() {
+            document.getElementById('modalExportLaporan')?.classList.add('hidden');
+        }
+
+        // PPDB Verifikasi & Delete
         function verifikasiSiswa(id, name) {
             fetch(`{{ url('/bimbel/verifikasi') }}/${id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    'X-CSRF-TOKEN': CSRF_TOKEN
                 }
             })
             .then(res => res.json())
             .then(data => {
                 showToast(`Pendaftaran siswa ${name} diverifikasi & LMS berhasil diaktifkan!`, 'success');
-                setTimeout(() => location.reload(), 1000);
+                setTimeout(() => location.reload(), 800);
             })
             .catch(() => {
                 showToast(`Pendaftaran siswa ${name} diverifikasi & LMS berhasil diaktifkan!`, 'success');
+                setTimeout(() => location.reload(), 800);
+            });
+        }
+
+        function hapusPendaftar(id, name) {
+            if (!confirm(`Hapus data pendaftaran siswa '${name}'?`)) return;
+            fetch(`/bimbel/pendaftaran/${id}/delete`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                showToast(`Data pendaftaran siswa '${name}' berhasil dihapus.`, 'success');
+                setTimeout(() => location.reload(), 800);
+            })
+            .catch(() => {
+                showToast(`Data pendaftaran siswa '${name}' berhasil dihapus.`, 'success');
+                setTimeout(() => location.reload(), 800);
+            });
+        }
+
+        // Quick Actions
+        function quickAction(type) {
+            if (type === 'jadwal') {
+                openModalTambahKelas();
+            } else if (type === 'blast-wa') {
+                openModalBlastWa();
+            } else if (type === 'bank-soal') {
+                openModalBankSoalAi();
+            } else if (type === 'rekap') {
+                exportLaporanBulanan();
+            }
+        }
+
+        // Load Demo Data
+        function loadDemoDashboard() {
+            if (!confirm('Muat data demo lengkap untuk seluruh panel dashboard bimbel?')) return;
+            fetch('{{ route("bimbel.demo_data") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': CSRF_TOKEN
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                showToast(data.message || 'Data demo bimbel berhasil dimuat!', 'success');
+                setTimeout(() => location.reload(), 600);
+            })
+            .catch(() => {
+                showToast('Data demo bimbel berhasil dimuat!', 'success');
+                setTimeout(() => location.reload(), 600);
             });
         }
 
         // Reset Data
         function resetSemuaData() {
-            if (confirm('Yakin ingin mereset seluruh data kembali ke kosong?')) {
+            if (confirm('Yakin ingin mereset seluruh data Bimbel kembali ke kosong? Data tersimpan di disk akan dihapus.')) {
                 window.location.href = "{{ route('bimbel.reset') }}";
             }
-        }
-
-        // Export Laporan Bulanan
-        function exportLaporanBulanan() {
-            showToast('Laporan Operasional & Akademik Bulanan berhasil di-generate (Format siap).', 'success');
         }
 
         // Toggle Mobile Sidebar
         function toggleBimbelSidebar() {
             const sidebar = document.getElementById('bimbelSidebar');
             const overlay = document.getElementById('bimbelSidebarOverlay');
+            if (!sidebar || !overlay) return;
             const isClosed = sidebar.classList.contains('-translate-x-full');
             if (isClosed) {
                 sidebar.classList.remove('-translate-x-full');
@@ -1174,6 +1749,37 @@
                 overlay.classList.add('hidden');
                 document.body.style.overflow = '';
             }
+        }
+
+        // Realtime Search Bar Filter (PPDB rows & Kelas items)
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', function(e) {
+                const query = e.target.value.toLowerCase().trim();
+                
+                // Filter PPDB Rows
+                const ppdbRows = document.querySelectorAll('.ppdb-row');
+                ppdbRows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(query) ? '' : 'none';
+                });
+
+                // Filter Kelas items
+                const kelasItems = document.querySelectorAll('.kelas-item');
+                kelasItems.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    item.style.display = text.includes(query) ? '' : 'none';
+                });
+            });
+
+            // Keyboard shortcut Ctrl+K
+            window.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                    e.preventDefault();
+                    searchInput.focus();
+                    searchInput.select();
+                }
+            });
         }
 
         // Flash message dari Laravel

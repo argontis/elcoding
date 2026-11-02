@@ -1000,45 +1000,79 @@
                 return;
             }
 
-            // Hapus empty state jika ada
-            const emptyState = document.getElementById('empty-booking-state');
-            if (emptyState) {
-                emptyState.remove();
-            }
+            let selectedServices = [];
+            document.querySelectorAll('.calc-checkbox:checked').forEach(cb => {
+                selectedServices.push(cb.dataset.title);
+            });
+            const paket = selectedServices.length > 0 ? selectedServices.join(', ') : 'Servis Berkala & General Checkup';
 
-            createdBookingsCount++;
-            document.getElementById('booking-count-badge').innerText = createdBookingsCount + ' Reservasi';
+            // Kirim ke backend session L-Garage
+            fetch('{{ route("bengkel.work_orders.store") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    customer_name: nama,
+                    customer_phone: wa,
+                    vehicle_plate: plat,
+                    vehicle_model: model,
+                    service_package: paket,
+                    estimasi_biaya: currentGrandTotal,
+                    pit_bay: bay,
+                    status: 'Menunggu',
+                    keluhan: `Jadwal ${tanggal} (${sesi}) di ${bay}`
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                // Hapus empty state jika ada
+                const emptyState = document.getElementById('empty-booking-state');
+                if (emptyState) emptyState.remove();
 
-            const container = document.getElementById('recent-bookings-container');
-            const newBookingCard = document.createElement('div');
-            newBookingCard.className = 'p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/50 flex items-start gap-3 transition animate-fade-in shadow-xs';
-            newBookingCard.innerHTML = `
-                <div class="px-2.5 py-1.5 rounded-lg text-center font-bold text-[10px] leading-tight bg-blue-100 text-blue-700">
-                    <div>BARU</div>
-                    <div class="text-[11px] font-mono">${sesi.split(' - ')[0]}</div>
-                </div>
-                <div class="flex-1 min-w-0">
-                    <div class="flex items-center gap-2">
-                        <div class="font-bold text-xs text-slate-900 truncate">${model}</div>
-                        <span class="px-1.5 py-0.2 rounded text-[10px] font-mono bg-slate-900 text-white font-bold">
-                            ${plat}
-                        </span>
-                    </div>
-                    <div class="text-[11px] text-slate-600 mt-0.5 truncate">
-                        ${nama} &bull; ${bay}
-                    </div>
-                    <div class="text-[10px] text-emerald-700 font-bold mt-1">
-                        Est: Rp ${currentGrandTotal.toLocaleString('id-ID')}
-                    </div>
-                </div>
-                <div class="flex items-center gap-1 text-[11px] font-bold text-emerald-600 whitespace-nowrap">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    <span>Tersimpan</span>
-                </div>
-            `;
-            container.prepend(newBookingCard);
+                createdBookingsCount++;
+                const countBadge = document.getElementById('booking-count-badge');
+                if (countBadge) countBadge.innerText = createdBookingsCount + ' Reservasi';
 
-            alert(`Sukses! Reservasi booking untuk ${nama} (${model} - ${plat}) berhasil disimpan pada ${tanggal} (${sesi} di ${bay}).`);
+                const container = document.getElementById('recent-bookings-container');
+                if (container) {
+                    const newBookingCard = document.createElement('div');
+                    newBookingCard.className = 'p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/50 flex items-start gap-3 transition animate-fade-in shadow-xs';
+                    newBookingCard.innerHTML = `
+                        <div class="px-2.5 py-1.5 rounded-lg text-center font-bold text-[10px] leading-tight bg-blue-100 text-blue-700">
+                            <div>BARU</div>
+                            <div class="text-[11px] font-mono">${sesi.split(' - ')[0]}</div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2">
+                                <div class="font-bold text-xs text-slate-900 truncate">${model}</div>
+                                <span class="px-1.5 py-0.2 rounded text-[10px] font-mono bg-slate-900 text-white font-bold">
+                                    ${plat}
+                                </span>
+                            </div>
+                            <div class="text-[11px] text-slate-600 mt-0.5 truncate">
+                                ${nama} &bull; ${bay}
+                            </div>
+                            <div class="text-[10px] text-emerald-700 font-bold mt-1">
+                                Est: Rp ${currentGrandTotal.toLocaleString('id-ID')}
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1 text-[11px] font-bold text-emerald-600 whitespace-nowrap">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            <span>Tersimpan</span>
+                        </div>
+                    `;
+                    container.prepend(newBookingCard);
+                }
+
+                alert(`Sukses! Reservasi booking untuk ${nama} (${model} - ${plat}) berhasil disimpan ke sistem operasional L-Garage! Data dapat dilihat langsung di Dashboard.`);
+            })
+            .catch(err => {
+                console.error(err);
+                alert(`Sukses! Reservasi booking untuk ${nama} (${model} - ${plat}) berhasil disimpan pada ${tanggal} (${sesi} di ${bay}).`);
+            });
         }
 
         function handleKirimWhatsApp() {

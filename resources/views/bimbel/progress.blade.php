@@ -990,6 +990,9 @@
                 showToast(d.message, 'success');
             }
         })
+        .catch(() => showToast('Gagal mengirim WhatsApp.', 'error'));
+    }
+
     function toggleBimbelSidebar() {
         const sidebar = document.getElementById('bimbelSidebar');
         const overlay = document.getElementById('bimbelSidebarOverlay');

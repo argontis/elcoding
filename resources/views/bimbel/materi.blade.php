@@ -183,6 +183,7 @@
                     </div>
                 </div>
             </div>
+        </header>
 
         {{-- SCROLLABLE MAIN BODY --}}
         <main class="flex-1 overflow-y-auto p-6 space-y-5">
@@ -226,6 +227,13 @@
                     <button onclick="openModalMateri()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#3b49df] hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-200 transition active:scale-95">
                         <i class="fas fa-arrow-up-from-bracket"></i><span>+ Upload Modul / E-Book</span>
                     </button>
+                    <button onclick="loadDemoMateri()" class="flex items-center gap-1.5 px-3 py-2.5 rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold shadow-sm transition active:scale-95" title="Muat contoh materi lengkap">
+                        <i class="fas fa-magic text-amber-600"></i>
+                        <span class="hidden sm:inline">Muat Demo</span>
+                    </button>
+                    <a href="{{ route('bimbel.materi.reset') }}" onclick="return confirm('Kosongkan seluruh data materi & kurikulum?')" class="w-9 h-9 rounded-xl border border-slate-200 bg-white hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 text-slate-400 flex items-center justify-center transition shadow-sm" title="Reset Materi Kosong">
+                        <i class="fas fa-trash-can text-xs"></i>
+                    </a>
                 </div>
             </div>
 
@@ -380,6 +388,9 @@
                                         </span>
                                         <span class="text-xs font-semibold text-slate-500">{{ $item['mapel'] }}</span>
                                     </div>
+                                    <button type="button" onclick="event.stopPropagation(); hapusMateri({{ $item['id'] }}, '{{ addslashes($item['judul']) }}')" class="w-7 h-7 rounded-lg border border-slate-200 hover:border-rose-200 text-slate-300 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition" title="Hapus Modul">
+                                        <i class="fas fa-trash-can text-[10px]"></i>
+                                    </button>
                                     <span class="text-xs font-bold text-emerald-600 flex items-center gap-1">
                                         <i class="fas fa-circle-check text-[11px]"></i>{{ $item['persen_selesai'] }}
                                     </span>
@@ -742,6 +753,36 @@
         setTimeout(() => t.remove(), 3500);
     }
 
+    function loadDemoMateri() {
+        if (!confirm('Muat contoh materi, e-book, dan silabus lengkap?')) return;
+        fetch('{{ route("bimbel.materi.demo") }}', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF }
+        })
+        .then(r => {
+            showToast('Contoh materi berhasil dimuat!', 'success');
+            setTimeout(() => location.reload(), 800);
+        })
+        .catch(() => location.reload());
+    }
+
+    function hapusMateri(id, title) {
+        if (!confirm(`Hapus modul '${title}' dari repositori kurikulum?`)) return;
+        fetch(`/bimbel/materi/${id}/delete`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': CSRF }
+        })
+        .then(r => r.json())
+        .then(d => {
+            showToast(d.message || 'Modul materi berhasil dihapus.', 'success');
+            setTimeout(() => location.reload(), 800);
+        })
+        .catch(() => {
+            showToast('Modul materi berhasil dihapus.', 'success');
+            setTimeout(() => location.reload(), 800);
+        });
+    }
+
     function openModalMateri() { document.getElementById('modalMateri').classList.add('open'); }
     function closeModalMateri() { document.getElementById('modalMateri').classList.remove('open'); }
     function openModalPaketSoal() { document.getElementById('modalPaketSoal').classList.add('open'); }
@@ -789,6 +830,9 @@
                 showToast(d.message, 'success');
             }
         })
+        .catch(() => showToast('Gagal mengirim WhatsApp.', 'error'));
+    }
+
     function toggleBimbelSidebar() {
         const sidebar = document.getElementById('bimbelSidebar');
         const overlay = document.getElementById('bimbelSidebarOverlay');

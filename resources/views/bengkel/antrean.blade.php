@@ -266,10 +266,10 @@
                         type="button"
                         onclick="openAddAntreanModal()"
                         id="btn-tambah-antrean"
-                        class="px-5 py-3 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-xs shadow-md transition flex items-center gap-2 active:scale-95"
+                        class="px-5 py-3 rounded-xl bg-garage-600 hover:bg-garage-700 text-white font-bold text-xs shadow-md transition flex items-center gap-2 active:scale-95"
                     >
                         <i class="fa-solid fa-plus"></i>
-                        <span>+ Tambah Kendaraan</span>
+                        <span>Tambah Kendaraan</span>
                     </button>
 
                     <button
@@ -277,7 +277,9 @@
                         onclick="loadDemoAntrean()"
                         class="px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition flex items-center gap-1.5 border border-slate-200"
                     >
-                        <i class="fa-solid fa-wand-magic-sparkles text-amber-500"></i>
+                        <svg class="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
                         <span class="hidden sm:inline">Contoh Data</span>
                     </button>
 
@@ -478,11 +480,14 @@
                         </p>
                     </div>
                     <div class="flex gap-3 mt-2">
-                        <button onclick="openAddAntreanModal()" class="px-4 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs transition hover:bg-black flex items-center gap-2">
+                        <button onclick="openAddAntreanModal()" class="px-5 py-2.5 rounded-xl bg-garage-600 text-white font-bold text-xs transition hover:bg-garage-700 flex items-center gap-2 shadow-sm">
                             <i class="fa-solid fa-plus"></i> Tambah Kendaraan
                         </button>
-                        <button onclick="loadDemoAntrean()" class="px-4 py-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 font-bold text-xs transition hover:bg-slate-200 flex items-center gap-2">
-                            <i class="fa-solid fa-wand-magic-sparkles text-amber-500"></i> Muat Contoh
+                        <button onclick="loadDemoAntrean()" class="px-4 py-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 font-bold text-xs transition hover:bg-slate-200 flex items-center gap-2">
+                            <svg class="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                            Muat Contoh
                         </button>
                     </div>
                 </div>
@@ -669,9 +674,40 @@
     <!-- JAVASCRIPT -->
     <!-- ============================================================== -->
     <script>
-        // ── STATE ──────────────────────────────────────────────────────
-        let antreanData = [];
-        let antreanCounter = 1;
+        // ── STATE DARI BACKEND SESSION ───────────────────────────────
+        @php
+            $mappedAntrean = [];
+            foreach ($antreanList as $idx => $item) {
+                $statusRaw = $item['status'] ?? 'Menunggu';
+                $statusMapped = match($statusRaw) {
+                    'Pemeriksaan', 'Pengerjaan' => 'dikerjakan',
+                    'Siap Diambil', 'Selesai' => 'selesai',
+                    default => 'tunggu'
+                };
+                $bayNum = '';
+                if (preg_match('/PIT\s*0?([1-4])/i', $item['pit_bay'] ?? '', $m)) {
+                    $bayNum = str_pad($m[1], 2, '0', STR_PAD_LEFT);
+                }
+                $mappedAntrean[] = [
+                    'id' => $idx + 1,
+                    'no' => $item['id'] ?? ('A-' . str_pad($idx + 1, 3, '0', STR_PAD_LEFT)),
+                    'nama' => $item['customer_name'] ?? 'Pelanggan',
+                    'hp' => $item['customer_phone'] ?? '',
+                    'model' => $item['vehicle_model'] ?? '',
+                    'plat' => $item['vehicle_plate'] ?? '',
+                    'job' => $item['service_package'] ?? 'Servis Berkala',
+                    'bay' => $bayNum,
+                    'mekanik' => $item['mekanik'] ?? 'Agus Widodo',
+                    'estimasi' => $item['estimasi_selesai'] ?? '13:00 WIB',
+                    'status' => $statusMapped,
+                    'waktuMasuk' => $item['created_time'] ?? '08:00 WIB',
+                    'progress' => $item['progress'] ?? ($statusMapped === 'selesai' ? 100 : ($statusMapped === 'dikerjakan' ? 60 : 0)),
+                ];
+            }
+        @endphp
+
+        let antreanData = @json($mappedAntrean);
+        let antreanCounter = antreanData.length > 0 ? (antreanData.length + 1) : 1;
         let currentFilter = 'semua';
         let preSelectedBay = '';
 
@@ -703,6 +739,12 @@
 
             if (bayPreset) {
                 document.getElementById('modal-a-bay').value = bayPreset;
+                const rDikerjakan = document.querySelector('input[name="a-status"][value="dikerjakan"]');
+                if (rDikerjakan) rDikerjakan.checked = true;
+            } else {
+                document.getElementById('modal-a-bay').value = '';
+                const rTunggu = document.querySelector('input[name="a-status"][value="tunggu"]');
+                if (rTunggu) rTunggu.checked = true;
             }
         }
 
@@ -721,6 +763,8 @@
         function handleSaveAntrean(e) {
             e.preventDefault();
             const status = document.querySelector('input[name="a-status"]:checked')?.value || 'tunggu';
+            const bayVal = document.getElementById('modal-a-bay').value;
+            const pitBayName = bayVal ? `PIT ${parseInt(bayVal)}` : '';
 
             const item = {
                 id: antreanCounter,
@@ -730,13 +774,43 @@
                 model: document.getElementById('modal-a-model').value.trim(),
                 plat: document.getElementById('modal-a-plat').value.trim().toUpperCase(),
                 job: document.getElementById('modal-a-job').value.trim(),
-                bay: document.getElementById('modal-a-bay').value,
+                bay: bayVal,
                 mekanik: document.getElementById('modal-a-mekanik').value,
                 estimasi: document.getElementById('modal-a-estimasi').value.trim(),
                 status: status,
                 waktuMasuk: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
-                progress: status === 'selesai' ? 100 : (status === 'dikerjakan' ? 40 : 0),
+                progress: status === 'selesai' ? 100 : (status === 'dikerjakan' ? 40 : 15),
             };
+
+            // Kirim ke backend session L-Garage
+            fetch('{{ route("bengkel.work_orders.store") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    customer_name: item.nama,
+                    customer_phone: item.hp,
+                    vehicle_plate: item.plat,
+                    vehicle_model: item.model,
+                    service_package: item.job,
+                    estimasi_biaya: 500000,
+                    pit_bay: pitBayName,
+                    mekanik: item.mekanik || 'Agus Widodo',
+                    status: status === 'dikerjakan' ? 'Pengerjaan' : (status === 'selesai' ? 'Selesai' : 'Menunggu'),
+                    keluhan: item.job,
+                    antrean_no: item.no
+                })
+            })
+            .then(res => res.json())
+            .then(res => {
+                if (res && res.success && res.data && res.data.id) {
+                    item.no = res.data.id;
+                }
+            })
+            .catch(console.error);
 
             antreanData.push(item);
             antreanCounter++;
@@ -745,13 +819,29 @@
             renderAll();
         }
 
-        // ── DELETE ────────────────────────────────────────────────────
+        // ── DELETE (juga hapus dari backend session) ──────────────────
         function deleteAntrean(id) {
+            const item = antreanData.find(a => a.id === id);
+            if (!item) return;
+
+            // Hapus dari backend session pakai WO ID (item.no)
+            const woId = item.no;
+            fetch(`/bengkel/work-orders/${encodeURIComponent(woId)}/delete`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({})
+            }).catch(console.error);
+
+            // Hapus dari array JS juga
             antreanData = antreanData.filter(a => a.id !== id);
             renderAll();
         }
 
-        // ── STATUS CYCLE ──────────────────────────────────────────────
+        // ── STATUS CYCLE (sync ke backend) ────────────────────────────
         function cycleStatus(id) {
             const item = antreanData.find(a => a.id === id);
             if (!item) return;
@@ -759,6 +849,20 @@
             const idx = cycle.indexOf(item.status);
             item.status = cycle[(idx + 1) % cycle.length];
             item.progress = item.status === 'selesai' ? 100 : (item.status === 'dikerjakan' ? 50 : 0);
+
+            // Map ke status backend
+            const statusMap = { tunggu: 'Menunggu', dikerjakan: 'Pengerjaan', selesai: 'Selesai' };
+            const woId = item.no;
+            fetch(`/bengkel/work-orders/${encodeURIComponent(woId)}/status`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ status: statusMap[item.status] })
+            }).catch(console.error);
+
             renderAll();
         }
 
@@ -789,7 +893,7 @@
 
         function renderKPIs() {
             const total   = antreanData.length;
-            const terisi  = antreanData.filter(a => a.status === 'dikerjakan' && a.bay).length;
+            const terisi  = antreanData.filter(a => a.bay && (a.status === 'dikerjakan' || a.status === 'tunggu')).length;
             const tunggu  = antreanData.filter(a => a.status === 'tunggu').length;
             const selesai = antreanData.filter(a => a.status === 'selesai').length;
 
@@ -811,16 +915,21 @@
                 const vInfo = document.getElementById(`pit-vehicle-${no}`);
                 const empty = document.getElementById(`pit-empty-${no}`);
 
-                // Find vehicle assigned to this bay with dikerjakan status
-                const vehicle = antreanData.find(a => a.bay === no && a.status === 'dikerjakan');
+                // Find vehicle assigned to this bay (prioritaskan dikerjakan, lalu tunggu, lalu selesai)
+                const vehicle = antreanData.find(a => a.bay === no && (a.status === 'dikerjakan' || a.status === 'tunggu'));
                 const done    = antreanData.find(a => a.bay === no && a.status === 'selesai');
 
                 card.classList.remove('pit-card-kosong', 'pit-card-terisi', 'pit-card-selesai', 'pit-card-masalah');
 
                 if (vehicle) {
                     card.classList.add('pit-card-terisi');
-                    badge.textContent = 'Sedang Dikerjakan';
-                    badge.className = 'px-3 py-1 rounded-full bg-garage-100 text-garage-700 border border-garage-200 text-[11px] font-bold';
+                    if (vehicle.status === 'dikerjakan') {
+                        badge.textContent = 'Sedang Dikerjakan';
+                        badge.className = 'px-3 py-1 rounded-full bg-garage-100 text-garage-700 border border-garage-200 text-[11px] font-bold';
+                    } else {
+                        badge.textContent = 'Antre di Bay';
+                        badge.className = 'px-3 py-1 rounded-full bg-amber-100 text-amber-700 border border-amber-200 text-[11px] font-bold';
+                    }
                     vInfo.classList.remove('hidden');
                     empty.classList.add('hidden');
 
@@ -828,8 +937,13 @@
                     document.getElementById(`pit-vmodel-${no}`).textContent = vehicle.model;
                     document.getElementById(`pit-vplat-${no}`).textContent  = vehicle.plat;
                     document.getElementById(`pit-vjob-${no}`).textContent   = vehicle.job;
-                    document.getElementById(`pit-vpct-${no}`).textContent   = `${vehicle.progress}%`;
-                    document.getElementById(`pit-vbar-${no}`).style.width   = `${vehicle.progress}%`;
+                    
+                    const progress = vehicle.progress || (vehicle.status === 'dikerjakan' ? 40 : 15);
+                    document.getElementById(`pit-vpct-${no}`).textContent   = `${progress}%`;
+                    const vBar = document.getElementById(`pit-vbar-${no}`);
+                    vBar.style.width = `${progress}%`;
+                    vBar.className = `h-full rounded-full transition-all duration-700 ${vehicle.status === 'dikerjakan' ? 'bg-garage-500' : 'bg-amber-500'}`;
+                    
                     document.getElementById(`pit-vmek-${no}`).textContent   = vehicle.mekanik || '—';
                     document.getElementById(`pit-vtime-${no}`).textContent  = vehicle.estimasi || '—';
 
@@ -845,8 +959,9 @@
                     document.getElementById(`pit-vplat-${no}`).textContent  = done.plat;
                     document.getElementById(`pit-vjob-${no}`).textContent   = 'Selesai — Siap Ambil';
                     document.getElementById(`pit-vpct-${no}`).textContent   = '100%';
-                    document.getElementById(`pit-vbar-${no}`).style.width   = '100%';
-                    document.getElementById(`pit-vbar-${no}`).classList.replace('bg-garage-500', 'bg-emerald-500');
+                    const vBarDone = document.getElementById(`pit-vbar-${no}`);
+                    vBarDone.style.width   = '100%';
+                    vBarDone.className = 'h-full bg-emerald-500 rounded-full transition-all duration-700';
                     document.getElementById(`pit-vmek-${no}`).textContent   = done.mekanik || '—';
                     document.getElementById(`pit-vtime-${no}`).textContent  = done.estimasi || '—';
 
@@ -946,11 +1061,14 @@
         }
 
         function renderSidebar() {
-            const terisi = antreanData.filter(a => a.status === 'dikerjakan' && a.bay).length;
+            const terisi = antreanData.filter(a => a.bay && (a.status === 'dikerjakan' || a.status === 'tunggu')).length;
             const pct = Math.round((terisi / 4) * 100);
-            document.getElementById('sidebar-bay-bar').style.width = `${pct}%`;
-            document.getElementById('sidebar-bay-label').textContent = terisi > 0 ? `${terisi}/4 Terisi` : '4 Kosong';
-            document.getElementById('sidebar-pit-count').textContent = terisi > 0 ? `${terisi} Terisi` : 'Aktif';
+            const bar = document.getElementById('sidebar-bay-bar');
+            if (bar) bar.style.width = `${pct}%`;
+            const lbl = document.getElementById('sidebar-bay-label');
+            if (lbl) lbl.textContent = terisi > 0 ? `${terisi}/4 Terisi` : '4 Kosong';
+            const count = document.getElementById('sidebar-pit-count');
+            if (count) count.textContent = terisi > 0 ? `${terisi} Terisi` : 'Aktif';
         }
 
         // ── DEMO DATA ────────────────────────────────────────────────
@@ -1003,7 +1121,19 @@
 
         function clearAllAntrean() {
             if (antreanData.length === 0) return;
-            if (confirm('Yakin ingin mengosongkan semua data antrean?')) {
+            if (confirm('Yakin ingin mengosongkan semua data antrean? Data akan dihapus permanen.')) {
+                // Hapus dari backend session
+                fetch('/bengkel/reset-data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                }).catch(console.error);
+
+                // Kosongkan JS array juga
                 antreanData = [];
                 antreanCounter = 1;
                 renderAll();
@@ -1011,6 +1141,8 @@
         }
 
         // ── INIT ─────────────────────────────────────────────────────
+        renderAll();
+
         // Toggle Sidebar Mobile
         function toggleBengkelSidebar() {
             const sidebar = document.getElementById('bengkelSidebar');

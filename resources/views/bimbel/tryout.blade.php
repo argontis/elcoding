@@ -642,7 +642,7 @@
             <h4 class="font-heading font-bold text-slate-900 text-sm mb-3">Cabang Jakarta Selatan</h4>
             <div class="flex items-start gap-2 text-xs">
                 <i class="fa-solid fa-location-dot text-blue-600 mt-0.5 shrink-0"></i>
-                <p class="leading-relaxed">{{ $institution['branch_full_address'] ?? 'Jl. Tebet Barat Dalam Raya No. 42B, RT.06 / RW.02, Tebet Barat, Jakarta Selatan, DKI Jakarta 12810' }}</p>
+                <p class="leading-relaxed">{{ $institution['branch_full_address'] ?? 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.' }}</p>
             </div>
             <div class="flex items-center gap-2 text-xs pt-1">
                 <i class="fa-solid fa-phone text-blue-600 shrink-0"></i>

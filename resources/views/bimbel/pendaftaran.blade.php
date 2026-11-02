@@ -637,7 +637,7 @@
         <!-- Cabang & Kontak -->
         <div>
             <h4 class="font-heading font-bold text-slate-900 text-sm mb-3">Cabang &amp; Kontak</h4>
-            <p class="leading-relaxed">{{ $institution['branch_full_address'] ?? 'Jl. Tebet Barat Dalam Raya No. 42B, Jakarta Selatan 12810' }}</p>
+            <p class="leading-relaxed">{{ $institution['branch_full_address'] ?? 'Ruko Kranggan Permai Blok RT 16 No. 27, Jl. Alternatif Cibubur, Jatisampurna, Kota Bekasi, Jawa Barat 17431.' }}</p>
             <p class="mt-2"><strong class="text-slate-700">Hotline CS:</strong> {{ $institution['hotline'] ?? '(021) 8370-1920' }}</p>
             <p class="mt-1"><strong class="text-slate-700">Jam Buka:</strong> {{ $institution['jam_buka'] ?? 'Senin – Sabtu: 08.00 – 20.30' }}</p>
         </div>

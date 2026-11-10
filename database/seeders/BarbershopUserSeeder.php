@@ -35,5 +35,19 @@ class BarbershopUserSeeder extends Seeder
                 'email_verified_at' => now(),
             ]
         );
+
+        // Akun Langganan / Member VIP Atelier Gilt
+        User::updateOrCreate(
+            ['email' => 'raditya@lstyle.id'],
+            [
+                'username' => 'raditya',
+                'name' => 'Raditya Pratama',
+                'password' => Hash::make('raditya123'),
+                'role' => 'barbershop_member',
+                'nomor_kartu' => 'VIP-016',
+                'kota' => 'Jakarta Selatan',
+                'email_verified_at' => now(),
+            ]
+        );
     }
 }

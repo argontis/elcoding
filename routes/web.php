@@ -77,6 +77,19 @@ Route::get('/demo-resto', function () {
 });
 
 // ==========================================
+// ROUTE BARBERSHOP (ATELIER GILT - PORTAL PENGUNJUNG & RESERVASI)
+// ==========================================
+Route::get('/barbershop', [\App\Http\Controllers\Barbershop\BarbershopVisitorController::class, 'index'])->name('barbershop.landing');
+Route::get('/barbershop/reservasi', function () { return redirect('/barbershop?tab=reservasi'); });
+Route::get('/barbershop/tiket', function () { return redirect('/barbershop?tab=tiket'); });
+Route::get('/barbershop/profil', function () { return redirect('/barbershop?tab=profil'); });
+Route::get('/barbershop/riwayat', function () { return redirect('/barbershop?tab=profil'); });
+Route::post('/barbershop/reservasi', [\App\Http\Controllers\Barbershop\BarbershopVisitorController::class, 'storeReservasi'])->name('barbershop.reservasi.store');
+Route::post('/barbershop/quick-login', [\App\Http\Controllers\Barbershop\BarbershopVisitorController::class, 'quickLogin'])->name('barbershop.quick_login');
+Route::post('/barbershop/quick-logout', [\App\Http\Controllers\Barbershop\BarbershopVisitorController::class, 'quickLogout'])->name('barbershop.quick_logout');
+Route::get('/barbershop/tiket/{code}', [\App\Http\Controllers\Barbershop\BarbershopVisitorController::class, 'getTiket'])->name('barbershop.tiket');
+
+// ==========================================
 // ROUTE L-CLEAN (PORTAL PENGUNJUNG LAUNDRY & BOOKING)
 // ==========================================
 Route::get('/clean', [\App\Http\Controllers\Clean\CleanLandingController::class, 'index'])->name('clean.landing');

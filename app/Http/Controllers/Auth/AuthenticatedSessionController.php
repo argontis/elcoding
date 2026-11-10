@@ -97,6 +97,14 @@ class AuthenticatedSessionController extends Controller
                     return Inertia::location($intended);
                 }
 
+                if ($user->role === 'barbershop_member' || $user->email === 'raditya@lstyle.id') {
+                    $intended = $request->session()->pull('url.intended');
+                    if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                        $intended = route('barbershop.landing');
+                    }
+                    return Inertia::location($intended);
+                }
+
                 if ($user->isTechfix()) {
                     $intended = $request->session()->pull('url.intended');
                     if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
@@ -234,6 +242,14 @@ class AuthenticatedSessionController extends Controller
             $intended = $request->session()->pull('url.intended');
             if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
                 $intended = route('barbershop.dashboard');
+            }
+            return Inertia::location($intended);
+        }
+
+        if ($user->role === 'barbershop_member' || $user->email === 'raditya@lstyle.id') {
+            $intended = $request->session()->pull('url.intended');
+            if (!$intended || str_contains($intended, '/pkl') || str_contains($intended, '/member') || str_contains($intended, '/admin') || str_contains($intended, '/login') || str_contains($intended, '/register')) {
+                $intended = route('barbershop.landing');
             }
             return Inertia::location($intended);
         }

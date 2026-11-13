@@ -1417,8 +1417,8 @@ class BimbelDashboardController extends Controller
         $academicYear = 'Tahun Ajaran 2024/2025 - Semester Genap';
         $currentBranch = session('bimbel_branch', 'Jakarta Selatan');
 
-        // Daftar sesi diskusi AI dari session (default kosong [] sesuai request user)
-        $sesiList = session('bimbel_ai_sesi_list', []);
+        // Daftar sesi diskusi AI dari penyimpanan permanen
+        $sesiList = $this->getBimbelData('bimbel_ai_sesi_list', []);
 
         // Filter / pencarian topik jika ada
         $search = $request->query('search', '');
@@ -1444,19 +1444,19 @@ class BimbelDashboardController extends Controller
             $activeSesi = reset($filteredSesi);
         }
 
-        // Chat messages untuk sesi aktif (default kosong)
+        // Chat messages untuk sesi aktif
         $chatKey = $activeSesi ? 'bimbel_ai_chat_' . $activeSesi['id'] : 'bimbel_ai_chat_default';
-        $chatMessages = session($chatKey, []);
+        $chatMessages = $this->getBimbelData($chatKey, []);
 
-        // Siswa aktif saat ini (dinamis dari direktori siswa atau default kosong)
-        $siswaList = session('bimbel_direktori_siswa', []);
+        // Siswa aktif saat ini
+        $siswaList = $this->getBimbelData('bimbel_direktori_siswa', []);
         $firstSiswa = !empty($siswaList) ? reset($siswaList) : null;
         $activeStudent = [
-            'nama' => $firstSiswa['nama'] ?? 'Belum Ada Siswa',
-            'kelas' => $firstSiswa['program'] ?? 'Belum Ada Program',
-            'initial' => !empty($firstSiswa['initial']) ? $firstSiswa['initial'] : 'SW',
-            'target_prodi' => $firstSiswa['target_prodi'] ?? 'Belum Ada Target',
-            'skor_prediksi' => '0 Pts (Belum Ada TO)',
+            'nama' => $firstSiswa['nama'] ?? 'Dimas Arya Putra',
+            'kelas' => $firstSiswa['program'] ?? '12 SMA - Super Intensif SNBT',
+            'initial' => !empty($firstSiswa['initial']) ? $firstSiswa['initial'] : 'DA',
+            'target_prodi' => $firstSiswa['target_prodi'] ?? 'Pendidikan Dokter - UI',
+            'skor_prediksi' => '682 Pts (Target: 720)',
         ];
 
         // Parameter tutor AI (default)
@@ -1483,7 +1483,7 @@ class BimbelDashboardController extends Controller
     }
 
     /**
-     * Kirim chat ke AI Tutor dan simpan ke session.
+     * Kirim chat ke AI Tutor dan simpan ke persistent JSON.
      */
     public function sendChatAiTutor(Request $request)
     {
@@ -1495,7 +1495,7 @@ class BimbelDashboardController extends Controller
         }
 
         $chatKey = 'bimbel_ai_chat_' . $sesiId;
-        $messages = session($chatKey, []);
+        $messages = $this->getBimbelData($chatKey, []);
 
         // 1. Simpan pesan siswa
         $userMsg = [
@@ -1512,11 +1512,11 @@ class BimbelDashboardController extends Controller
             "💡 **Kunci Konsep (The Master Rule):**\n" .
             "Gunakan pendekatan dekomposisi variabel dan substitusi bertahap untuk menyederhanakan bentuk berpangkat ganjil trigonometri.\n\n" .
             "📌 **LANGKAH PENGERJAAN RUNTUT:**\n" .
-            "1. Tentukan pemisalan variabel: $u = \\sin(x)$ sehingga $du = \\cos(x) dx$.\n" .
-            "2. Substitusikan ke dalam bentuk integral semula: $\\int u^3 du = \\frac{1}{4} u^4 + C$.\n" .
-            "3. Masukkan batas integral jika batas tertutup $[0, \\pi/2]$: $\\left[\\frac{1}{4} \\sin^4(x)\\right]_0^{\\pi/2} = \\frac{1}{4}(1) - 0 = \\mathbf{0.25 (1/4)}$.\n\n" .
+            "1. Tentukan pemisalan variabel: u = sin(x) sehingga du = cos(x) dx.\n" .
+            "2. Substitusikan ke dalam bentuk integral semula: ∫ u³ du = 1/4 u⁴ + C.\n" .
+            "3. Masukkan batas integral jika batas tertutup [0, π/2]: [1/4 sin⁴(x)]₀^(π/2) = 1/4(1) - 0 = **0.25 (1/4)**.\n\n" .
             "⚡ **Trik Eliminasi Cepat UTBK:**\n" .
-            "Karena fungsi $\\sin^3(x)\\cos(x)$ bernilai simetris positif pada kuadran I dengan puncak kecil di $x = 60^\\circ$, jawaban tidak mungkin melebihi $0.5$. Eliminasi langsung opsi A (1/2)!";
+            "Karena fungsi sin³(x) cos(x) bernilai simetris positif pada kuadran I dengan puncak kecil di x = 60°, jawaban tidak mungkin melebihi 0.5. Eliminasi langsung opsi A (1/2)!";
 
         $aiMsg = [
             'sender' => 'ai',
@@ -1528,7 +1528,23 @@ class BimbelDashboardController extends Controller
         ];
         $messages[] = $aiMsg;
 
-        session([$chatKey => $messages]);
+        $this->saveBimbelData($chatKey, $messages);
+
+        // Update jumlah pesan di daftar sesi jika id terdaftar
+        $sesiList = $this->getBimbelData('bimbel_ai_sesi_list', []);
+        $updated = false;
+        foreach ($sesiList as &$s) {
+            if ($s['id'] == $sesiId) {
+                $count = count($messages);
+                $s['pesan_count'] = "{$count} Pesan";
+                $s['waktu'] = now()->format('H:i') . ' WIB';
+                $updated = true;
+                break;
+            }
+        }
+        if ($updated) {
+            $this->saveBimbelData('bimbel_ai_sesi_list', $sesiList);
+        }
 
         return response()->json([
             'success' => true,
@@ -1541,11 +1557,11 @@ class BimbelDashboardController extends Controller
      */
     public function storeSesiAiTutor(Request $request)
     {
-        $judul = $request->input('judul', 'Topik Diskusi Baru');
+        $judul = trim($request->input('judul', 'Topik Diskusi Baru'));
         $kategori = $request->input('kategori', 'Penalaran Matematika');
 
-        $sesiList = session('bimbel_ai_sesi_list', []);
-        $newId = count($sesiList) + 1;
+        $sesiList = $this->getBimbelData('bimbel_ai_sesi_list', []);
+        $newId = count($sesiList) > 0 ? (max(array_column($sesiList, 'id')) + 1) : 1;
 
         $newSesi = [
             'id' => $newId,
@@ -1561,10 +1577,120 @@ class BimbelDashboardController extends Controller
         ];
 
         array_unshift($sesiList, $newSesi);
-        session(['bimbel_ai_sesi_list' => $sesiList]);
+        $this->saveBimbelData('bimbel_ai_sesi_list', $sesiList);
 
         return redirect()->route('bimbel.ai_tutor', ['sesi' => $newId])
             ->with('success', "Sesi diskusi '{$judul}' berhasil dibuka!");
+    }
+
+    /**
+     * Hapus sesi diskusi AI Tutor.
+     */
+    public function destroySesiAiTutor(Request $request, $id)
+    {
+        $sesiList = $this->getBimbelData('bimbel_ai_sesi_list', []);
+        $newList = array_values(array_filter($sesiList, function ($s) use ($id) {
+            return $s['id'] != $id;
+        }));
+        $this->saveBimbelData('bimbel_ai_sesi_list', $newList);
+
+        // Hapus chat history sesi ini
+        $chatKey = 'bimbel_ai_chat_' . $id;
+        $this->saveBimbelData($chatKey, []);
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json(['success' => true, 'message' => 'Sesi berhasil dihapus.']);
+        }
+
+        return redirect()->route('bimbel.ai_tutor')->with('info', 'Sesi diskusi telah dihapus.');
+    }
+
+    /**
+     * Muat data demo AI Tutor.
+     */
+    public function loadDemoAiTutor()
+    {
+        $demoSessions = [
+            [
+                'id' => 1,
+                'judul' => 'Kalkulus & Integral Substitusi',
+                'kategori' => 'Kalkulus Lanjut',
+                'pesan_count' => '2 Pesan',
+                'waktu' => '10:15 WIB',
+                'badge_status' => 'Aktif',
+                'durasi' => '18 Menit',
+                'group' => 'HARI INI',
+                'tingkat' => 'HOTS UTBK',
+                'batch' => 'Bimbel Reguler SNBT Batch 1',
+            ],
+            [
+                'id' => 2,
+                'judul' => 'Trigonometri Sudut Rangkap',
+                'kategori' => 'Penalaran Matematika',
+                'pesan_count' => '2 Pesan',
+                'waktu' => 'Kemarin',
+                'badge_status' => 'Selesai',
+                'durasi' => '32 Menit',
+                'group' => 'KEMARIN',
+                'tingkat' => 'HOTS UTBK',
+                'batch' => 'Bimbel Reguler SNBT Batch 1',
+            ],
+            [
+                'id' => 3,
+                'judul' => 'Penalaran Kuantitatif Aljabar',
+                'kategori' => 'Pengetahuan Kuantitatif',
+                'pesan_count' => '0 Pesan',
+                'waktu' => '3 hari lalu',
+                'badge_status' => 'Draft',
+                'durasi' => 'Baru',
+                'group' => 'MINGGU LALU',
+                'tingkat' => 'TPS SNBT',
+                'batch' => 'Bimbel Reguler SNBT Batch 1',
+            ],
+        ];
+
+        $chat1 = [
+            [
+                'sender' => 'user',
+                'sender_name' => 'Dimas Arya Putra',
+                'avatar' => 'DA',
+                'time' => '10:12 WIB',
+                'text' => 'Kak AI, tolong jelaskan cara menyelesaikan integral ini dengan cara cepat dan runtut: ∫ (sin³ x • cos x) dx. Bagaimana trik eliminasi pilihannya?',
+            ],
+            [
+                'sender' => 'ai',
+                'sender_name' => 'EduPulse Math Tutor • Solusi Terstruktur',
+                'time' => '10:13 WIB',
+                'text' => "Halo Dimas! Pertanyaan yang sangat krusial untuk paket HOTS UTBK SNBT.\n\n💡 **Kunci Konsep (The Master Rule):**\nGunakan pendekatan dekomposisi variabel dan substitusi bertahap untuk menyederhanakan bentuk berpangkat ganjil trigonometri.\n\n📌 **LANGKAH PENGERJAAN RUNTUT:**\n1. Tentukan pemisalan variabel: u = sin(x) sehingga du = cos(x) dx.\n2. Substitusikan ke dalam bentuk integral semula: ∫ u³ du = 1/4 u⁴ + C.\n3. Masukkan batas integral jika batas tertutup [0, π/2]: [1/4 sin⁴(x)]₀^(π/2) = 1/4(1) - 0 = **0.25 (1/4)**.\n\n⚡ **Trik Eliminasi Cepat UTBK:**\nKarena fungsi sin³(x) cos(x) bernilai simetris positif pada kuadran I dengan puncak kecil di x = 60°, jawaban tidak mungkin melebihi 0.5. Eliminasi langsung opsi A (1/2)!",
+                'formula_badge' => 'Substitusi Aljabar (U-Substitution)',
+                'kurva_info' => 'Daerah kurva y = sin³(x) cos(x) pada interval [0, π/2], Luas = 0.25',
+            ]
+        ];
+
+        $chat2 = [
+            [
+                'sender' => 'user',
+                'sender_name' => 'Dimas Arya Putra',
+                'avatar' => 'DA',
+                'time' => '14:20 WIB',
+                'text' => 'Bagaimana cara cepat mengingat formula identitas cos(2x) tanpa harus menghafal semua variasinya?',
+            ],
+            [
+                'sender' => 'ai',
+                'sender_name' => 'EduPulse Math Tutor • Solusi Terstruktur',
+                'time' => '14:21 WIB',
+                'text' => "Cukup hafal satu formula induk: **cos(a+b) = cos(a)cos(b) - sin(a)sin(b)**!\n\nJika a = b = x:\ncos(2x) = cos²(x) - sin²(x).\n\nDari sini substitusikan identitas Pythagoras sin²(x) + cos²(x) = 1:\n• Ganti sin²(x) dengan (1 - cos²x) → didapat **2cos²(x) - 1**\n• Ganti cos²(x) dengan (1 - sin²x) → didapat **1 - 2sin²(x)**\n\nSelesai! Kamu tidak perlu menghafal rumus baru sama sekali.",
+                'formula_badge' => 'Identitas Trigonometri',
+                'kurva_info' => 'Identitas cos(2x) = cos²(x) - sin²(x)',
+            ]
+        ];
+
+        $this->saveBimbelData('bimbel_ai_sesi_list', $demoSessions);
+        $this->saveBimbelData('bimbel_ai_chat_1', $chat1);
+        $this->saveBimbelData('bimbel_ai_chat_2', $chat2);
+
+        return redirect()->route('bimbel.ai_tutor', ['sesi' => 1])
+            ->with('success', 'Data demo AI Tutor berhasil dimuat!');
     }
 
     /**
@@ -1572,14 +1698,16 @@ class BimbelDashboardController extends Controller
      */
     public function resetAiTutor()
     {
-        $sesiList = session('bimbel_ai_sesi_list', []);
+        $sesiList = $this->getBimbelData('bimbel_ai_sesi_list', []);
         foreach ($sesiList as $s) {
-            session()->forget('bimbel_ai_chat_' . $s['id']);
+            $this->saveBimbelData('bimbel_ai_chat_' . $s['id'], []);
         }
-        session()->forget(['bimbel_ai_sesi_list', 'bimbel_ai_chat_default']);
+        $this->saveBimbelData('bimbel_ai_sesi_list', []);
+        $this->saveBimbelData('bimbel_ai_chat_default', []);
 
         return redirect()->route('bimbel.ai_tutor')->with('info', 'Studio AI Tutor telah direset ke kondisi bersih (kosong).');
     }
+
 
     /**
      * Progres Belajar & Rapor Akademik Terpadu

@@ -114,6 +114,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/ai-tutor/chat', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'sendChatAiTutor'])->name('ai_tutor.chat');
         Route::post('/ai-tutor/sesi', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'storeSesiAiTutor'])->name('ai_tutor.sesi.store');
         Route::get('/ai-tutor/reset', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'resetAiTutor'])->name('ai_tutor.reset');
+        Route::post('/ai-tutor/demo', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'loadDemoAiTutor'])->name('ai_tutor.demo');
+        Route::delete('/ai-tutor/sesi/{id}', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'destroySesiAiTutor'])->name('ai_tutor.sesi.destroy');
         Route::get('/progress', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'progress'])->name('progress');
         Route::post('/progress/evaluasi', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'storeEvaluasi'])->name('progress.evaluasi.store');
         Route::post('/progress/catatan', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'storeCatatanPedagogis'])->name('progress.catatan.store');
@@ -180,6 +182,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/branch/switch', [\App\Http\Controllers\Resto\RestoDashboardController::class, 'switchBranch'])->name('branch.switch');
         Route::post('/shift/toggle', [\App\Http\Controllers\Resto\RestoDashboardController::class, 'toggleShift'])->name('shift.toggle');
         Route::get('/reset', [\App\Http\Controllers\Resto\RestoDashboardController::class, 'resetData'])->name('reset');
+        Route::post('/demo-data', [\App\Http\Controllers\Resto\RestoDashboardController::class, 'loadDemoData'])->name('demo_data');
+        Route::get('/demo-data', [\App\Http\Controllers\Resto\RestoDashboardController::class, 'loadDemoData'])->name('demo_data_get');
     });
 
     // ==========================================
@@ -203,6 +207,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/branch/switch', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'switchBranch'])->name('branch.switch');
         Route::post('/shift/toggle', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'toggleShift'])->name('shift.toggle');
         Route::get('/reset', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'resetData'])->name('reset');
+        Route::post('/reset', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'resetData'])->name('reset_post');
+        Route::post('/demo-data', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'loadDemoData'])->name('demo_data');
+        Route::get('/demo-data', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'loadDemoData'])->name('demo_data_get');
         Route::get('/crm', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'crm'])->name('crm');
         Route::post('/crm/customer', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'storeCustomer'])->name('crm.store');
         Route::post('/crm/unit', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'storeUnit'])->name('crm.unit.store');

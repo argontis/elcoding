@@ -98,10 +98,13 @@
 </head>
 <body class="min-h-screen flex text-slate-800 bg-[#f8fafc] antialiased">
 
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="techfixSidebarOverlay" onclick="toggleTechfixSidebar()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+
     <!-- ========================================================= -->
     <!-- LEFT SIDEBAR                                              -->
     <!-- ========================================================= -->
-    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col fixed inset-y-0 left-0 z-40 select-none">
+    <aside id="techfixSidebar" class="w-64 bg-white border-r border-slate-200 flex flex-col fixed inset-y-0 left-0 z-50 select-none -translate-x-full lg:translate-x-0 transition-transform duration-300 shadow-2xl lg:shadow-none">
         
         <!-- Brand Header -->
         <div class="px-5 pt-5 pb-4 border-b border-slate-100">
@@ -115,6 +118,10 @@
                         HARDWARE & SERVICE OS
                     </div>
                 </div>
+                <!-- Close Button Mobile -->
+                <button type="button" onclick="toggleTechfixSidebar()" class="lg:hidden w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-sm transition" title="Tutup Menu">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
 
             <!-- Sesi Teknisi Active Tag -->
@@ -226,15 +233,20 @@
     <!-- ========================================================= -->
     <!-- MAIN APPLICATION WRAPPER                                  -->
     <!-- ========================================================= -->
-    <div class="pl-64 flex-1 flex flex-col min-w-0">
+    <div class="lg:pl-64 flex-1 flex flex-col min-w-0">
 
         <!-- ===================================================== -->
         <!-- TOP NAVBAR                                            -->
         <!-- ===================================================== -->
-        <header class="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between sticky top-0 z-30 shadow-xs">
+        <header class="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30 shadow-xs">
             
-            <!-- Left: Branch Selector -->
-            <div class="flex items-center gap-4">
+            <!-- Left: Mobile Toggle & Branch Selector -->
+            <div class="flex items-center gap-2 sm:gap-4">
+                <!-- Hamburger Button Mobile -->
+                <button type="button" onclick="toggleTechfixSidebar()" class="lg:hidden w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 flex items-center justify-center text-sm shrink-0 transition" title="Menu Sidebar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
                 <div class="flex items-center gap-2.5 cursor-pointer group" onclick="document.getElementById('branchSwitchForm').submit();">
                     <div class="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center border border-sky-100 group-hover:bg-sky-100 transition-colors">
                         <i class="fa-solid fa-store text-xs"></i>
@@ -279,6 +291,21 @@
                     <i class="fa-solid fa-user-astronaut text-slate-400 text-xs"></i>
                     <span>Teknisi: <strong>6/8 Standby</strong></span>
                 </div>
+
+                <!-- Muat Demo Button -->
+                <form action="{{ route('techfix.demo_data') }}" method="POST" class="inline">
+                    @csrf
+                    <button type="submit" class="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold shadow-xs transition-all" title="Muat Data Demo Lengkap">
+                        <i class="fa-solid fa-wand-magic-sparkles text-[11px]"></i>
+                        <span>Muat Demo</span>
+                    </button>
+                </form>
+
+                <!-- Reset Data Button -->
+                <a href="{{ route('techfix.reset') }}" onclick="return confirm('Kosongkan semua data tiket TechFix?')" class="flex items-center gap-1.5 bg-slate-100 hover:bg-rose-50 hover:text-rose-600 text-slate-600 border border-slate-200 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all" title="Reset / Bersihkan Data">
+                    <i class="fa-solid fa-rotate-left text-[11px]"></i>
+                    <span>Reset</span>
+                </a>
 
                 <!-- Primary Action: + Tiket Baru (F1) -->
                 <button onclick="openNewTicketModal()" class="flex items-center gap-2 bg-brand-700 hover:bg-brand-800 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold shadow-sm transition-all hover:shadow active:scale-[0.98]">
@@ -1371,6 +1398,25 @@
                 closeAddPartModal();
             }
         });
+
+        // Mobile Sidebar Toggle
+        function toggleTechfixSidebar() {
+            const sidebar = document.getElementById('techfixSidebar');
+            const overlay = document.getElementById('techfixSidebarOverlay');
+            if (!sidebar || !overlay) return;
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
 
         // Quick Search on Kanban Cards
         document.getElementById('globalSearchInput')?.addEventListener('input', function(e) {

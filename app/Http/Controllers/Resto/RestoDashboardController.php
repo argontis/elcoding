@@ -8,6 +8,49 @@ use Illuminate\Http\Request;
 class RestoDashboardController extends Controller
 {
     /**
+     * Helper penyimpanan data Resto secara permanen (file JSON).
+     */
+    private function getRestoData(string $key, $default = [])
+    {
+        $path = storage_path('app/resto_data.json');
+        if (file_exists($path)) {
+            $jsonContent = @file_get_contents($path);
+            $json = json_decode($jsonContent, true);
+            if (is_array($json) && array_key_exists($key, $json)) {
+                return $json[$key];
+            }
+        }
+
+        $sessionData = session($key, null);
+        if ($sessionData !== null) {
+            $this->saveRestoData($key, $sessionData);
+            return $sessionData;
+        }
+
+        return $default;
+    }
+
+    private function saveRestoData(string $key, $value): void
+    {
+        $path = storage_path('app/resto_data.json');
+        $dir = dirname($path);
+        if (!is_dir($dir)) {
+            @mkdir($dir, 0755, true);
+        }
+
+        $allData = [];
+        if (file_exists($path)) {
+            $jsonContent = @file_get_contents($path);
+            $allData = json_decode($jsonContent, true) ?: [];
+        }
+
+        $allData[$key] = $value;
+        @file_put_contents($path, json_encode($allData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+        session([$key => $value]);
+    }
+
+    /**
      * Dashboard RestoHub OS (Culinary Operations).
      * Seluruh data awal KOSONG — siap diisi sendiri oleh pengguna.
      */
@@ -16,14 +59,14 @@ class RestoDashboardController extends Controller
         $user = auth()->user();
 
         // 1. Cabang & Shift Info
-        $currentBranch = session('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
+        $currentBranch = $this->getRestoData('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
         $branches = [
             'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta',
             'RestoHub Express - Senayan City',
             'RestoHub Garden & Lounge - PIK Avenue',
         ];
 
-        $shiftInfo = session('resto_shift', [
+        $shiftInfo = $this->getRestoData('resto_shift', [
             'shift_kode' => 'SHIFT 01',
             'jam' => '09:00 - 17:00',
             'kasir' => $user->name ?? 'Kasir Utama',
@@ -33,19 +76,19 @@ class RestoDashboardController extends Controller
         ]);
 
         // 2. Denah Meja (Floor Plan) — DEFAULT KOSONG []
-        $indoorTables = session('resto_indoor_tables', []);
-        $outdoorTables = session('resto_outdoor_tables', []);
+        $indoorTables = $this->getRestoData('resto_indoor_tables', []);
+        $outdoorTables = $this->getRestoData('resto_outdoor_tables', []);
 
         // Service Mode Counters (dihitung dari meja nyata atau 0)
         $serviceCounters = [
             'dine_in' => count($indoorTables) + count($outdoorTables),
-            'takeaway' => count(session('resto_takeaway_orders', [])),
-            'online' => count(session('resto_online_orders', [])),
-            'qr_self_order' => count(session('resto_qr_orders', [])),
+            'takeaway' => count($this->getRestoData('resto_takeaway_orders', [])),
+            'online' => count($this->getRestoData('resto_online_orders', [])),
+            'qr_self_order' => count($this->getRestoData('resto_qr_orders', [])),
         ];
 
         // 3. Katalog Menu & Quick Add — DEFAULT KOSONG []
-        $menuKatalog = session('resto_menu_katalog', []);
+        $menuKatalog = $this->getRestoData('resto_menu_katalog', []);
 
         // 4. Tiket Aktif — DEFAULT KOSONG
         $defaultTicket = [
@@ -58,7 +101,7 @@ class RestoDashboardController extends Controller
             'catatan_dapur' => '',
             'tukar_poin' => false,
         ];
-        $activeTicket = session('resto_active_ticket', $defaultTicket);
+        $activeTicket = $this->getRestoData('resto_active_ticket', $defaultTicket);
 
         // Perhitungan tagihan
         $subtotal = 0;
@@ -121,7 +164,7 @@ class RestoDashboardController extends Controller
         $guest = $request->input('guest', '');
         $sessionKey = $area === 'indoor' ? 'resto_indoor_tables' : 'resto_outdoor_tables';
 
-        $tables = session($sessionKey, []);
+        $tables = $this->getRestoData($sessionKey, []);
         $newTable = [
             'id' => $label,
             'label' => $label,
@@ -139,7 +182,7 @@ class RestoDashboardController extends Controller
         ];
 
         $tables[] = $newTable;
-        session([$sessionKey => $tables]);
+        $this->saveRestoData($sessionKey, $tables);
 
         return redirect()->route('resto.dashboard')->with('success', "Meja {$label} ({$area}) berhasil ditambahkan dan siap dipakai!");
     }
@@ -155,7 +198,7 @@ class RestoDashboardController extends Controller
             'harga' => 'required|numeric|min:0',
         ]);
 
-        $katalog = session('resto_menu_katalog', []);
+        $katalog = $this->getRestoData('resto_menu_katalog', []);
         $newId = count($katalog) + 1;
 
         $katalog[] = [
@@ -169,7 +212,7 @@ class RestoDashboardController extends Controller
             'img' => $request->input('img', 'https://images.unsplash.com/photo-1544025162-d76694265947?w=500&auto=format&fit=crop&q=80'),
         ];
 
-        session(['resto_menu_katalog' => $katalog]);
+        $this->saveRestoData('resto_menu_katalog', $katalog);
 
         return redirect()->route('resto.dashboard')->with('success', "Menu '{$request->nama}' berhasil ditambahkan ke katalog!");
     }
@@ -183,16 +226,60 @@ class RestoDashboardController extends Controller
         $area = $request->input('area', 'Area Indoor AC');
         $pax = (int) $request->input('pax', 4);
 
-        $activeTicket = session('resto_active_ticket', []);
+        $activeTicket = $this->getRestoData('resto_active_ticket', []);
         $activeTicket['meja_id'] = $tableId;
         $activeTicket['area'] = $area;
         $activeTicket['pax'] = $pax;
         $activeTicket['tiket_no'] = '#RH-' . rand(1000, 9999);
         $activeTicket['waktu_buat'] = date('H:i') . ' WIB';
 
-        session(['resto_active_ticket' => $activeTicket]);
+        $this->saveRestoData('resto_active_ticket', $activeTicket);
 
         return redirect()->route('resto.dashboard')->with('info', "Meja {$tableId} kini menjadi tiket aktif.");
+    }
+
+    /**
+     * Update status meja (available, occupied, billed, reserved).
+     */
+    public function updateTableStatus(Request $request)
+    {
+        $tableId = $request->input('table_id');
+        $status = $request->input('status', 'available');
+
+        $statusBadges = [
+            'available' => ['badge' => 'Siap Pakai', 'color' => 'bg-emerald-100 text-emerald-700', 'info' => 'Meja Bersih & Siap'],
+            'occupied'  => ['badge' => 'Terisi',     'color' => 'bg-amber-100 text-amber-700',     'info' => 'Sedang Makan'],
+            'billed'    => ['badge' => 'Cetak Bill', 'color' => 'bg-blue-100 text-blue-700',       'info' => 'Menunggu Pembayaran'],
+            'reserved'  => ['badge' => 'Reservasi',  'color' => 'bg-purple-100 text-purple-700',   'info' => 'Dipesan Khusus'],
+        ];
+
+        $badgeInfo = $statusBadges[$status] ?? $statusBadges['available'];
+
+        foreach (['resto_indoor_tables', 'resto_outdoor_tables'] as $key) {
+            $tables = $this->getRestoData($key, []);
+            $changed = false;
+            foreach ($tables as &$table) {
+                if (($table['id'] ?? '') === $tableId || ($table['label'] ?? '') === $tableId) {
+                    $table['status'] = $status;
+                    $table['status_badge'] = $badgeInfo['badge'];
+                    $table['badge_color'] = $badgeInfo['color'];
+                    $table['info'] = $badgeInfo['info'];
+                    $changed = true;
+                    break;
+                }
+            }
+            unset($table);
+            if ($changed) {
+                $this->saveRestoData($key, $tables);
+                break;
+            }
+        }
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json(['success' => true, 'message' => "Status meja {$tableId} diperbarui menjadi {$status}."]);
+        }
+
+        return redirect()->route('resto.dashboard')->with('success', "Status meja {$tableId} diperbarui.");
     }
 
     /**
@@ -204,7 +291,7 @@ class RestoDashboardController extends Controller
         $nama = $request->input('nama');
         $harga = (int) $request->input('harga');
 
-        $ticket = session('resto_active_ticket', [
+        $ticket = $this->getRestoData('resto_active_ticket', [
             'meja_id' => 'T-01',
             'area' => 'Area Indoor AC',
             'pax' => 2,
@@ -237,7 +324,7 @@ class RestoDashboardController extends Controller
             ];
         }
 
-        session(['resto_active_ticket' => $ticket]);
+        $this->saveRestoData('resto_active_ticket', $ticket);
 
         return redirect()->route('resto.dashboard')->with('success', "Item {$nama} berhasil ditambahkan ke tiket.");
     }
@@ -248,7 +335,7 @@ class RestoDashboardController extends Controller
     public function removeItem(Request $request)
     {
         $itemId = $request->input('item_id');
-        $ticket = session('resto_active_ticket', []);
+        $ticket = $this->getRestoData('resto_active_ticket', []);
 
         if (isset($ticket['items'])) {
             $newItems = [];
@@ -263,7 +350,7 @@ class RestoDashboardController extends Controller
                 }
             }
             $ticket['items'] = $newItems;
-            session(['resto_active_ticket' => $ticket]);
+            $this->saveRestoData('resto_active_ticket', $ticket);
         }
 
         return redirect()->route('resto.dashboard')->with('info', "Pesanan tiket telah diperbarui.");
@@ -274,9 +361,9 @@ class RestoDashboardController extends Controller
      */
     public function toggleDiscount(Request $request)
     {
-        $ticket = session('resto_active_ticket', []);
+        $ticket = $this->getRestoData('resto_active_ticket', []);
         $ticket['tukar_poin'] = !(bool)($ticket['tukar_poin'] ?? false);
-        session(['resto_active_ticket' => $ticket]);
+        $this->saveRestoData('resto_active_ticket', $ticket);
 
         return redirect()->route('resto.dashboard')->with('info', "Poin loyalty member berhasil diubah.");
     }
@@ -286,9 +373,9 @@ class RestoDashboardController extends Controller
      */
     public function fireKds(Request $request)
     {
-        $ticket = session('resto_active_ticket', []);
+        $ticket = $this->getRestoData('resto_active_ticket', []);
         if (!empty($ticket) && !empty($ticket['items'])) {
-            $kdsTickets = session('resto_kds_tickets', []);
+            $kdsTickets = $this->getRestoData('resto_kds_tickets', []);
             $orderNum = 'ORD-' . date('Hi') . '-' . rand(10, 99);
             $newTicket = [
                 'id'         => uniqid('t_'),
@@ -312,7 +399,7 @@ class RestoDashboardController extends Controller
                 }, $ticket['items']),
             ];
             $kdsTickets[] = $newTicket;
-            session(['resto_kds_tickets' => $kdsTickets]);
+            $this->saveRestoData('resto_kds_tickets', $kdsTickets);
         }
 
         return redirect()->route('resto.dashboard')->with('success', "🔥 Fire KDS Berhasil! Pesanan diteruskan ke Kitchen & Bar.");
@@ -323,9 +410,9 @@ class RestoDashboardController extends Controller
      */
     public function saveCatatanDapur(Request $request)
     {
-        $ticket = session('resto_active_ticket', []);
+        $ticket = $this->getRestoData('resto_active_ticket', []);
         $ticket['catatan_dapur'] = $request->input('catatan', '');
-        session(['resto_active_ticket' => $ticket]);
+        $this->saveRestoData('resto_active_ticket', $ticket);
 
         return redirect()->route('resto.dashboard')->with('success', "Catatan dapur berhasil disimpan.");
     }
@@ -339,11 +426,11 @@ class RestoDashboardController extends Controller
         $nominal = $request->input('nominal', 0);
 
         // Reset tiket aktif setelah dibayar
-        $ticket = session('resto_active_ticket', []);
+        $ticket = $this->getRestoData('resto_active_ticket', []);
         $tableId = $ticket['meja_id'] ?? '-';
         $ticket['items'] = [];
         $ticket['tukar_poin'] = false;
-        session(['resto_active_ticket' => $ticket]);
+        $this->saveRestoData('resto_active_ticket', $ticket);
 
         return redirect()->route('resto.dashboard')->with('success', "✅ Pembayaran Meja {$tableId} via {$metode} berhasil! Struk tercetak dan pesanan tuntas.");
     }
@@ -354,7 +441,7 @@ class RestoDashboardController extends Controller
     public function switchBranch(Request $request)
     {
         $branch = $request->input('branch');
-        session(['resto_branch' => $branch]);
+        $this->saveRestoData('resto_branch', $branch);
 
         return redirect()->route('resto.dashboard')->with('info', "Cabang aktif dialihkan ke: {$branch}");
     }
@@ -366,8 +453,8 @@ class RestoDashboardController extends Controller
     public function kds()
     {
         $user          = auth()->user();
-        $currentBranch = session('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
-        $shiftInfo     = session('resto_shift', [
+        $currentBranch = $this->getRestoData('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
+        $shiftInfo     = $this->getRestoData('resto_shift', [
             'shift_kode' => 'SHIFT 01',
             'jam'        => '09:00 - 17:00',
             'kasir'      => $user->name ?? 'Kasir Utama',
@@ -377,15 +464,15 @@ class RestoDashboardController extends Controller
         ]);
 
         // Tiket KDS — default KOSONG []
-        $kdsTickets  = session('resto_kds_tickets', []);
-        $recentDone  = session('resto_kds_done', []);
+        $kdsTickets  = $this->getRestoData('resto_kds_tickets', []);
+        $recentDone  = $this->getRestoData('resto_kds_done', []);
 
         // Stats
         $totalTickets = count($kdsTickets);
         $mainCount    = collect($kdsTickets)->filter(fn($t) => ($t['station'] ?? 'main') === 'main')->count();
         $pastryCount  = collect($kdsTickets)->filter(fn($t) => ($t['station'] ?? '') === 'pastry')->count();
         $lateCount    = collect($kdsTickets)->filter(fn($t) => ($t['urgent'] ?? false) === true)->count();
-        $doneCount    = session('resto_kds_done_count', 0);
+        $doneCount    = $this->getRestoData('resto_kds_done_count', 0);
         $avgTime      = $totalTickets > 0 ? rand(8, 14) : 0;
 
         return view('resto.kds', compact(
@@ -403,8 +490,8 @@ class RestoDashboardController extends Controller
     public function inventaris()
     {
         $user          = auth()->user();
-        $currentBranch = session('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
-        $shiftInfo     = session('resto_shift', [
+        $currentBranch = $this->getRestoData('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
+        $shiftInfo     = $this->getRestoData('resto_shift', [
             'shift_kode' => 'SHIFT 01',
             'jam'        => '09:00 - 17:00',
             'kasir'      => $user->name ?? 'Kasir Utama',
@@ -413,7 +500,7 @@ class RestoDashboardController extends Controller
             'shift_name' => 'Shift Pagi 08:00 – 16:00',
         ]);
 
-        $bahanList = session('resto_inventory', []);
+        $bahanList = $this->getRestoData('resto_inventory', []);
 
         // Kalkulasi KPI
         $totalBahan   = count($bahanList);
@@ -460,7 +547,7 @@ class RestoDashboardController extends Controller
      */
     public function createBahan(Request $request)
     {
-        $bahanList = session('resto_inventory', []);
+        $bahanList = $this->getRestoData('resto_inventory', []);
 
         $nama      = trim($request->input('nama', ''));
         $kategori  = $request->input('kategori', 'Daging & Unggas');
@@ -514,7 +601,7 @@ class RestoDashboardController extends Controller
         ];
 
         $bahanList[] = $newBahan;
-        session(['resto_inventory' => $bahanList]);
+        $this->saveRestoData('resto_inventory', $bahanList);
 
         return redirect()->route('resto.inventaris')->with('success', "✅ Bahan baku '{$nama}' berhasil ditambahkan ke inventaris!");
     }
@@ -524,9 +611,9 @@ class RestoDashboardController extends Controller
      */
     public function deleteBahan($id)
     {
-        $bahanList = session('resto_inventory', []);
+        $bahanList = $this->getRestoData('resto_inventory', []);
         $bahanList = array_values(array_filter($bahanList, fn($b) => ($b['id'] ?? '') !== $id));
-        session(['resto_inventory' => $bahanList]);
+        $this->saveRestoData('resto_inventory', $bahanList);
 
         return redirect()->route('resto.inventaris')->with('info', "Bahan baku telah dihapus dari inventaris.");
     }
@@ -538,8 +625,8 @@ class RestoDashboardController extends Controller
     public function member()
     {
         $user          = auth()->user();
-        $currentBranch = session('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
-        $shiftInfo     = session('resto_shift', [
+        $currentBranch = $this->getRestoData('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
+        $shiftInfo     = $this->getRestoData('resto_shift', [
             'shift_kode' => 'SHIFT 01',
             'jam'        => '09:00 - 17:00',
             'kasir'      => $user->name ?? 'Kasir Utama',
@@ -548,8 +635,8 @@ class RestoDashboardController extends Controller
             'shift_name' => 'Shift Pagi 08:00 – 16:00',
         ]);
 
-        $reservasiList = session('resto_reservations', []);
-        $memberList    = session('resto_members', []);
+        $reservasiList = $this->getRestoData('resto_reservations', []);
+        $memberList    = $this->getRestoData('resto_members', []);
 
         // Stats Reservasi
         $totalReservasi = count($reservasiList);
@@ -580,7 +667,7 @@ class RestoDashboardController extends Controller
      */
     public function createReservasi(Request $request)
     {
-        $reservasiList = session('resto_reservations', []);
+        $reservasiList = $this->getRestoData('resto_reservations', []);
 
         $nama        = trim($request->input('nama', ''));
         $phone       = trim($request->input('phone', ''));
@@ -613,7 +700,7 @@ class RestoDashboardController extends Controller
         ];
 
         $reservasiList[] = $newReservasi;
-        session(['resto_reservations' => $reservasiList]);
+        $this->saveRestoData('resto_reservations', $reservasiList);
 
         return redirect()->route('resto.member')->with('success', "✅ Reservasi atas nama '{$nama}' berhasil dicatat!");
     }
@@ -623,7 +710,7 @@ class RestoDashboardController extends Controller
      */
     public function updateReservasiStatus(Request $request, $id)
     {
-        $reservasiList = session('resto_reservations', []);
+        $reservasiList = $this->getRestoData('resto_reservations', []);
         $newStatus     = $request->input('status', 'Tamu Tiba (Seated)');
 
         foreach ($reservasiList as &$r) {
@@ -632,7 +719,7 @@ class RestoDashboardController extends Controller
                 break;
             }
         }
-        session(['resto_reservations' => $reservasiList]);
+        $this->saveRestoData('resto_reservations', $reservasiList);
 
         return redirect()->route('resto.member')->with('success', "Status reservasi berhasil diperbarui: {$newStatus}");
     }
@@ -642,9 +729,9 @@ class RestoDashboardController extends Controller
      */
     public function deleteReservasi($id)
     {
-        $reservasiList = session('resto_reservations', []);
+        $reservasiList = $this->getRestoData('resto_reservations', []);
         $reservasiList = array_values(array_filter($reservasiList, fn($r) => ($r['id'] ?? '') !== $id));
-        session(['resto_reservations' => $reservasiList]);
+        $this->saveRestoData('resto_reservations', $reservasiList);
 
         return redirect()->route('resto.member')->with('info', "Reservasi telah dihapus.");
     }
@@ -654,7 +741,7 @@ class RestoDashboardController extends Controller
      */
     public function createMember(Request $request)
     {
-        $memberList = session('resto_members', []);
+        $memberList = $this->getRestoData('resto_members', []);
 
         $nama        = trim($request->input('nama', ''));
         $phone       = trim($request->input('phone', ''));
@@ -685,7 +772,7 @@ class RestoDashboardController extends Controller
         ];
 
         $memberList[] = $newMember;
-        session(['resto_members' => $memberList]);
+        $this->saveRestoData('resto_members', $memberList);
 
         return redirect()->route('resto.member')->with('success', "🎉 Member '{$nama}' berhasil didaftarkan ke sistem loyalitas!");
     }
@@ -695,9 +782,9 @@ class RestoDashboardController extends Controller
      */
     public function deleteMember($id)
     {
-        $memberList = session('resto_members', []);
+        $memberList = $this->getRestoData('resto_members', []);
         $memberList = array_values(array_filter($memberList, fn($m) => ($m['id'] ?? '') !== $id));
-        session(['resto_members' => $memberList]);
+        $this->saveRestoData('resto_members', $memberList);
 
         return redirect()->route('resto.member')->with('info', "Member telah dihapus dari database.");
     }
@@ -709,8 +796,8 @@ class RestoDashboardController extends Controller
     public function marketing()
     {
         $user          = auth()->user();
-        $currentBranch = session('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
-        $shiftInfo     = session('resto_shift', [
+        $currentBranch = $this->getRestoData('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
+        $shiftInfo     = $this->getRestoData('resto_shift', [
             'shift_kode' => 'SHIFT 01',
             'jam'        => '09:00 - 17:00',
             'kasir'      => $user->name ?? 'Kasir Utama',
@@ -719,8 +806,8 @@ class RestoDashboardController extends Controller
             'shift_name' => 'Shift Pagi 08:00 – 16:00',
         ]);
 
-        $campaigns = session('resto_wa_campaigns', []);
-        $triggers  = session('resto_wa_triggers', [
+        $campaigns = $this->getRestoData('resto_wa_campaigns', []);
+        $triggers  = $this->getRestoData('resto_wa_triggers', [
             [
                 'id'          => 'trig_1',
                 'judul'       => 'Pemberian Ucapan & Voucher Ulang Tahun H-3',
@@ -777,7 +864,7 @@ class RestoDashboardController extends Controller
      */
     public function createCampaign(Request $request)
     {
-        $campaigns = session('resto_wa_campaigns', []);
+        $campaigns = $this->getRestoData('resto_wa_campaigns', []);
 
         $judul       = trim($request->input('judul', ''));
         $segmen      = $request->input('segmen', 'Semua Member');
@@ -803,7 +890,7 @@ class RestoDashboardController extends Controller
         ];
 
         $campaigns[] = $newCampaign;
-        session(['resto_wa_campaigns' => $campaigns]);
+        $this->saveRestoData('resto_wa_campaigns', $campaigns);
 
         return redirect()->route('resto.marketing')->with('success', "🚀 Kampanye WhatsApp '{$judul}' berhasil diluncurkan!");
     }
@@ -813,9 +900,9 @@ class RestoDashboardController extends Controller
      */
     public function deleteCampaign($id)
     {
-        $campaigns = session('resto_wa_campaigns', []);
+        $campaigns = $this->getRestoData('resto_wa_campaigns', []);
         $campaigns = array_values(array_filter($campaigns, fn($c) => ($c['id'] ?? '') !== $id));
-        session(['resto_wa_campaigns' => $campaigns]);
+        $this->saveRestoData('resto_wa_campaigns', $campaigns);
 
         return redirect()->route('resto.marketing')->with('info', "Kampanye broadcast telah dihapus.");
     }
@@ -826,7 +913,7 @@ class RestoDashboardController extends Controller
     public function toggleTrigger(Request $request)
     {
         $triggerId = $request->input('id');
-        $triggers  = session('resto_wa_triggers', []);
+        $triggers  = $this->getRestoData('resto_wa_triggers', []);
 
         foreach ($triggers as &$t) {
             if (($t['id'] ?? '') === $triggerId) {
@@ -834,7 +921,7 @@ class RestoDashboardController extends Controller
                 break;
             }
         }
-        session(['resto_wa_triggers' => $triggers]);
+        $this->saveRestoData('resto_wa_triggers', $triggers);
 
         return redirect()->route('resto.marketing')->with('info', "Status pemicu otomasi berhasil diubah.");
     }
@@ -846,8 +933,8 @@ class RestoDashboardController extends Controller
     public function laporan()
     {
         $user          = auth()->user();
-        $currentBranch = session('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
-        $shiftInfo     = session('resto_shift', [
+        $currentBranch = $this->getRestoData('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
+        $shiftInfo     = $this->getRestoData('resto_shift', [
             'shift_kode' => 'SHIFT 01',
             'jam'        => '09:00 - 17:00',
             'kasir'      => $user->name ?? 'Kasir Utama',
@@ -856,10 +943,10 @@ class RestoDashboardController extends Controller
             'shift_name' => 'Shift Pagi 08:00 – 16:00',
         ]);
 
-        $transactions    = session('resto_sales_transactions', []);
-        $menuEngineering = session('resto_menu_engineering', []);
-        $voidRecords     = session('resto_void_records', []);
-        $config          = session('resto_laporan_config', [
+        $transactions    = $this->getRestoData('resto_sales_transactions', []);
+        $menuEngineering = $this->getRestoData('resto_menu_engineering', []);
+        $voidRecords     = $this->getRestoData('resto_void_records', []);
+        $config          = $this->getRestoData('resto_laporan_config', [
             'pb1'               => 10,
             'service'           => 5,
             'pembulatan'        => 100,
@@ -919,7 +1006,7 @@ class RestoDashboardController extends Controller
             'footer_struk'      => trim($request->input('footer_struk', 'Terima kasih atas kunjungan Anda!')),
         ];
 
-        session(['resto_laporan_config' => $config]);
+        $this->saveRestoData('resto_laporan_config', $config);
 
         return redirect()->route('resto.laporan')->with('success', "Konfigurasi operasional restoran berhasil diperbarui.");
     }
@@ -929,7 +1016,7 @@ class RestoDashboardController extends Controller
      */
     public function createTransaksiManual(Request $request)
     {
-        $transactions = session('resto_sales_transactions', []);
+        $transactions = $this->getRestoData('resto_sales_transactions', []);
 
         $orderNo   = 'ORD-' . date('Hi') . '-' . rand(10, 99);
         $meja      = trim($request->input('meja', 'Meja 01'));
@@ -949,7 +1036,7 @@ class RestoDashboardController extends Controller
         ];
 
         $transactions[] = $newTrx;
-        session(['resto_sales_transactions' => $transactions]);
+        $this->saveRestoData('resto_sales_transactions', $transactions);
 
         return redirect()->route('resto.laporan')->with('success', "Transaksi baru {$orderNo} berhasil dicatat ke laporan!");
     }
@@ -959,6 +1046,11 @@ class RestoDashboardController extends Controller
      */
     public function resetData()
     {
+        $path = storage_path('app/resto_data.json');
+        if (file_exists($path)) {
+            @unlink($path);
+        }
+
         session()->forget([
             'resto_branch',
             'resto_shift',
@@ -986,4 +1078,126 @@ class RestoDashboardController extends Controller
 
         return redirect()->route('resto.dashboard')->with('info', "Semua data RestoHub telah direset kembali menjadi kosong siap diisi sendiri.");
     }
+
+    /**
+     * Muat data demo RestoHub lengkap (meja, menu, kds, inventaris, reservasi, member, laporan).
+     */
+    public function loadDemoData()
+    {
+        $indoorTables = [
+            ['id' => 'IND-01', 'no' => '01', 'pax' => '4 Pax', 'status' => 'terisi', 'status_label' => 'Makan', 'waktu' => '12:15 WIB', 'total' => 'Rp 261.000', 'orders_count' => 2, 'tamu' => 'Pak Budi Hartono'],
+            ['id' => 'IND-02', 'no' => '02', 'pax' => '2 Pax', 'status' => 'kosong', 'status_label' => 'Kosong', 'waktu' => '-', 'total' => 'Rp 0', 'orders_count' => 0, 'tamu' => '-'],
+            ['id' => 'IND-03', 'no' => '03', 'pax' => '6 Pax (VIP)', 'status' => 'terisi', 'status_label' => 'Billing', 'waktu' => '11:45 WIB', 'total' => 'Rp 480.000', 'orders_count' => 4, 'tamu' => 'Ibu Cindy'],
+            ['id' => 'IND-04', 'no' => '04', 'pax' => '4 Pax', 'status' => 'reservasi', 'status_label' => 'Booking 19:00', 'waktu' => 'Booking', 'total' => 'Rp 0', 'orders_count' => 0, 'tamu' => 'Bapak Hendra (VIP)'],
+        ];
+
+        $outdoorTables = [
+            ['id' => 'OUT-01', 'no' => '05', 'pax' => '4 Pax Garden', 'status' => 'terisi', 'status_label' => 'Makan', 'waktu' => '12:30 WIB', 'total' => 'Rp 148.000', 'orders_count' => 2, 'tamu' => 'Dimas Arya'],
+            ['id' => 'OUT-02', 'no' => '06', 'pax' => '4 Pax Garden', 'status' => 'kosong', 'status_label' => 'Kosong', 'waktu' => '-', 'total' => 'Rp 0', 'orders_count' => 0, 'tamu' => '-'],
+        ];
+
+        $menuKatalog = [
+            ['id' => 1, 'nama' => 'Wagyu Ribeye Steak 200g', 'kategori' => 'Makanan Utama', 'harga' => 185000, 'stok' => 18, 'sku' => 'WGY-01', 'status' => 'Tersedia', 'icon' => 'fa-drumstick-bite'],
+            ['id' => 2, 'nama' => 'Nasi Goreng Kampung Spesial', 'kategori' => 'Makanan Utama', 'harga' => 48000, 'stok' => 45, 'sku' => 'NGK-01', 'status' => 'Tersedia', 'icon' => 'fa-bowl-rice'],
+            ['id' => 3, 'nama' => 'Spaghetti Aglio Olio Smoked Beef', 'kategori' => 'Makanan Utama', 'harga' => 62000, 'stok' => 22, 'sku' => 'PST-01', 'status' => 'Tersedia', 'icon' => 'fa-utensils'],
+            ['id' => 4, 'nama' => 'Iced Lychee Tea Sparkling', 'kategori' => 'Minuman', 'harga' => 28000, 'stok' => 60, 'sku' => 'LCH-01', 'status' => 'Tersedia', 'icon' => 'fa-glass-water'],
+            ['id' => 5, 'nama' => 'Matcha Latte Espresso Fusion', 'kategori' => 'Minuman', 'harga' => 35000, 'stok' => 30, 'sku' => 'MTC-01', 'status' => 'Tersedia', 'icon' => 'fa-mug-hot'],
+            ['id' => 6, 'nama' => 'Caramel Macchiato Cold Brew', 'kategori' => 'Minuman', 'harga' => 38000, 'stok' => 25, 'sku' => 'CRM-01', 'status' => 'Tersedia', 'icon' => 'fa-wine-glass'],
+            ['id' => 7, 'nama' => 'Truffle French Fries with Tartar', 'kategori' => 'Snack', 'harga' => 38000, 'stok' => 25, 'sku' => 'TRF-01', 'status' => 'Tersedia', 'icon' => 'fa-utensils'],
+            ['id' => 8, 'nama' => 'Crispy Chicken Wings BBQ', 'kategori' => 'Snack', 'harga' => 45000, 'stok' => 20, 'sku' => 'CWG-01', 'status' => 'Tersedia', 'icon' => 'fa-drumstick-bite'],
+            ['id' => 9, 'nama' => 'Molten Choco Lava Cake', 'kategori' => 'Dessert', 'harga' => 42000, 'stok' => 15, 'sku' => 'LAV-01', 'status' => 'Tersedia', 'icon' => 'fa-cake-candles'],
+        ];
+
+        $activeTicket = [
+            'meja_id' => 'IND-01',
+            'area' => 'Area Indoor • Meja 01',
+            'pax' => 4,
+            'tiket_no' => 'TCK-2026-089',
+            'waktu_buat' => '12:15 WIB',
+            'items' => [
+                ['id' => 1, 'nama' => 'Wagyu Ribeye Steak 200g', 'harga' => 185000, 'qty' => 1, 'catatan' => 'Medium rare, mushroom sauce'],
+                ['id' => 4, 'nama' => 'Iced Lychee Tea Sparkling', 'harga' => 28000, 'qty' => 2, 'catatan' => 'Less sugar, less ice'],
+            ],
+            'catatan_dapur' => 'Sajikan minuman lebih dulu, steak medium rare',
+            'tukar_poin' => false,
+        ];
+
+        $kdsTickets = [
+            [
+                'id' => 'KDS-001',
+                'order_id' => 'TCK-2026-089',
+                'table' => 'Meja 01',
+                'area' => 'Indoor',
+                'created_at' => now()->subMinutes(12)->format('H:i'),
+                'time_elapsed' => '12m',
+                'status' => 'cooking',
+                'priority' => 'normal',
+                'items' => [
+                    ['name' => 'Wagyu Ribeye Steak 200g', 'qty' => 1, 'notes' => 'Medium rare'],
+                    ['name' => 'Iced Lychee Tea Sparkling', 'qty' => 2, 'notes' => 'Less sugar']
+                ],
+                'notes' => 'Steak medium rare'
+            ],
+            [
+                'id' => 'KDS-002',
+                'order_id' => 'TCK-2026-090',
+                'table' => 'Meja 05',
+                'area' => 'Outdoor',
+                'created_at' => now()->subMinutes(5)->format('H:i'),
+                'time_elapsed' => '5m',
+                'status' => 'ready',
+                'priority' => 'high',
+                'items' => [
+                    ['name' => 'Nasi Goreng Kampung Spesial', 'qty' => 2, 'notes' => 'Pedas sedang'],
+                    ['name' => 'Truffle French Fries with Tartar', 'qty' => 1, 'notes' => 'Ekstra saus']
+                ],
+                'notes' => 'Siap diantar ke outdoor'
+            ]
+        ];
+
+        $inventory = [
+            ['id' => 1, 'nama' => 'Daging Sapi Wagyu Ribeye MB5', 'kategori' => 'Protein', 'stok' => 14.5, 'min_stok' => 5.0, 'satuan' => 'Kg', 'cost_per_unit' => 320000, 'status' => 'Aman', 'icon' => 'fa-drumstick-bite'],
+            ['id' => 2, 'nama' => 'Beras Pandan Wangi Premium', 'kategori' => 'Karbohidrat', 'stok' => 45.0, 'min_stok' => 20.0, 'satuan' => 'Kg', 'cost_per_unit' => 16000, 'status' => 'Aman', 'icon' => 'fa-bowl-rice'],
+            ['id' => 3, 'nama' => 'Buah Lychee Kaleng Import', 'kategori' => 'Bahan Minuman', 'stok' => 3, 'min_stok' => 6, 'satuan' => 'Kaleng', 'cost_per_unit' => 35000, 'status' => 'Menipis', 'icon' => 'fa-glass-water'],
+            ['id' => 4, 'nama' => 'Susu Fresh Milk Pasteurisasi', 'kategori' => 'Dairy', 'stok' => 18, 'min_stok' => 10, 'satuan' => 'Liter', 'cost_per_unit' => 22000, 'status' => 'Aman', 'icon' => 'fa-bottle-water'],
+            ['id' => 5, 'nama' => 'Minyak Truffle Ekstrak Italia', 'kategori' => 'Bumbu & Saus', 'stok' => 1, 'min_stok' => 2, 'satuan' => 'Botol', 'cost_per_unit' => 145000, 'status' => 'Menipis', 'icon' => 'fa-bottle-droplet'],
+        ];
+
+        $reservations = [
+            ['id' => 1, 'nama' => 'Bapak Hendra Wijaya', 'no_hp' => '0812-9843-2210', 'tanggal' => date('Y-m-d'), 'jam' => '19:00', 'pax' => 4, 'meja' => 'Indoor VIP Meja 04', 'dp' => 200000, 'status' => 'Terkonfirmasi', 'catatan' => 'Anniversary dinner, minta disiapkan lilin'],
+            ['id' => 2, 'nama' => 'Ibu Maya Lestari', 'no_hp' => '0857-1122-3344', 'tanggal' => date('Y-m-d', strtotime('+1 day')), 'jam' => '13:00', 'pax' => 6, 'meja' => 'Outdoor Garden Meja 06', 'dp' => 300000, 'status' => 'Terkonfirmasi', 'catatan' => 'Family lunch gathering'],
+        ];
+
+        $members = [
+            ['id' => 1, 'nama' => 'Cindy Patricia', 'no_hp' => '0878-5521-4320', 'tier' => 'PLATINUM', 'poin' => 2450, 'total_kunjungan' => 18, 'total_spend' => 4250000, 'joined' => '2026-01-15'],
+            ['id' => 2, 'nama' => 'Budi Hartono', 'no_hp' => '0813-1122-3344', 'tier' => 'GOLD', 'poin' => 1200, 'total_kunjungan' => 9, 'total_spend' => 2100000, 'joined' => '2026-02-20'],
+            ['id' => 3, 'nama' => 'Dimas Arya', 'no_hp' => '0812-8877-6655', 'tier' => 'SILVER', 'poin' => 450, 'total_kunjungan' => 3, 'total_spend' => 750000, 'joined' => '2026-04-10'],
+        ];
+
+        $campaigns = [
+            ['id' => 1, 'nama' => 'Payday Weekend Treat 20%', 'kode' => 'PAYDAY20', 'diskon' => '20% (Maks Rp 50.000)', 'min_transaksi' => 'Rp 150.000', 'masa_berlaku' => date('Y-m-d', strtotime('+15 days')), 'kuota' => '150 Voucher', 'status' => 'Aktif'],
+            ['id' => 2, 'nama' => 'Free Truffle Fries Weekday Lunch', 'kode' => 'FREETRUFFLE', 'diskon' => 'Free 1 Snack', 'min_transaksi' => 'Rp 200.000', 'masa_berlaku' => date('Y-m-d', strtotime('+30 days')), 'kuota' => '50 Voucher', 'status' => 'Aktif'],
+        ];
+
+        $transactions = [
+            ['id' => 'TRX-2026-041', 'meja' => 'Meja 02', 'kasir' => 'Sarah Maharani', 'total' => 185000, 'metode' => 'QRIS', 'waktu' => '11:15 WIB', 'tanggal' => date('Y-m-d'), 'status' => 'Lunas'],
+            ['id' => 'TRX-2026-042', 'meja' => 'Meja 07', 'kasir' => 'Sarah Maharani', 'total' => 320000, 'metode' => 'EDC', 'waktu' => '11:50 WIB', 'tanggal' => date('Y-m-d'), 'status' => 'Lunas'],
+            ['id' => 'TRX-2026-043', 'meja' => 'Meja 01', 'kasir' => 'Sarah Maharani', 'total' => 261000, 'metode' => 'Cash', 'waktu' => '12:40 WIB', 'tanggal' => date('Y-m-d'), 'status' => 'Lunas'],
+        ];
+
+        $this->saveRestoData('resto_indoor_tables', $indoorTables);
+        $this->saveRestoData('resto_outdoor_tables', $outdoorTables);
+        $this->saveRestoData('resto_menu_katalog', $menuKatalog);
+        $this->saveRestoData('resto_active_ticket', $activeTicket);
+        $this->saveRestoData('resto_kds_tickets', $kdsTickets);
+        $this->saveRestoData('resto_inventory', $inventory);
+        $this->saveRestoData('resto_reservations', $reservations);
+        $this->saveRestoData('resto_members', $members);
+        $this->saveRestoData('resto_wa_campaigns', $campaigns);
+        $this->saveRestoData('resto_sales_transactions', $transactions);
+
+        return redirect()->route('resto.dashboard')
+            ->with('success', 'Data demo RestoHub (Denah Meja, Menu Katalog, Tiket Aktif & KDS) berhasil dimuat!');
+    }
+
 }

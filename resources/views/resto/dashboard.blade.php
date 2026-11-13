@@ -257,6 +257,19 @@
                             <i class="fas fa-utensils text-[10px]"></i>
                             <span>+ Tambah Menu</span>
                         </button>
+
+                        <form action="{{ route('resto.demo_data') }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 transition" title="Muat Data Demo Meja, Menu, KDS & Transaksi">
+                                <i class="fas fa-wand-magic-sparkles text-[10px]"></i>
+                                <span>Muat Demo</span>
+                            </button>
+                        </form>
+
+                        <a href="{{ route('resto.reset') }}" onclick="return confirm('Kosongkan semua data operasional RestoHub?')" class="px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs border border-rose-200 flex items-center gap-1 transition" title="Reset Semua Data Resto">
+                            <i class="fas fa-rotate-left text-[10px]"></i>
+                            <span>Reset</span>
+                        </a>
                     </div>
                 </div>
 

@@ -7,6 +7,31 @@ use Illuminate\Http\Request;
 
 class TechfixDashboardController extends Controller
 {
+    // ─────────────────────────────────────────────────────────────────────────
+    // PERSISTENT STORAGE HELPERS (data bertahan walau logout)
+    // ─────────────────────────────────────────────────────────────────────────
+
+    private function getTechfixData(string $key, $default = [])
+    {
+        $path = storage_path('app/techfix_data.json');
+        if (!file_exists($path)) {
+            return session('techfix_' . $key, $default);
+        }
+        $all = json_decode(file_get_contents($path), true) ?? [];
+        return $all[$key] ?? session('techfix_' . $key, $default);
+    }
+
+    private function saveTechfixData(string $key, $value): void
+    {
+        $path = storage_path('app/techfix_data.json');
+        $all  = file_exists($path) ? (json_decode(file_get_contents($path), true) ?? []) : [];
+        $all[$key] = $value;
+        file_put_contents($path, json_encode($all, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        session(['techfix_' . $key => $value]);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+
     /**
      * Data kosong (clean slate) - Siap diisi sendiri oleh pengguna.
      */
@@ -41,30 +66,16 @@ class TechfixDashboardController extends Controller
     {
         $user = auth()->user();
 
-        // Inisialisasi awal dengan data kosong sesuai permintaan pengguna
-        if (!session()->has('techfix_initialized')) {
-            $empty = $this->getEmptyData();
-            session([
-                'techfix_initialized'      => true,
-                'techfix_branch'           => $empty['branch'],
-                'techfix_shift'            => $empty['shift'],
-                'techfix_stats'            => $empty['stats'],
-                'techfix_tiket_diagnosa'   => $empty['tiket_diagnosa'],
-                'techfix_tiket_approval'   => $empty['tiket_approval'],
-                'techfix_tiket_dikerjakan' => $empty['tiket_dikerjakan'],
-                'techfix_tiket_qc'         => $empty['tiket_qc'],
-            ]);
-        }
-
+        // Ambil data dari persistent file storage (atau session sebagai fallback)
         $currentBranch   = session('techfix_branch', 'Cabang Mangga Dua Mall Lt. 3');
         $currentDate     = \Carbon\Carbon::now()->translatedFormat('l, d F Y');
         $shiftStatus     = session('techfix_shift', 'Shift 1 (Pagi - Sore)');
-        
-        // Data Tiket Kanban dari Session
-        $tiketDiagnosa   = session('techfix_tiket_diagnosa', []);
-        $tiketApproval   = session('techfix_tiket_approval', []);
-        $tiketDikerjakan = session('techfix_tiket_dikerjakan', []);
-        $tiketQc         = session('techfix_tiket_qc', []);
+
+        // Data Tiket Kanban dari file storage (persisten)
+        $tiketDiagnosa   = $this->getTechfixData('tiket_diagnosa', []);
+        $tiketApproval   = $this->getTechfixData('tiket_approval', []);
+        $tiketDikerjakan = $this->getTechfixData('tiket_dikerjakan', []);
+        $tiketQc         = $this->getTechfixData('tiket_qc', []);
 
         // Sinkronisasi angka statistik berdasarkan isi tiket riil
         $totalAktif = count($tiketDiagnosa) + count($tiketApproval) + count($tiketDikerjakan) + count($tiketQc);
@@ -121,12 +132,12 @@ class TechfixDashboardController extends Controller
             'keluhan'        => 'required|string',
         ]);
 
-        $listDiagnosa = session('techfix_tiket_diagnosa', []);
+        $listDiagnosa = $this->getTechfixData('tiket_diagnosa', []);
         $allCount = count(array_merge(
-            session('techfix_tiket_diagnosa', []),
-            session('techfix_tiket_approval', []),
-            session('techfix_tiket_dikerjakan', []),
-            session('techfix_tiket_qc', [])
+            $this->getTechfixData('tiket_diagnosa', []),
+            $this->getTechfixData('tiket_approval', []),
+            $this->getTechfixData('tiket_dikerjakan', []),
+            $this->getTechfixData('tiket_qc', [])
         ));
         
         $newId = 'TK-' . (9901 + $allCount);
@@ -170,7 +181,7 @@ class TechfixDashboardController extends Controller
         ];
 
         array_unshift($listDiagnosa, $tiket);
-        session(['techfix_tiket_diagnosa' => $listDiagnosa]);
+        $this->saveTechfixData('tiket_diagnosa', $listDiagnosa);
 
         return redirect()->route('techfix.dashboard', ['tiket' => $newId])
             ->with('success', "Tiket servis {$newId} untuk '{$request->nama_pelanggan}' berhasil didaftarkan!");
@@ -186,9 +197,9 @@ class TechfixDashboardController extends Controller
             'biaya' => 'required|numeric',
         ]);
 
-        $columns = ['techfix_tiket_diagnosa', 'techfix_tiket_approval', 'techfix_tiket_dikerjakan', 'techfix_tiket_qc'];
+        $columns = ['tiket_diagnosa', 'tiket_approval', 'tiket_dikerjakan', 'tiket_qc'];
         foreach ($columns as $col) {
-            $list = session($col, []);
+            $list = $this->getTechfixData($col, []);
             foreach ($list as &$t) {
                 if (($t['id'] ?? '') === $id) {
                     $items = $t['items'] ?? [];
@@ -208,7 +219,7 @@ class TechfixDashboardController extends Controller
                     break 2;
                 }
             }
-            session([$col => $list]);
+            $this->saveTechfixData($col, $list);
         }
 
         return redirect()->route('techfix.dashboard', ['tiket' => $id])
@@ -223,20 +234,20 @@ class TechfixDashboardController extends Controller
         $targetStatus = $request->input('status', 'Diagnosa Awal');
 
         $columns = [
-            'Diagnosa Awal'     => 'techfix_tiket_diagnosa',
-            'Approval WA'       => 'techfix_tiket_approval',
-            'Sedang Dikerjakan' => 'techfix_tiket_dikerjakan',
-            'QC & Siap Diambil' => 'techfix_tiket_qc',
+            'Diagnosa Awal'     => 'tiket_diagnosa',
+            'Approval WA'       => 'tiket_approval',
+            'Sedang Dikerjakan' => 'tiket_dikerjakan',
+            'QC & Siap Diambil' => 'tiket_qc',
         ];
 
         $foundTiket = null;
-        foreach ($columns as $statusKey => $sessionKey) {
-            $list = session($sessionKey, []);
+        foreach ($columns as $statusKey => $dataKey) {
+            $list = $this->getTechfixData($dataKey, []);
             foreach ($list as $key => $t) {
                 if (($t['id'] ?? null) === $id) {
                     $foundTiket = $t;
                     unset($list[$key]);
-                    session([$sessionKey => array_values($list)]);
+                    $this->saveTechfixData($dataKey, array_values($list));
                     break 2;
                 }
             }
@@ -244,10 +255,10 @@ class TechfixDashboardController extends Controller
 
         if ($foundTiket) {
             $foundTiket['status'] = $targetStatus;
-            $destKey = $columns[$targetStatus] ?? 'techfix_tiket_diagnosa';
-            $destList = session($destKey, []);
+            $destKey = $columns[$targetStatus] ?? 'tiket_diagnosa';
+            $destList = $this->getTechfixData($destKey, []);
             array_unshift($destList, $foundTiket);
-            session([$destKey => $destList]);
+            $this->saveTechfixData($destKey, $destList);
         }
 
         return redirect()->route('techfix.dashboard', ['tiket' => $id])
@@ -295,6 +306,12 @@ class TechfixDashboardController extends Controller
      */
     public function resetData()
     {
+        // Hapus file persistent storage
+        $path = storage_path('app/techfix_data.json');
+        if (file_exists($path)) {
+            unlink($path);
+        }
+
         $empty = $this->getEmptyData();
         session([
             'techfix_initialized'      => true,
@@ -305,10 +322,660 @@ class TechfixDashboardController extends Controller
             'techfix_tiket_approval'   => [],
             'techfix_tiket_dikerjakan' => [],
             'techfix_tiket_qc'         => [],
+            'techfix_wa_approvals'     => [],
+            'techfix_kasir_transaksi'  => [],
+            'techfix_kasir_garansi'    => [],
+            'techfix_stok_parts'       => [],
         ]);
 
         return redirect()->route('techfix.dashboard')
             ->with('success', 'Semua data tiket telah dikosongkan! Dashboard siap diisi mandiri.');
+    }
+
+    /**
+     * Muat Data Demo Lengkap Techfix
+     */
+    public function loadDemoData()
+    {
+        $now = \Carbon\Carbon::now();
+
+        $tiketDiagnosa = [
+            [
+                'id'             => 'TK-9901',
+                'kode'           => '#TK-9901',
+                'priority'       => 'Urgent',
+                'device'         => 'MacBook Pro 14" M2 (2023)',
+                'device_detail'  => 'MacBook Pro 14" M2 (2023)',
+                'serial'         => 'SN-C02XW2FMJGH5',
+                'keluhan'        => '"Layar flickering setelah update macOS Sonoma, kadang blank total"',
+                'box_label'      => 'GEJALA KERUSAKAN:',
+                'nama_pelanggan' => 'Bpk. Renaldi Firmansyah',
+                'phone'          => '+62 821-5544-9988',
+                'teknisi'        => 'Fadhil Irawan',
+                'teknisi_station'=> 'Bench A - Display & Logic Board',
+                'kelengkapan'    => 'Unit + Charger 96W',
+                'time_ago'       => '45 menit lalu',
+                'status'         => 'Diagnosa Awal',
+                'progress'       => 20,
+                'estimasi_biaya' => 'Rp 850.000',
+                'investigasi'    => 'Kemungkinan kerusakan pada konektor eDP layar atau T2 chip. Perlu uji LCD panel terpisah.',
+                'solusi'         => 'Penggantian kabel fleksibel LCD dan kalibrasi ulang display controller.',
+                'level_reparasi' => 'Diagnosa L2',
+                'durasi'         => '45 menit',
+                'tracking_url'   => 'https://track.techfix.id/TK-9901',
+                'wa_status'      => 'Baru Terdaftar',
+                'rails'          => [
+                    ['label' => 'PPBUS_G3H', 'val' => '12.00V', 'status' => 'PASS', 'type' => 'pass'],
+                    ['label' => 'PP3V3_G3H', 'val' => '3.30V',  'status' => 'PASS', 'type' => 'pass'],
+                    ['label' => 'MAIN_PWR',  'val' => '19.00V', 'status' => 'PASS', 'type' => 'pass'],
+                    ['label' => 'GPU_RAIL',  'val' => '0.85V',  'status' => 'WARN', 'type' => 'warn'],
+                ],
+                'items' => [
+                    ['nama' => 'Jasa Diagnosa Hardware', 'desc' => 'Uji layar & logic board', 'biaya' => 'Rp 150.000', 'harga' => 150000],
+                ],
+                'subtotal' => 'Rp 150.000',
+                'diskon'   => '- Rp 0',
+                'total'    => 'Rp 150.000',
+            ],
+            [
+                'id'             => 'TK-9902',
+                'kode'           => '#TK-9902',
+                'priority'       => 'Regular',
+                'device'         => 'ASUS ROG Strix G16 RTX 4070',
+                'device_detail'  => 'ASUS ROG Strix G16 RTX 4070',
+                'serial'         => 'SN-ROG7X2024ABC',
+                'keluhan'        => '"Laptop overheat dan throttling saat gaming, suhu CPU mencapai 102°C"',
+                'box_label'      => 'GEJALA KERUSAKAN:',
+                'nama_pelanggan' => 'Vicky Prasetyo',
+                'phone'          => '+62 877-8899-1234',
+                'teknisi'        => 'Hendra Gunawan',
+                'teknisi_station'=> 'Bench B - Thermal & Cooling',
+                'kelengkapan'    => 'Unit Only',
+                'time_ago'       => '2 jam lalu',
+                'status'         => 'Diagnosa Awal',
+                'progress'       => 35,
+                'estimasi_biaya' => 'Rp 350.000',
+                'investigasi'    => 'Pasta thermal sudah kering dan heat pipe kotor. Fan berputar tidak optimal.',
+                'solusi'         => 'Repaste dengan Thermal Grizzly Kryonaut + cleaning cooling system.',
+                'level_reparasi' => 'Servis L1',
+                'durasi'         => '2 jam',
+                'tracking_url'   => 'https://track.techfix.id/TK-9902',
+                'wa_status'      => 'Notifikasi Terkirim',
+                'rails'          => [
+                    ['label' => 'PPBUS_G3H', 'val' => '12.00V', 'status' => 'PASS', 'type' => 'pass'],
+                    ['label' => 'PP3V3_G3H', 'val' => '3.30V',  'status' => 'PASS', 'type' => 'pass'],
+                    ['label' => 'MAIN_PWR',  'val' => '19.00V', 'status' => 'PASS', 'type' => 'pass'],
+                    ['label' => 'STANDBY',   'val' => '5.00V',  'status' => 'PASS', 'type' => 'pass'],
+                ],
+                'items' => [
+                    ['nama' => 'Jasa Repaste CPU/GPU', 'desc' => 'Thermal Grizzly Kryonaut', 'biaya' => 'Rp 250.000', 'harga' => 250000],
+                    ['nama' => 'Cleaning Fan Cooling',  'desc' => 'Dust removal + fan check',  'biaya' => 'Rp 100.000', 'harga' => 100000],
+                ],
+                'subtotal' => 'Rp 350.000',
+                'diskon'   => '- Rp 0',
+                'total'    => 'Rp 350.000',
+            ],
+        ];
+
+        $tiketApproval = [
+            [
+                'id'             => 'TK-9903',
+                'kode'           => '#TK-9903',
+                'priority'       => 'High',
+                'device'         => 'iPhone 15 Pro Max 256GB',
+                'device_detail'  => 'iPhone 15 Pro Max 256GB (Natural Titanium)',
+                'serial'         => 'SN-F4GT9X8HAB12',
+                'keluhan'        => '"Tombol volume bawah tidak responsif, sesekali baterai drop mendadak ke 0%"',
+                'box_label'      => 'GEJALA KERUSAKAN:',
+                'nama_pelanggan' => 'Ibu Salsabila Ramadhani',
+                'phone'          => '+62 813-2211-5566',
+                'teknisi'        => 'Fadhil Irawan',
+                'teknisi_station'=> 'Bench C - iOS & iPhone Repair',
+                'kelengkapan'    => 'Unit + Case',
+                'time_ago'       => '3 jam lalu',
+                'status'         => 'Approval WA',
+                'progress'       => 55,
+                'estimasi_biaya' => 'Rp 1.750.000',
+                'investigasi'    => 'Flex volume button rusak, baterai BMS menunjukkan cycle count 850+. Perlu penggantian keduanya.',
+                'solusi'         => 'Penggantian flex volume + penggantian baterai OEM 100% health.',
+                'level_reparasi' => 'Reparasi L2',
+                'durasi'         => '3 jam',
+                'tracking_url'   => 'https://track.techfix.id/TK-9903',
+                'wa_status'      => 'Menunggu Konfirmasi Customer',
+                'rails'          => [
+                    ['label' => 'PPBUS_G3H', 'val' => '5.00V',  'status' => 'PASS', 'type' => 'pass'],
+                    ['label' => 'PP3V3_G3H', 'val' => '3.30V',  'status' => 'PASS', 'type' => 'pass'],
+                    ['label' => 'BATT_RAIL',  'val' => '3.68V',  'status' => 'WARN', 'type' => 'warn'],
+                    ['label' => 'STANDBY',   'val' => '1.80V',  'status' => 'PASS', 'type' => 'pass'],
+                ],
+                'items' => [
+                    ['nama' => 'Flex Volume Button iPhone 15 PM', 'desc' => 'Part OEM Grade A', 'biaya' => 'Rp 450.000', 'harga' => 450000],
+                    ['nama' => 'Baterai iPhone 15 PM OEM',       'desc' => 'Health 100% BMS',  'biaya' => 'Rp 950.000', 'harga' => 950000],
+                    ['nama' => 'Jasa Reparasi',                  'desc' => 'Teknisi bersertifikat', 'biaya' => 'Rp 350.000', 'harga' => 350000],
+                ],
+                'subtotal' => 'Rp 1.750.000',
+                'diskon'   => '- Rp 0',
+                'total'    => 'Rp 1.750.000',
+            ],
+        ];
+
+        $tiketDikerjakan = [
+            [
+                'id'             => 'TK-9904',
+                'kode'           => '#TK-9904',
+                'priority'       => 'Regular',
+                'device'         => 'Lenovo ThinkPad X1 Carbon Gen 11',
+                'device_detail'  => 'Lenovo ThinkPad X1 Carbon Gen 11 (i7-1365U)',
+                'serial'         => 'SN-PF4B2X9ULN',
+                'keluhan'        => '"SSD tidak terdeteksi setelah BIOS update. Data penting masih di dalam."',
+                'box_label'      => 'GEJALA KERUSAKAN:',
+                'nama_pelanggan' => 'PT. Maju Digital Nusantara (Pak Dani)',
+                'phone'          => '+62 811-9988-7765',
+                'teknisi'        => 'Hendra Gunawan',
+                'teknisi_station'=> 'Bench A - Storage & Data Recovery',
+                'kelengkapan'    => 'Unit + Docking Station',
+                'time_ago'       => '5 jam lalu',
+                'status'         => 'Sedang Dikerjakan',
+                'progress'       => 70,
+                'estimasi_biaya' => 'Rp 2.500.000',
+                'investigasi'    => 'NVMe SSD M.2 2280 mengalami bad sector. BIOS update menyebabkan konflik firmware controller.',
+                'solusi'         => 'Recovery data via specialized tools + penggantian SSD Samsung 990 Pro 512GB.',
+                'level_reparasi' => 'Reparasi L3 - Data Recovery',
+                'durasi'         => '5 jam',
+                'tracking_url'   => 'https://track.techfix.id/TK-9904',
+                'wa_status'      => 'Update Dikirim',
+                'rails'          => [
+                    ['label' => 'PPBUS_G3H', 'val' => '12.00V', 'status' => 'PASS', 'type' => 'pass'],
+                    ['label' => 'PP3V3_G3H', 'val' => '3.30V',  'status' => 'PASS', 'type' => 'pass'],
+                    ['label' => 'NVME_RAIL', 'val' => '3.30V',  'status' => 'FAIL', 'type' => 'fail'],
+                    ['label' => 'STANDBY',   'val' => '5.00V',  'status' => 'PASS', 'type' => 'pass'],
+                ],
+                'items' => [
+                    ['nama' => 'Samsung 990 Pro 512GB NVMe', 'desc' => 'Pengganti SSD rusak', 'biaya' => 'Rp 1.200.000', 'harga' => 1200000],
+                    ['nama' => 'Jasa Data Recovery L3',      'desc' => 'Specialized tools',   'biaya' => 'Rp 1.000.000', 'harga' => 1000000],
+                    ['nama' => 'Jasa Reparasi & Testing',    'desc' => 'Full system test',     'biaya' => 'Rp 300.000',   'harga' => 300000],
+                ],
+                'subtotal' => 'Rp 2.500.000',
+                'diskon'   => '- Rp 0',
+                'total'    => 'Rp 2.500.000',
+            ],
+        ];
+
+        $tiketQc = [
+            [
+                'id'             => 'TK-9905',
+                'kode'           => '#TK-9905',
+                'priority'       => 'Regular',
+                'device'         => 'Samsung Galaxy S23 Ultra 512GB',
+                'device_detail'  => 'Samsung Galaxy S23 Ultra 512GB (Phantom Black)',
+                'serial'         => 'SN-R5CRBX0AXYZ89',
+                'keluhan'        => '"Layar AMOLED retak bagian bawah, touch screen masih fungsi sebagian"',
+                'box_label'      => 'GEJALA KERUSAKAN:',
+                'nama_pelanggan' => 'Rizky Maulana Akbar',
+                'phone'          => '+62 858-7766-4321',
+                'teknisi'        => 'Fadhil Irawan',
+                'teknisi_station'=> 'Bench D - Display Replacement',
+                'kelengkapan'    => 'Unit + S-Pen',
+                'time_ago'       => '1 hari lalu',
+                'status'         => 'QC & Siap Diambil',
+                'progress'       => 95,
+                'estimasi_biaya' => 'Rp 3.200.000',
+                'investigasi'    => 'LCD AMOLED retak parah, digitizer masih parsial. Penggantian panel lengkap diperlukan.',
+                'solusi'         => 'Penggantian AMOLED panel original Samsung + kalibrasi S-Pen + screen protector.',
+                'level_reparasi' => 'Penggantian Part L2',
+                'durasi'         => '1 hari',
+                'tracking_url'   => 'https://track.techfix.id/TK-9905',
+                'wa_status'      => 'Siap Diambil - Sudah Notifikasi',
+                'rails'          => [
+                    ['label' => 'PPBUS_G3H', 'val' => '5.00V', 'status' => 'PASS', 'type' => 'pass'],
+                    ['label' => 'PP3V3_G3H', 'val' => '3.30V', 'status' => 'PASS', 'type' => 'pass'],
+                    ['label' => 'MAIN_PWR',  'val' => '4.35V', 'status' => 'PASS', 'type' => 'pass'],
+                    ['label' => 'STANDBY',   'val' => '1.80V', 'status' => 'PASS', 'type' => 'pass'],
+                ],
+                'items' => [
+                    ['nama' => 'AMOLED Panel Samsung S23 Ultra OEM', 'desc' => 'Original Samsung Part', 'biaya' => 'Rp 2.400.000', 'harga' => 2400000],
+                    ['nama' => 'Jasa Penggantian LCD',                'desc' => 'Teknisi bersertifikat', 'biaya' => 'Rp 500.000',   'harga' => 500000],
+                    ['nama' => 'Screen Protector Tempered Glass',     'desc' => 'Gratis pemasangan',    'biaya' => 'Rp 300.000',   'harga' => 300000],
+                ],
+                'subtotal' => 'Rp 3.200.000',
+                'diskon'   => '- Rp 0',
+                'total'    => 'Rp 3.200.000',
+            ],
+        ];
+
+        $stokParts = [
+            [
+                'id'            => 'PART-1001',
+                'part_number'   => 'BAT-IP15PM-OEM',
+                'nama'          => 'Baterai iPhone 15 Pro Max OEM (4422mAh)',
+                'deskripsi'     => 'Original Equipment Manufacturer Grade A+ High Density Cell',
+                'kategori'      => 'Baterai Laptop',
+                'kategori_slug' => 'baterailaptop',
+                'kompatibel'    => 'iPhone 15 Pro Max (A2849, A3101)',
+                'stok_gudang'   => 8,
+                'stok_toko'     => 2,
+                'stok_min'      => 4,
+                'harga_modal'   => 550000,
+                'harga_jual'    => 950000,
+                'supplier'      => 'iFixit Indonesia',
+                'status_stok'   => 'aman',
+                'icon'          => 'fa-solid fa-battery-half',
+                'terpasang'     => 5,
+                'created_at'    => now()->subDays(5)->format('d M Y H:i'),
+            ],
+            [
+                'id'            => 'PART-1002',
+                'part_number'   => 'LCD-S23U-AMOLED',
+                'nama'          => 'Samsung AMOLED S23 Ultra Complete Panel',
+                'deskripsi'     => 'Dynamic AMOLED 2X 120Hz Phantom Black w/ Frame',
+                'kategori'      => 'Layar & LCD',
+                'kategori_slug' => 'layarlcd',
+                'kompatibel'    => 'Samsung S23 Ultra 5G (SM-S918B)',
+                'stok_gudang'   => 3,
+                'stok_toko'     => 1,
+                'stok_min'      => 2,
+                'harga_modal'   => 1800000,
+                'harga_jual'    => 2400000,
+                'supplier'      => 'Samsung Part ID',
+                'status_stok'   => 'menipis',
+                'icon'          => 'fa-solid fa-desktop',
+                'terpasang'     => 2,
+                'created_at'    => now()->subDays(4)->format('d M Y H:i'),
+            ],
+            [
+                'id'            => 'PART-1003',
+                'part_number'   => 'THM-GRIZZLY-1G',
+                'nama'          => 'Thermal Grizzly Kryonaut 1g Extreme Paste',
+                'deskripsi'     => '12.5 W/mk High Thermal Conductivity Paste',
+                'kategori'      => 'Thermal Material',
+                'kategori_slug' => 'thermalmaterial',
+                'kompatibel'    => 'All CPU & GPU Chipsets',
+                'stok_gudang'   => 15,
+                'stok_toko'     => 5,
+                'stok_min'      => 5,
+                'harga_modal'   => 45000,
+                'harga_jual'    => 85000,
+                'supplier'      => 'TechParts Mangga Dua',
+                'status_stok'   => 'aman',
+                'icon'          => 'fa-solid fa-temperature-high',
+                'terpasang'     => 12,
+                'created_at'    => now()->subDays(10)->format('d M Y H:i'),
+            ],
+            [
+                'id'            => 'PART-1004',
+                'part_number'   => 'SSD-SAM-990P-512',
+                'nama'          => 'Samsung 990 Pro 512GB PCIe 4.0 NVMe M.2',
+                'deskripsi'     => 'Speed 7450 MB/s Read, V-NAND TLC Controller',
+                'kategori'      => 'SSD & Storage',
+                'kategori_slug' => 'ssdstorage',
+                'kompatibel'    => 'Laptop / PC M.2 NVMe 2280 Slot',
+                'stok_gudang'   => 1,
+                'stok_toko'     => 0,
+                'stok_min'      => 2,
+                'harga_modal'   => 850000,
+                'harga_jual'    => 1200000,
+                'supplier'      => 'Samsung Part ID',
+                'status_stok'   => 'kritis',
+                'icon'          => 'fa-solid fa-hard-drive',
+                'terpasang'     => 4,
+                'created_at'    => now()->subDays(3)->format('d M Y H:i'),
+            ],
+            [
+                'id'            => 'PART-1005',
+                'part_number'   => 'FLX-IP15PM-VOL',
+                'nama'          => 'Flex Volume Button iPhone 15 Pro Max',
+                'deskripsi'     => 'Volume & Action Button Ribbon Assembly',
+                'kategori'      => 'Kabel & Konektor',
+                'kategori_slug' => 'kabelkonektor',
+                'kompatibel'    => 'iPhone 15 Pro Max',
+                'stok_gudang'   => 6,
+                'stok_toko'     => 2,
+                'stok_min'      => 3,
+                'harga_modal'   => 220000,
+                'harga_jual'    => 450000,
+                'supplier'      => 'iFixit Indonesia',
+                'status_stok'   => 'aman',
+                'icon'          => 'fa-solid fa-plug',
+                'terpasang'     => 3,
+                'created_at'    => now()->subDays(6)->format('d M Y H:i'),
+            ],
+            [
+                'id'            => 'PART-1006',
+                'part_number'   => 'CBL-MBP14-EDP',
+                'nama'          => 'MacBook Pro 14" M2 LCD eDP Display Cable',
+                'deskripsi'     => 'Flexible Display Data Bus Ribbon 40-Pin',
+                'kategori'      => 'Kabel & Konektor',
+                'kategori_slug' => 'kabelkonektor',
+                'kompatibel'    => 'MacBook Pro 14" A2779 (2023)',
+                'stok_gudang'   => 0,
+                'stok_toko'     => 0,
+                'stok_min'      => 1,
+                'harga_modal'   => 380000,
+                'harga_jual'    => 650000,
+                'supplier'      => 'Apple Parts ID',
+                'status_stok'   => 'kritis',
+                'icon'          => 'fa-solid fa-plug',
+                'terpasang'     => 1,
+                'created_at'    => now()->subDays(2)->format('d M Y H:i'),
+            ],
+        ];
+
+        $supplierList = [
+            [
+                'nama'      => 'iFixit Indonesia Distribution',
+                'kategori'  => 'Sparepart Apple, Baterai & Tools Mikrosolder',
+                'lead_time' => '1 - 2 Hari',
+                'rating'    => '4.9/5',
+                'kontak'    => '+62 811-3322-1100',
+            ],
+            [
+                'nama'      => 'Samsung Parts Authorized Distributor',
+                'kategori'  => 'Panel AMOLED, IC Power & Flex Original',
+                'lead_time' => '2 - 3 Hari',
+                'rating'    => '4.8/5',
+                'kontak'    => '+62 812-4455-6677',
+            ],
+            [
+                'nama'      => 'TechParts Mangga Dua Mall Lt. 4',
+                'kategori'  => 'Thermal Material, SSD NVMe, RAM & Heatsink',
+                'lead_time' => 'Same-Day (Instan)',
+                'rating'    => '4.7/5',
+                'kontak'    => '+62 878-9900-1122',
+            ],
+        ];
+
+        $kasirTransaksi = [
+            [
+                'id'             => 'TRX-' . $now->format('ymd') . '-001',
+                'tiket_id'       => 'TK-9890',
+                'nama_pelanggan' => 'Ahmad Fauzi',
+                'device'         => 'Xiaomi 13 Pro',
+                'jenis'          => 'Servis',
+                'total_raw'      => 650000,
+                'total'          => 'Rp 650.000',
+                'metode_bayar'   => 'QRIS',
+                'status_bayar'   => 'lunas',
+                'created_at'     => $now->copy()->subHours(3)->format('H:i') . ' WIB',
+            ],
+            [
+                'id'             => 'TRX-' . $now->format('ymd') . '-002',
+                'tiket_id'       => 'TK-9891',
+                'nama_pelanggan' => 'Dewi Kartika',
+                'device'         => 'OPPO Find X6',
+                'jenis'          => 'Servis',
+                'total_raw'      => 1850000,
+                'total'          => 'Rp 1.850.000',
+                'metode_bayar'   => 'Transfer BCA',
+                'status_bayar'   => 'lunas',
+                'created_at'     => $now->copy()->subHours(1)->format('H:i') . ' WIB',
+            ],
+            [
+                'id'             => 'TRX-' . $now->format('ymd') . '-003',
+                'tiket_id'       => 'TK-9895',
+                'nama_pelanggan' => 'Budi Santoso',
+                'device'         => 'Acer Swift 3',
+                'jenis'          => 'Garansi',
+                'total_raw'      => 0,
+                'total'          => 'Rp 0 (Klaim)',
+                'metode_bayar'   => 'Klaim Garansi',
+                'status_bayar'   => 'lunas',
+                'created_at'     => $now->copy()->subHours(4)->format('H:i') . ' WIB',
+            ],
+        ];
+
+        $kasirGaransi = [
+            [
+                'id'             => 'GAR-901',
+                'tiket_id'       => 'TK-9890',
+                'nama_pelanggan' => 'Ahmad Fauzi',
+                'device'         => 'Xiaomi 13 Pro (Baterai)',
+                'durasi'         => '90 Hari',
+                'expired'        => $now->copy()->addDays(85)->format('d M Y'),
+                'status'         => 'Aktif',
+                'created_at'     => $now->copy()->subDays(5)->format('H:i') . ' WIB',
+            ],
+            [
+                'id'             => 'GAR-902',
+                'tiket_id'       => 'TK-9891',
+                'nama_pelanggan' => 'Dewi Kartika',
+                'device'         => 'OPPO Find X6 (LCD Panel)',
+                'durasi'         => '30 Hari',
+                'expired'        => $now->copy()->addDays(28)->format('d M Y'),
+                'status'         => 'Aktif',
+                'created_at'     => $now->copy()->subDays(2)->format('H:i') . ' WIB',
+            ],
+        ];
+
+        $crmCustomers = [
+            [
+                'id'                 => 'CUST-A1901',
+                'nama'               => 'Bpk. Renaldi Firmansyah',
+                'hp'                 => '+62 821-5544-9988',
+                'email'              => 'renaldi@firmansyah.id',
+                'tipe'               => 'personal',
+                'perusahaan'         => '-',
+                'alamat'             => 'Apartemen Mediterania Garden 2 Tower H, Jakarta Barat',
+                'pembayaran'         => 'qris',
+                'term'               => 'cash',
+                'catatan'            => 'Pelanggan loyal, selalu request teknisi senior Fadhil',
+                'total_servis'       => 3,
+                'total_spent'        => 3850000,
+                'status'             => 'Aktif',
+                'tgl_daftar'         => '15 Jan 2025',
+                'jadwal_maintenance' => null,
+                'units'              => [
+                    [
+                        'id'        => 'UNIT-01',
+                        'brand'     => 'Apple',
+                        'model'     => 'MacBook Pro 14" M2 (2023)',
+                        'sn'        => 'SN-C02XW2FMJGH5',
+                        'kondisi'   => 'sedang servis',
+                        'tgl_masuk' => now()->format('d M Y'),
+                        'status'    => 'Aktif',
+                    ],
+                    [
+                        'id'        => 'UNIT-02',
+                        'brand'     => 'Apple',
+                        'model'     => 'iPhone 14 Pro 128GB',
+                        'sn'        => 'SN-F17GH998LK01',
+                        'kondisi'   => 'baik',
+                        'tgl_masuk' => '10 Feb 2025',
+                        'status'    => 'Selesai',
+                    ],
+                ],
+                'riwayat_servis'     => [
+                    [
+                        'tiket_id' => 'TK-9901',
+                        'unit'     => 'MacBook Pro 14" M2',
+                        'keluhan'  => 'Layar flickering setelah update macOS',
+                        'biaya'    => 850000,
+                        'status'   => 'Diagnosa Awal',
+                        'tanggal'  => now()->format('d M Y'),
+                    ],
+                    [
+                        'tiket_id' => 'TK-8910',
+                        'unit'     => 'iPhone 14 Pro',
+                        'keluhan'  => 'Ganti backglass retak & cleaning sensor',
+                        'biaya'    => 1200000,
+                        'status'   => 'Selesai',
+                        'tanggal'  => '15 Feb 2025',
+                    ],
+                ],
+            ],
+            [
+                'id'                 => 'CUST-B2022',
+                'nama'               => 'PT. Maju Digital Nusantara (Pak Dani)',
+                'hp'                 => '+62 811-9988-7765',
+                'email'              => 'it-support@majudigital.co.id',
+                'tipe'               => 'korporat',
+                'perusahaan'         => 'PT. Maju Digital Nusantara',
+                'alamat'             => 'Gedung Cyber 2 Lt. 18, Jl. HR Rasuna Said, Jakarta Selatan',
+                'pembayaran'         => 'tempo',
+                'term'               => 'tempo30',
+                'catatan'            => 'Kontrak Service Maintenance SLA 4 Jam Perbaikan',
+                'total_servis'       => 12,
+                'total_spent'        => 18500000,
+                'status'             => 'Aktif',
+                'tgl_daftar'         => '20 Agu 2024',
+                'jadwal_maintenance' => now()->addDays(20)->format('d M Y'),
+                'units'              => [
+                    [
+                        'id'        => 'UNIT-10',
+                        'brand'     => 'Lenovo',
+                        'model'     => 'ThinkPad X1 Carbon Gen 11',
+                        'sn'        => 'SN-PF4B2X9ULN',
+                        'kondisi'   => 'sedang servis',
+                        'tgl_masuk' => now()->format('d M Y'),
+                        'status'    => 'Aktif',
+                    ],
+                    [
+                        'id'        => 'UNIT-11',
+                        'brand'     => 'Dell',
+                        'model'     => 'Dell Latitude 7420 vPro',
+                        'sn'        => 'SN-DL88992100',
+                        'kondisi'   => 'baik',
+                        'tgl_masuk' => '05 Jan 2025',
+                        'status'    => 'Selesai',
+                    ],
+                ],
+                'riwayat_servis'     => [
+                    [
+                        'tiket_id' => 'TK-9904',
+                        'unit'     => 'ThinkPad X1 Carbon',
+                        'keluhan'  => 'NVMe SSD corrupt data recovery',
+                        'biaya'    => 2500000,
+                        'status'   => 'Sedang Dikerjakan',
+                        'tanggal'  => now()->format('d M Y'),
+                    ],
+                ],
+            ],
+            [
+                'id'                 => 'CUST-C3301',
+                'nama'               => 'Ibu Salsabila Ramadhani',
+                'hp'                 => '+62 813-2211-5566',
+                'email'              => 'salsa.ramadhani@gmail.com',
+                'tipe'               => 'personal',
+                'perusahaan'         => '-',
+                'alamat'             => 'Komp. Bintaro Jaya Sektor 9, Tangerang Selatan',
+                'pembayaran'         => 'transfer',
+                'term'               => 'cash',
+                'catatan'            => 'Prioritas fast track VIP',
+                'total_servis'       => 2,
+                'total_spent'        => 2450000,
+                'status'             => 'Aktif',
+                'tgl_daftar'         => '10 Mar 2025',
+                'jadwal_maintenance' => null,
+                'units'              => [
+                    [
+                        'id'        => 'UNIT-20',
+                        'brand'     => 'Apple',
+                        'model'     => 'iPhone 15 Pro Max 256GB',
+                        'sn'        => 'SN-F4GT9X8HAB12',
+                        'kondisi'   => 'sedang servis',
+                        'tgl_masuk' => now()->format('d M Y'),
+                        'status'    => 'Aktif',
+                    ],
+                ],
+                'riwayat_servis'     => [
+                    [
+                        'tiket_id' => 'TK-9903',
+                        'unit'     => 'iPhone 15 Pro Max',
+                        'keluhan'  => 'Ganti tombol volume & baterai drop',
+                        'biaya'    => 1750000,
+                        'status'   => 'Approval WA',
+                        'tanggal'  => now()->format('d M Y'),
+                    ],
+                ],
+            ],
+        ];
+
+        $waApprovals = [
+            [
+                'id'             => 'TK-9903',
+                'kode'           => '#TK-9903',
+                'device'         => 'iPhone 15 Pro Max 256GB',
+                'serial'         => 'SN-F4GT9X8HAB12',
+                'nama_pelanggan' => 'Ibu Salsabila Ramadhani',
+                'phone'          => '+62 813-2211-5566',
+                'segment'        => 'VIP Pelanggan',
+                'diagnosa'       => 'Flex volume button rusak & baterai health di bawah 80%. Butuh penggantian part original.',
+                'biaya'          => 'Rp 1.750.000',
+                'harga_raw'      => 1750000,
+                'status'         => 'Menunggu Respon',
+                'dibaca'         => true,
+                'created_at'     => now()->subHours(2)->format('H:i') . ' WIB',
+                'rincian'        => [
+                    ['item' => 'Flex Volume Button OEM Grade A', 'harga' => 'Rp 450.000'],
+                    ['item' => 'Baterai Original 4422mAh w/ BMS', 'harga' => 'Rp 950.000'],
+                    ['item' => 'Jasa Pemasangan & Water Resistant Seal', 'harga' => 'Rp 350.000'],
+                ],
+                'estimasi_waktu' => '1 Hari Kerja',
+                'tracking_url'   => 'https://track.techfix.id/TK-9903/approval',
+            ],
+            [
+                'id'             => 'TK-9901',
+                'kode'           => '#TK-9901',
+                'device'         => 'MacBook Pro 14" M2',
+                'serial'         => 'SN-C02XW2FMJGH5',
+                'nama_pelanggan' => 'Bpk. Renaldi Firmansyah',
+                'phone'          => '+62 821-5544-9988',
+                'segment'        => 'Reguler',
+                'diagnosa'       => 'Kabel eDP Display kendor, kalibrasi sinyal LCD dan pembersihan motherboard.',
+                'biaya'          => 'Rp 850.000',
+                'harga_raw'      => 850000,
+                'status'         => 'Disetujui',
+                'dibaca'         => true,
+                'created_at'     => now()->subHours(4)->format('H:i') . ' WIB',
+                'rincian'        => [
+                    ['item' => 'Jasa Kalibrasi Logic Board & eDP', 'harga' => 'Rp 500.000'],
+                    ['item' => 'Deep Cleaning & Thermal Repaste', 'harga' => 'Rp 350.000'],
+                ],
+                'estimasi_waktu' => '2 Hari Kerja',
+                'tracking_url'   => 'https://track.techfix.id/TK-9901/approval',
+            ],
+        ];
+
+        $waAuditLogs = [
+            [
+                'title'      => 'Persetujuan #TK-9901 (Bpk. Renaldi Firmansyah)',
+                'desc'       => 'Customer memilih opsi: Disetujui via WhatsApp Interactive Button.',
+                'time'       => now()->subHours(3)->format('H:i:s') . ' WIB',
+                'ip'         => '182.253.110.42 (Jakarta Selatan)',
+                'valid_hash' => 'SAH SECARA HUKUM (SHA-256 Verified)',
+            ],
+        ];
+
+        // Simpan ke persistent storage
+        $this->saveTechfixData('tiket_diagnosa',   $tiketDiagnosa);
+        $this->saveTechfixData('tiket_approval',   $tiketApproval);
+        $this->saveTechfixData('tiket_dikerjakan', $tiketDikerjakan);
+        $this->saveTechfixData('tiket_qc',         $tiketQc);
+        $this->saveTechfixData('stok_parts',       $stokParts);
+        $this->saveTechfixData('stok_suppliers',   $supplierList);
+        $this->saveTechfixData('kasir_transaksi',  $kasirTransaksi);
+        $this->saveTechfixData('kasir_garansi',    $kasirGaransi);
+        $this->saveTechfixData('crm_customers',    $crmCustomers);
+        $this->saveTechfixData('wa_approvals',     $waApprovals);
+        $this->saveTechfixData('wa_audit_logs',    $waAuditLogs);
+
+        // Juga simpan ke session agar langsung sinkron
+        session([
+            'techfix_initialized'      => true,
+            'techfix_tiket_diagnosa'   => $tiketDiagnosa,
+            'techfix_tiket_approval'   => $tiketApproval,
+            'techfix_tiket_dikerjakan' => $tiketDikerjakan,
+            'techfix_tiket_qc'         => $tiketQc,
+            'techfix_stok_parts'       => $stokParts,
+            'techfix_stok_suppliers'   => $supplierList,
+            'techfix_kasir_transaksi'  => $kasirTransaksi,
+            'techfix_kasir_garansi'    => $kasirGaransi,
+            'techfix_crm_customers'    => $crmCustomers,
+            'techfix_wa_approvals'     => $waApprovals,
+            'techfix_wa_audit_logs'    => $waAuditLogs,
+        ]);
+
+        return redirect()->route('techfix.dashboard')
+            ->with('success', '✅ Data demo TechFix Pro berhasil dimuat! 5 tiket aktif (2 Diagnosa, 1 Approval, 1 Dikerjakan, 1 QC) + 6 stok part + 3 transaksi kasir + 3 pelanggan CRM + 2 tracking WA.');
     }
 
     /**
@@ -322,8 +989,8 @@ class TechfixDashboardController extends Controller
         $currentBranch   = session('techfix_branch', 'Cabang Mangga Dua Mall Lt. 3');
         $shiftStatus     = session('techfix_shift', 'Shift 1 (Pagi - Sore)');
         
-        // Data approval list dari session, default kosong []
-        $approvalList = session('techfix_wa_approvals', []);
+        // Data approval list dari persistent storage, default kosong []
+        $approvalList = $this->getTechfixData('wa_approvals', []);
         
         // Filter status tab
         $filter = $request->query('status', 'all');
@@ -349,7 +1016,7 @@ class TechfixDashboardController extends Controller
         }
 
         // Audit logs digital approval, default kosong []
-        $auditLogs = session('techfix_wa_audit_logs', []);
+        $auditLogs = $this->getTechfixData('wa_audit_logs', []);
 
         // Hitung metrik dinamis berdasarkan data pengguna
         $totalMenunggu  = count(array_filter($approvalList, fn($x) => ($x['status'] ?? '') === 'Menunggu Respon'));
@@ -395,7 +1062,7 @@ class TechfixDashboardController extends Controller
             'biaya'          => 'required|numeric',
         ]);
 
-        $approvals = session('techfix_wa_approvals', []);
+        $approvals = $this->getTechfixData('wa_approvals', []);
         $newId = 'TK-' . (9910 + count($approvals) + 1);
 
         $newApproval = [
@@ -421,7 +1088,7 @@ class TechfixDashboardController extends Controller
         ];
 
         array_unshift($approvals, $newApproval);
-        session(['techfix_wa_approvals' => $approvals]);
+        $this->saveTechfixData('wa_approvals', $approvals);
 
         return redirect()->route('techfix.tracking', ['id' => $newId])
             ->with('success', "Estimasi WhatsApp untuk {$newId} ({$request->nama_pelanggan}) berhasil dibuat!");
@@ -433,8 +1100,8 @@ class TechfixDashboardController extends Controller
     public function updateEstimasiStatus(Request $request, $id)
     {
         $status = $request->input('status', 'Disetujui');
-        $approvals = session('techfix_wa_approvals', []);
-        $auditLogs = session('techfix_wa_audit_logs', []);
+        $approvals = $this->getTechfixData('wa_approvals', []);
+        $auditLogs = $this->getTechfixData('wa_audit_logs', []);
 
         foreach ($approvals as &$item) {
             if (($item['id'] ?? '') === $id) {
@@ -452,10 +1119,8 @@ class TechfixDashboardController extends Controller
             }
         }
 
-        session([
-            'techfix_wa_approvals'  => $approvals,
-            'techfix_wa_audit_logs' => $auditLogs,
-        ]);
+        $this->saveTechfixData('wa_approvals', $approvals);
+        $this->saveTechfixData('wa_audit_logs', $auditLogs);
 
         return redirect()->route('techfix.tracking', ['id' => $id])
             ->with('success', "Status approval tiket {$id} berhasil diperbarui menjadi '{$status}'!");
@@ -471,8 +1136,8 @@ class TechfixDashboardController extends Controller
         $currentBranch = session('techfix_branch', 'Cabang Mangga Dua Mall Lt. 3');
         $shiftStatus   = session('techfix_shift', 'Shift 1 (Pagi - Sore)');
 
-        $transaksiList = session('techfix_kasir_transaksi', []);
-        $garansiList   = session('techfix_kasir_garansi', []);
+        $transaksiList = $this->getTechfixData('kasir_transaksi', []);
+        $garansiList   = $this->getTechfixData('kasir_garansi', []);
 
         $totalOmzetRaw = array_sum(array_map(fn($t) => (int)($t['total_raw'] ?? 0), $transaksiList));
         $totalOmzet    = 'Rp ' . number_format($totalOmzetRaw, 0, ',', '.');
@@ -491,7 +1156,7 @@ class TechfixDashboardController extends Controller
                 'sub' => count($garansiList) > 0 ? count($garansiList) . ' garansi aktif' : 'Belum ada klaim',
             ],
             'siap_diambil' => [
-                'val' => (string) count(session('techfix_tiket_qc', [])),
+                'val' => (string) count($this->getTechfixData('tiket_qc', [])),
                 'sub' => 'Unit siap serah terima',
             ],
         ];
@@ -518,7 +1183,7 @@ class TechfixDashboardController extends Controller
             'total_biaya'   => 'required|numeric|min:0',
         ]);
 
-        $list = session('techfix_kasir_transaksi', []);
+        $list = $this->getTechfixData('kasir_transaksi', []);
         $newTrx = [
             'id'            => 'TRX-' . (1001 + count($list)),
             'tiket_id'      => strtoupper($request->tiket_id),
@@ -534,7 +1199,7 @@ class TechfixDashboardController extends Controller
         ];
 
         array_unshift($list, $newTrx);
-        session(['techfix_kasir_transaksi' => $list]);
+        $this->saveTechfixData('kasir_transaksi', $list);
 
         return redirect()->route('techfix.kasir')
             ->with('success', "Transaksi {$newTrx['id']} untuk '{$request->nama_pelanggan}' berhasil disimpan & siap cetak struk!");
@@ -551,7 +1216,7 @@ class TechfixDashboardController extends Controller
             'device'        => 'required|string|max:255',
         ]);
 
-        $list = session('techfix_kasir_garansi', []);
+        $list = $this->getTechfixData('kasir_garansi', []);
 
         $tanggalMulai  = $request->input('tanggal_mulai', \Carbon\Carbon::now()->toDateString());
         $durasi        = $request->input('durasi_garansi', '90 Hari');
@@ -584,7 +1249,7 @@ class TechfixDashboardController extends Controller
         ];
 
         array_unshift($list, $newGaransi);
-        session(['techfix_kasir_garansi' => $list]);
+        $this->saveTechfixData('kasir_garansi', $list);
 
         return redirect()->route('techfix.kasir')
             ->with('success', "Garansi {$newGaransi['id']} untuk '{$request->nama_pelanggan}' ({$request->device}) berhasil didaftarkan! Berlaku hingga {$expired}.");
@@ -595,10 +1260,8 @@ class TechfixDashboardController extends Controller
      */
     public function resetKasir()
     {
-        session([
-            'techfix_kasir_transaksi' => [],
-            'techfix_kasir_garansi'   => [],
-        ]);
+        $this->saveTechfixData('kasir_transaksi', []);
+        $this->saveTechfixData('kasir_garansi', []);
 
         return redirect()->route('techfix.kasir')
             ->with('success', 'Data Kasir POS & Garansi telah dikosongkan. Siap diisi mandiri.');
@@ -614,9 +1277,9 @@ class TechfixDashboardController extends Controller
         $currentBranch = session('techfix_branch', 'Cabang Mangga Dua Mall Lt. 3');
         $shiftStatus   = session('techfix_shift', 'Shift 1 (Pagi - Sore)');
 
-        $partList     = session('techfix_stok_parts', []);
-        $supplierList = session('techfix_stok_suppliers', []);
-        $lastOpname   = session('techfix_stok_last_opname', '-');
+        $partList     = $this->getTechfixData('stok_parts', []);
+        $supplierList = $this->getTechfixData('stok_suppliers', []);
+        $lastOpname   = $this->getTechfixData('stok_last_opname', '-');
 
         // Hitung stats dinamis
         $kritis   = count(array_filter($partList, fn($p) => ($p['status_stok'] ?? '') === 'kritis'));
@@ -674,7 +1337,7 @@ class TechfixDashboardController extends Controller
             'stok_gudang' => 'required|integer|min:0',
         ]);
 
-        $parts = session('techfix_stok_parts', []);
+        $parts = $this->getTechfixData('stok_parts', []);
 
         $stokGudang = (int) $request->stok_gudang;
         $stokMin    = (int) $request->input('stok_min', 1);
@@ -715,7 +1378,7 @@ class TechfixDashboardController extends Controller
         ];
 
         array_unshift($parts, $newPart);
-        session(['techfix_stok_parts' => $parts]);
+        $this->saveTechfixData('stok_parts', $parts);
 
         return redirect()->route('techfix.stok')
             ->with('success', "Part {$newPart['part_number']} — '{$request->nama}' berhasil ditambahkan ke inventaris!");
@@ -726,11 +1389,8 @@ class TechfixDashboardController extends Controller
      */
     public function resetStok()
     {
-        session([
-            'techfix_stok_parts'     => [],
-            'techfix_stok_suppliers' => [],
-            'techfix_stok_last_opname' => '-',
-        ]);
+        $this->saveTechfixData('stok_parts', []);
+        $this->saveTechfixData('stok_suppliers', []);
 
         return redirect()->route('techfix.stok')
             ->with('success', 'Data Stok Sparepart & Inventaris telah dikosongkan. Siap diisi mandiri.');
@@ -746,7 +1406,7 @@ class TechfixDashboardController extends Controller
         $currentBranch = session('techfix_branch', 'Cabang Mangga Dua Mall Lt. 3');
         $shiftStatus   = session('techfix_shift', 'Shift 1 (Pagi - Sore)');
 
-        $customers = session('techfix_crm_customers', []);
+        $customers = $this->getTechfixData('crm_customers', []);
 
         $selectedId = $request->query('customer_id');
         $selectedCustomer = null;
@@ -809,7 +1469,7 @@ class TechfixDashboardController extends Controller
             'hp'   => 'required|string|max:30',
         ]);
 
-        $customers = session('techfix_crm_customers', []);
+        $customers = $this->getTechfixData('crm_customers', []);
 
         $newId = 'CUST-' . strtoupper(substr(md5(uniqid()), 0, 5));
 
@@ -856,7 +1516,7 @@ class TechfixDashboardController extends Controller
         ];
 
         array_unshift($customers, $newCustomer);
-        session(['techfix_crm_customers' => $customers]);
+        $this->saveTechfixData('crm_customers', $customers);
 
         return redirect()->route('techfix.crm', ['customer_id' => $newId])
             ->with('success', "Pelanggan {$newCustomer['nama']} ({$newId}) berhasil didaftarkan ke sistem CRM!");
@@ -873,7 +1533,7 @@ class TechfixDashboardController extends Controller
             'model'       => 'required|string|max:80',
         ]);
 
-        $customers = session('techfix_crm_customers', []);
+        $customers = $this->getTechfixData('crm_customers', []);
         $found = false;
 
         foreach ($customers as &$c) {
@@ -903,7 +1563,7 @@ class TechfixDashboardController extends Controller
         }
 
         if ($found) {
-            session(['techfix_crm_customers' => $customers]);
+            $this->saveTechfixData('crm_customers', $customers);
             return redirect()->route('techfix.crm', ['customer_id' => $request->customer_id])
                 ->with('success', "Unit baru {$request->brand} {$request->model} berhasil ditambahkan ke armada pelanggan!");
         }
@@ -916,7 +1576,7 @@ class TechfixDashboardController extends Controller
      */
     public function resetCrm()
     {
-        session(['techfix_crm_customers' => []]);
+        $this->saveTechfixData('crm_customers', []);
 
         return redirect()->route('techfix.crm')
             ->with('success', 'Data CRM Pelanggan & Riwayat Unit telah dikosongkan. Siap diisi mandiri.');

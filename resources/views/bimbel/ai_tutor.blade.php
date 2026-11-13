@@ -236,15 +236,24 @@
                         <button class="px-3 py-1.5 rounded-lg bg-indigo-50 text-[#3b49df] font-bold text-xs flex items-center gap-1.5">
                             <i class="fas fa-comments text-[11px]"></i><span>Chat & Diskusi Soal</span>
                         </button>
-                        <button onclick="showToast('Generator kuis aktif.','info')" class="px-3 py-1.5 rounded-lg hover:bg-slate-50 text-slate-600 font-semibold text-xs flex items-center gap-1.5">
+                        <button onclick="showToast('Generator kuis aktif. Membedah soal latihan terpilih...','info')" class="px-3 py-1.5 rounded-lg hover:bg-slate-50 text-slate-600 font-semibold text-xs flex items-center gap-1.5">
                             <i class="fas fa-brain text-[11px]"></i><span>Generator Kuis</span>
                         </button>
-                        <button onclick="showToast('Riwayat sesi tersimpan.','info')" class="px-3 py-1.5 rounded-lg hover:bg-slate-50 text-slate-600 font-semibold text-xs flex items-center gap-1.5">
+                        <button onclick="showToast('Riwayat sesi tersimpan secara otomatis.','info')" class="px-3 py-1.5 rounded-lg hover:bg-slate-50 text-slate-600 font-semibold text-xs flex items-center gap-1.5">
                             <i class="fas fa-clock-rotate-left text-[11px]"></i><span>Riwayat Sesi</span>
                         </button>
-                        <button onclick="showToast('Ringkasan sesi berhasil diekspor.','success')" class="px-3 py-1.5 rounded-lg hover:bg-slate-50 text-slate-600 font-semibold text-xs flex items-center gap-1.5">
+                        <button onclick="window.print()" class="px-3 py-1.5 rounded-lg hover:bg-slate-50 text-slate-600 font-semibold text-xs flex items-center gap-1.5">
                             <i class="fas fa-file-export text-[11px]"></i><span>Ekspor Ringkasan</span>
                         </button>
+                        <form action="{{ route('bimbel.ai_tutor.demo') }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="px-3 py-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold text-xs flex items-center gap-1.5 border border-amber-200 transition" title="Muat Data Demo AI Tutor">
+                                <i class="fas fa-wand-magic-sparkles text-[11px]"></i><span>Muat Demo</span>
+                            </button>
+                        </form>
+                        <a href="{{ route('bimbel.ai_tutor.reset') }}" onclick="return confirm('Reset semua sesi dan obrolan AI Tutor ke kondisi bersih?')" class="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs flex items-center gap-1.5 border border-rose-200 transition" title="Reset Semua Sesi AI">
+                            <i class="fas fa-rotate-left text-[11px]"></i><span>Reset</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -283,19 +292,24 @@
                                 @php
                                     $isSel = ($activeSesi && $activeSesi['id'] == $s['id']);
                                 @endphp
-                                <a href="{{ route('bimbel.ai_tutor', ['sesi' => $s['id']]) }}" class="block p-3 rounded-xl border transition {{ $isSel ? 'bg-indigo-50/60 border-indigo-300 ring-1 ring-indigo-200' : 'bg-slate-50/70 border-slate-200/80 hover:bg-slate-100' }}">
-                                    <div class="flex items-center justify-between text-[10px] font-bold mb-1">
-                                        <span class="truncate text-slate-900 font-extrabold">{{ $s['judul'] }}</span>
-                                        <span class="px-1.5 py-0.2 rounded text-[9px] bg-indigo-100 text-indigo-700 shrink-0">{{ $s['badge_status'] }}</span>
-                                    </div>
-                                    <div class="text-[10px] text-slate-400 truncate">{{ $s['kategori'] }} &bull; {{ $s['pesan_count'] }}</div>
-                                    <div class="flex items-center justify-between text-[9px] text-slate-400 mt-2 pt-1.5 border-t border-slate-200/60">
-                                        <span>{{ $s['waktu'] }}</span>
-                                        <span class="text-emerald-600 font-bold flex items-center gap-1">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>{{ $s['durasi'] }}
-                                        </span>
-                                    </div>
-                                </a>
+                                <div class="relative group/sesi">
+                                    <a href="{{ route('bimbel.ai_tutor', ['sesi' => $s['id']]) }}" class="block p-3 rounded-xl border transition {{ $isSel ? 'bg-indigo-50/60 border-indigo-300 ring-1 ring-indigo-200' : 'bg-slate-50/70 border-slate-200/80 hover:bg-slate-100' }}">
+                                        <div class="flex items-center justify-between text-[10px] font-bold mb-1 pr-6">
+                                            <span class="truncate text-slate-900 font-extrabold">{{ $s['judul'] }}</span>
+                                            <span class="px-1.5 py-0.2 rounded text-[9px] bg-indigo-100 text-indigo-700 shrink-0">{{ $s['badge_status'] }}</span>
+                                        </div>
+                                        <div class="text-[10px] text-slate-400 truncate">{{ $s['kategori'] }} &bull; {{ $s['pesan_count'] }}</div>
+                                        <div class="flex items-center justify-between text-[9px] text-slate-400 mt-2 pt-1.5 border-t border-slate-200/60">
+                                            <span>{{ $s['waktu'] }}</span>
+                                            <span class="text-emerald-600 font-bold flex items-center gap-1">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>{{ $s['durasi'] }}
+                                            </span>
+                                        </div>
+                                    </a>
+                                    <button type="button" onclick="hapusSesiAi({{ $s['id'] }})" class="absolute top-2.5 right-2 w-6 h-6 rounded-lg text-slate-300 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition" title="Hapus Sesi">
+                                        <i class="fas fa-trash-alt text-[10px]"></i>
+                                    </button>
+                                </div>
                                 @endforeach
                             @else
                                 {{-- EMPTY STATE SESUAI REQUEST USER --}}
@@ -305,6 +319,12 @@
                                     <p class="text-[10px] text-slate-400 mt-1 leading-relaxed">
                                         Klik tombol di atas untuk membuka ruang konsultasi AI Tutor pertama Anda.
                                     </p>
+                                    <form action="{{ route('bimbel.ai_tutor.demo') }}" method="POST" class="mt-3">
+                                        @csrf
+                                        <button type="submit" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-[11px] shadow-sm transition flex items-center gap-1.5">
+                                            <i class="fas fa-wand-magic-sparkles text-[10px]"></i><span>Muat Sesi Demo</span>
+                                        </button>
+                                    </form>
                                 </div>
                             @endif
                         </div>
@@ -823,11 +843,35 @@
     }
 
     // Submit on Enter (without Shift)
-    document.getElementById('chatInput').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendChatMessage();
-        }
+    const chatInput = document.getElementById('chatInput');
+    if (chatInput) {
+        chatInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendChatMessage();
+            }
+        });
+    }
+
+    function hapusSesiAi(id) {
+        if (!confirm('Hapus sesi diskusi AI Tutor ini?')) return;
+        fetch(`{{ url('/bimbel/ai-tutor/sesi') }}/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': CSRF,
+                'Accept': 'application/json'
+            }
+        })
+        .then(r => r.json())
+        .then(d => {
+            if (d.success) {
+                showToast('Sesi diskusi berhasil dihapus.', 'info');
+                setTimeout(() => window.location.href = "{{ route('bimbel.ai_tutor') }}", 400);
+            }
+        })
+        .catch(() => showToast('Gagal menghapus sesi.', 'error'));
+    }
+
     function toggleBimbelSidebar() {
         const sidebar = document.getElementById('bimbelSidebar');
         const overlay = document.getElementById('bimbelSidebarOverlay');

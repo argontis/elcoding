@@ -311,26 +311,32 @@
                     @if(count($indoorTables) > 0)
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                             @foreach($indoorTables as $t)
-                                <div onclick="selectTableForTicket('{{ $t['label'] }}', 'Area Indoor AC', '{{ $t['kursi'] }}')" class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-sm relative flex flex-col justify-between hover:border-[#8c280e] hover:shadow-md transition cursor-pointer">
+                                @php
+                                    $tLabel = $t['label'] ?? $t['no'] ?? ('0' . $loop->iteration);
+                                    $tKursi = $t['kursi'] ?? $t['pax'] ?? '4 Kursi';
+                                    $tGuest = $t['guest'] ?? $t['tamu'] ?? '';
+                                    $tTotal = is_numeric($t['total'] ?? null) ? 'Rp ' . number_format($t['total'], 0, ',', '.') : ($t['total'] ?? 'Rp 0');
+                                @endphp
+                                <div onclick="selectTableForTicket('{{ $tLabel }}', 'Area Indoor AC', '{{ $tKursi }}')" class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-sm relative flex flex-col justify-between hover:border-[#8c280e] hover:shadow-md transition cursor-pointer">
                                     <div>
                                         <div class="flex items-start justify-between">
                                             <div class="w-11 h-11 rounded-xl bg-[#8c280e] text-white flex flex-col items-center justify-center font-heading font-black shadow-sm">
-                                                <span class="text-base leading-none">{{ $t['label'] }}</span>
+                                                <span class="text-base leading-none">{{ $tLabel }}</span>
                                             </div>
-                                            <span class="px-2 py-0.5 rounded-md text-[10px] font-black {{ $t['badge_color'] ?? 'bg-emerald-100 text-emerald-700' }}">{{ $t['status_badge'] ?? 'Siap Pakai' }}</span>
+                                            <span class="px-2 py-0.5 rounded-md text-[10px] font-black {{ $t['badge_color'] ?? 'bg-emerald-100 text-emerald-700' }}">{{ $t['status_badge'] ?? ($t['status_label'] ?? 'Siap Pakai') }}</span>
                                         </div>
 
                                         <div class="mt-3">
-                                            <div class="text-xs font-bold text-slate-800">{{ $t['kursi'] }}</div>
-                                            @if(!empty($t['guest']))
-                                                <div class="text-[11px] text-slate-500 mt-0.5 truncate">{{ $t['guest'] }}</div>
+                                            <div class="text-xs font-bold text-slate-800">{{ $tKursi }}</div>
+                                            @if(!empty($tGuest))
+                                                <div class="text-[11px] text-slate-500 mt-0.5 truncate">{{ $tGuest }}</div>
                                             @endif
                                             <div class="text-[11px] text-slate-400 mt-0.5">{{ $t['info'] ?? 'Meja Bersih & Siap' }}</div>
                                         </div>
                                     </div>
 
                                     <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
-                                        <span class="text-[#8c280e]">Rp {{ number_format($t['total'] ?? 0, 0, ',', '.') }}</span>
+                                        <span class="text-[#8c280e]">{{ $tTotal }}</span>
                                         <span class="text-slate-400 hover:text-slate-700 flex items-center gap-1 text-[11px]">
                                             <span>Pilih</span> <i class="fas fa-arrow-right text-[9px]"></i>
                                         </span>
@@ -371,23 +377,29 @@
                     @if(count($outdoorTables) > 0)
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                             @foreach($outdoorTables as $t)
-                                <div onclick="selectTableForTicket('{{ $t['label'] }}', 'Area Outdoor Terrace', '{{ $t['kursi'] }}')" class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-sm relative flex flex-col justify-between hover:border-emerald-500 hover:shadow-md transition cursor-pointer">
+                                @php
+                                    $tLabel = $t['label'] ?? $t['no'] ?? ('0' . $loop->iteration);
+                                    $tKursi = $t['kursi'] ?? $t['pax'] ?? '4 Pax Garden';
+                                    $tGuest = $t['guest'] ?? $t['tamu'] ?? '';
+                                    $tTotal = is_numeric($t['total'] ?? null) ? 'Rp ' . number_format($t['total'], 0, ',', '.') : ($t['total'] ?? 'Rp 0');
+                                @endphp
+                                <div onclick="selectTableForTicket('{{ $tLabel }}', 'Area Outdoor Terrace', '{{ $tKursi }}')" class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-sm relative flex flex-col justify-between hover:border-emerald-500 hover:shadow-md transition cursor-pointer">
                                     <div>
                                         <div class="flex items-start justify-between">
                                             <div class="w-11 h-11 rounded-xl bg-slate-800 text-white flex flex-col items-center justify-center font-heading font-black shadow-sm">
-                                                <span class="text-base leading-none">{{ $t['label'] }}</span>
+                                                <span class="text-base leading-none">{{ $tLabel }}</span>
                                             </div>
-                                            <span class="px-2 py-0.5 rounded-md text-[10px] font-black {{ $t['badge_color'] ?? 'bg-emerald-100 text-emerald-700' }}">{{ $t['status_badge'] ?? 'Siap Pakai' }}</span>
+                                            <span class="px-2 py-0.5 rounded-md text-[10px] font-black {{ $t['badge_color'] ?? 'bg-emerald-100 text-emerald-700' }}">{{ $t['status_badge'] ?? ($t['status_label'] ?? 'Siap Pakai') }}</span>
                                         </div>
 
                                         <div class="mt-3">
-                                            <div class="text-xs font-bold text-slate-800">{{ $t['kursi'] }}</div>
+                                            <div class="text-xs font-bold text-slate-800">{{ $tKursi }}</div>
                                             <div class="text-[11px] text-slate-400 mt-0.5">{{ $t['note'] ?? 'Meja Outdoor Bersih' }}</div>
                                         </div>
                                     </div>
 
                                     <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
-                                        <span class="text-slate-800">Rp {{ number_format($t['total'] ?? 0, 0, ',', '.') }}</span>
+                                        <span class="text-slate-800">{{ $tTotal }}</span>
                                         <span class="text-slate-400 hover:text-slate-700 flex items-center gap-1 text-[11px]">
                                             <span>Pilih</span> <i class="fas fa-arrow-right text-[9px]"></i>
                                         </span>
@@ -434,9 +446,9 @@
                             @foreach($menuKatalog as $menu)
                                 <div class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition group">
                                     <div class="relative h-28 w-full overflow-hidden bg-slate-100">
-                                        <img src="{{ $menu['img'] }}" alt="{{ $menu['nama'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                                        <span class="absolute top-2 left-2 px-2 py-0.5 rounded-md text-[10px] font-black {{ $menu['badge_color'] }} backdrop-blur-sm shadow-sm">
-                                            {{ $menu['badge'] }}
+                                        <img src="{{ $menu['img'] ?? 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400' }}" alt="{{ $menu['nama'] }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                        <span class="absolute top-2 left-2 px-2 py-0.5 rounded-md text-[10px] font-black {{ $menu['badge_color'] ?? 'bg-orange-500 text-white' }} backdrop-blur-sm shadow-sm">
+                                            {{ $menu['badge'] ?? 'Best Seller' }}
                                         </span>
                                     </div>
                                     
@@ -444,7 +456,7 @@
                                         <div>
                                             <div class="text-[9px] font-extrabold uppercase tracking-wider text-[#8c280e]">{{ $menu['kategori'] }}</div>
                                             <h4 class="font-heading font-bold text-xs text-slate-900 line-clamp-1 mt-0.5">{{ $menu['nama'] }}</h4>
-                                            <p class="text-[10px] text-slate-400 line-clamp-1 mt-0.5">{{ $menu['deskripsi'] }}</p>
+                                            <p class="text-[10px] text-slate-400 line-clamp-1 mt-0.5">{{ $menu['deskripsi'] ?? '' }}</p>
                                         </div>
 
                                         <div class="mt-3 flex items-center justify-between pt-2 border-t border-slate-100">

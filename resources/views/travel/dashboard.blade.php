@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="mt-4">
-                <div class="text-3xl font-black text-slate-900 tracking-tight">{{ $totalParticipants }} Peserta</div>
+                <div class="text-3xl font-black text-slate-900 tracking-tight">{{ $totalParticipants ?? $totalJamaah ?? count($participants ?? []) }} Peserta</div>
                 <div class="text-xs text-slate-500 mt-1 flex items-center gap-2">
                     <span class="text-emerald-600 font-bold">Semua Dokumen Lengkap</span>
                 </div>
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="mt-4">
-                <div class="text-3xl font-black text-slate-900 tracking-tight">{{ $totalPackages }} Rute</div>
+                <div class="text-3xl font-black text-slate-900 tracking-tight">{{ $totalPackages ?? $totalPaket ?? 0 }} Rute</div>
                 <div class="text-xs text-slate-500 mt-1">
                     Umroh, Domestik & Internasional
                 </div>
@@ -61,12 +61,12 @@
                 </div>
             </div>
             <div class="mt-4">
-                <div class="text-3xl font-black text-slate-900 tracking-tight">{{ $okupansiPersen }}%</div>
+                <div class="text-3xl font-black text-slate-900 tracking-tight">{{ $okupansiPersen ?? 0 }}%</div>
                 <div class="w-full bg-slate-100 rounded-full h-2 mt-2 overflow-hidden">
-                    <div class="bg-emerald-500 h-2 rounded-full" style="width: {{ $okupansiPersen }}%"></div>
+                    <div class="bg-emerald-500 h-2 rounded-full" style="width: {{ $okupansiPersen ?? 0 }}%"></div>
                 </div>
                 <div class="text-[11px] text-slate-500 mt-1">
-                    {{ $totalSeatTerisi }} dari {{ $totalSeatKapasitas }} seat terisi
+                    {{ $totalSeatTerisi ?? 0 }} dari {{ $totalSeatKapasitas ?? 0 }} seat terisi
                 </div>
             </div>
         </div>
@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div class="mt-4">
-                <div class="text-2xl font-black text-slate-900 tracking-tight truncate">Rp {{ number_format($omzetTerkontrak, 0, ',', '.') }}</div>
+                <div class="text-2xl font-black text-slate-900 tracking-tight truncate">Rp {{ number_format($omzetTerkontrak ?? 0, 0, ',', '.') }}</div>
                 <div class="text-xs text-emerald-600 font-semibold mt-1">
                     <i class="fa-solid fa-arrow-trend-up"></i> Terverifikasi terbayar
                 </div>

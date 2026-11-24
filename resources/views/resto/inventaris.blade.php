@@ -868,7 +868,7 @@
                     <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Pilih Bahan Baku</label>
                     <select id="opnameBahanSelect" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800">
                         @forelse($bahanList as $b)
-                            <option value="{{ $b['id'] }}">{{ $b['kode'] }} - {{ $b['nama'] }} (Stok Sistem: {{ $b['stok'] }} {{ $b['satuan'] }})</option>
+                            <option value="{{ $b['id'] }}">{{ $b['kode'] ?? 'B01' }} - {{ $b['nama'] ?? 'Item' }} (Stok Sistem: {{ $b['stok'] }} {{ $b['satuan'] }})</option>
                         @empty
                             <option value="">Belum ada bahan baku terdaftar</option>
                         @endforelse

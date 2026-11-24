@@ -11,6 +11,8 @@ use App\Http\Controllers\ChatController;
 
 Route::get('/test-update', function () { return 'Update is live!'; });
 
+Route::get('/produk/saas', [\App\Http\Controllers\Produk\SaasKatalogController::class, 'index'])->name('produk.saas.index');
+
 if (!function_exists('setSeoMeta')) {
     function setSeoMeta($title, $description = null) {
         if (class_exists(\Artesaos\SEOTools\Facades\SEOTools::class)) {

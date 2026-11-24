@@ -643,6 +643,19 @@
                     <li><a href="{{ url('/event-webinar') }}" class="nav-link {{ request()->is('event-webinar*') || request()->is('webinar-tech*') || request()->is('workshop-online*') ? 'active' : '' }}">Event & Webinar</a></li>
                     <li><a href="{{ url('/layanan') }}" class="nav-link {{ request()->is('layanan') ? 'active' : '' }}">Layanan</a></li>
                     
+                    <!-- Accordion "Produk" -->
+                    @php
+                        $isProdukActive = request()->is('produk*');
+                    @endphp
+                    <li class="dropdown" id="navProdukDropdown">
+                        <a href="#" class="nav-link dropdown-toggle {{ $isProdukActive ? 'active' : '' }}" id="dropdownProdukBtn" role="button" aria-expanded="{{ $isProdukActive ? 'true' : 'false' }}">
+                            Produk <i class="fas fa-chevron-down" style="font-size: 12px; margin-left: 3px;"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('produk.saas.index') }}" class="{{ request()->is('produk/saas*') ? 'active' : '' }}"><i class="fas fa-cloud text-blue-500 mr-2" style="width: 16px;"></i> SaaS</a></li>
+                        </ul>
+                    </li>
+                    
                     <!-- Dropdown "Lainnya" -->
                     @php
                         $isLainnyaActive = request()->is('pkl*') || request()->is('register-pkl*') || request()->is('portofolio*') || request()->is('blog*') || request()->is('kontak*');
@@ -846,6 +859,14 @@
             visibility: visible;
             transform: translateY(0);
         }
+        .dropdown-toggle i {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+        .dropdown.show .dropdown-toggle i,
+        .dropdown-toggle[aria-expanded="true"] i {
+            transform: rotate(180deg);
+        }
         .dropdown-menu li a {
             display: block;
             padding: 10px 24px;
@@ -1003,11 +1024,25 @@
                 });
             }
 
+            // Buka tutup menu accordion/dropdown "Produk"
+            const dropdownProduk = document.getElementById('navProdukDropdown');
+            const dropdownProdukBtn = document.getElementById('dropdownProdukBtn');
+            if (dropdownProdukBtn && dropdownProduk) {
+                dropdownProdukBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    dropdownProduk.classList.toggle('show');
+                    const isExpanded = dropdownProduk.classList.contains('show');
+                    dropdownProdukBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+                });
+            }
+
             // Buka tutup menu dropdown "Lainnya"
             if (dropdownBtn) {
                 dropdownBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     dropdown.classList.toggle('show');
+                    const isExpanded = dropdown.classList.contains('show');
+                    dropdownBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
                 });
             }
 
@@ -1015,6 +1050,11 @@
             window.addEventListener('click', (e) => {
                 if (dropdown && !dropdown.contains(e.target)) {
                     dropdown.classList.remove('show');
+                    if (dropdownBtn) dropdownBtn.setAttribute('aria-expanded', 'false');
+                }
+                if (dropdownProduk && !dropdownProduk.contains(e.target)) {
+                    dropdownProduk.classList.remove('show');
+                    if (dropdownProdukBtn) dropdownProdukBtn.setAttribute('aria-expanded', 'false');
                 }
             });
         });

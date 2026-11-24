@@ -68,10 +68,19 @@ class TravelDashboardController extends Controller
 
         $totalPaket = count($packages);
         $totalJamaah = count($participants);
+        $totalParticipants = $totalJamaah;
         $totalArmada = count($armada);
+        $totalPackages = $totalPaket;
+
+        $totalSeatKapasitas = array_sum(array_column($packages, 'kuota_total'));
+        $totalSeatTerisi    = array_sum(array_column($packages, 'kuota_terisi'));
+        $okupansiPersen     = $totalSeatKapasitas > 0
+            ? (int) round(($totalSeatTerisi / $totalSeatKapasitas) * 100)
+            : 0;
+        $ocupansiPersen     = $okupansiPersen;
 
         $omzetTerkontrak = array_reduce($participants, fn($acc, $item) => $acc + $item['total_tagihan'], 0);
-        $omzetFormatted = 'Rp ' . number_format($omzetTerkontrak, 0, ',', '.');
+        $omzetFormatted  = 'Rp ' . number_format($omzetTerkontrak, 0, ',', '.');
 
         $isSubscriber = true;
         $user = $this->getAuthUser();
@@ -82,7 +91,14 @@ class TravelDashboardController extends Controller
             'armada',
             'totalPaket',
             'totalJamaah',
+            'totalParticipants',
             'totalArmada',
+            'totalPackages',
+            'totalSeatKapasitas',
+            'totalSeatTerisi',
+            'okupansiPersen',
+            'ocupansiPersen',
+            'omzetTerkontrak',
             'omzetFormatted',
             'isSubscriber',
             'user'

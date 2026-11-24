@@ -179,10 +179,10 @@
                 </button>
                 <div class="flex items-center gap-2 pl-3 border-l border-slate-200">
                     <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#a33315] to-[#c2410c] text-white flex items-center justify-center text-xs font-black">
-                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        {{ strtoupper(substr(auth()->user()?->name ?? 'Head Chef', 0, 1)) }}
                     </div>
                     <div>
-                        <div class="text-xs font-bold text-slate-800 leading-none">{{ auth()->user()->name }}</div>
+                        <div class="text-xs font-bold text-slate-800 leading-none">{{ auth()->user()?->name ?? 'Head Chef' }}</div>
                         <div class="text-[10px] text-slate-400 leading-none mt-0.5">Store Manager</div>
                     </div>
                 </div>

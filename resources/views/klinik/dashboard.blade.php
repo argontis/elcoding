@@ -37,10 +37,13 @@
 </head>
 <body class="min-h-screen flex flex-col md:flex-row bg-slate-50 antialiased selection:bg-clinic-600 selection:text-white">
 
+    <!-- Mobile Drawer Overlay Backdrop -->
+    <div id="klinikSidebarBackdrop" onclick="toggleKlinikMobileSidebar()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 hidden md:hidden transition-opacity"></div>
+
     <!-- ============================================================== -->
-    <!-- DESKTOP SIDEBAR (HANYA 4 MENU UTAMA) -->
+    <!-- SIDEBAR (RESPONSIVE DRAWER ON MOBILE) -->
     <!-- ============================================================== -->
-    <aside class="w-64 bg-darknavy-900 border-r border-slate-800 text-slate-300 flex flex-col fixed inset-y-0 left-0 z-30 transition-all duration-300 hidden md:flex">
+    <aside id="klinikSidebar" class="w-64 bg-darknavy-900 border-r border-slate-800 text-slate-300 flex flex-col fixed inset-y-0 left-0 z-50 transition-transform duration-300 -translate-x-full md:translate-x-0 shadow-2xl md:shadow-none">
         
         <!-- Logo & Brand Header -->
         <div class="h-20 px-6 flex items-center justify-between border-b border-slate-800/80 bg-darknavy-950/70">
@@ -58,6 +61,10 @@
                     </div>
                 </div>
             </div>
+            <!-- Close Button Mobile -->
+            <button type="button" onclick="toggleKlinikMobileSidebar()" class="md:hidden p-1.5 text-slate-400 hover:text-white rounded-lg flex items-center justify-center min-h-[44px] min-w-[44px]" aria-label="Tutup Menu">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
         </div>
 
         <!-- Profil Ringkas Klinik -->
@@ -127,8 +134,12 @@
 
         <!-- TOP BAR PERSIS SEPERTI GAMBAR REFERENSI -->
         <header class="h-16 bg-white border-b border-slate-200/90 px-4 md:px-8 flex items-center justify-between sticky top-0 z-20 shadow-xs">
-            <!-- Left Header: Brand Icon & Clinic Selector -->
-            <div class="flex items-center gap-3">
+            <!-- Left Header: Mobile Toggle & Clinic Selector -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Hamburger Button Mobile -->
+                <button type="button" onclick="toggleKlinikMobileSidebar()" class="md:hidden w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 flex items-center justify-center text-sm shrink-0 transition" title="Menu Sidebar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
                 <div class="w-9 h-9 rounded-xl bg-teal-700 text-white flex items-center justify-center font-bold text-base shadow-sm">
                     <i class="fa-solid fa-plus-minus text-xs"></i>
                 </div>

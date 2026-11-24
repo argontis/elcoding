@@ -1508,5 +1508,10 @@
       "assets/DMSans-Black-DffhFqf_.ttf",
       "assets/DMSans-BlackItalic-BRUQp-8G.ttf"
     ]
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-DYKsRLxz.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
   }
 }

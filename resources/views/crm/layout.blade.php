@@ -575,25 +575,39 @@
             .nav-toggle-btn {
                 display: block;
             }
+            .crm-sidebar-close {
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+            }
         }
     </style>
     @yield('styles')
 </head>
 <body>
 
+    <!-- Mobile Drawer Overlay Backdrop -->
+    <div id="crmSidebarBackdrop" onclick="toggleCrmMobileSidebar()" class="sidebar-backdrop" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.4); backdrop-filter:blur(2px); z-index:45;"></div>
+
     <!-- ================= SIDEBAR (Matches PDF 1-8) ================= -->
     <aside class="sidebar" id="sidebar">
         <div>
             <!-- Header Branding -->
-            <div class="sidebar-header">
-                <div class="brand-icon-box">
-                    <i class="fas fa-sparkles"></i>
+            <div class="sidebar-header" style="justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div class="brand-icon-box">
+                        <i class="fas fa-sparkles"></i>
+                    </div>
+                    <div class="brand-text">
+                        <div class="brand-title">NusantaraCRM</div>
+                        <div class="brand-sub">AI ENTERPRISE ENGINE</div>
+                        <div class="brand-tag">Nusantara ENTERPRISE CRM</div>
+                    </div>
                 </div>
-                <div class="brand-text">
-                    <div class="brand-title">NusantaraCRI</div>
-                    <div class="brand-sub">AI ENTERPRISE ENGINE</div>
-                    <div class="brand-tag">Nusantara ENTERPRISE CRM</div>
-                </div>
+                <!-- Close Button Mobile -->
+                <button type="button" onclick="toggleCrmMobileSidebar()" class="crm-sidebar-close" style="display:none; background:none; border:none; color:#94a3b8; font-size:18px; cursor:pointer; padding:8px;" aria-label="Tutup Menu">
+                    <i class="fas fa-xmark"></i>
+                </button>
             </div>
 
             <!-- Navigation Links -->
@@ -691,7 +705,7 @@
         <!-- Top Navbar -->
         <header class="top-navbar">
             <div class="top-left">
-                <button class="nav-toggle-btn" id="navToggle" onclick="toggleSidebar()">
+                <button class="nav-toggle-btn" id="navToggle" onclick="toggleCrmMobileSidebar()">
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="header-title-badge">
@@ -740,9 +754,23 @@
     </div>
 
     <script>
-        function toggleSidebar() {
+        function toggleCrmMobileSidebar() {
             const sb = document.getElementById('sidebar');
+            const backdrop = document.getElementById('crmSidebarBackdrop');
+            if (!sb) return;
             sb.classList.toggle('mobile-open');
+            if (backdrop) {
+                if (sb.classList.contains('mobile-open')) {
+                    backdrop.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    backdrop.style.display = 'none';
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+        function toggleSidebar() {
+            toggleCrmMobileSidebar();
         }
     </script>
     @yield('scripts')

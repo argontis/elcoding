@@ -712,51 +712,71 @@ class BengkelDashboardController extends Controller
      */
     private function getWorkOrders(): array
     {
-        $dbOrders = BengkelWorkOrder::orderBy('id', 'desc')->get();
-        if ($dbOrders->count() > 0) {
-            return $dbOrders->map(fn($wo) => [
-                'id' => $wo->nomor_wo,
-                'nomor_wo' => $wo->nomor_wo,
-                'customer_name' => $wo->customer_name,
-                'customer_phone' => $wo->customer_phone,
-                'vehicle_plate' => $wo->vehicle_plate,
-                'vehicle_model' => $wo->vehicle_model,
-                'service_package' => $wo->service_package,
-                'estimasi_biaya' => (float)$wo->estimasi_biaya,
-                'pit_bay' => $wo->pit_bay,
-                'mekanik' => $wo->mekanik,
-                'status' => $wo->status,
-                'keluhan' => $wo->keluhan,
-                'entry_time' => $wo->entry_time ? $wo->entry_time->format('H:i') : ($wo->created_at ? $wo->created_at->format('H:i') : '08:30'),
-            ])->toArray();
+        try {
+            $dbOrders = BengkelWorkOrder::orderBy('id', 'desc')->get();
+            if ($dbOrders->count() > 0) {
+                return $dbOrders->map(fn($wo) => [
+                    'id' => $wo->nomor_wo,
+                    'nomor_wo' => $wo->nomor_wo,
+                    'customer_name' => $wo->customer_name,
+                    'customer_phone' => $wo->customer_phone,
+                    'vehicle_plate' => $wo->vehicle_plate,
+                    'vehicle_model' => $wo->vehicle_model,
+                    'service_package' => $wo->service_package,
+                    'estimasi_biaya' => (float)$wo->estimasi_biaya,
+                    'pit_bay' => $wo->pit_bay,
+                    'mekanik' => $wo->mekanik,
+                    'status' => $wo->status,
+                    'keluhan' => $wo->keluhan,
+                    'entry_time' => $wo->entry_time ? $wo->entry_time->format('H:i') : ($wo->created_at ? $wo->created_at->format('H:i') : '08:30'),
+                ])->toArray();
+            }
+        } catch (\Throwable $e) {
+            // Fallback ke penyimpanan file jika koneksi DB tidak tersedia
+        }
+
+        $path = storage_path('app/bengkel_work_orders.json');
+        if (file_exists($path)) {
+            $content = @file_get_contents($path);
+            $data = json_decode($content, true);
+            if (is_array($data) && count($data) > 0) {
+                return $data;
+            }
         }
 
         return [];
     }
 
     /**
-     * Simpan data Work Orders secara permanen ke database
+     * Simpan data Work Orders secara permanen ke database & file fallback
      */
     private function saveWorkOrders(array $workOrders): void
     {
-        foreach ($workOrders as $wo) {
-            if (!empty($wo['nomor_wo'])) {
-                BengkelWorkOrder::updateOrCreate(
-                    ['nomor_wo' => $wo['nomor_wo']],
-                    [
-                        'customer_name' => $wo['customer_name'] ?? 'Pelanggan',
-                        'customer_phone' => $wo['customer_phone'] ?? null,
-                        'vehicle_plate' => $wo['vehicle_plate'] ?? '-',
-                        'vehicle_model' => $wo['vehicle_model'] ?? '-',
-                        'service_package' => $wo['service_package'] ?? 'Servis Berkala',
-                        'estimasi_biaya' => (float)($wo['estimasi_biaya'] ?? 350000),
-                        'pit_bay' => $wo['pit_bay'] ?? null,
-                        'mekanik' => $wo['mekanik'] ?? null,
-                        'status' => $wo['status'] ?? 'Menunggu',
-                        'keluhan' => $wo['keluhan'] ?? null,
-                    ]
-                );
+        $path = storage_path('app/bengkel_work_orders.json');
+        @file_put_contents($path, json_encode($workOrders, JSON_PRETTY_PRINT));
+
+        try {
+            foreach ($workOrders as $wo) {
+                if (!empty($wo['nomor_wo'])) {
+                    BengkelWorkOrder::updateOrCreate(
+                        ['nomor_wo' => $wo['nomor_wo']],
+                        [
+                            'customer_name' => $wo['customer_name'] ?? 'Pelanggan',
+                            'customer_phone' => $wo['customer_phone'] ?? null,
+                            'vehicle_plate' => $wo['vehicle_plate'] ?? '-',
+                            'vehicle_model' => $wo['vehicle_model'] ?? '-',
+                            'service_package' => $wo['service_package'] ?? 'Servis Berkala',
+                            'estimasi_biaya' => (float)($wo['estimasi_biaya'] ?? 350000),
+                            'pit_bay' => $wo['pit_bay'] ?? null,
+                            'mekanik' => $wo['mekanik'] ?? null,
+                            'status' => $wo['status'] ?? 'Menunggu',
+                            'keluhan' => $wo['keluhan'] ?? null,
+                        ]
+                    );
+                }
             }
+        } catch (\Throwable $e) {
+            // DB tidak tersedia saat ini, data tetap tersimpan di file
         }
     }
 }

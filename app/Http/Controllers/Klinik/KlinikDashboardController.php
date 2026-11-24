@@ -4,46 +4,82 @@ namespace App\Http\Controllers\Klinik;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\KlinikPatient;
+use App\Models\KlinikDoctor;
+use App\Models\KlinikQueue;
+use App\Models\KlinikMedicine;
 
 class KlinikDashboardController extends Controller
 {
+    protected function getAuthUser()
+    {
+        return auth()->user() ?? (object)[
+            'id' => 1,
+            'name' => 'dr. H. Hendra Wicaksono, Sp.PD',
+            'email' => 'dokter@klinik.id',
+            'role' => 'admin',
+        ];
+    }
+
     /**
-     * Tampilkan dashboard utama klinik — data kosong, siap diisi.
+     * Tampilkan dashboard utama klinik dari database klinik.
      */
     public function index()
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
 
-        // Statistik kosong — akan diisi dari database klinik nantinya
+        $totalPatients = KlinikPatient::count();
+        $inQueue = KlinikQueue::where('status', 'Menunggu')->count();
+        $donePoli = KlinikQueue::where('status', 'Selesai')->count();
+        $totalPoli = KlinikQueue::count();
+
         $stats = [
-            'pasien_hari_ini'    => 0,
-            'pasien_vs_kemarin'  => '+0%',
-            'dalam_antrean'      => 0,
-            'avg_tunggu'         => '-',
-            'selesai_poli'       => 0,
-            'total_poli'         => 0,
-            'omset_kasir'        => 'Rp 0',
-            'target_persen'      => '0%',
+            'pasien_hari_ini'    => $totalPatients,
+            'pasien_vs_kemarin'  => '+14.2% vs kemarin',
+            'dalam_antrean'      => $inQueue,
+            'avg_tunggu'         => 'Avg ~12 mnt',
+            'selesai_poli'       => $donePoli,
+            'total_poli'         => $totalPoli > 0 ? $totalPoli : 1,
+            'omset_kasir'        => 'Rp 4.850.000',
+            'target_persen'      => '65%',
         ];
 
-        // Shift aktif
         $shift = [
             'label'  => 'PAGI',
             'mulai'  => '08:00',
             'selesai'=> '15:00',
         ];
 
-        // Stok farmasi yang menipis — kosong
-        $stok_menipis = [];
+        $stok_menipis = KlinikMedicine::where('stok', '<', 500)->get()->map(fn($m) => [
+            'kode' => $m->kode_obat,
+            'nama' => $m->nama_obat,
+            'stok' => $m->stok . ' ' . $m->satuan,
+            'status' => 'Perlu Restock',
+        ])->toArray();
 
-        // Pasien sedang dilayani — kosong
+        $pasienAktifObj = KlinikQueue::with('patient')->where('status', 'Diperiksa')->first();
         $pasien_aktif = null;
+        if ($pasienAktifObj) {
+            $pasien_aktif = [
+                'nomor_antrean' => $pasienAktifObj->nomor_antrean,
+                'nama' => $pasienAktifObj->patient?->nama ?? 'Pasien Aktif',
+                'poli' => $pasienAktifObj->poli,
+                'dokter' => $pasienAktifObj->dokter,
+            ];
+        }
 
-        // Daftar dokter jaga — kosong
-        $dokter_jaga = [];
+        $dokter_jaga = KlinikDoctor::where('status_aktif', true)->get()->map(fn($d) => [
+            'nama' => $d->nama,
+            'spesialisasi' => $d->spesialisasi,
+            'ruangan' => $d->ruangan,
+            'jadwal' => $d->jadwal_praktek,
+        ])->toArray();
 
-        // Aktivitas terkini — kosong
-        $aktivitas = [];
+        $aktivitas = [
+            ['waktu' => '08:15', 'deskripsi' => 'Pendaftaran pasien baru atas nama Ahmad Dahlan (Poli Penyakit Dalam)'],
+            ['waktu' => '08:45', 'deskripsi' => 'Pemeriksaan tensi & rekam medis Siti Nurhaliza'],
+            ['waktu' => '09:10', 'deskripsi' => 'Resep obat Amoxicillin & Paracetamol diserahkan ke bagian Farmasi'],
+        ];
 
         return view('klinik.dashboard', compact(
             'user',

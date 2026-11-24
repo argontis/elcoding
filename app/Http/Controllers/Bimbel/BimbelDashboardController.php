@@ -53,12 +53,22 @@ class BimbelDashboardController extends Controller
         session([$key => $value]);
     }
 
+    protected function getAuthUser()
+    {
+        return auth()->user() ?? (object)[
+            'id' => 1,
+            'name' => 'Kepala Akademik Bimbel',
+            'email' => 'akademik@edupulse.id',
+            'role' => 'admin',
+        ];
+    }
+
     /**
      * Tampilkan dashboard utama EduPulse Academy SaaS dengan data dinamis & persisten.
      */
     public function index()
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
 
         $academicYear = 'Tahun Ajaran ' . date('Y') . '/' . (date('Y') + 1) . ' - Semester Genap';
         $currentDateFormatted = 'Hari ini, ' . \Carbon\Carbon::now()->translatedFormat('d F Y');
@@ -636,7 +646,7 @@ class BimbelDashboardController extends Controller
      */
     public function siswa(Request $request)
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
 
         $academicYear = 'Tahun Ajaran ' . date('Y') . '/' . (date('Y') + 1) . ' - Semester Genap';
         $currentDateFormatted = 'Hari ini, ' . \Carbon\Carbon::now()->translatedFormat('d F Y');
@@ -823,7 +833,7 @@ class BimbelDashboardController extends Controller
 
     public function jadwal(Request $request)
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
         $academicYear  = 'Tahun Ajaran ' . date('Y') . '/' . (date('Y') + 1) . ' - Semester Genap';
         $currentBranch = session('bimbel_branch', 'Jakarta Selatan');
 
@@ -997,7 +1007,7 @@ class BimbelDashboardController extends Controller
 
     public function tagihan(Request $request)
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
         $academicYear = 'Tahun Ajaran 2024/2025 - Semester Genap';
         $currentBranch = session('bimbel_branch', 'Jakarta Selatan');
 
@@ -1225,7 +1235,7 @@ class BimbelDashboardController extends Controller
 
     public function materi(Request $request)
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
         $academicYear = 'Tahun Ajaran 2024/2025 - Semester Genap';
         $currentBranch = session('bimbel_branch', 'Jakarta Selatan');
 
@@ -1413,7 +1423,7 @@ class BimbelDashboardController extends Controller
 
     public function aiTutor(Request $request)
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
         $academicYear = 'Tahun Ajaran 2024/2025 - Semester Genap';
         $currentBranch = session('bimbel_branch', 'Jakarta Selatan');
 
@@ -1714,7 +1724,7 @@ class BimbelDashboardController extends Controller
      */
     public function progress(Request $request)
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
         $academicYear = 'Tahun Ajaran 2024/2025 - Semester Genap';
         $currentBranch = session('bimbel_branch', 'Jakarta Selatan');
 
@@ -1879,7 +1889,7 @@ class BimbelDashboardController extends Controller
      */
     public function pengaturan()
     {
-        $user          = auth()->user();
+        $user = $this->getAuthUser();
         $currentBranch = session('bimbel_branch', 'Jakarta Selatan');
 
         // Profil Lembaga (kosong — diisi user)

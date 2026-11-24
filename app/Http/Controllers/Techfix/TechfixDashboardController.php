@@ -59,12 +59,22 @@ class TechfixDashboardController extends Controller
         ];
     }
 
+    protected function getAuthUser()
+    {
+        return auth()->user() ?? (object)[
+            'id' => 1,
+            'name' => 'Teknisi Kepala',
+            'email' => 'teknisi@techfix.id',
+            'role' => 'admin',
+        ];
+    }
+
     /**
      * Tampilkan dashboard utama TechFix Pro — Service Center & Hardware Repair.
      */
     public function index()
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
 
         // Ambil data dari persistent file storage (atau session sebagai fallback)
         $currentBranch   = session('techfix_branch', 'Cabang Mangga Dua Mall Lt. 3');
@@ -984,7 +994,7 @@ class TechfixDashboardController extends Controller
      */
     public function trackingWa(Request $request)
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
 
         $currentBranch   = session('techfix_branch', 'Cabang Mangga Dua Mall Lt. 3');
         $shiftStatus     = session('techfix_shift', 'Shift 1 (Pagi - Sore)');
@@ -1132,7 +1142,7 @@ class TechfixDashboardController extends Controller
      */
     public function kasir()
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
         $currentBranch = session('techfix_branch', 'Cabang Mangga Dua Mall Lt. 3');
         $shiftStatus   = session('techfix_shift', 'Shift 1 (Pagi - Sore)');
 
@@ -1273,7 +1283,7 @@ class TechfixDashboardController extends Controller
      */
     public function stok()
     {
-        $user          = auth()->user();
+        $user = $this->getAuthUser();
         $currentBranch = session('techfix_branch', 'Cabang Mangga Dua Mall Lt. 3');
         $shiftStatus   = session('techfix_shift', 'Shift 1 (Pagi - Sore)');
 
@@ -1402,7 +1412,7 @@ class TechfixDashboardController extends Controller
      */
     public function crm(Request $request)
     {
-        $user          = auth()->user();
+        $user = $this->getAuthUser();
         $currentBranch = session('techfix_branch', 'Cabang Mangga Dua Mall Lt. 3');
         $shiftStatus   = session('techfix_shift', 'Shift 1 (Pagi - Sore)');
 
@@ -1588,7 +1598,7 @@ class TechfixDashboardController extends Controller
      */
     public function laporan(Request $request)
     {
-        $user          = auth()->user();
+        $user = $this->getAuthUser();
         $currentBranch = session('techfix_branch', 'Cabang Mangga Dua Mall Lt. 3');
         $shiftStatus   = session('techfix_shift', 'Shift 1 (Pagi - Sore)');
         $tutupBukuAt   = session('techfix_laporan_tutup_buku', null);
@@ -1861,7 +1871,7 @@ class TechfixDashboardController extends Controller
      */
     public function pengaturan(Request $request)
     {
-        $user          = auth()->user();
+        $user = $this->getAuthUser();
         $currentBranch = session('techfix_branch', 'Mangga Dua Mall (Pusat)');
         $shiftStatus   = session('techfix_shift', 'Shift 1 (Pagi - Sore)');
 

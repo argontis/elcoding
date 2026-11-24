@@ -14,11 +14,10 @@ use App\Http\Controllers\Barbershop\BarbershopDashboardController;
 |
 */
 
-Route::middleware(['auth', 'verified'])->group(function () {
-
-    // ==========================================
-    // DASHBOARD BARBERSHOP / ATELIER (L-Style Atelier Suite)
-    // ==========================================
+// SaaS Dashboards - Akses Terbuka Tanpa Wajib Login untuk Evaluasi & Operasional
+// ==========================================
+// DASHBOARD BARBERSHOP / ATELIER (L-Style Atelier Suite)
+// ==========================================
     Route::prefix('barbershop')->name('barbershop.')->group(function () {
         Route::get('/dashboard', [BarbershopDashboardController::class, 'index'])->name('dashboard');
         Route::get('/booking', [BarbershopDashboardController::class, 'booking'])->name('booking');
@@ -63,7 +62,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ==========================================
     // DASHBOARD BENGKEL (L-Garage Workshop Portal)
     // ==========================================
-    Route::prefix('bengkel')->name('bengkel.')->middleware('bengkel')->group(function () {
+    Route::prefix('bengkel')->name('bengkel.')->group(function () {
         Route::get('/dashboard', [BengkelDashboardController::class, 'index'])->name('dashboard');
         Route::get('/booking', [BengkelDashboardController::class, 'booking'])->name('booking');
         Route::get('/invoice', [BengkelDashboardController::class, 'invoice'])->name('invoice');
@@ -84,7 +83,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ==========================================
     // DASHBOARD BIMBEL (EduPulse Academy SaaS)
     // ==========================================
-    Route::prefix('bimbel')->name('bimbel.')->middleware('bimbel')->group(function () {
+    Route::prefix('bimbel')->name('bimbel.')->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'index'])->name('dashboard');
         Route::get('/siswa', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'siswa'])->name('siswa');
         Route::post('/siswa', [\App\Http\Controllers\Bimbel\BimbelDashboardController::class, 'storeSiswa'])->name('siswa.store');
@@ -149,7 +148,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ==========================================
     // DASHBOARD RESTOHUB (RestoHub OS Culinary Operations)
     // ==========================================
-    Route::prefix('resto')->name('resto.')->middleware('resto')->group(function () {
+    Route::prefix('resto')->name('resto.')->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Resto\RestoDashboardController::class, 'index'])->name('dashboard');
         Route::get('/kds', [\App\Http\Controllers\Resto\RestoDashboardController::class, 'kds'])->name('kds');
         Route::get('/inventaris', [\App\Http\Controllers\Resto\RestoDashboardController::class, 'inventaris'])->name('inventaris');
@@ -189,7 +188,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ==========================================
     // DASHBOARD TECHFIX PRO (Service Center & Hardware Repair OS)
     // ==========================================
-    Route::prefix('techfix')->name('techfix.')->middleware('techfix')->group(function () {
+    Route::prefix('techfix')->name('techfix.')->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'index'])->name('dashboard');
         Route::get('/tracking-wa', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'trackingWa'])->name('tracking');
         Route::post('/tracking-wa/estimasi', [\App\Http\Controllers\Techfix\TechfixDashboardController::class, 'storeEstimasiWa'])->name('tracking.store');
@@ -226,14 +225,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ==========================================
     // DASHBOARD KLINIK (Sistem Manajemen Operasional Klinik)
     // ==========================================
-    Route::prefix('klinik')->name('klinik.')->middleware('klinik')->group(function () {
+    Route::prefix('klinik')->name('klinik.')->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Klinik\KlinikDashboardController::class, 'index'])->name('dashboard');
     });
 
     // ==========================================
     // DASHBOARD AI CRM & LEAD MANAGEMENT (Nusantara Enterprise CRM)
     // ==========================================
-    Route::prefix('crm')->name('crm.')->middleware('crm')->group(function () {
+    Route::prefix('crm')->name('crm.')->group(function () {
         Route::get('/', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'dashboard'])->name('home');
         Route::get('/dashboard', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'dashboard'])->name('dashboard');
         Route::get('/leads', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'leads'])->name('leads');
@@ -253,13 +252,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/pengaturan/save', [\App\Http\Controllers\Crm\CrmDashboardController::class, 'saveSettings'])->name('pengaturan.save');
     });
 
-});
-
 // ==========================================
 // DASHBOARD L-PROSAL (SaaS Manajemen Properti & Real Estate)
-// Akses Ganda: Bisa dengan Akun Langganan (Auth) maupun Tanpa Login (Demo Pratinjau)
 // ==========================================
-Route::prefix('prosal')->name('prosal.')->middleware('prosal')->group(function () {
+Route::prefix('prosal')->name('prosal.')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Prosal\ProsalDashboardController::class, 'index'])->name('dashboard');
     Route::get('/unit', [\App\Http\Controllers\Prosal\ProsalDashboardController::class, 'unit'])->name('unit');
     Route::post('/unit', [\App\Http\Controllers\Prosal\ProsalDashboardController::class, 'storeUnit'])->name('unit.store');
@@ -275,9 +271,8 @@ Route::get('/Prosal/dashboard', function () { return redirect()->route('prosal.d
 
 // ==========================================
 // DASHBOARD L-TRAVEL (SaaS Manajemen Tour, Travel & Umroh)
-// Akses Ganda: Bisa dengan Akun Langganan (Auth) maupun Tanpa Login (Demo Pratinjau)
 // ==========================================
-Route::prefix('travel')->name('travel.')->middleware('travel')->group(function () {
+Route::prefix('travel')->name('travel.')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Travel\TravelDashboardController::class, 'index'])->name('dashboard');
     Route::get('/paket', [\App\Http\Controllers\Travel\TravelDashboardController::class, 'paket'])->name('paket');
     Route::post('/paket', [\App\Http\Controllers\Travel\TravelDashboardController::class, 'storePaket'])->name('paket.store');

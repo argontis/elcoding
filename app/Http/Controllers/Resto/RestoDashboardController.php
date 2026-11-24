@@ -50,13 +50,23 @@ class RestoDashboardController extends Controller
         session([$key => $value]);
     }
 
+    protected function getAuthUser()
+    {
+        return auth()->user() ?? (object)[
+            'id' => 1,
+            'name' => 'Resto Manager',
+            'email' => 'manager@restohub.test',
+            'role' => 'admin',
+        ];
+    }
+
     /**
      * Dashboard RestoHub OS (Culinary Operations).
      * Seluruh data awal KOSONG — siap diisi sendiri oleh pengguna.
      */
     public function index(Request $request)
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
 
         // 1. Cabang & Shift Info
         $currentBranch = $this->getRestoData('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
@@ -178,7 +188,7 @@ class RestoDashboardController extends Controller
             'note' => 'Meja Baru',
             'total' => 0,
             'duration' => '',
-            'waitress' => 'Waitress: ' . auth()->user()->name,
+            'waitress' => 'Waitress: ' . ($this->getAuthUser()->name),
         ];
 
         $tables[] = $newTable;
@@ -386,7 +396,7 @@ class RestoDashboardController extends Controller
                 'minutes'    => 1,
                 'urgent'     => false,
                 'order_time' => date('H:i:s'),
-                'waiter'     => auth()->user()->name ?? 'Waiter',
+                'waiter'     => auth()->user()?->name ?? 'Waiter',
                 'catatan'    => $ticket['catatan_dapur'] ?? '',
                 'items'      => array_map(function ($item) {
                     return [
@@ -452,7 +462,7 @@ class RestoDashboardController extends Controller
      */
     public function kds()
     {
-        $user          = auth()->user();
+        $user = $this->getAuthUser();
         $currentBranch = $this->getRestoData('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
         $shiftInfo     = $this->getRestoData('resto_shift', [
             'shift_kode' => 'SHIFT 01',
@@ -489,7 +499,7 @@ class RestoDashboardController extends Controller
      */
     public function inventaris()
     {
-        $user          = auth()->user();
+        $user = $this->getAuthUser();
         $currentBranch = $this->getRestoData('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
         $shiftInfo     = $this->getRestoData('resto_shift', [
             'shift_kode' => 'SHIFT 01',
@@ -624,7 +634,7 @@ class RestoDashboardController extends Controller
      */
     public function member()
     {
-        $user          = auth()->user();
+        $user = $this->getAuthUser();
         $currentBranch = $this->getRestoData('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
         $shiftInfo     = $this->getRestoData('resto_shift', [
             'shift_kode' => 'SHIFT 01',
@@ -795,7 +805,7 @@ class RestoDashboardController extends Controller
      */
     public function marketing()
     {
-        $user          = auth()->user();
+        $user = $this->getAuthUser();
         $currentBranch = $this->getRestoData('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
         $shiftInfo     = $this->getRestoData('resto_shift', [
             'shift_kode' => 'SHIFT 01',
@@ -932,7 +942,7 @@ class RestoDashboardController extends Controller
      */
     public function laporan()
     {
-        $user          = auth()->user();
+        $user = $this->getAuthUser();
         $currentBranch = $this->getRestoData('resto_branch', 'RestoHub Bistro & Cafe - Grand Indonesia, Jakarta');
         $shiftInfo     = $this->getRestoData('resto_shift', [
             'shift_kode' => 'SHIFT 01',

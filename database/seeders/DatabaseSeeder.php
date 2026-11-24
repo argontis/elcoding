@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
             CrmLeadUserSeeder::class,
             ProsalUserSeeder::class,
             TravelUserSeeder::class,
+            SaasDemoSeeder::class,
         ]);
     }
 }

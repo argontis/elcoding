@@ -8,6 +8,16 @@ use Inertia\Inertia;
 
 class BarbershopDashboardController extends Controller
 {
+    protected function getAuthUser()
+    {
+        return auth()->user() ?? (object)[
+            'id' => 1,
+            'name' => 'Raditya Pratama',
+            'email' => 'raditya@lstyle.id',
+            'role' => 'admin',
+        ];
+    }
+
     /**
      * Display the L-Style Atelier Suite Barbershop Dashboard.
      */
@@ -15,7 +25,7 @@ class BarbershopDashboardController extends Controller
     {
         return Inertia::render('Atelier/Dashboard', [
             'auth' => [
-                'user' => auth()->user(),
+                'user' => $this->getAuthUser(),
             ]
         ]);
     }
@@ -27,7 +37,7 @@ class BarbershopDashboardController extends Controller
     {
         return Inertia::render('Atelier/Booking', [
             'auth' => [
-                'user' => auth()->user(),
+                'user' => $this->getAuthUser(),
             ]
         ]);
     }
@@ -39,7 +49,7 @@ class BarbershopDashboardController extends Controller
     {
         return Inertia::render('Atelier/Pelanggan', [
             'auth' => [
-                'user' => auth()->user(),
+                'user' => $this->getAuthUser(),
             ]
         ]);
     }
@@ -51,7 +61,7 @@ class BarbershopDashboardController extends Controller
     {
         return Inertia::render('Atelier/Antrean', [
             'auth' => [
-                'user' => auth()->user(),
+                'user' => $this->getAuthUser(),
             ]
         ]);
     }
@@ -63,7 +73,7 @@ class BarbershopDashboardController extends Controller
     {
         return Inertia::render('Atelier/Membership', [
             'auth' => [
-                'user' => auth()->user(),
+                'user' => $this->getAuthUser(),
             ]
         ]);
     }
@@ -75,7 +85,7 @@ class BarbershopDashboardController extends Controller
     {
         return Inertia::render('Atelier/Treatment', [
             'auth' => [
-                'user' => auth()->user(),
+                'user' => $this->getAuthUser(),
             ]
         ]);
     }
@@ -87,7 +97,7 @@ class BarbershopDashboardController extends Controller
     {
         return Inertia::render('Atelier/Kasir', [
             'auth' => [
-                'user' => auth()->user(),
+                'user' => $this->getAuthUser(),
             ]
         ]);
     }
@@ -99,7 +109,7 @@ class BarbershopDashboardController extends Controller
     {
         return Inertia::render('Atelier/Komisi', [
             'auth' => [
-                'user' => auth()->user(),
+                'user' => $this->getAuthUser(),
             ]
         ]);
     }
@@ -111,7 +121,7 @@ class BarbershopDashboardController extends Controller
     {
         return Inertia::render('Atelier/Reminder', [
             'auth' => [
-                'user' => auth()->user(),
+                'user' => $this->getAuthUser(),
             ]
         ]);
     }

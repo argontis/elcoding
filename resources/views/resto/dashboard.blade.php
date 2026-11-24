@@ -14,32 +14,8 @@
     <!-- FontAwesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        terracotta: {
-                            50: '#fdf6f3',
-                            100: '#fbece5',
-                            200: '#f6d8cb',
-                            500: '#b84221',
-                            600: '#a33315',
-                            700: '#8c280e',
-                            800: '#6f210c',
-                            900: '#551a0b',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        heading: ['"Outfit"', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Compiled Assets via Vite -->
+    @vite(['resources/css/app.css', 'resources/js/app.jsx'])
 
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }

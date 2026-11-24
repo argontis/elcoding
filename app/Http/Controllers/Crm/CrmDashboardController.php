@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Crm;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\CrmLead;
+use App\Models\CrmDeal;
+use App\Models\CrmTask;
 
 class CrmDashboardController extends Controller
 {
@@ -750,17 +753,70 @@ class CrmDashboardController extends Controller
      */
     public function storeLead(Request $request)
     {
-        return back()->with('success', 'Lead baru berhasil ditambahkan dan dianalisis oleh AI Score Engine!');
+        $validated = $request->validate([
+            'nama' => 'required|string|max:150',
+            'perusahaan' => 'nullable|string|max:150',
+            'email' => 'nullable|email|max:100',
+            'no_wa' => 'nullable|string|max:30',
+            'nilai_potensial' => 'nullable|numeric|min:0',
+            'sumber' => 'nullable|string|max:50',
+        ]);
+
+        CrmLead::create([
+            'nama' => $validated['nama'],
+            'perusahaan' => $validated['perusahaan'] ?? null,
+            'email' => $validated['email'] ?? null,
+            'no_wa' => $validated['no_wa'] ?? null,
+            'status' => 'Baru',
+            'nilai_potensial' => $validated['nilai_potensial'] ?? 50000000,
+            'sumber' => $validated['sumber'] ?? 'Website',
+            'sales_owner' => 'Bayu Ramadhan',
+        ]);
+
+        return back()->with('success', 'Lead baru berhasil ditambahkan dan disimpan ke database!');
     }
 
     public function storeDeal(Request $request)
     {
+        $validated = $request->validate([
+            'judul_deal' => 'required|string|max:200',
+            'tahap_pipeline' => 'nullable|string|max:50',
+            'nominal' => 'nullable|numeric|min:0',
+            'probabilitas' => 'nullable|integer|min:0|max:100',
+            'estimasi_closing' => 'nullable|date',
+        ]);
+
+        CrmDeal::create([
+            'judul_deal' => $validated['judul_deal'],
+            'tahap_pipeline' => $validated['tahap_pipeline'] ?? 'Lead In',
+            'nominal' => $validated['nominal'] ?? 25000000,
+            'probabilitas' => $validated['probabilitas'] ?? 20,
+            'estimasi_closing' => $validated['estimasi_closing'] ?? now()->addMonth(),
+        ]);
+
         return back()->with('success', 'Peluang kesepakatan baru berhasil didaftarkan ke Pipeline B2B!');
     }
 
     public function storeTask(Request $request)
     {
-        return back()->with('success', 'Tugas baru berhasil dijadwalkan dengan prioritas SLA AI!');
+        $validated = $request->validate([
+            'judul' => 'required|string|max:200',
+            'tipe' => 'nullable|string|max:50',
+            'prioritas' => 'nullable|string|max:50',
+            'due_date' => 'nullable|date',
+            'assigned_to' => 'nullable|string|max:100',
+        ]);
+
+        CrmTask::create([
+            'judul' => $validated['judul'],
+            'tipe' => $validated['tipe'] ?? 'Follow Up',
+            'prioritas' => $validated['prioritas'] ?? 'Sedang',
+            'due_date' => $validated['due_date'] ?? now()->addDays(2),
+            'status' => 'Pending',
+            'assigned_to' => $validated['assigned_to'] ?? 'Bayu Ramadhan',
+        ]);
+
+        return back()->with('success', 'Tugas baru berhasil dijadwalkan ke database!');
     }
 
     public function toggleWorkflow($id)

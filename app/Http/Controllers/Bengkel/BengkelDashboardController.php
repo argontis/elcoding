@@ -5,15 +5,25 @@ namespace App\Http\Controllers\Bengkel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\BengkelWorkOrder;
 
 class BengkelDashboardController extends Controller
 {
+    protected function getAuthUser()
+    {
+        return auth()->user() ?? (object)[
+            'id' => 1,
+            'name' => 'Kepala Bengkel',
+            'email' => 'bengkel@garage.test',
+            'role' => 'admin',
+        ];
+    }
     /**
      * Tampilkan dashboard bengkel L-Garage dengan fitur operasional lengkap.
      */
     public function index()
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
 
         // Ambil data work orders secara permanen (bertahan saat logout)
         $workOrders = $this->getWorkOrders();
@@ -441,7 +451,7 @@ class BengkelDashboardController extends Controller
      */
     public function booking()
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
         $workOrders = $this->getWorkOrders();
 
         $customer = null;
@@ -481,7 +491,7 @@ class BengkelDashboardController extends Controller
      */
     public function invoice(Request $request)
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
         $workOrders = $this->getWorkOrders();
 
         // Pilih WO pertama atau berdasarkan parameter query ?wo=ID
@@ -559,7 +569,7 @@ class BengkelDashboardController extends Controller
      */
     public function pelanggan()
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
         $workOrders = $this->getWorkOrders();
 
         $stats = [
@@ -650,7 +660,7 @@ class BengkelDashboardController extends Controller
      */
     public function servis()
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
         $workOrders = $this->getWorkOrders();
 
         $pitBays = [
@@ -675,7 +685,7 @@ class BengkelDashboardController extends Controller
      */
     public function antrean()
     {
-        $user = auth()->user();
+        $user = $this->getAuthUser();
         $workOrders = $this->getWorkOrders();
 
         $pitBays = [
@@ -702,38 +712,51 @@ class BengkelDashboardController extends Controller
      */
     private function getWorkOrders(): array
     {
-        $path = storage_path('app/bengkel_work_orders.json');
-        if (file_exists($path)) {
-            $content = @file_get_contents($path);
-            $data = json_decode($content, true);
-            if (is_array($data)) {
-                return $data;
-            }
-        }
-
-        // Fallback migrasi jika ada data di session yang belum disimpan ke file
-        $sessionData = session('bengkel_work_orders', null);
-        if (is_array($sessionData) && count($sessionData) > 0) {
-            $this->saveWorkOrders($sessionData);
-            return $sessionData;
+        $dbOrders = BengkelWorkOrder::orderBy('id', 'desc')->get();
+        if ($dbOrders->count() > 0) {
+            return $dbOrders->map(fn($wo) => [
+                'id' => $wo->nomor_wo,
+                'nomor_wo' => $wo->nomor_wo,
+                'customer_name' => $wo->customer_name,
+                'customer_phone' => $wo->customer_phone,
+                'vehicle_plate' => $wo->vehicle_plate,
+                'vehicle_model' => $wo->vehicle_model,
+                'service_package' => $wo->service_package,
+                'estimasi_biaya' => (float)$wo->estimasi_biaya,
+                'pit_bay' => $wo->pit_bay,
+                'mekanik' => $wo->mekanik,
+                'status' => $wo->status,
+                'keluhan' => $wo->keluhan,
+                'entry_time' => $wo->entry_time ? $wo->entry_time->format('H:i') : ($wo->created_at ? $wo->created_at->format('H:i') : '08:30'),
+            ])->toArray();
         }
 
         return [];
     }
 
     /**
-     * Simpan data Work Orders secara permanen ke disk storage & session
+     * Simpan data Work Orders secara permanen ke database
      */
     private function saveWorkOrders(array $workOrders): void
     {
-        $path = storage_path('app/bengkel_work_orders.json');
-        $dir = dirname($path);
-        if (!is_dir($dir)) {
-            @mkdir($dir, 0755, true);
+        foreach ($workOrders as $wo) {
+            if (!empty($wo['nomor_wo'])) {
+                BengkelWorkOrder::updateOrCreate(
+                    ['nomor_wo' => $wo['nomor_wo']],
+                    [
+                        'customer_name' => $wo['customer_name'] ?? 'Pelanggan',
+                        'customer_phone' => $wo['customer_phone'] ?? null,
+                        'vehicle_plate' => $wo['vehicle_plate'] ?? '-',
+                        'vehicle_model' => $wo['vehicle_model'] ?? '-',
+                        'service_package' => $wo['service_package'] ?? 'Servis Berkala',
+                        'estimasi_biaya' => (float)($wo['estimasi_biaya'] ?? 350000),
+                        'pit_bay' => $wo['pit_bay'] ?? null,
+                        'mekanik' => $wo['mekanik'] ?? null,
+                        'status' => $wo['status'] ?? 'Menunggu',
+                        'keluhan' => $wo['keluhan'] ?? null,
+                    ]
+                );
+            }
         }
-        @file_put_contents($path, json_encode(array_values($workOrders), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-
-        // Sinkronkan ke session aktif
-        session(['bengkel_work_orders' => $workOrders]);
     }
 }

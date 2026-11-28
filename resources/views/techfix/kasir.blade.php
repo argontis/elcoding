@@ -44,16 +44,25 @@
 </head>
 <body class="min-h-screen flex">
 
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="techfixSidebarOverlay" onclick="toggleTechfixSidebar()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+
     <!-- SIDEBAR -->
-    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col fixed top-0 left-0 h-full z-40 shadow-sm">
-        <div class="h-16 px-4 flex items-center border-b border-slate-200 gap-3">
-            <div class="w-9 h-9 rounded-xl bg-brand-700 flex items-center justify-center shadow-sm flex-shrink-0">
-                <i class="fa-solid fa-microchip text-white text-sm"></i>
+    <aside id="techfixSidebar" class="w-64 bg-white border-r border-slate-200 flex flex-col fixed inset-y-0 left-0 z-50 select-none -translate-x-full lg:translate-x-0 transition-transform duration-300 shadow-2xl lg:shadow-none">
+        <div class="h-16 px-4 flex items-center justify-between border-b border-slate-200">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-brand-700 flex items-center justify-center shadow-sm flex-shrink-0">
+                    <i class="fa-solid fa-microchip text-white text-sm"></i>
+                </div>
+                <div>
+                    <div class="font-display font-bold text-slate-900 text-sm leading-tight">TechFix Pro</div>
+                    <div class="text-[10px] font-mono-code text-slate-400">Service Center OS v2.4</div>
+                </div>
             </div>
-            <div>
-                <div class="font-display font-bold text-slate-900 text-sm leading-tight">TechFix Pro</div>
-                <div class="text-[10px] font-mono-code text-slate-400">Service Center OS v2.4</div>
-            </div>
+            <!-- Close Button Mobile -->
+            <button type="button" onclick="toggleTechfixSidebar()" class="lg:hidden w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-sm transition" title="Tutup Menu">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
 
         <div class="px-4 pt-4 pb-1">
@@ -146,11 +155,16 @@
     </aside>
 
     <!-- MAIN WRAPPER -->
-    <div class="pl-64 flex-1 flex flex-col min-w-0">
+    <div class="lg:pl-64 flex-1 flex flex-col min-w-0">
 
         <!-- TOP NAVBAR -->
-        <header class="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between sticky top-0 z-30 shadow-xs">
-            <div class="flex items-center gap-3">
+        <header class="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30 shadow-xs">
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Hamburger Button Mobile -->
+                <button type="button" onclick="toggleTechfixSidebar()" class="lg:hidden w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 flex items-center justify-center text-sm shrink-0 transition" title="Menu Sidebar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
                 <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-100">
                     <i class="fa-solid fa-cash-register text-xs"></i>
                 </div>
@@ -581,6 +595,25 @@
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') { closePosModal(); closeGaransiModal(); }
         });
+
+        // Mobile Sidebar Toggle
+        function toggleTechfixSidebar() {
+            const sidebar = document.getElementById('techfixSidebar');
+            const overlay = document.getElementById('techfixSidebarOverlay');
+            if (!sidebar || !overlay) return;
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
 
         setTimeout(() => {
             const el = document.getElementById('flashAlert');

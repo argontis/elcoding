@@ -69,17 +69,28 @@
 </head>
 <body class="min-h-screen flex text-slate-800 bg-[#f8fafc] antialiased">
 
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="techfixSidebarOverlay" onclick="toggleTechfixSidebar()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+
     <!-- ═══════════════════════════════════════════════════════════ -->
     <!-- LEFT SIDEBAR                                               -->
     <!-- ═══════════════════════════════════════════════════════════ -->
-    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col fixed inset-y-0 left-0 z-40 select-none">
+    <aside id="techfixSidebar" class="w-64 bg-white border-r border-slate-200 flex flex-col fixed inset-y-0 left-0 z-50 select-none -translate-x-full lg:translate-x-0 transition-transform duration-300 shadow-2xl lg:shadow-none">
 
         <!-- Brand Header -->
         <div class="px-5 pt-5 pb-4 border-b border-slate-100">
-            <div class="flex items-center gap-1.5 font-display font-extrabold text-[20px] tracking-tight text-brand-900 leading-none">
-                <span>TechFix</span><span class="text-sky-500">Pro</span>
+            <div class="flex items-center justify-between">
+                <div>
+                    <div class="flex items-center gap-1.5 font-display font-extrabold text-[20px] tracking-tight text-brand-900 leading-none">
+                        <span>TechFix</span><span class="text-sky-500">Pro</span>
+                    </div>
+                    <div class="text-[9.5px] font-mono-code font-bold tracking-widest text-sky-600 mt-1 uppercase">HARDWARE & SERVICE OS</div>
+                </div>
+                <!-- Close Button Mobile -->
+                <button type="button" onclick="toggleTechfixSidebar()" class="lg:hidden w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-sm transition" title="Tutup Menu">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
-            <div class="text-[9.5px] font-mono-code font-bold tracking-widest text-sky-600 mt-1 uppercase">HARDWARE & SERVICE OS</div>
             <div class="flex items-center justify-between mt-4 pt-3 border-t border-slate-100 text-[10px] font-mono-code text-slate-500">
                 <span class="font-semibold text-slate-600">SESI TEKNISI: <span class="text-emerald-600 font-bold">ACTIVE</span></span>
                 <span class="px-1.5 py-0.5 rounded border border-slate-200 text-slate-400 font-bold">v4.2-PROD</span>
@@ -155,12 +166,16 @@
     <!-- ═══════════════════════════════════════════════════════════ -->
     <!-- MAIN WRAPPER                                               -->
     <!-- ═══════════════════════════════════════════════════════════ -->
-    <div class="pl-64 flex-1 flex flex-col min-w-0">
+    <div class="lg:pl-64 flex-1 flex flex-col min-w-0">
 
         <!-- TOP NAVBAR -->
-        <header class="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between sticky top-0 z-30 shadow-xs">
+        <header class="h-16 bg-white border-b border-slate-200 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30 shadow-xs">
             <!-- Left: Branch & Breadcrumb -->
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2 sm:gap-4">
+                <!-- Hamburger Button Mobile -->
+                <button type="button" onclick="toggleTechfixSidebar()" class="lg:hidden w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 flex items-center justify-center text-sm shrink-0 transition" title="Menu Sidebar">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
                 <div class="flex items-center gap-2.5 cursor-pointer group" onclick="document.getElementById('branchSwitchForm').submit();">
                     <div class="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center border border-sky-100 group-hover:bg-sky-100 transition-colors">
                         <i class="fa-solid fa-store text-xs"></i>
@@ -986,6 +1001,26 @@
                 document.getElementById('globalSearchInput')?.focus();
             }
         });
-    </script>
+    
+        // Mobile Sidebar Toggle
+        function toggleTechfixSidebar() {
+            const sidebar = document.getElementById('techfixSidebar');
+            const overlay = document.getElementById('techfixSidebarOverlay');
+            if (!sidebar || !overlay) return;
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            if (isClosed) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                overlay.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
+</script>
 </body>
 </html>

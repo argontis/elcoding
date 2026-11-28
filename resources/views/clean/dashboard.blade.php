@@ -6,33 +6,23 @@
     <title>L-Clean - Dashboard Operasional & Fasilitas</title>
     <!-- Compiled Assets via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.jsx'])
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
 </head>
 <body class="bg-[#F3F4F8] text-slate-700 antialiased min-h-screen">
-    <!-- Mobile Sidebar Backdrop Overlay -->
-    <div id="cleanSidebarOverlay" onclick="toggleCleanSidebar()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
-
-    <div class="flex min-h-screen w-full relative">
-        <!-- Sidebar Navigation (Responsive Off-Canvas Drawer) -->
-        <aside id="cleanSidebar" class="w-64 bg-white border-r border-slate-200 flex flex-col h-screen fixed inset-y-0 left-0 z-50 shadow-2xl lg:shadow-sm -translate-x-full lg:translate-x-0 transition-transform duration-300">
-            <div class="p-5 border-b border-slate-100 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-600 to-cyan-500 flex items-center justify-center text-white shadow-md">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    </div>
-                    <div>
-                        <h1 class="text-lg font-extrabold text-slate-800 leading-none">L-Clean</h1>
-                        <span class="text-[10px] font-bold text-sky-600 tracking-wider">SYSTEM</span>
-                    </div>
+    <div className="flex">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-white border-r border-slate-200 flex flex-col h-screen fixed left-0 top-0 z-30 shadow-sm">
+            <div class="p-5 border-b border-slate-100 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-600 to-cyan-500 flex items-center justify-center text-white shadow-md">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </div>
-                <!-- Close Button Mobile -->
-                <button type="button" onclick="toggleCleanSidebar()" class="lg:hidden w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center text-sm transition" title="Tutup Menu">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+                <div>
+                    <h1 class="text-lg font-extrabold text-slate-800 leading-none">L-Clean</h1>
+                    <span class="text-[10px] font-bold text-sky-600 tracking-wider">SYSTEM</span>
+                </div>
             </div>
 
             <!-- Facility Selector -->
@@ -90,23 +80,7 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="lg:ml-64 p-4 sm:p-6 lg:p-8 flex-1 min-w-0 space-y-6">
-            <!-- Mobile Header Bar -->
-            <div class="lg:hidden bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <button type="button" onclick="toggleCleanSidebar()" class="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center text-base shrink-0 transition" title="Buka Menu">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-                    <div>
-                        <span class="font-extrabold text-sm text-slate-800">L-Clean Hub #04</span>
-                        <span class="block text-[10px] text-slate-400">Shift Pagi Aktif</span>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2">
-                    <a href="{{ route('produk.saas.index') }}" class="text-xs font-bold text-sky-600 hover:underline">Katalog</a>
-                </div>
-            </div>
-
+        <main class="ml-64 p-8 flex-1 space-y-6">
             <!-- Header Banner -->
             <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div>
@@ -202,26 +176,5 @@
             </div>
         </main>
     </div>
-
-    <!-- Mobile Sidebar JavaScript -->
-    <script>
-        function toggleCleanSidebar() {
-            const sidebar = document.getElementById('cleanSidebar');
-            const overlay = document.getElementById('cleanSidebarOverlay');
-            if (!sidebar || !overlay) return;
-            const isClosed = sidebar.classList.contains('-translate-x-full');
-            if (isClosed) {
-                sidebar.classList.remove('-translate-x-full');
-                sidebar.classList.add('translate-x-0');
-                overlay.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                sidebar.classList.remove('translate-x-0');
-                overlay.classList.add('hidden');
-                document.body.style.overflow = '';
-            }
-        }
-    </script>
 </body>
 </html>

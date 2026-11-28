@@ -41,13 +41,13 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'pkl_student',
+            'role' => 'pending_role',
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return Inertia::location('/register-pkl');
+        return Inertia::location(route('register.choose-role'));
     }
 }

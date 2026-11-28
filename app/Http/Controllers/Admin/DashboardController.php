@@ -23,6 +23,12 @@ class DashboardController extends Controller
                 return redirect()->route('barbershop.dashboard');
             }
             if (!$user->isAdminOrMentor()) {
+                if ($user->isPendingRole()) {
+                    return redirect()->route('register.choose-role');
+                }
+                if ($user->isSeminarParticipant()) {
+                    return redirect()->route($user->seminarProfile ? 'seminar.dashboard' : 'register.seminar');
+                }
                 if ($user->isPklStudent()) {
                     return redirect()->route('pkl.dashboard');
                 }

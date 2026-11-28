@@ -48,6 +48,12 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($user && ($user->isTravel() || strtolower(trim($user->role ?? '')) === 'travel' || strtolower(trim($user->username ?? '')) === 'travel')) {
                 return '/travel/dashboard';
             }
+            if ($user && $user->isPendingRole()) {
+                return '/pilih-peran';
+            }
+            if ($user && $user->isSeminarParticipant()) {
+                return $user->seminarProfile ? '/seminar/dashboard' : '/register-seminar';
+            }
             if ($user && $user->isPklStudent()) {
                 $hasCourse = \App\Models\Order::where('user_email', $user->email)->where('status', 'PAID')->exists();
                 $hasEvent = \App\Models\EventOrder::where('user_email', $user->email)->where('status', 'PAID')->exists();
@@ -59,17 +65,18 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         $middleware->alias([
-            'admin'      => \App\Http\Middleware\EnsureUserIsAdmin::class,
-            'bengkel'    => \App\Http\Middleware\EnsureUserIsBengkel::class,
-            'bimbel'     => \App\Http\Middleware\EnsureUserIsBimbel::class,
-            'resto'      => \App\Http\Middleware\EnsureUserIsResto::class,
-            'techfix'    => \App\Http\Middleware\EnsureUserIsTechfix::class,
-            'klinik'     => \App\Http\Middleware\EnsureUserIsKlinik::class,
-            'crm'        => \App\Http\Middleware\EnsureUserIsCrmLead::class,
-            'crmlead'    => \App\Http\Middleware\EnsureUserIsCrmLead::class,
-            'prosal'     => \App\Http\Middleware\EnsureUserIsProsal::class,
-            'travel'     => \App\Http\Middleware\EnsureUserIsTravel::class,
-            'pkl.access' => \App\Http\Middleware\CheckPklAccess::class,
+            'admin'          => \App\Http\Middleware\EnsureUserIsAdmin::class,
+            'bengkel'        => \App\Http\Middleware\EnsureUserIsBengkel::class,
+            'bimbel'         => \App\Http\Middleware\EnsureUserIsBimbel::class,
+            'resto'          => \App\Http\Middleware\EnsureUserIsResto::class,
+            'techfix'        => \App\Http\Middleware\EnsureUserIsTechfix::class,
+            'klinik'         => \App\Http\Middleware\EnsureUserIsKlinik::class,
+            'crm'            => \App\Http\Middleware\EnsureUserIsCrmLead::class,
+            'crmlead'        => \App\Http\Middleware\EnsureUserIsCrmLead::class,
+            'prosal'         => \App\Http\Middleware\EnsureUserIsProsal::class,
+            'travel'         => \App\Http\Middleware\EnsureUserIsTravel::class,
+            'pkl.access'     => \App\Http\Middleware\CheckPklAccess::class,
+            'seminar.access' => \App\Http\Middleware\EnsureUserIsSeminarParticipant::class,
         ]);
 
         $middleware->validateCsrfTokens(except: [

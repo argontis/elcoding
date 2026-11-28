@@ -36,6 +36,11 @@ class User extends Authenticatable
         return $this->hasOne(PklProfile::class, 'user_id');
     }
 
+    public function seminarProfile()
+    {
+        return $this->hasOne(SeminarProfile::class, 'user_id');
+    }
+
     public function attendances()
     {
         return $this->hasMany(PklAttendance::class, 'user_id');
@@ -79,6 +84,16 @@ class User extends Authenticatable
     public function isPklStudent()
     {
         return strtolower(trim($this->role ?? '')) === 'pkl_student' && !$this->isAdmin();
+    }
+
+    public function isSeminarParticipant()
+    {
+        return strtolower(trim($this->role ?? '')) === 'seminar_participant' && !$this->isAdmin();
+    }
+
+    public function isPendingRole()
+    {
+        return strtolower(trim($this->role ?? '')) === 'pending_role' && !$this->isAdmin();
     }
 
     public function isAdminOrMentor()

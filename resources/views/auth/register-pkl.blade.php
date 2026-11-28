@@ -45,6 +45,13 @@
         @endif
 
         <!-- Logged In User Info Banner -->
+        @if(auth()->user()->isPendingRole())
+            <div class="mb-4">
+                <a href="{{ route('register.choose-role') }}" class="inline-flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-blue-400 transition">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Pilih Peran
+                </a>
+            </div>
+        @endif
         <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-700 mb-6 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-blue-600 font-bold text-white flex items-center justify-center">

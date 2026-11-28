@@ -49,8 +49,8 @@ class PklRegisterController extends Controller
             'address' => 'nullable|string',
         ]);
 
-        // Update role if user is regular user or pkl_student
-        if ($user->role === 'user' || empty($user->role)) {
+        // Update role if user is regular user, pending_role, or pkl_student
+        if (in_array($user->role, ['user', 'pending_role', null, ''], true)) {
             $user->update(['role' => 'pkl_student']);
         }
 

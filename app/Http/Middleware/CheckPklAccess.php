@@ -38,6 +38,12 @@ class CheckPklAccess
         if ($user && ($user->isKlinik() || strtolower(trim($user->role ?? '')) === 'klinik')) {
             return redirect('/klinik/dashboard');
         }
+        if ($user && $user->isPendingRole()) {
+            return redirect()->route('register.choose-role');
+        }
+        if ($user && $user->isSeminarParticipant()) {
+            return redirect()->route('seminar.dashboard');
+        }
 
         return $next($request);
     }

@@ -475,6 +475,32 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/pkl/{id}/upload-material', [\App\Http\Controllers\Admin\PklManagementController::class, 'uploadMaterial'])->name('admin.pkl.uploadMaterial');
         Route::delete('/pkl/material/{materialId}', [\App\Http\Controllers\Admin\PklManagementController::class, 'destroyMaterial'])->name('admin.pkl.destroyMaterial');
         Route::post('/users/{id}/rfid', [\App\Http\Controllers\RfidController::class, 'assignRfid'])->name('admin.users.assignRfid');
+
+        // Manajemen Seminar, Kategori, Promo & Benefit
+        Route::prefix('seminar')->name('admin.seminar.')->group(function () {
+            Route::get('/categories', [\App\Http\Controllers\Admin\SeminarCategoryController::class, 'index'])->name('categories.index');
+            Route::post('/categories', [\App\Http\Controllers\Admin\SeminarCategoryController::class, 'store'])->name('categories.store');
+            Route::put('/categories/{id}', [\App\Http\Controllers\Admin\SeminarCategoryController::class, 'update'])->name('categories.update');
+            Route::put('/categories/{id}/toggle', [\App\Http\Controllers\Admin\SeminarCategoryController::class, 'toggleActive'])->name('categories.toggle');
+            Route::delete('/categories/{id}', [\App\Http\Controllers\Admin\SeminarCategoryController::class, 'destroy'])->name('categories.destroy');
+
+            Route::get('/promos', [\App\Http\Controllers\Admin\SeminarPromoController::class, 'index'])->name('promos.index');
+            Route::get('/promos/create', [\App\Http\Controllers\Admin\SeminarPromoController::class, 'create'])->name('promos.create');
+            Route::post('/promos', [\App\Http\Controllers\Admin\SeminarPromoController::class, 'store'])->name('promos.store');
+            Route::get('/promos/{id}/edit', [\App\Http\Controllers\Admin\SeminarPromoController::class, 'edit'])->name('promos.edit');
+            Route::put('/promos/{id}', [\App\Http\Controllers\Admin\SeminarPromoController::class, 'update'])->name('promos.update');
+            Route::put('/promos/{id}/toggle', [\App\Http\Controllers\Admin\SeminarPromoController::class, 'toggleActive'])->name('promos.toggle');
+            Route::delete('/promos/{id}', [\App\Http\Controllers\Admin\SeminarPromoController::class, 'destroy'])->name('promos.destroy');
+
+            Route::get('/participants', [\App\Http\Controllers\Admin\SeminarParticipantController::class, 'index'])->name('participants.index');
+            Route::get('/participants/{id}', [\App\Http\Controllers\Admin\SeminarParticipantController::class, 'show'])->name('participants.show');
+            Route::put('/participants/{id}/status', [\App\Http\Controllers\Admin\SeminarParticipantController::class, 'updateStatus'])->name('participants.updateStatus');
+            Route::post('/participants/{id}/assign-promo', [\App\Http\Controllers\Admin\SeminarParticipantController::class, 'assignPromo'])->name('participants.assignPromo');
+            Route::delete('/participants/{id}/promos/{promoParticipantId}', [\App\Http\Controllers\Admin\SeminarParticipantController::class, 'removePromo'])->name('participants.removePromo');
+            Route::put('/participants/{id}/promos/{promoParticipantId}/status', [\App\Http\Controllers\Admin\SeminarParticipantController::class, 'updatePromoStatus'])->name('participants.updatePromoStatus');
+            Route::post('/participants/{id}/contact', [\App\Http\Controllers\Admin\SeminarParticipantController::class, 'logContact'])->name('participants.contact');
+            Route::delete('/participants/{id}', [\App\Http\Controllers\Admin\SeminarParticipantController::class, 'destroy'])->name('participants.destroy');
+        });
     });
 });
 
@@ -484,6 +510,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/presensi-rfid', [\App\Http\Controllers\RfidController::class, 'terminal'])->name('presensi.rfid');
 Route::post('/api/rfid/scan', [\App\Http\Controllers\RfidController::class, 'scanAttendance'])->name('rfid.scan');
 Route::post('/login/rfid', [\App\Http\Controllers\RfidController::class, 'loginWithRfid'])->name('login.rfid');
+
+// ==========================================
+// ROUTE PILIH PERAN & SEMINAR (ONBOARDING)
+// ==========================================
+Route::middleware('auth')->group(function () {
+    Route::get('/pilih-peran', [\App\Http\Controllers\RoleSelectionController::class, 'show'])->name('register.choose-role');
+    Route::get('/register-seminar', [\App\Http\Controllers\SeminarRegisterController::class, 'showRegistrationForm'])->name('register.seminar');
+    Route::post('/register-seminar', [\App\Http\Controllers\SeminarRegisterController::class, 'register'])->name('register.seminar.store');
+});
+
+// ==========================================
+// ROUTE PORTAL PESERTA SEMINAR
+// ==========================================
+Route::middleware(['auth', 'seminar.access'])->prefix('seminar')->name('seminar.')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\SeminarDashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/my-promos', [\App\Http\Controllers\SeminarDashboardController::class, 'myPromos'])->name('my-promos');
+    Route::post('/promos/{promo}/interest', [\App\Http\Controllers\SeminarDashboardController::class, 'expressInterest'])->name('promos.interest');
+    Route::delete('/promos/{promo}/interest', [\App\Http\Controllers\SeminarDashboardController::class, 'cancelInterest'])->name('promos.cancel-interest');
+    Route::get('/profile', [\App\Http\Controllers\SeminarDashboardController::class, 'profile'])->name('profile');
+    Route::put('/profile', [\App\Http\Controllers\SeminarDashboardController::class, 'updateProfile'])->name('profile.update');
+});
 
 // ==========================================
 // ROUTE PKL / MAGANG & SERTIFIKAT (PUBLIC)

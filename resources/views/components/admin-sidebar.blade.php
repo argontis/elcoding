@@ -93,6 +93,30 @@
             <a href="{{ url('/admin/pkl') }}" class="sidebar-item flex items-center gap-3 font-medium {{ request()->is('admin/pkl*') ? 'active' : '' }}">
                 <i class="fas fa-user-graduate w-6 text-center text-[15px]"></i> <span class="text-[14px] sidebar-text">Peserta PKL & Magang</span>
             </a>
+
+            <p class="px-6 text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-3 mt-6 sidebar-header">Seminar &amp; Promosi</p>
+
+            @php
+                $interestedSeminarCount = \Illuminate\Support\Facades\Schema::hasTable('seminar_profiles')
+                    ? \App\Models\SeminarProfile::where('followup_status', 'interested')->count()
+                    : 0;
+            @endphp
+            <a href="{{ url('/admin/seminar/participants') }}" class="sidebar-item flex items-center justify-between font-medium {{ request()->is('admin/seminar/participants*') ? 'active' : '' }}">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-users w-6 text-center text-[15px] text-emerald-400"></i> <span class="text-[14px] sidebar-text">Peserta Seminar</span>
+                </div>
+                @if($interestedSeminarCount > 0)
+                    <span class="bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm sidebar-text">{{ $interestedSeminarCount }}</span>
+                @endif
+            </a>
+
+            <a href="{{ url('/admin/seminar/categories') }}" class="sidebar-item flex items-center gap-3 font-medium {{ request()->is('admin/seminar/categories*') ? 'active' : '' }}">
+                <i class="fas fa-tags w-6 text-center text-[15px] text-sky-400"></i> <span class="text-[14px] sidebar-text">Kategori Seminar</span>
+            </a>
+
+            <a href="{{ url('/admin/seminar/promos') }}" class="sidebar-item flex items-center gap-3 font-medium {{ request()->is('admin/seminar/promos*') ? 'active' : '' }}">
+                <i class="fas fa-gift w-6 text-center text-[15px] text-amber-400"></i> <span class="text-[14px] sidebar-text">Promo &amp; Benefit</span>
+            </a>
         </nav>
     </div>
 

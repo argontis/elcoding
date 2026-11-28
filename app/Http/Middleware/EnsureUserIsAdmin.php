@@ -35,6 +35,12 @@ class EnsureUserIsAdmin
             if (auth()->user()->isTechfix()) {
                 return redirect()->route('techfix.dashboard');
             }
+            if (auth()->user()->isPendingRole()) {
+                return redirect()->route('register.choose-role');
+            }
+            if (auth()->user()->isSeminarParticipant()) {
+                return redirect()->route('seminar.dashboard')->with('error', 'Anda tidak memiliki akses ke halaman admin.');
+            }
             if (auth()->user()->isPklStudent()) {
                 return redirect()->route('pkl.dashboard')->with('error', 'Anda tidak memiliki akses ke halaman admin.');
             }
